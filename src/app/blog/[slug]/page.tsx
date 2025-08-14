@@ -50,12 +50,8 @@ function getFeaturedImage(p: WPPost) {
   };
 }
 
-// Update the function parameters to match Next.js 13+ App Router expectations
-export async function generateMetadata({ 
-  params 
-}: {
-  params: { slug: string }
-}): Promise<Metadata> {
+// Fix: Use the proper type signature for Next.js metadata function
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await fetchPost(params.slug);
   if (!post) {
     return {
@@ -123,11 +119,8 @@ const wpContentStyle = `
   }
 `;
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+// Fix: Use the standard Next.js page component pattern
+export default async function Page({ params }: { params: { slug: string } }) {
   const post = await fetchPost(params.slug);
   
   if (!post) {
@@ -172,9 +165,10 @@ export default async function BlogPostPage({
                 <Image
                   src={featuredImage.src}
                   alt={featuredImage.alt}
-                  fill
+                  width={1200}
+                  height={630}
                   priority
-                  className="object-cover"
+                  className="object-cover w-full h-full"
                 />
               </div>
             )}
