@@ -1,50 +1,133 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 
+// First, set a default Calendly URL at the top level
+const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
+
 const faqData = [
-	{
-		id: 1,
-		question: 'Apa itu FounderCrowd?',
-		answer: 'FounderCrowd adalah platform fundraising komprehensif yang membantu startup menghubungkan diri dengan investor dan komunitas.',
-	},
-	{
-		id: 2,
-		question: 'Bagaimana cara kerja FounderCrowd?',
-		answer: 'Startup dapat membuat profil, mengunggah pitch, dan berinteraksi dengan investor melalui fitur yang tersedia di platform.',
-	},
-	{
-		id: 3,
-		question: 'Siapa saja yang dapat menggunakan FounderCrowd?',
-		answer: 'FounderCrowd dapat digunakan oleh pendiri startup, investor, dan siapa saja yang tertarik dengan dunia startup.',
-	},
-	{
-		id: 4,
-		question: 'Apakah FounderCrowd berbayar?',
-		answer: 'FounderCrowd menyediakan paket gratis dan berbayar dengan fitur tambahan untuk kebutuhan fundraising yang lebih lanjut.',
-	},
-	{
-		id: 5,
-		question: 'Bagaimana keamanan data di FounderCrowd?',
-		answer: 'Kami menggunakan enkripsi dan standar keamanan industri untuk melindungi data pengguna di platform kami.',
-	},
-	{
-		id: 6,
-		question: 'Bagaimana cara menghubungi tim FounderCrowd?',
-		answer: 'Anda dapat menghubungi kami melalui halaman kontak di website atau email support@foundercrowd.com.',
-	},
-	{
-		id: 7,
-		question: 'Apakah FounderCrowd tersedia untuk startup di luar Indonesia?',
-		answer: 'Saat ini FounderCrowd fokus pada pasar Indonesia, namun kami berencana untuk ekspansi ke negara lain di masa depan.',
-	},
+  {
+    id: 1,
+    question: 'What is FounderCrowd?',
+    answer: 'FounderCrowd is a comprehensive fundraising platform that helps startups connect with investors and the community.',
+  },
+  {
+    id: 2,
+    question: 'How does FounderCrowd work?',
+    answer: 'Startups can create profiles, upload pitches, and interact with investors through features available on the platform.',
+  },
+  {
+    id: 3,
+    question: 'Who can use FounderCrowd?',
+    answer: 'FounderCrowd can be used by startup founders, investors, and anyone interested in the startup world.',
+  },
+  {
+    id: 4,
+    question: 'Is FounderCrowd paid?',
+    answer: 'FounderCrowd offers free and paid plans with additional features for more advanced fundraising needs.',
+  },
+  {
+    id: 5,
+    question: 'How is data security handled on FounderCrowd?',
+    answer: 'We use encryption and industry-standard security measures to protect user data on our platform.',
+  },
+  {
+    id: 6,
+    question: 'How can I contact the FounderCrowd team?',
+    answer: 'You can contact us through the contact page on our website or by emailing support@foundercrowd.com.',
+  },
+  {
+    id: 7,
+    question: 'Is FounderCrowd available for startups outside Indonesia?',
+    answer: 'Currently, FounderCrowd focuses on the Indonesian market, but we plan to expand to other countries in the future.',
+  },
 ];
 
-const FAQ = () => {
+// Add the CalendlyModal component from HorizontalHook
+function CalendlyModal({
+  url,
+  onClose,
+}: {
+  url: string;
+  onClose: () => void;
+}) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onEsc);
+    
+    // Add the Calendly script
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    
+    // Handle loading state
+    script.onload = () => {
+      // Short timeout to ensure widget initialization
+      setTimeout(() => setIsLoading(false), 1000);
+    };
+    
+    document.body.appendChild(script);
+    
+    return () => {
+      document.removeEventListener("keydown", onEsc);
+      // Clean up script if needed
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[9999] grid place-items-center p-4" // Increased z-index to be above navbar
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        className="absolute inset-0 bg-[#AC5B0F]/80 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="relative w-full max-w-4xl rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#8A490C]">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
+          <h3 className="text-sm font-medium text-white">Book a call</h3>
+          <button
+            onClick={onClose}
+            className="rounded-full px-3 py-1 text-xs bg-white/10 hover:bg-white/15 text-white"
+          >
+            Close
+          </button>
+        </div>
+        <div className="h-[70vh] min-h-[600px] relative">
+          {/* Loading animation */}
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-[#8A490C] z-10">
+              <div className="flex flex-col items-center">
+                <div className="w-12 h-12 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
+                <p className="mt-4 text-white/80 text-sm">Loading calendar...</p>
+              </div>
+            </div>
+          )}
+          
+          {/* Use the Calendly inline widget div structure */}
+          <div 
+            className="calendly-inline-widget h-full w-full" 
+            data-url={url}
+          ></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const FAQ = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
 		const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 		const [visibleItems, setVisibleItems] = useState<number[]>([]);
 		const [showCTA, setShowCTA] = useState(false);
 		const [scrollProgress, setScrollProgress] = useState(0);
 		const [isClosing, setIsClosing] = useState(false);
+		const [openCalendly, setOpenCalendly] = useState(false);
 
 		const sectionRef = useRef<HTMLElement>(null);
 		const lastFAQRef = useRef<HTMLDivElement>(null);
@@ -240,9 +323,9 @@ const FAQ = () => {
 										transition: 'transform 0.6s ease-out',
 									}}
 								>
-									Jadi, apa yang kita
+									So, Ready to Raise 
 									<br />
-									<span className="text-orange-600">bangun?</span>
+									<span className="text-orange-600">The Capital Fund?</span>
 								</h1>
 
 								<div
@@ -253,13 +336,24 @@ const FAQ = () => {
 										transitionDelay: isClosing ? '0ms' : '300ms',
 									}}
 								>
-									<button className="bg-gradient-to-r from-yellow-300 to-yellow-400 text-gray-800 px-12 py-4 rounded-full font-semibold text-lg hover:from-yellow-400 hover:to-yellow-500 hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl">
-										Mulai membangun
+									<button 
+										onClick={() => setOpenCalendly(true)} 
+										className="bg-gradient-to-r from-yellow-300 to-yellow-400 text-gray-800 px-12 py-4 rounded-full font-semibold text-lg hover:from-yellow-400 hover:to-yellow-500 hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl"
+									>
+										Start Raising
 									</button>
 								</div>
 							</div>
 						</div>
 					</section>
+				)}
+
+				{/* Calendly Modal */}
+				{openCalendly && (
+					<CalendlyModal 
+						url={calendlyUrl} 
+						onClose={() => setOpenCalendly(false)} 
+					/>
 				)}
 
 				<style jsx>{`
