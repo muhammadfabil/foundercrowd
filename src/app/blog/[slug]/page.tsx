@@ -50,7 +50,12 @@ function getFeaturedImage(p: WPPost) {
   };
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+// Update the function parameters to match Next.js 13+ App Router expectations
+export async function generateMetadata({ 
+  params 
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
   const post = await fetchPost(params.slug);
   if (!post) {
     return {
@@ -118,7 +123,11 @@ const wpContentStyle = `
   }
 `;
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const post = await fetchPost(params.slug);
   
   if (!post) {
