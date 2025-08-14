@@ -50,9 +50,11 @@ function getFeaturedImage(p: WPPost) {
   };
 }
 
-// Fix: Use the proper type signature for Next.js metadata function
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = await fetchPost(params.slug);
+// Corrected generateMetadata
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await fetchPost(slug);
+
   if (!post) {
     return {
       title: "Post Not Found | FoundersCrowd",
@@ -119,14 +121,15 @@ const wpContentStyle = `
   }
 `;
 
-// Fix: Use the standard Next.js page component pattern
-export default async function Page({ params }: { params: { slug: string } }) {
-  const post = await fetchPost(params.slug);
-  
+// Corrected Page component
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = await fetchPost(slug);
+
   if (!post) {
     notFound();
   }
-  
+
   const featuredImage = getFeaturedImage(post);
   const date = new Date(post.date_gmt + "Z").toLocaleDateString("en-US", {
     year: "numeric",
