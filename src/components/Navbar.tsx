@@ -35,9 +35,11 @@ export default function Navbar() {
 
         {/* CENTER: Links (Desktop only) */}
         <div className="hidden items-center gap-8 md:flex">
+          <Link href="/" className="text-sm font-medium hover:opacity-80">Home</Link>
           <Link href="/features" className="text-sm font-medium hover:opacity-80">Features</Link>
           <Link href="/reviews" className="text-sm font-medium hover:opacity-80">Reviews</Link>
           <Link href="/pricing" className="text-sm font-medium hover:opacity-80">Pricing</Link>
+          <Link href="/blog" className="text-sm font-medium hover:opacity-80">Blog</Link>
         </div>
 
         {/* RIGHT: Actions */}
@@ -96,6 +98,13 @@ export default function Navbar() {
                 </svg>
               </button>
               <Link 
+                href="/" 
+                className="text-sm font-medium py-1"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link 
                 href="/features" 
                 className="text-sm font-medium py-1"
                 onClick={() => setMobileMenuOpen(false)}
@@ -115,6 +124,13 @@ export default function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Pricing
+              </Link>
+              <Link 
+                href="/blog" 
+                className="text-sm font-medium py-1"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Blog
               </Link>
               <div className="pt-2">
                 <Link

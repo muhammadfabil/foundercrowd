@@ -9,7 +9,6 @@ import { notFound } from "next/navigation";
 
 const SITE = "fcblog5.wordpress.com";
 const API = `https://public-api.wordpress.com/wp/v2/sites/${SITE}`;
-const PRIMARY = "#AC5B0F";
 
 type WPPost = {
   id: number;
@@ -50,7 +49,6 @@ function getFeaturedImage(p: WPPost) {
   };
 }
 
-// Corrected generateMetadata
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const post = await fetchPost(slug);
@@ -82,46 +80,6 @@ async function fetchPost(slug: string): Promise<WPPost | null> {
   }
 }
 
-const wpContentStyle = `
-  .wp-block-paragraph, 
-  p, 
-  li, 
-  blockquote, 
-  cite, 
-  figcaption, 
-  .wp-element-caption,
-  .wp-block-quote {
-    color: #1e293b; /* slate-800 */
-  }
-  
-  .wp-block-heading h1, 
-  .wp-block-heading h2, 
-  .wp-block-heading h3, 
-  .wp-block-heading h4, 
-  .wp-block-heading h5, 
-  .wp-block-heading h6 {
-    color: #0f172a; /* slate-900 */
-  }
-  
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    margin: 1.5rem 0;
-  }
-  
-  table td,
-  table th {
-    padding: 0.5rem;
-    border: 1px solid #e2e8f0; /* slate-200 */
-    color: #1e293b; /* slate-800 */
-  }
-  
-  table th {
-    background-color: #f8fafc; /* slate-50 */
-  }
-`;
-
-// Corrected Page component
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const post = await fetchPost(slug);
@@ -140,85 +98,79 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   return (
     <>
       <Navbar />
-      <div className="pt-24 bg-[#AC5B0F] min-h-screen">
-        <style dangerouslySetInnerHTML={{ __html: wpContentStyle }} />
-        <div className="mx-auto max-w-4xl px-4 py-8">
-          {/* Top navigation */}
+      <div className="pt-24 bg-white min-h-screen font-figtree">
+        <div className="mx-auto max-w-4xl px-4 py-12">
+          {/* Back navigation */}
           <Link 
             href="/blog" 
-            className="inline-flex items-center mb-6 text-sm font-medium text-white hover:text-white/80"
+            className="inline-flex items-center gap-2 mb-8 text-gray-600 hover:text-gray-900 transition-colors duration-200"
           >
             <svg 
-              viewBox="0 0 24 24" 
-              className="mr-1 h-4 w-4" 
+              className="w-4 h-4" 
               fill="none" 
               stroke="currentColor" 
+              viewBox="0 0 24 24"
               strokeWidth="2"
             >
-              <path d="M19 12H5M12 19l-7-7 7-7" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
-            Back to all posts
+            Back to Blog
           </Link>
           
-          {/* White content container */}
-          <div className="bg-white rounded-xl shadow-xl overflow-hidden">
-            {/* Featured image banner */}
-            {featuredImage.src && (
-              <div className="relative aspect-[16/9] w-full">
-                <Image
-                  src={featuredImage.src}
-                  alt={featuredImage.alt}
-                  width={1200}
-                  height={630}
-                  priority
-                  className="object-cover w-full h-full"
-                />
-              </div>
-            )}
-            
-            {/* Article content */}
-            <article className="p-6 md:p-8">
-              <header className="mb-8">
-                <h1 
-                  className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 text-slate-900" 
-                  dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-                />
-                <div className="text-sm text-slate-500">
-                  Published on {date}
-                </div>
-              </header>
-              
-              <div 
-                className="prose prose-slate max-w-none 
-                  prose-headings:text-slate-900 
-                  prose-p:text-slate-800 
-                  prose-li:text-slate-800
-                  prose-strong:text-slate-900
-                  prose-ol:text-slate-800 
-                  prose-ul:text-slate-800 
-                  prose-blockquote:text-slate-700
-                  prose-pre:bg-slate-50 prose-pre:text-slate-800
-                  prose-code:text-slate-900
-                  prose-a:text-[#AC5B0F] prose-a:no-underline hover:prose-a:underline 
-                  prose-img:rounded-md"
-                dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+          {/* Article header */}
+          <header className="mb-12">
+            <div className="text-sm text-gray-500 mb-4">
+              {date}
+            </div>
+            <h1 
+              className="text-3xl md:text-4xl lg:text-5xl font-medium text-gray-900 mb-6 leading-tight" 
+              dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+            />
+          </header>
+
+          {/* Featured image */}
+          {featuredImage.src && (
+            <div className="relative aspect-[16/9] w-full mb-12 rounded-2xl overflow-hidden">
+              <Image
+                src={featuredImage.src}
+                alt={featuredImage.alt}
+                fill
+                priority
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
               />
-              
-              <div className="mt-12 pt-6 border-t border-slate-200 flex justify-between items-center">
-                <Link 
-                  href="/blog" 
-                  className="inline-flex items-center px-5 py-2.5 rounded-full text-sm font-medium transition-colors"
-                  style={{ 
-                    backgroundColor: PRIMARY,
-                    color: "white"
-                  }}
-                >
-                  Browse more articles
-                </Link>
-                
-                <BackToTopButton />
-              </div>
-            </article>
+            </div>
+          )}
+          
+          {/* Article content */}
+          <article className="prose prose-lg max-w-none
+            prose-headings:text-gray-900 prose-headings:font-medium
+            prose-p:text-gray-700 prose-p:leading-relaxed
+            prose-li:text-gray-700
+            prose-strong:text-gray-900 prose-strong:font-semibold
+            prose-blockquote:text-gray-600 prose-blockquote:border-orange-500
+            prose-a:text-orange-500 prose-a:no-underline hover:prose-a:underline
+            prose-code:text-gray-900 prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded
+            prose-pre:bg-gray-50 prose-pre:border prose-pre:border-gray-200
+            prose-img:rounded-xl prose-img:shadow-sm
+            prose-hr:border-gray-200
+            prose-table:border-gray-200
+            prose-th:bg-gray-50 prose-th:text-gray-900
+            prose-td:text-gray-700"
+          >
+            <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
+          </article>
+          
+          {/* Bottom navigation */}
+          <div className="mt-16 pt-8 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <Link 
+              href="/blog" 
+              className="bg-black text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors duration-300"
+            >
+              ← More Articles
+            </Link>
+            
+            <BackToTopButton />
           </div>
         </div>
       </div>
