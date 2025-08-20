@@ -71,20 +71,20 @@ function CalendlyModal({
 
   return (
     <div
-      className="fixed inset-0 z-[9999] grid place-items-center p-4" // Increased z-index to be above navbar
+      className="fixed inset-0 z-[9999] grid place-items-center p-4"
       role="dialog"
       aria-modal="true"
     >
       <div
-        className="absolute inset-0 bg-[#AC5B0F]/80 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={onClose}
       />
-      <div className="relative w-full max-w-4xl rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#8A490C]">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
-          <h3 className="text-sm font-medium text-white">Book a call</h3>
+      <div className="relative w-full max-w-4xl rounded-2xl overflow-hidden border border-gray-200 shadow-2xl bg-white">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">Book a call</h3>
           <button
             onClick={onClose}
-            className="rounded-full px-3 py-1 text-xs bg-white/10 hover:bg-white/15 text-white"
+            className="rounded-full px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
           >
             Close
           </button>
@@ -92,10 +92,10 @@ function CalendlyModal({
         <div className="h-[70vh] min-h-[600px] relative">
           {/* Loading animation */}
           {isLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-[#8A490C] z-10">
+            <div className="absolute inset-0 flex items-center justify-center bg-white z-10">
               <div className="flex flex-col items-center">
-                <div className="w-12 h-12 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
-                <p className="mt-4 text-white/80 text-sm">Loading calendar...</p>
+                <div className="w-8 h-8 border-2 border-t-transparent border-gray-400 rounded-full animate-spin"></div>
+                <p className="mt-4 text-gray-600 text-sm">Loading calendar...</p>
               </div>
             </div>
           )}
@@ -115,65 +115,62 @@ const Plan = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
   const [openCalendly, setOpenCalendly] = useState(false);
 
   return (
-    <section className="py-20 bg-gray-50 font-montserrat">
+    <section className="py-24 bg-white font-figtree">
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Capital Raising, Revolutionized
+        <div className="text-center mb-20">
+          <h2 className="text-5xl lg:text-6xl font-medium text-gray-900 mb-6 leading-tight">
+            Capital Raising,<br />
+            <span className="text-orange-500">Revolutionized</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Craft the perfect offering with control over raise amount, valuation, voting 
-            rights, and beyond. With us, your strategy takes center stage.
+            rights, and beyond.
           </p>
         </div>
 
         {/* Plans Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
           {planData.map((plan, index) => {
             const IconComponent = plan.icon;
             return (
-              <div key={plan.id} className="relative group">
-                {/* Background Circle */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#AC5B0F]/5 to-[#1e3a8a]/5 rounded-full scale-110 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-                
-                {/* Main Circle */}
-                <div className="relative bg-white rounded-full aspect-square flex flex-col items-center justify-center p-12 shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-[#AC5B0F]">
-
+              <div key={plan.id} className="group">
+                <div className="bg-white border  rounded-3xl p-8 hover:border-amber-500 hover:shadow-lg transition-all duration-300 h-full border-black hover:cursor-pointer">
                   {/* Icon */}
                   <div className="mb-6">
-                    <div className="w-12 h-12 rounded-full bg-[#AC5B0F]/10 flex items-center justify-center">
-                      <IconComponent className="w-6 h-6 text-[#AC5B0F]" />
+                    <div className="w-14 h-14 rounded-2xl bg-gray-100 flex items-center justify-center group-hover:bg-orange-500 transition-colors duration-300">
+                      <IconComponent className="w-7 h-7 text-gray-600 group-hover:text-white transition-colors duration-300" />
                     </div>
                   </div>
 
                   {/* Plan Type */}
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2 text-center">
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">
                     {plan.type}
                   </h3>
                   
-                  {/* Subtitle */}
-                  <p className="text-sm text-gray-500 mb-4">
-                    {plan.subtitle}
-                  </p>
-
-                  {/* Amount */}
-                  <div className="text-4xl font-bold text-[#AC5B0F] mb-6">
-                    {plan.amount}
+                  {/* Subtitle & Amount */}
+                  <div className="mb-6">
+                    <p className="text-sm text-gray-500 mb-1">
+                      {plan.subtitle}
+                    </p>
+                    <div className="text-4xl font-bold text-black">
+                      {plan.amount}
+                    </div>
                   </div>
 
                   {/* Description */}
-                  <p className="text-sm text-black text-center mb-6">
+                  <p className="text-gray-600 mb-8">
                     {plan.description}
                   </p>
 
-                  {/* Arrow Button */}
+                  {/* CTA Button */}
                   <button 
                     onClick={() => setOpenCalendly(true)}
-                    className="w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-[#AC5B0F] hover:bg-[#AC5B0F] group/btn transition-all duration-300"
+                    className="hover:cursor-pointer w-full py-3 px-6 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors duration-300 flex items-center justify-center gap-2"
                   >
+                    Get Started
                     <svg 
-                      className="w-4 h-4 text-gray-400 group-hover/btn:text-white transition-colors duration-300"
+                      className="w-4 h-4"
                       fill="none" 
                       stroke="currentColor" 
                       viewBox="0 0 24 24"
@@ -193,10 +190,18 @@ const Plan = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16">
+        <div className="text-center">
+          <div className="mb-6">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+              Ready to revolutionize your fundraising?
+            </h3>
+            <p className="text-gray-600 max-w-xl mx-auto">
+              Join thousands of companies who have successfully raised capital with our platform.
+            </p>
+          </div>
           <button 
             onClick={() => setOpenCalendly(true)}
-            className="bg-[#AC5B0F] text-white px-8 py-3 rounded-full font-medium hover:bg-[#8B4A0C] transition-colors duration-300"
+            className="bg-orange-500 text-white px-10 py-4 rounded-full font-medium hover:bg-orange-600 transition-colors duration-300 text-lg"
           >
             Start Raising Today
           </button>

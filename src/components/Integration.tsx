@@ -3,88 +3,80 @@ import React from 'react';
 const integrationLogos = [
   // First row - 8 items
   [
-    { name: 'Affinity', color: 'bg-blue-500' },
+    { name: 'Affinity', color: 'bg-gray-900' },
     { name: 'Vercel', color: 'bg-black' },
-    { name: 'VVave', color: 'bg-yellow-500' },
-    { name: 'Elysia', color: 'bg-purple-500' },
-    { name: 'Microsoft', color: 'bg-blue-400' },
-    { name: 'Textexpander', color: 'bg-red-500' },
-    { name: 'Transporter', color: 'bg-blue-600' },
-    { name: 'Spotify', color: 'bg-green-500' },
+    { name: 'VVave', color: 'bg-gray-800' },
+    { name: 'Elysia', color: 'bg-gray-700' },
+    { name: 'Microsoft', color: 'bg-gray-900' },
+    { name: 'Textexpander', color: 'bg-black' },
+    { name: 'Transporter', color: 'bg-gray-800' },
+    { name: 'Spotify', color: 'bg-gray-700' },
   ],
   // Second row - 7 items
   [
     { name: 'ABBC', color: 'bg-orange-500' },
-    { name: 'Affinity', color: 'bg-purple-600' },
-    { name: 'MoneyLover', color: 'bg-green-600' },
-    { name: 'Origami', color: 'bg-blue-500' },
-    { name: 'Spring', color: 'bg-green-500' },
-    { name: 'SteadyTune', color: 'bg-gray-800' },
-    { name: 'Transporter', color: 'bg-blue-600' },
+    { name: 'Affinity', color: 'bg-gray-900' },
+    { name: 'MoneyLover', color: 'bg-gray-800' },
+    { name: 'Origami', color: 'bg-black' },
+    { name: 'Spring', color: 'bg-gray-700' },
+    { name: 'SteadyTune', color: 'bg-gray-900' },
+    { name: 'Transporter', color: 'bg-gray-800' },
   ],
   // Third row - 6 items
   [
-    { name: 'TablePlus', color: 'bg-purple-400' },
-    { name: 'TikTok', color: 'bg-gray-400' },
-    { name: 'Twitter', color: 'bg-blue-400' },
-    { name: 'Discord', color: 'bg-purple-500' },
-    { name: 'Mela', color: 'bg-pink-400' },
-    { name: 'CleanMyMac', color: 'bg-teal-500' },
+    { name: 'TablePlus', color: 'bg-gray-700' },
+    { name: 'TikTok', color: 'bg-black' },
+    { name: 'Twitter', color: 'bg-gray-900' },
+    { name: 'Discord', color: 'bg-gray-800' },
+    { name: 'Mela', color: 'bg-gray-700' },
+    { name: 'CleanMyMac', color: 'bg-black' },
   ],
   // Fourth row - 5 items
   [
     { name: 'Notion', color: 'bg-gray-900' },
-    { name: 'Figma', color: 'bg-purple-500' },
-    { name: 'Slack', color: 'bg-purple-600' },
-    { name: 'Zoom', color: 'bg-blue-500' },
-    { name: 'GitHub', color: 'bg-gray-800' },
+    { name: 'Figma', color: 'bg-black' },
+    { name: 'Slack', color: 'bg-gray-800' },
+    { name: 'Zoom', color: 'bg-gray-700' },
+    { name: 'GitHub', color: 'bg-gray-900' },
   ]
 ];
 
 const Integration = () => {
   return (
-    <section className="py-20 bg-white font-montserrat">
-      <div className="max-w-6xl mx-auto px-4">
+    <section className="py-20 bg-white font-figtree">
+      <div className="max-w-5xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Over 100+ Integrations
+          <h2 className="text-4xl lg:text-5xl font-medium text-gray-900 mb-6 leading-tight">
+            100+ Integrations
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            FounderCrowd equips you with the foundational components to build a 
-            professional and seamless fundraising experience with top-tier integrations.
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Connect with the tools you already use. Build a seamless fundraising 
+            experience with enterprise-grade integrations.
           </p>
         </div>
 
-        {/* Integration Grid */}
-        <div className="space-y-6">
+        {/* Integration Grid - Desktop version */}
+        <div className="hidden md:block space-y-8 mb-12">
           {integrationLogos.map((row, rowIndex) => (
             <div 
-              key={rowIndex} 
-              className="flex justify-center items-center gap-4"
+              key={`desktop-${rowIndex}`}
+              className="flex justify-center items-center gap-6"
             >
               {row.map((integration, index) => (
                 <div
-                  key={`${rowIndex}-${index}`}
+                  key={`desktop-${rowIndex}-${index}`}
                   className="group cursor-pointer"
                 >
                   {/* Integration Circle */}
                   <div className={`
-                    w-14 h-14 rounded-full flex items-center justify-center
-                    transition-all duration-300 hover:scale-110
+                    w-16 h-16 rounded-2xl flex items-center justify-center
+                    transition-all duration-300 hover:scale-105 hover:-translate-y-1
                     ${integration.color}
-                    shadow-md hover:shadow-lg
+                    border border-gray-100 hover:border-gray-200
                   `}>
-                    {/* Logo placeholder - using first letter of name */}
-                    <span className="text-white font-bold text-sm">
+                    <span className="text-white font-semibold text-lg">
                       {integration.name.charAt(0)}
-                    </span>
-                  </div>
-                  
-                  {/* Tooltip on hover */}
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center mt-2 absolute z-10">
-                    <span className="text-xs text-gray-600 bg-white px-2 py-1 rounded shadow-md border">
-                      {integration.name}
                     </span>
                   </div>
                 </div>
@@ -93,20 +85,45 @@ const Integration = () => {
           ))}
         </div>
 
-        {/* "Dan masih banyak lagi" text */}
-        
+        {/* Integration Grid - Mobile version */}
+        <div className="md:hidden grid grid-cols-5 gap-4 mb-12 justify-items-center">
+          {integrationLogos.flat().slice(0, 15).map((integration, index) => (
+            <div
+              key={`mobile-${index}`}
+              className="flex flex-col items-center"
+            >
+              <div className={`
+                w-12 h-12 rounded-xl flex items-center justify-center
+                ${integration.color}
+              `}>
+                <span className="text-white font-semibold text-sm">
+                  {integration.name.charAt(0)}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom text */}
+        <div className="text-center mb-12">
+          <p className="text-gray-500 text-base">
+            And many more...
+          </p>
+        </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-12">
-          <p className="text-gray-600 mb-6">
-            Can't find the integration you need? We're constantly adding new partners.
+        <div className="text-center">
+          <p className="text-gray-600 mb-8 max-w-lg mx-auto">
+            Need a specific integration? We're constantly expanding our ecosystem.
           </p>
-          <button className="bg-[#AC5B0F] text-white px-8 py-3 rounded-full font-medium hover:bg-[#8B4A0C] transition-colors duration-300 mr-4">
-            View All Integrations
-          </button>
-          <button className="border-2 border-[#AC5B0F] text-[#AC5B0F] px-8 py-3 rounded-full font-medium hover:bg-[#AC5B0F] hover:text-white transition-colors duration-300">
-            Request Integration
-          </button>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <button className="bg-black text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors duration-300">
+              View All Integrations
+            </button>
+            <button className="border border-gray-300 text-gray-700 px-8 py-3 rounded-full font-medium hover:border-orange-500 hover:text-orange-500 transition-colors duration-300">
+              Request Integration
+            </button>
+          </div>
         </div>
       </div>
     </section>

@@ -7,7 +7,7 @@ import Integration from "@/components/Integration";
 import Testimony from "@/components/Testimony";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
-import HorizontalHook from "@/components/HorizontalHook";
+
 
 
 export default function Page() {
@@ -16,7 +16,6 @@ export default function Page() {
       <Navbar />
       <Hero />
       <Features />
-      <HorizontalHook />
       <Steps />
       <Plan />
       <Integration />

@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from 'next/image';
 
 // First, set a default Calendly URL at the top level
 const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
@@ -48,7 +49,7 @@ function CalendlyModal({
       aria-modal="true"
     >
       <div
-        className="absolute inset-0 bg-[#AC5B0F]/80 backdrop-blur-sm"
+        className="absolute inset-0 bg-[#F3EFE7]/80 backdrop-blur-sm"
         onClick={onClose}
       />
       <div className="relative w-full max-w-4xl rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#8A490C]">
@@ -61,7 +62,7 @@ function CalendlyModal({
             Close
           </button>
         </div>
-        <div className="h-[70vh] min-h-[600px] relative">
+        <div className="h-[70vh] min-h-[400px] md:min-h-[600px] relative">
           {/* Loading animation */}
           {isLoading && (
             <div className="absolute inset-0 flex items-center justify-center bg-[#8A490C] z-10">
@@ -85,38 +86,153 @@ function CalendlyModal({
 
 export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
   const [openCalendly, setOpenCalendly] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   
   return (
-    <section className="hero-noise relative grid min-h-[100svh] place-items-center overflow-hidden bg-[#AC5B0F] font-montserrat">
-      <div className="mx-auto w-full max-w-6xl px-4 text-center">
-        <h1 className="text-balance text-6xl font-extrabold leading-[0.95] sm:text-7xl md:text-8xl text-[#dbff00] mx-auto" style={{ fontFamily: 'var(--font-montserrat)' }}>
-          Invest as <br /> you imagine
+    <section className="hero-noise relative pb-16 md:pb-8 lg:pb-8 pt-40 flex flex-col items-center min-h-[90svh] overflow-hidden bg-[#F3EFE7] font-figtree">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+        <div className="flex justify-center mb-4 sm:mb-6">
+          <div className="flex items-center gap-2">
+            <div className="flex -space-x-2">
+              <img src="/testi1.jpg" alt="" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-[#F3EFE7]" />
+              <img src="/testi2.jpg" alt="" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-[#F3EFE7]" />
+              <img src="/testi3.jpg" alt="" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-[#F3EFE7]" />
+            </div>
+            <span className="text-xs sm:text-sm text-gray-700">Trusted by 21,000+ people</span>
+          </div>
+        </div>
+
+        <h1 className="text-balance text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-tight text-black mx-auto">
+          Guiding Founders,<br className="hidden sm:block" />
+          <span className="inline sm:inline">Inspiring Investors</span>
         </h1>
-        <p className="mt-6 mx-auto text-xl/7 text-white/90" style={{ fontFamily: 'var(--font-montserrat)' }}>
-          Experts in{" "}
-          <span className="font-semibold underline decoration-[#dbff00] underline-offset-4 text-white">
-            Private Equity
-          </span>
-          {" "}fund investing. From matching to due diligence,
-          <br className="hidden sm:block" />
-          everything happens in minutes, not months.
+        
+        <p className="mt-4 sm:mt-6 mx-auto text-base sm:text-lg text-gray-700 max-w-xs sm:max-w-lg md:max-w-2xl">
+          From matching to due diligence, our platform streamlines the investment process,
+          making everything happen in minutes, not months.
         </p>
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
             onClick={() => setOpenCalendly(true)}
-            className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:translate-y-0.5 hover:shadow"
-            style={{ fontFamily: 'var(--font-montserrat)' }}
+            className="rounded-full w-full sm:w-auto bg-black px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-black/90"
           >
             Start Raising
           </button>
+          
           <a
-            href="#learn"
-            className="rounded-full border border-white/40 px-6 py-3 text-sm font-medium text-white transition hover:bg-white/10"
-            style={{ fontFamily: 'var(--font-montserrat)' }}
+            href="#features"
+            className="rounded-full w-full sm:w-auto mt-2 sm:mt-0 border border-gray-300 px-6 py-3 text-sm font-medium text-black transition hover:bg-gray-100"
           >
-            Learn more
+            Learn More
           </a>
+        </div>
+        
+        {/* Hero image - fixed visibility issue */}
+        <div className="mt-12 sm:mt-16 md:mt-20 relative mx-auto max-w-3xl">
+          <div className="aspect-[16/9] overflow-hidden rounded-xl shadow-lg border border-gray-100">
+            {/* Replace with an actual image that exists in your public folder */}
+            <img 
+              src="/hook1.jpg" 
+              alt="Platform dashboard preview" 
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Infinite Scrolling Logo Section */}
+      <div className="w-full mt-16 sm:mt-20 md:mt-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Desktop version - horizontal */}
+          <div className="hidden sm:flex items-center">
+            {/* "As Seen On" text - fixed position */}
+            <div className="flex-shrink-0 mr-2 sm:mr-16 z-20 ml-34">
+              <p className="text-sm sm:text-base text-black whitespace-nowrap font-bold">As Seen On</p>
+            </div>
+            
+            {/* Logo scrolling container */}
+            <div className="flex-1 relative overflow-hidden">
+              {/* Gradient fade effects */}
+              <div className="absolute left-0 top-0 w-8 sm:w-16 h-full bg-gradient-to-r from-[#F3EFE7] to-transparent z-10"></div>
+              <div className="absolute right-0 top-0 w-8 sm:w-16 h-full bg-gradient-to-l from-[#F3EFE7] to-transparent z-10"></div>
+              
+              {/* Scrolling logos horizontal */}
+              <div className="flex animate-scroll-horizontal items-center space-x-6 sm:space-x-12">
+                {/* First set of logos */}
+                {Array.from({ length: 8 }).map((_, index) => (
+                  <div 
+                    key={`logo-set1-${index}`}
+                    className="flex-shrink-0 w-16 h-10 sm:w-24 sm:h-12 md:w-32 md:h-16 flex items-center justify-center"
+                  >
+                    <img 
+                      src="/logo1.png" 
+                      alt="Partner Logo" 
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                ))}
+                
+                {/* Duplicate set for seamless loop */}
+                {Array.from({ length: 8 }).map((_, index) => (
+                  <div 
+                    key={`logo-set2-${index}`}
+                    className="flex-shrink-0 w-16 h-10 sm:w-24 sm:h-12 md:w-32 md:h-16 flex items-center justify-center"
+                  >
+                    <img 
+                      src="/logo1.png" 
+                      alt="Partner Logo" 
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile version - "As Seen On" di atas, logo horizontal di bawah */}
+          <div className="sm:hidden">
+            <div className="text-center mb-4">
+              <p className="text-sm text-black font-bold">As Seen On</p>
+            </div>
+            
+            <div className="relative overflow-hidden">
+              {/* Gradient fade effects for horizontal */}
+              <div className="absolute left-0 top-0 w-8 h-full bg-gradient-to-r from-[#F3EFE7] to-transparent z-10"></div>
+              <div className="absolute right-0 top-0 w-8 h-full bg-gradient-to-l from-[#F3EFE7] to-transparent z-10"></div>
+              
+              {/* Horizontal scrolling logos */}
+              <div className="flex animate-scroll-horizontal items-center space-x-6">
+                {/* First set of logos */}
+                {Array.from({ length: 8 }).map((_, index) => (
+                  <div 
+                    key={`mobile-logo-set1-${index}`}
+                    className="flex-shrink-0 w-16 h-10 flex items-center justify-center"
+                  >
+                    <img 
+                      src="/logo1.png" 
+                      alt="Partner Logo" 
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                ))}
+                
+                {/* Duplicate set for seamless loop */}
+                {Array.from({ length: 8 }).map((_, index) => (
+                  <div 
+                    key={`mobile-logo-set2-${index}`}
+                    className="flex-shrink-0 w-16 h-10 flex items-center justify-center"
+                  >
+                    <img 
+                      src="/logo1.png" 
+                      alt="Partner Logo" 
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       
@@ -127,6 +243,35 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
           onClose={() => setOpenCalendly(false)} 
         />
       )}
+
+      {/* Update the CSS as well */}
+      <style jsx>{`
+        /* Horizontal animation for both desktop and mobile */
+        @keyframes scroll-horizontal {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        
+        .animate-scroll-horizontal {
+          animation: scroll-horizontal 25s linear infinite;
+          width: calc(200%);
+        }
+        
+        .animate-scroll-horizontal:hover {
+          animation-play-state: paused;
+        }
+        
+        /* Slower animation for mobile */
+        @media (max-width: 640px) {
+          .animate-scroll-horizontal {
+            animation: scroll-horizontal 30s linear infinite;
+          }
+        }
+      `}</style>
     </section>
   );
 }

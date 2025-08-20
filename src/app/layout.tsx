@@ -1,12 +1,27 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Figtree, Roboto, Wix_Madefor_Text } from "next/font/google";
 import "./globals.css";
 
-const montserrat = Montserrat({
+// Update the font configuration to ensure it loads correctly
+const figtree = Figtree({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-montserrat",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
+  variable: "--font-figtree",
+});
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "500", "700", "900"],
+  display: "swap",
+  variable: "--font-roboto",
+});
+
+const wixMadeforText = Wix_Madefor_Text({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+  variable: "--font-wix-madefor",
 });
 
 export const metadata: Metadata = {
@@ -16,8 +31,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={montserrat.variable}>
-      <body className={`antialiased font-montserrat`}>{children}</body>
+    <html lang="en" className={`${figtree.variable} ${roboto.variable} ${wixMadeforText.variable}`}>
+      <body className={`antialiased ${figtree.className}`}>{children}</body>
     </html>
   );
 }

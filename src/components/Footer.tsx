@@ -3,90 +3,73 @@ import { FaTwitter, FaLinkedin, FaDiscord, FaReddit } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-gray-200 py-16 font-montserrat relative z-10">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+    <footer className="bg-white border-t border-gray-100 py-20 font-figtree">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mb-16">
           {/* Logo and Description */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 mb-6">
-                <img src="/logo.png" alt="FoundersCrowd Logo" className="w-12 h-12 rounded-full object-cover" />
-              <span className="text-xl font-bold text-gray-900">FoundersCrowd</span>
+          <div className="lg:col-span-2">
+            <div className="flex items-center gap-3 mb-8">
+              <img src="/logo.png" alt="FoundersCrowd Logo" className="w-10 h-10 rounded-2xl object-cover" />
+              <span className="text-2xl font-semibold text-gray-900">FoundersCrowd</span>
             </div>
-            <p className="text-gray-600 leading-relaxed mb-8">
-              FoundersCrowd is the comprehensive fundraising platform that enables founders 
-              to raise capital through various regulatory pathways. Using advanced technology, 
-              FoundersCrowd streamlines the entire process from investor matching to compliance, 
-              making fundraising accessible and efficient for startups and growth-stage companies.
+            <p className="text-gray-600 leading-relaxed mb-8 max-w-md">
+              The modern fundraising platform that connects founders with investors 
+              through streamlined technology and compliance tools.
             </p>
             
             {/* Social Icons */}
-            <div className="flex items-center gap-4 text-black">
+            <div className="flex items-center gap-3">
               <a 
                 href="#" 
-                className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-[#AC5B0F] hover:text-white transition-colors duration-300"
+                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
               >
-                <FaTwitter className="w-4 h-4" />
+                <FaTwitter className="w-4 h-4 text-gray-600 group-hover:text-white" />
               </a>
               <a 
                 href="#" 
-                className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-[#AC5B0F] hover:text-white transition-colors duration-300"
+                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
               >
-                <FaDiscord className="w-4 h-4" />
+                <FaDiscord className="w-4 h-4 text-gray-600 group-hover:text-white" />
               </a>
               <a 
                 href="#" 
-                className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-[#AC5B0F] hover:text-white transition-colors duration-300"
+                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
               >
-                <FaLinkedin className="w-4 h-4" />
+                <FaLinkedin className="w-4 h-4 text-gray-600 group-hover:text-white" />
               </a>
               <a 
                 href="#" 
-                className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-[#AC5B0F] hover:text-white transition-colors duration-300"
+                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
               >
-                <FaReddit className="w-4 h-4" />
+                <FaReddit className="w-4 h-4 text-gray-600 group-hover:text-white" />
               </a>
             </div>
           </div>
 
           {/* Platform Column */}
           <div>
-            <h4 className="font-semibold text-gray-900 mb-6 uppercase tracking-wider text-sm">
-              PLATFORM
+            <h4 className="font-medium text-gray-900 mb-6 text-sm">
+              Platform
             </h4>
-            <ul className="space-y-4">
+            <ul className="space-y-3">
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
+                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
                   Fundraising
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
+                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
                   Investor Network
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
-                  Compliance Tools
+                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                  Compliance
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
+                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
                   Pricing
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
-                  Enterprise
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
-                  Roadmap
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
-                  Feature Request
                 </a>
               </li>
             </ul>
@@ -94,38 +77,28 @@ const Footer = () => {
 
           {/* Resources Column */}
           <div>
-            <h4 className="font-semibold text-gray-900 mb-6 uppercase tracking-wider text-sm">
-              RESOURCES
+            <h4 className="font-medium text-gray-900 mb-6 text-sm">
+              Resources
             </h4>
-            <ul className="space-y-4">
+            <ul className="space-y-3">
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
+                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
                   Documentation
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
-                  Learning Hub
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
-                  Community
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
+                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
                   Blog
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
-                  Case Studies
+                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                  Community
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
-                  Webinars
+                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                  Support
                 </a>
               </li>
             </ul>
@@ -133,38 +106,28 @@ const Footer = () => {
 
           {/* Legal Column */}
           <div>
-            <h4 className="font-semibold text-gray-900 mb-6 uppercase tracking-wider text-sm">
-              LEGAL
+            <h4 className="font-medium text-gray-900 mb-6 text-sm">
+              Legal
             </h4>
-            <ul className="space-y-4">
+            <ul className="space-y-3">
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
-                  Privacy Policy
+                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                  Privacy
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
-                  Terms of Service
+                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                  Terms
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
-                  Cookie Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
-                  GDPR Compliance
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
+                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
                   Security
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#AC5B0F] transition-colors duration-300">
-                  Report Issue
+                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                  Cookies
                 </a>
               </li>
             </ul>
@@ -172,10 +135,20 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-gray-200 mt-12 pt-8 bg-white">
-          <p className="text-gray-500 text-sm">
-            2025 FoundersCrowd Inc. All rights reserved.
-          </p>
+        <div className="border-t border-gray-100 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-gray-500 text-sm">
+              © 2025 FoundersCrowd. All rights reserved.
+            </p>
+            <div className="flex items-center gap-6">
+              <a href="#" className="text-gray-500 hover:text-gray-900 transition-colors duration-200 text-sm">
+                Status
+              </a>
+              <a href="#" className="text-gray-500 hover:text-gray-900 transition-colors duration-200 text-sm">
+                Changelog
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

@@ -29,12 +29,6 @@ const testimonials = [
   { id: 22, name: "Jason Wong", username: "@jason_startup", avatar: "JW", text: "The documentation and legal support made our fundraising process seamless.", platform: "producthunt", link: "https://producthunt.com/@jason_startup" },
   { id: 23, name: "Lauren Adams", username: "@lauren_tech", avatar: "LA", text: "Finally, a fundraising platform built by founders, for founders.", platform: "twitter", link: "https://twitter.com/lauren_tech/status/1234567900" },
   { id: 24, name: "Ryan Miller", username: "@ryan_ventures", avatar: "RM", text: "The speed and efficiency of the platform is unmatched in the industry.", platform: "linkedin", link: "https://linkedin.com/in/ryan-ventures" },
-  { id: 25, name: "Natalie Cooper", username: "@nat_founder", avatar: "NC", text: "Closed our funding round 3x faster than traditional methods. Amazing!", platform: "twitter", link: "https://twitter.com/nat_founder/status/1234567901" },
-  { id: 26, name: "Brian Clark", username: "@brian_ceo", avatar: "BC", text: "The investor relations tools helped us maintain great communication throughout.", platform: "linkedin", link: "https://linkedin.com/in/brian-ceo" },
-  { id: 27, name: "Emma Watson", username: "@emma_startup", avatar: "EW", text: "FounderCrowd has set a new standard for how fundraising should work.", platform: "producthunt", link: "https://producthunt.com/@emma_startup" },
-  { id: 28, name: "Andrew Kim", username: "@andrew_tech", avatar: "AK", text: "The platform's insights and analytics helped us make better strategic decisions.", platform: "twitter", link: "https://twitter.com/andrew_tech/status/1234567902" },
-  { id: 29, name: "Maya Patel", username: "@maya_ventures", avatar: "MP", text: "Exceptional platform with world-class support. Couldn't ask for more!", platform: "linkedin", link: "https://linkedin.com/in/maya-ventures" },
-  { id: 30, name: "Tyler Scott", username: "@tyler_founder", avatar: "TS", text: "FounderCrowd transformed our fundraising from a nightmare into a dream process.", platform: "twitter", link: "https://twitter.com/tyler_founder/status/1234567903" },
 ];
 
 // Add the CalendlyModal component from HorizontalHook
@@ -76,20 +70,20 @@ function CalendlyModal({
 
   return (
     <div
-      className="fixed inset-0 z-[9999] grid place-items-center p-4" // Increased z-index to be above navbar
+      className="fixed inset-0 z-[9999] grid place-items-center p-4"
       role="dialog"
       aria-modal="true"
     >
       <div
-        className="absolute inset-0 bg-[#AC5B0F]/80 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={onClose}
       />
-      <div className="relative w-full max-w-4xl rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#8A490C]">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
-          <h3 className="text-sm font-medium text-white">Book a call</h3>
+      <div className="relative w-full max-w-4xl rounded-2xl overflow-hidden border border-gray-200 shadow-2xl bg-white">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">Book a call</h3>
           <button
             onClick={onClose}
-            className="rounded-full px-3 py-1 text-xs bg-white/10 hover:bg-white/15 text-white"
+            className="rounded-full px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
           >
             Close
           </button>
@@ -97,10 +91,10 @@ function CalendlyModal({
         <div className="h-[70vh] min-h-[600px] relative">
           {/* Loading animation */}
           {isLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-[#8A490C] z-10">
+            <div className="absolute inset-0 flex items-center justify-center bg-white z-10">
               <div className="flex flex-col items-center">
-                <div className="w-12 h-12 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
-                <p className="mt-4 text-white/80 text-sm">Loading calendar...</p>
+                <div className="w-8 h-8 border-2 border-t-transparent border-gray-400 rounded-full animate-spin"></div>
+                <p className="mt-4 text-gray-600 text-sm">Loading calendar...</p>
               </div>
             </div>
           )}
@@ -117,7 +111,7 @@ function CalendlyModal({
 }
 
 const PlatformIcon = ({ platform }: { platform: string }) => {
-  const iconClass = "w-4 h-4";
+  const iconClass = "w-4 h-4 text-gray-400";
   switch (platform) {
     case "twitter":
       return (
@@ -140,7 +134,7 @@ const PlatformIcon = ({ platform }: { platform: string }) => {
     default:
       return (
         <svg className={iconClass} viewBox="0 0 24 24" fill="currentColor">
-          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.80l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
         </svg>
       );
   }
@@ -151,12 +145,12 @@ const TestimonialCard = ({ testimonial }: { testimonial: (typeof testimonials)[0
     href={testimonial.link}
     target="_blank"
     rel="noopener noreferrer"
-    className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 w-80 flex-shrink-0 mx-3 hover:shadow-lg transition-shadow duration-300 cursor-pointer block"
+    className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 w-80 flex-shrink-0 mx-3 hover:shadow-lg hover:border-gray-200 transition-all duration-300 cursor-pointer block group"
   >
-    <p className="text-gray-700 mb-4 leading-relaxed">{testimonial.text}</p>
+    <p className="text-gray-700 mb-4 leading-relaxed text-sm">{testimonial.text}</p>
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 bg-gradient-to-br from-[#AC5B0F] to-orange-600 rounded-full flex items-center justify-center">
+        <div className="w-10 h-10 bg-gray-900 rounded-full flex items-center justify-center">
           <span className="text-white font-semibold text-sm">{testimonial.avatar}</span>
         </div>
         <div>
@@ -164,7 +158,9 @@ const TestimonialCard = ({ testimonial }: { testimonial: (typeof testimonials)[0
           <p className="text-gray-500 text-xs">{testimonial.username}</p>
         </div>
       </div>
-      <PlatformIcon platform={testimonial.platform} />
+      <div className="opacity-50 group-hover:opacity-100 transition-opacity">
+        <PlatformIcon platform={testimonial.platform} />
+      </div>
     </div>
   </a>
 );
@@ -174,25 +170,25 @@ const Testimony = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
   const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white via-orange-100 to-[#AC5B0F] font-montserrat overflow-hidden relative">
-      <div className="max-w-6xl mx-auto px-4 text-center mb-16">
-        <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-          "Okay, <span className="text-[#AC5B0F]">FounderCrowd</span>{" "}
-          <span className="bg-gradient-to-r from-[#AC5B0F] to-orange-600 bg-clip-text text-transparent">
-            blown my mind.
-          </span>"
+    <section className="py-24 bg-white font-figtree overflow-hidden relative">
+      <div className="max-w-6xl mx-auto px-4 text-center mb-20">
+        <h2 className="text-4xl lg:text-5xl font-medium text-gray-900 mb-6 leading-tight">
+          "Okay, <span className="text-orange-500">FounderCrowd</span>{" "}
+          <span className="text-orange-500">blown my mind.</span>"
         </h2>
-        <p className="text-lg text-gray-700 mb-8">And other great things our users say about us.</p>
+        <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
+          And other great things our users say about us.
+        </p>
         <button 
           onClick={() => setOpenCalendly(true)}
-          className="bg-black text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors duration-300"
+          className="bg-black text-white px-10 py-4 rounded-full font-medium hover:bg-gray-800 transition-colors duration-300"
         >
           Start Raising
         </button>
       </div>
 
       {/* Row 1: Left → Right */}
-      <div className="relative mb-6">
+      <div className="relative mb-8">
         <div className="flex animate-scroll-right hover-parent">
           {duplicatedTestimonials.slice(0, 20).map((t, i) => (
             <TestimonialCard key={`row1-${i}`} testimonial={t} />
@@ -208,6 +204,10 @@ const Testimony = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
           ))}
         </div>
       </div>
+
+      {/* Gradient overlays for infinite scroll effect */}
+      <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
+      <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
 
       {/* Calendly Modal */}
       {openCalendly && (
@@ -227,17 +227,15 @@ const Testimony = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
           100% { transform: translateX(-50%); }
         }
         .animate-scroll-right {
-          animation: scroll-right 30s linear infinite;
+          animation: scroll-right 40s linear infinite;
         }
         .animate-scroll-left {
-          animation: scroll-left 30s linear infinite;
+          animation: scroll-left 40s linear infinite;
         }
-        /* PAUSE animasi ketika baris di-hover (termasuk saat hover pada anak/ card) */
         .hover-parent:hover {
           animation-play-state: paused;
         }
 
-        /* Optional: hormati preferensi user untuk mengurangi motion */
         @media (prefers-reduced-motion: reduce) {
           .animate-scroll-right,
           .animate-scroll-left {

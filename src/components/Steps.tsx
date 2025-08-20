@@ -97,20 +97,20 @@ function CalendlyModal({
 
   return (
     <div
-      className="fixed inset-0 z-[9999] grid place-items-center p-4" // Increased z-index to be above navbar
+      className="fixed inset-0 z-[9999] grid place-items-center p-4"
       role="dialog"
       aria-modal="true"
     >
       <div
-        className="absolute inset-0 bg-[#AC5B0F]/80 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={onClose}
       />
-      <div className="relative w-full max-w-4xl rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#8A490C]">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
-          <h3 className="text-sm font-medium text-white">Book a call</h3>
+      <div className="relative w-full max-w-4xl rounded-2xl overflow-hidden border border-gray-200 shadow-2xl bg-white">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">Book a call</h3>
           <button
             onClick={onClose}
-            className="rounded-full px-3 py-1 text-xs bg-white/10 hover:bg-white/15 text-white"
+            className="rounded-full px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
           >
             Close
           </button>
@@ -118,10 +118,10 @@ function CalendlyModal({
         <div className="h-[70vh] min-h-[600px] relative">
           {/* Loading animation */}
           {isLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-[#8A490C] z-10">
+            <div className="absolute inset-0 flex items-center justify-center bg-white z-10">
               <div className="flex flex-col items-center">
-                <div className="w-12 h-12 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
-                <p className="mt-4 text-white/80 text-sm">Loading calendar...</p>
+                <div className="w-8 h-8 border-2 border-t-transparent border-gray-400 rounded-full animate-spin"></div>
+                <p className="mt-4 text-gray-600 text-sm">Loading calendar...</p>
               </div>
             </div>
           )}
@@ -141,67 +141,65 @@ const Steps = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
   const [openCalendly, setOpenCalendly] = useState(false);
   
   return (
-    <section className="py-16 bg-white font-montserrat">
+    <section className="py-20 bg-white font-figtree">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
           {/* Left Side - Fixed Content */}
           <div className="w-full lg:w-2/5 lg:sticky lg:top-24 lg:self-start">
-            <div className="mb-4">
-              <span className="text-sm text-gray-500 uppercase tracking-wide">Investor Checkout</span>
+            <div className="mb-6">
+              <span className="text-sm text-gray-500 font-medium">Investor Checkout</span>
             </div>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="text-4xl lg:text-5xl font-medium text-gray-900 mb-6 leading-tight">
               Simple, e-commerce style investor checkout experience.
             </h2>
-            <p className="text-lg text-gray-600 mb-8">
+            <p className="text-lg text-gray-600 mb-10 leading-relaxed">
               Investors are guided through a linear investment creation process – no side quests, no ambiguity.
             </p>
             <button 
               onClick={() => setOpenCalendly(true)}
-              className="bg-[#AC5B0F] text-white px-8 py-3 rounded-full font-medium hover:bg-[#8B4A0C] transition-colors"
+              className="bg-black text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors"
             >
-              Raise the Fund Now!
+              Try it yourself
             </button>
           </div>
 
           {/* Right Side - Scrollable Timeline */}
           <div className="w-full lg:w-3/5">
-            <div className="relative">
-              {/* Timeline Line */}
-              <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-[#AC5B0F]"></div>
-              
-              {stepsData.map((step) => (
-                <div key={step.id} className="relative flex items-start mb-8 last:mb-0">
-                  {/* Timeline Dot */}
-                  <div className="relative z-10 flex items-center justify-center w-12 h-12 rounded-full border-4 border-[#AC5B0F] bg-white">
-                    <div className="w-3 h-3 rounded-full bg-[#AC5B0F]"></div>
-                  </div>
-
-                  {/* Step Content */}
-                  <div className="ml-6 flex-1">
-                    <div className="mb-2">
-                      <span className="text-sm text-gray-500">Step {step.id}</span>
+            <div className="space-y-12">
+              {stepsData.slice(0, 10).map((step, index) => (
+                <div key={step.id} className="relative">
+                  {/* Timeline Line - only show if not last item */}
+                  {index < 9 && (
+                    <div className="absolute left-4 top-9 w-px bg-gray-600 h-full"></div>
+                  )}
+                  
+                  <div className="flex items-start gap-6">
+                    {/* Timeline Dot */}
+                    <div className="relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-black flex-shrink-0 mt-1">
+                      {step.id === 1 ? (
+                        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" className="text-white">
+                          <path d="M1 5L5 9L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      ) : (
+                        <div className="w-3 h-3 rounded-full bg-white"></div>
+                      )}
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      {step.title}
-                    </h3>
-                    <p className="text-gray-600">
-                      {step.description}
-                    </p>
+
+                    {/* Step Content */}
+                    <div className="flex-1 pb-2">
+                      <div className="mb-2">
+                        <span className="text-sm text-gray-500 font-medium">Step {step.id}</span>
+                      </div>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                        {step.title}
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed">
+                        {step.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}
-
-              {/* Final "Done!" step */}
-              <div className="relative flex items-start">
-                <div className="relative z-10 flex items-center justify-center w-12 h-12 rounded-full border-4 border-[#AC5B0F] bg-white">
-                  <div className="w-3 h-3 rounded-full bg-[#AC5B0F]"></div>
-                </div>
-                <div className="ml-6 flex-1">
-                  <h3 className="text-xl font-semibold text-gray-900">
-                    Done!
-                  </h3>
-                </div>
-              </div>
             </div>
           </div>
         </div>
