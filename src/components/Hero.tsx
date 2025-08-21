@@ -128,14 +128,16 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
           </a>
         </div>
         
-        {/* Hero image - fixed visibility issue */}
+        {/* Hero video - changed from image to Vimeo video */}
         <div className="mt-12 sm:mt-16 md:mt-20 relative mx-auto max-w-3xl">
           <div className="aspect-[16/9] overflow-hidden rounded-xl shadow-lg border border-gray-100">
-            {/* Replace with an actual image that exists in your public folder */}
-            <img 
-              src="/hook1.jpg" 
-              alt="Platform dashboard preview" 
-              className="h-full w-full object-cover"
+            <iframe 
+              src="https://player.vimeo.com/video/1032029906?h=0&autoplay=1&loop=1&muted=1"
+              className="h-full w-full"
+              frameBorder="0" 
+              allow="autoplay; fullscreen; picture-in-picture" 
+              allowFullScreen
+              title="Platform demo video"
             />
           </div>
         </div>
