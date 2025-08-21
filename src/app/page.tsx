@@ -7,6 +7,7 @@ import Integration from "@/components/Integration";
 import Testimony from "@/components/Testimony";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
+import Paralax from "@/components/paralax";
 
 
 
@@ -21,6 +22,7 @@ export default function Page() {
       <Integration />
       <Testimony /> 
       <FAQ />
+      <Paralax />
       <Footer />
 
     </main>

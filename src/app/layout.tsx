@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Figtree, Roboto, Wix_Madefor_Text } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next"
 
 // Update the font configuration to ensure it loads correctly
 const figtree = Figtree({
@@ -32,7 +33,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${figtree.variable} ${roboto.variable} ${wixMadeforText.variable}`}>
-      <body className={`antialiased ${figtree.className}`}>{children}</body>
+      <body className={`antialiased ${figtree.className}`}>{children}
+        <Analytics />
+      </body>
     </html>
   );
 }
