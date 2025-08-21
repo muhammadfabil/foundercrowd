@@ -139,6 +139,51 @@ function CalendlyModal({
 
 const Steps = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
   const [openCalendly, setOpenCalendly] = useState(false);
+  const [visibleSteps, setVisibleSteps] = useState<Set<number>>(new Set());
+
+  useEffect(() => {
+    const observers = new Map();
+
+    stepsData.forEach((step) => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setVisibleSteps(prev => new Set([...prev, step.id]));
+            } else {
+              // Remove from visible steps when scrolling back up
+              setVisibleSteps(prev => {
+                const newSet = new Set(prev);
+                newSet.delete(step.id);
+                return newSet;
+              });
+            }
+          });
+        },
+        {
+          threshold: 0.5, // Trigger when 50% of the element is visible
+          rootMargin: '-50px 0px -50px 0px' // Add some margin for better UX
+        }
+      );
+
+      observers.set(step.id, observer);
+    });
+
+    // Observe all step elements after a short delay to ensure DOM is ready
+    const timeoutId = setTimeout(() => {
+      stepsData.forEach((step) => {
+        const element = document.getElementById(`step-${step.id}`);
+        if (element) {
+          observers.get(step.id)?.observe(element);
+        }
+      });
+    }, 100);
+
+    return () => {
+      clearTimeout(timeoutId);
+      observers.forEach(observer => observer.disconnect());
+    };
+  }, []);
   
   return (
     <section className="py-20 bg-white font-figtree">
@@ -166,40 +211,76 @@ const Steps = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
           {/* Right Side - Scrollable Timeline */}
           <div className="w-full lg:w-3/5">
             <div className="space-y-12">
-              {stepsData.slice(0, 10).map((step, index) => (
-                <div key={step.id} className="relative">
-                  {/* Timeline Line - only show if not last item */}
-                  {index < 9 && (
-                    <div className="absolute left-4 top-9 w-px bg-gray-600 h-full"></div>
-                  )}
-                  
-                  <div className="flex items-start gap-6">
-                    {/* Timeline Dot */}
-                    <div className="relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-black flex-shrink-0 mt-1">
-                      {step.id === 1 ? (
-                        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" className="text-white">
-                          <path d="M1 5L5 9L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      ) : (
-                        <div className="w-3 h-3 rounded-full bg-white"></div>
-                      )}
-                    </div>
-
-                    {/* Step Content */}
-                    <div className="flex-1 pb-2">
-                      <div className="mb-2">
-                        <span className="text-sm text-gray-500 font-medium">Step {step.id}</span>
+              {stepsData.slice(0, 10).map((step, index) => {
+                const isCompleted = visibleSteps.has(step.id);
+                
+                return (
+                  <div key={step.id} id={`step-${step.id}`} className="relative">
+                    {/* Timeline Line - only show if not last item */}
+                    {index < 9 && (
+                      <div 
+                        className={`absolute left-4 top-9 w-px h-full transition-colors duration-500 ${
+                          isCompleted ? 'bg-gray-900' : 'bg-gray-300'
+                        }`}
+                      ></div>
+                    )}
+                    
+                    <div className="flex items-start gap-6">
+                      {/* Timeline Dot */}
+                      <div 
+                        className={`relative z-10 flex items-center justify-center w-8 h-8 rounded-full flex-shrink-0 mt-1 transition-all duration-500 ${
+                          isCompleted 
+                            ? 'bg-gray-900 scale-110' 
+                            : 'bg-gray-300'
+                        }`}
+                      >
+                        {isCompleted ? (
+                          <svg 
+                            width="14" 
+                            height="10" 
+                            viewBox="0 0 14 10" 
+                            fill="none" 
+                            className="text-orange-500"
+                          >
+                            <path 
+                              d="M1 5L5 9L13 1" 
+                              stroke="currentColor" 
+                              strokeWidth="2" 
+                              strokeLinecap="round" 
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        ) : (
+                          <div className="w-3 h-3 rounded-full bg-white"></div>
+                        )}
                       </div>
-                      <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                        {step.title}
-                      </h3>
-                      <p className="text-gray-600 leading-relaxed">
-                        {step.description}
-                      </p>
+
+                      {/* Step Content */}
+                      <div className="flex-1 pb-2">
+                        <div className="mb-2">
+                          <span 
+                            className={`text-sm font-medium transition-colors duration-300 ${
+                              isCompleted ? 'text-gray-900' : 'text-gray-500'
+                            }`}
+                          >
+                            Step {step.id}
+                          </span>
+                        </div>
+                        <h3 
+                          className={`text-xl font-semibold mb-3 transition-colors duration-300 ${
+                            isCompleted ? 'text-gray-900' : 'text-gray-600'
+                          }`}
+                        >
+                          {step.title}
+                        </h3>
+                        <p className="text-gray-600 leading-relaxed">
+                          {step.description}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
