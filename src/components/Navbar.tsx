@@ -36,35 +36,46 @@ export default function Navbar() {
             'mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 py-3 transition-all duration-300',
             scrolled
               ? 'pointer-events-auto rounded-full bg-white text-black shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/90 mt-4'
-              : 'pointer-events-auto text-black mt-6',
+              : 'pointer-events-auto text-white mt-6',
           ].join(' ')}
         >
           {/* LEFT: Logo with Home Link */}
-         <Link href="/" className="flex items-center gap-2 z-[110] relative">
-          <img
-            src="/logo.png"
-            alt="FoundersCrowd Logo"
-            className="h-16 w-auto filter invert brightness-0"
-          />
-          <span className="font-medium text-lg text-white">founderscrowd</span>
-        </Link>
-
+          <Link href="/" className="flex items-center gap-2 z-[110] relative">
+            <img
+              src="/logo.png"
+              alt="FoundersCrowd Logo"
+              className={`h-16 w-auto transition-all duration-300 ${
+                scrolled 
+                  ? '' 
+                  : 'filter invert brightness-0'
+              }`}
+            />
+            <span className={`font-medium text-lg transition-all duration-300 ${
+              scrolled ? 'text-black' : 'text-white'
+            }`}>
+              founderscrowd
+            </span>
+          </Link>
 
           {/* CENTER: Links (Desktop only) */}
-          <div className="text-md font-medium hidden items-center gap-8 md:flex text-white">
-            <Link href="/" className=" hover:opacity-80">Home</Link>
-            <Link href="/features" className=" hover:opacity-80">Features</Link>
-            <Link href="/reviews" className=" hover:opacity-80">Reviews</Link>
-            <Link href="/pricing" className=" hover:opacity-80">Pricing</Link>
-            <Link href="/blog" className=" hover:opacity-80">Blog</Link>
+          <div className={`text-md font-medium hidden items-center gap-8 md:flex transition-all duration-300 ${
+            scrolled ? 'text-black' : 'text-white'
+          }`}>
+            <Link href="/" className="hover:opacity-80">Home</Link>
+            <Link href="/features" className="hover:opacity-80">Features</Link>
+            <Link href="/reviews" className="hover:opacity-80">Reviews</Link>
+            <Link href="/pricing" className="hover:opacity-80">Pricing</Link>
+            <Link href="/blog" className="hover:opacity-80">Blog</Link>
           </div>
 
           {/* RIGHT: Actions */}
-          <div className="flex items-center gap-3 z-[110] relative text-white">
+          <div className={`flex items-center gap-3 z-[110] relative transition-all duration-300 ${
+            scrolled ? 'text-black' : 'text-white'
+          }`}>
             {/* All Pages dropdown button (Desktop only) */}
             <div className="hidden md:block">
               <button
-                className="group inline-flex items-center text-sm font-medium"
+                className="group inline-flex items-center text-sm font-medium hover:opacity-80"
               >
                 <span>All Pages</span>
                 <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,7 +87,11 @@ export default function Navbar() {
             {/* CTA Button (Desktop only) */}
             <Link
               href="/download"
-              className="hidden md:block rounded-full bg-white px-6 py-2.5 text-sm font-medium text-black  transition ml-4"
+              className={`hidden md:block rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300 ml-4 ${
+                scrolled 
+                  ? 'bg-black text-white hover:bg-gray-800' 
+                  : 'bg-white text-black hover:bg-gray-100'
+              }`}
             >
               Download Free App
             </Link>
@@ -84,7 +99,7 @@ export default function Navbar() {
             {/* Mobile menu button */}
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden z-[110] relative flex items-center justify-center p-2 -m-2"
+              className="md:hidden z-[110] relative flex items-center justify-center p-2 -m-2 hover:opacity-80 transition-opacity"
               type="button"
               aria-label="Toggle mobile menu"
             >
@@ -145,13 +160,6 @@ export default function Navbar() {
                 className="text-base font-medium py-3 px-3 hover:bg-gray-50 rounded-lg transition-colors block w-full text-left"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Reviews
-              </Link>
-              <Link 
-                href="/pricing" 
-                className="text-base font-medium py-3 px-3 hover:bg-gray-50 rounded-lg transition-colors block w-full text-left"
-                onClick={() => setMobileMenuOpen(false)}
-              >
                 Pricing
               </Link>
               <Link 
@@ -166,7 +174,7 @@ export default function Navbar() {
               <div className="pt-4 border-t border-gray-100">
                 <Link
                   href="/download"
-                  className="block w-full rounded-full bg-[#16161A] px-6 py-3 text-center text-base font-medium text-white hover:bg-black/90 transition-colors"
+                  className="block w-full rounded-full bg-black px-6 py-3 text-center text-base font-medium text-white hover:bg-gray-800 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Download Free App

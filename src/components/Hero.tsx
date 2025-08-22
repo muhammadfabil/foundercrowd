@@ -102,7 +102,7 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
           </div>
         </div>
 
-        <h1 className="text-balance text-8xl sm:text-5xl md:text-8xl lg:text-8xl font-medium leading-tight text-[#D6FB4F] mx-auto">
+        <h1 className="text-balance text-8xl sm:text-5xl md:text-8xl lg:text-9xl font-boldleading-tight text-white mx-auto">
           Guiding Founders,<br className="hidden sm:block" />
           <span className="inline sm:inline">Inspiring Investors</span>
         </h1>
@@ -115,7 +115,7 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
         <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
             onClick={() => setOpenCalendly(true)}
-            className="rounded-full w-full sm:w-auto bg-[#D6FB4F] px-6 py-3 text-sm font-medium text-[#2B2B2B] shadow-sm transition hover:bg-black/90"
+            className="rounded-full w-full sm:w-auto bg-white px-6 py-3 text-sm font-medium text-[#2B2B2B] shadow-sm transition hover:bg-black/90"
           >
             Start Raising
           </button>
