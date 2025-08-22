@@ -89,7 +89,7 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   
   return (
-    <section className="hero-noise relative pb-16 md:pb-8 lg:pb-8 pt-40 flex flex-col items-center min-h-[90svh] overflow-hidden bg-[#fea757] font-figtree">
+    <section className="hero-noise relative pb-16 md:pb-8 lg:pb-8 pt-40 flex flex-col items-center min-h-[90svh] overflow-hidden bg-[#2B2B2B] font-figtree">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
         <div className="flex justify-center mb-4 sm:mb-6">
           <div className="flex items-center gap-2">
@@ -98,16 +98,16 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
               <img src="/testi2.jpg" alt="" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-[#F3EFE7]" />
               <img src="/testi3.jpg" alt="" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-[#F3EFE7]" />
             </div>
-            <span className="text-xs sm:text-sm text-gray-700">Trusted by 21,000+ people</span>
+            <span className="text-xs sm:text-sm text-white">Trusted by 21,000+ people</span>
           </div>
         </div>
 
-        <h1 className="text-balance text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-tight text-black mx-auto">
+        <h1 className="text-balance text-8xl sm:text-5xl md:text-8xl lg:text-8xl font-medium leading-tight text-[#D6FB4F] mx-auto">
           Guiding Founders,<br className="hidden sm:block" />
           <span className="inline sm:inline">Inspiring Investors</span>
         </h1>
         
-        <p className="mt-4 sm:mt-6 mx-auto text-base sm:text-lg text-black max-w-xs sm:max-w-lg md:max-w-2xl">
+        <p className="mt-4 sm:mt-6 mx-auto text-base sm:text-lg text-white max-w-xs sm:max-w-lg md:max-w-2xl">
           From matching to due diligence, our platform streamlines the investment process,
           making everything happen in minutes, not months.
         </p>
@@ -115,17 +115,12 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
         <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
             onClick={() => setOpenCalendly(true)}
-            className="rounded-full w-full sm:w-auto bg-black px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-black/90"
+            className="rounded-full w-full sm:w-auto bg-[#D6FB4F] px-6 py-3 text-sm font-medium text-[#2B2B2B] shadow-sm transition hover:bg-black/90"
           >
             Start Raising
           </button>
           
-          <a
-            href="#features"
-            className="rounded-full w-full sm:w-auto mt-2 sm:mt-0 border border-gray-300 px-6 py-3 text-sm font-medium text-black transition hover:bg-gray-100"
-          >
-            Learn More
-          </a>
+          
         </div>
         
         {/* Hero video - changed from image to Vimeo video */}
@@ -150,14 +145,14 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
           <div className="hidden sm:flex items-center">
             {/* "As Seen On" text - fixed position */}
             <div className="flex-shrink-0 mr-2 sm:mr-16 z-20 ml-34">
-              <p className="text-sm sm:text-base text-black whitespace-nowrap font-bold">As Seen On</p>
+              <p className="text-sm sm:text-base text-white whitespace-nowrap font-bold">As Seen On</p>
             </div>
             
             {/* Logo scrolling container */}
             <div className="flex-1 relative overflow-hidden">
               {/* Gradient fade effects */}
-              <div className="absolute left-0 top-0 w-8 sm:w-16 h-full bg-gradient-to-r from-[#fea757] to-transparent z-10"></div>
-              <div className="absolute right-0 top-0 w-8 sm:w-16 h-full bg-gradient-to-l from-[#fea757] to-transparent z-10"></div>
+              <div className="absolute left-0 top-0 w-8 sm:w-16 h-full bg-gradient-to-r from-[#2B2B2B] to-transparent z-10"></div>
+              <div className="absolute right-0 top-0 w-8 sm:w-16 h-full bg-gradient-to-l from-[#2B2B2B] to-transparent z-10"></div>
               
               {/* Scrolling logos horizontal */}
               <div className="flex animate-scroll-horizontal items-center space-x-6 sm:space-x-12">

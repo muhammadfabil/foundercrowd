@@ -44,14 +44,14 @@ export default function Navbar() {
           <img
             src="/logo.png"
             alt="FoundersCrowd Logo"
-            className="h-8 w-auto filter invert brightness-0"
+            className="h-16 w-auto filter invert brightness-0"
           />
-          <span className="font-medium text-lg ">founderscrowd</span>
+          <span className="font-medium text-lg text-white">founderscrowd</span>
         </Link>
 
 
           {/* CENTER: Links (Desktop only) */}
-          <div className="text-md font-medium hidden items-center gap-8 md:flex">
+          <div className="text-md font-medium hidden items-center gap-8 md:flex text-white">
             <Link href="/" className=" hover:opacity-80">Home</Link>
             <Link href="/features" className=" hover:opacity-80">Features</Link>
             <Link href="/reviews" className=" hover:opacity-80">Reviews</Link>
@@ -60,7 +60,7 @@ export default function Navbar() {
           </div>
 
           {/* RIGHT: Actions */}
-          <div className="flex items-center gap-3 z-[110] relative">
+          <div className="flex items-center gap-3 z-[110] relative text-white">
             {/* All Pages dropdown button (Desktop only) */}
             <div className="hidden md:block">
               <button
@@ -76,7 +76,7 @@ export default function Navbar() {
             {/* CTA Button (Desktop only) */}
             <Link
               href="/download"
-              className="hidden md:block rounded-full bg-[#16161A] px-6 py-2.5 text-sm font-medium text-white hover:bg-black/90 transition ml-4"
+              className="hidden md:block rounded-full bg-white px-6 py-2.5 text-sm font-medium text-black  transition ml-4"
             >
               Download Free App
             </Link>
