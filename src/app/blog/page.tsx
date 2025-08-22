@@ -70,7 +70,7 @@ export default async function BlogPage() {
   return (
     <>
       <Navbar />
-      <div className="pt-24 bg-white font-figtree">
+      <div className="pt-24 bg-[#2B2B2B] font-figtree">
         <main className="mx-auto max-w-6xl px-4 py-20">
           {/* Header */}
           <header className="mb-20 text-center">
