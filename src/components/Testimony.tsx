@@ -170,7 +170,7 @@ const Testimony = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
   const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section className="py-24 bg-white font-figtree overflow-hidden relative">
+    <section className="py-24 bg-gradient-to-b from-[#F4F4F3] to-[#EBFEB3] font-figtree overflow-hidden relative">
       <div className="max-w-6xl mx-auto px-4 text-center mb-20">
         <h2 className="text-4xl lg:text-5xl font-medium text-gray-900 mb-6 leading-tight">
           "Okay, <span className="text-orange-500">FounderCrowd</span>{" "}
@@ -205,9 +205,9 @@ const Testimony = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
         </div>
       </div>
 
-      {/* Gradient overlays for infinite scroll effect */}
-      <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
-      <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
+      {/* Gradient overlays for infinite scroll effect - Hidden on mobile */}
+      <div className="hidden md:block absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-[#F4F4F3] to-transparent pointer-events-none z-10"></div>
+      <div className="hidden md:block absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-[#EBFEB3] to-transparent pointer-events-none z-10"></div>
 
       {/* Calendly Modal */}
       {openCalendly && (
