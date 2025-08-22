@@ -40,7 +40,7 @@ export default function Navbar() {
           ].join(' ')}
         >
           {/* LEFT: Logo with Home Link */}
-          <Link href="/" className="flex items-center gap-2 z-[110] relative">
+          <Link href="/" className="flex items-center gap-2 z-[110] relative p-1">
             <img
               src="/logo.png"
               alt="FoundersCrowd Logo"
