@@ -40,22 +40,23 @@ export default function Navbar() {
           ].join(' ')}
         >
           {/* LEFT: Logo with Home Link */}
-          <Link href="/" className="flex items-center gap-2 z-[110] relative">
-            <img
-              src="/logo.png" 
-              alt="FoundersCrowd Logo"
-              className="h-8 w-auto"
-            />
-            <span className="font-medium text-lg">founderscrowd</span>
-          </Link>
+         <Link href="/" className="flex items-center gap-2 z-[110] relative">
+          <img
+            src="/logo.png"
+            alt="FoundersCrowd Logo"
+            className="h-8 w-auto filter invert brightness-0"
+          />
+          <span className="font-medium text-lg ">founderscrowd</span>
+        </Link>
+
 
           {/* CENTER: Links (Desktop only) */}
-          <div className="hidden items-center gap-8 md:flex">
-            <Link href="/" className="text-sm font-medium hover:opacity-80">Home</Link>
-            <Link href="/features" className="text-sm font-medium hover:opacity-80">Features</Link>
-            <Link href="/reviews" className="text-sm font-medium hover:opacity-80">Reviews</Link>
-            <Link href="/pricing" className="text-sm font-medium hover:opacity-80">Pricing</Link>
-            <Link href="/blog" className="text-sm font-medium hover:opacity-80">Blog</Link>
+          <div className="text-md font-bold hidden items-center gap-8 md:flex">
+            <Link href="/" className=" hover:opacity-80">Home</Link>
+            <Link href="/features" className=" hover:opacity-80">Features</Link>
+            <Link href="/reviews" className=" hover:opacity-80">Reviews</Link>
+            <Link href="/pricing" className=" hover:opacity-80">Pricing</Link>
+            <Link href="/blog" className=" hover:opacity-80">Blog</Link>
           </div>
 
           {/* RIGHT: Actions */}

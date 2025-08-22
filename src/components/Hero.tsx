@@ -89,7 +89,7 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   
   return (
-    <section className="hero-noise relative pb-16 md:pb-8 lg:pb-8 pt-40 flex flex-col items-center min-h-[90svh] overflow-hidden bg-[#F3EFE7] font-figtree">
+    <section className="hero-noise relative pb-16 md:pb-8 lg:pb-8 pt-40 flex flex-col items-center min-h-[90svh] overflow-hidden bg-[#fea757] font-figtree">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
         <div className="flex justify-center mb-4 sm:mb-6">
           <div className="flex items-center gap-2">
@@ -107,7 +107,7 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
           <span className="inline sm:inline">Inspiring Investors</span>
         </h1>
         
-        <p className="mt-4 sm:mt-6 mx-auto text-base sm:text-lg text-gray-700 max-w-xs sm:max-w-lg md:max-w-2xl">
+        <p className="mt-4 sm:mt-6 mx-auto text-base sm:text-lg text-black max-w-xs sm:max-w-lg md:max-w-2xl">
           From matching to due diligence, our platform streamlines the investment process,
           making everything happen in minutes, not months.
         </p>
