@@ -33,10 +33,10 @@ export default function Navbar() {
       <div className="pointer-events-none fixed inset-x-0 top-0 z-[100] font-figtree">
         <nav
           className={[
-            'mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 py-3 transition-all duration-300',
+            'mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 transition-all duration-300',
             scrolled
-              ? 'pointer-events-auto rounded-full bg-white text-black shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/90 mt-4'
-              : 'pointer-events-auto text-white mt-6',
+              ? 'pointer-events-auto rounded-full bg-white text-black shadow-lg mt-2 py-1 md:py-2'
+              : 'pointer-events-auto text-white mt-6 py-1 md:py-2',
           ].join(' ')}
         >
           {/* LEFT: Logo with Home Link */}
@@ -44,13 +44,13 @@ export default function Navbar() {
             <img
               src="/logo.png"
               alt="FoundersCrowd Logo"
-              className={`h-16 w-auto transition-all duration-300 ${
+              className={`h-8 md:h-10 w-auto transition-all duration-300 ${
                 scrolled 
                   ? '' 
                   : 'filter invert brightness-0'
               }`}
             />
-            <span className={`font-medium text-lg transition-all duration-300 ${
+            <span className={`font-medium text-base md:text-lg transition-all duration-300 ${
               scrolled ? 'text-black' : 'text-white'
             }`}>
               founderscrowd
@@ -58,7 +58,7 @@ export default function Navbar() {
           </Link>
 
           {/* CENTER: Links (Desktop only) */}
-          <div className={`text-md font-medium hidden items-center gap-8 md:flex transition-all duration-300 ${
+          <div className={`text-sm md:text-base font-medium hidden items-center gap-6 md:gap-8 md:flex transition-all duration-300 ${
             scrolled ? 'text-black' : 'text-white'
           }`}>
             <Link href="/" className="hover:opacity-80">Home</Link>
@@ -69,7 +69,7 @@ export default function Navbar() {
           </div>
 
           {/* RIGHT: Actions */}
-          <div className={`flex items-center gap-3 z-[110] relative transition-all duration-300 ${
+          <div className={`flex items-center gap-2 md:gap-3 z-[110] relative transition-all duration-300 ${
             scrolled ? 'text-black' : 'text-white'
           }`}>
             {/* All Pages dropdown button (Desktop only) */}
@@ -87,7 +87,7 @@ export default function Navbar() {
             {/* CTA Button (Desktop only) */}
             <Link
               href="/download"
-              className={`hidden md:block rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300 ml-4 ${
+              className={`hidden md:block rounded-full px-4 md:px-6 py-2 md:py-2.5 text-xs md:text-sm font-medium transition-all duration-300 ${
                 scrolled 
                   ? 'bg-black text-white hover:bg-gray-800' 
                   : 'bg-white text-black hover:bg-gray-100'
@@ -99,16 +99,16 @@ export default function Navbar() {
             {/* Mobile menu button */}
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden z-[110] relative flex items-center justify-center p-2 -m-2 hover:opacity-80 transition-opacity"
+              className="md:hidden z-[110] relative flex items-center justify-center p-1.5 -m-1.5 hover:opacity-80 transition-opacity"
               type="button"
               aria-label="Toggle mobile menu"
             >
               {mobileMenuOpen ? (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               ) : (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               )}
@@ -127,7 +127,7 @@ export default function Navbar() {
           />
           
           {/* Menu Content */}
-          <div className="absolute right-4 top-[90px] left-4 rounded-xl bg-white p-6 shadow-xl border border-gray-100 z-[95]">
+          <div className="absolute right-4 top-[70px] left-4 rounded-xl bg-white p-6 shadow-xl border border-gray-100 z-[95]">
             <div className="flex flex-col space-y-1">
               {/* All Pages dropdown */}
               <button 
@@ -157,6 +157,13 @@ export default function Navbar() {
               </Link>
               <Link 
                 href="/reviews" 
+                className="text-base font-medium py-3 px-3 hover:bg-gray-50 rounded-lg transition-colors block w-full text-left"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Reviews
+              </Link>
+              <Link 
+                href="/pricing" 
                 className="text-base font-medium py-3 px-3 hover:bg-gray-50 rounded-lg transition-colors block w-full text-left"
                 onClick={() => setMobileMenuOpen(false)}
               >
