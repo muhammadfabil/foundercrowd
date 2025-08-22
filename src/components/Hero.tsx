@@ -44,7 +44,7 @@ function CalendlyModal({
 
   return (
     <div
-      className="fixed inset-0 z-[9999] grid place-items-center p-4" // Increased z-index to be above navbar
+      className="fixed inset-0 z-[9999] grid place-items-center p-4"
       role="dialog"
       aria-modal="true"
     >
@@ -89,43 +89,45 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   
   return (
-    <section className="hero-noise relative pb-16 md:pb-8 lg:pb-8 pt-40 flex flex-col items-center min-h-[90svh] overflow-hidden bg-[#2B2B2B] font-figtree">
+    <section className="hero-noise relative pb-8 md:pb-8 lg:pb-8 pt-24 md:pt-40 flex flex-col items-center min-h-[100svh] md:min-h-[90svh] overflow-hidden bg-[#2B2B2B] font-figtree">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-        <div className="flex justify-center mb-4 sm:mb-6">
-          <div className="flex items-center gap-2">
-            <div className="flex -space-x-2">
-              <img src="/testi1.jpg" alt="" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-[#F3EFE7]" />
-              <img src="/testi2.jpg" alt="" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-[#F3EFE7]" />
-              <img src="/testi3.jpg" alt="" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-[#F3EFE7]" />
+        {/* Trust indicators */}
+        <div className="flex justify-center mb-6 md:mb-4 lg:mb-6">
+          <div className="flex items-center gap-2 md:gap-3">
+            <div className="flex -space-x-1 md:-space-x-2">
+              <img src="/testi1.jpg" alt="" className="w-8 h-8 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full border-2 border-[#F3EFE7]" />
+              <img src="/testi2.jpg" alt="" className="w-8 h-8 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full border-2 border-[#F3EFE7]" />
+              <img src="/testi3.jpg" alt="" className="w-8 h-8 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full border-2 border-[#F3EFE7]" />
             </div>
-            <span className="text-xs sm:text-sm text-white">Trusted by 21,000+ people</span>
+            <span className="text-sm md:text-xs lg:text-sm text-white font-medium">Trusted by 21,000+ people</span>
           </div>
         </div>
 
-        <h1 className="text-balance text-8xl sm:text-5xl md:text-8xl lg:text-9xl font-boldleading-tight text-white mx-auto">
-          Guiding Founders,<br className="hidden sm:block" />
-          <span className="inline sm:inline">Inspiring Investors</span>
+        {/* Main headline - adjusted for mobile */}
+        <h1 className="text-balance text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.1] md:leading-tight text-white mx-auto mb-4 md:mb-0">
+          Guiding Founders,<br />
+          <span className="block">Inspiring Investors</span>
         </h1>
         
-        <p className="mt-4 sm:mt-6 mx-auto text-base sm:text-lg text-white max-w-xs sm:max-w-lg md:max-w-2xl">
+        {/* Subtitle - improved mobile spacing */}
+        <p className="mt-4 md:mt-4 lg:mt-6 mx-auto text-base md:text-base lg:text-lg text-white/90 max-w-sm md:max-w-lg lg:max-w-2xl leading-relaxed px-2 md:px-0">
           From matching to due diligence, our platform streamlines the investment process,
           making everything happen in minutes, not months.
         </p>
 
-        <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        {/* CTA Button - improved mobile layout */}
+        <div className="mt-6 md:mt-6 lg:mt-10 flex flex-col sm:flex-row items-center justify-center">
           <button
             onClick={() => setOpenCalendly(true)}
-            className="rounded-full w-full sm:w-auto bg-white px-6 py-3 text-sm font-medium text-[#2B2B2B] shadow-sm transition hover:bg-black/90"
+            className="rounded-full w-full sm:w-auto bg-white px-8 py-4 md:px-6 md:py-3 text-base md:text-sm font-semibold text-[#2B2B2B] shadow-lg transition hover:bg-gray-100 hover:shadow-xl max-w-xs sm:max-w-none"
           >
             Start Raising
           </button>
-          
-          
         </div>
         
-        {/* Hero video - changed from image to Vimeo video */}
-        <div className="mt-12 sm:mt-16 md:mt-20 relative mx-auto max-w-3xl">
-          <div className="aspect-[16/9] overflow-hidden rounded-xl shadow-lg border border-gray-100">
+        {/* Hero video - improved mobile spacing and sizing */}
+        <div className="mt-8 md:mt-12 lg:mt-16 xl:mt-20 relative mx-auto max-w-xs sm:max-w-2xl md:max-w-3xl lg:max-w-4xl">
+          <div className="aspect-[16/9] overflow-hidden rounded-lg md:rounded-xl shadow-lg border border-gray-100">
             <iframe 
               src="https://player.vimeo.com/video/1032029906?h=0&autoplay=1&loop=1&muted=1"
               className="h-full w-full"
@@ -138,29 +140,29 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
         </div>
       </div>
 
-      {/* Infinite Scrolling Logo Section */}
-      <div className="w-full mt-16 sm:mt-20 md:mt-24">
+      {/* Infinite Scrolling Logo Section - improved mobile */}
+      <div className="w-full mt-8 md:mt-16 lg:mt-20 xl:mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Desktop version - horizontal */}
-          <div className="hidden sm:flex items-center">
+          <div className="hidden md:flex items-center">
             {/* "As Seen On" text - fixed position */}
-            <div className="flex-shrink-0 mr-2 sm:mr-16 z-20 ml-34">
-              <p className="text-sm sm:text-base text-white whitespace-nowrap font-bold">As Seen On</p>
+            <div className="flex-shrink-0 mr-2 lg:mr-16 z-20">
+              <p className="text-sm lg:text-base text-white whitespace-nowrap font-bold">As Seen On</p>
             </div>
             
             {/* Logo scrolling container */}
             <div className="flex-1 relative overflow-hidden">
               {/* Gradient fade effects */}
-              <div className="absolute left-0 top-0 w-8 sm:w-16 h-full bg-gradient-to-r from-[#2B2B2B] to-transparent z-10"></div>
-              <div className="absolute right-0 top-0 w-8 sm:w-16 h-full bg-gradient-to-l from-[#2B2B2B] to-transparent z-10"></div>
+              <div className="absolute left-0 top-0 w-8 lg:w-16 h-full bg-gradient-to-r from-[#2B2B2B] to-transparent z-10"></div>
+              <div className="absolute right-0 top-0 w-8 lg:w-16 h-full bg-gradient-to-l from-[#2B2B2B] to-transparent z-10"></div>
               
               {/* Scrolling logos horizontal */}
-              <div className="flex animate-scroll-horizontal items-center space-x-6 sm:space-x-12">
+              <div className="flex animate-scroll-horizontal items-center space-x-6 lg:space-x-12">
                 {/* First set of logos */}
                 {Array.from({ length: 8 }).map((_, index) => (
                   <div 
                     key={`logo-set1-${index}`}
-                    className="flex-shrink-0 w-16 h-10 sm:w-24 sm:h-12 md:w-32 md:h-16 flex items-center justify-center"
+                    className="flex-shrink-0 w-20 h-12 lg:w-24 lg:h-12 xl:w-32 xl:h-16 flex items-center justify-center"
                   >
                     <img 
                       src="/logo1.png" 
@@ -174,7 +176,7 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
                 {Array.from({ length: 8 }).map((_, index) => (
                   <div 
                     key={`logo-set2-${index}`}
-                    className="flex-shrink-0 w-16 h-10 sm:w-24 sm:h-12 md:w-32 md:h-16 flex items-center justify-center"
+                    className="flex-shrink-0 w-20 h-12 lg:w-24 lg:h-12 xl:w-32 xl:h-16 flex items-center justify-center"
                   >
                     <img 
                       src="/logo1.png" 
@@ -187,19 +189,19 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
             </div>
           </div>
 
-          {/* Mobile version - "As Seen On" di atas, logo horizontal di bawah */}
-          <div className="sm:hidden">
+          {/* Mobile version - improved layout */}
+          <div className="md:hidden">
             <div className="text-center mb-4">
-              <p className="text-sm text-black font-bold">As Seen On</p>
+              <p className="text-sm text-white font-bold">As Seen On</p>
             </div>
             
             <div className="relative overflow-hidden">
               {/* Gradient fade effects for horizontal */}
-              <div className="absolute left-0 top-0 w-8 h-full bg-gradient-to-r from-[#F3EFE7] to-transparent z-10"></div>
-              <div className="absolute right-0 top-0 w-8 h-full bg-gradient-to-l from-[#F3EFE7] to-transparent z-10"></div>
+              <div className="absolute left-0 top-0 w-6 h-full bg-gradient-to-r from-[#2B2B2B] to-transparent z-10"></div>
+              <div className="absolute right-0 top-0 w-6 h-full bg-gradient-to-l from-[#2B2B2B] to-transparent z-10"></div>
               
               {/* Horizontal scrolling logos */}
-              <div className="flex animate-scroll-horizontal items-center space-x-6">
+              <div className="flex animate-scroll-horizontal items-center space-x-4">
                 {/* First set of logos */}
                 {Array.from({ length: 8 }).map((_, index) => (
                   <div 
@@ -263,7 +265,7 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
         }
         
         /* Slower animation for mobile */
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .animate-scroll-horizontal {
             animation: scroll-horizontal 30s linear infinite;
           }
