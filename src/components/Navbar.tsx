@@ -51,7 +51,7 @@ export default function Navbar() {
 
 
           {/* CENTER: Links (Desktop only) */}
-          <div className="text-md font-bold hidden items-center gap-8 md:flex">
+          <div className="text-md font-medium hidden items-center gap-8 md:flex">
             <Link href="/" className=" hover:opacity-80">Home</Link>
             <Link href="/features" className=" hover:opacity-80">Features</Link>
             <Link href="/reviews" className=" hover:opacity-80">Reviews</Link>
