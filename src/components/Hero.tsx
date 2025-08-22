@@ -156,8 +156,8 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
             {/* Logo scrolling container */}
             <div className="flex-1 relative overflow-hidden">
               {/* Gradient fade effects */}
-              <div className="absolute left-0 top-0 w-8 sm:w-16 h-full bg-gradient-to-r from-[#F3EFE7] to-transparent z-10"></div>
-              <div className="absolute right-0 top-0 w-8 sm:w-16 h-full bg-gradient-to-l from-[#F3EFE7] to-transparent z-10"></div>
+              <div className="absolute left-0 top-0 w-8 sm:w-16 h-full bg-gradient-to-r from-[#fea757] to-transparent z-10"></div>
+              <div className="absolute right-0 top-0 w-8 sm:w-16 h-full bg-gradient-to-l from-[#fea757] to-transparent z-10"></div>
               
               {/* Scrolling logos horizontal */}
               <div className="flex animate-scroll-horizontal items-center space-x-6 sm:space-x-12">
