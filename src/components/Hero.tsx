@@ -87,6 +87,24 @@ function CalendlyModal({
 export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
   const [openCalendly, setOpenCalendly] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [currentText, setCurrentText] = useState(0);
+
+  const rotatingTexts = [
+    "Start up to Watch",
+    "Category Creator", 
+    "Unicorn Startup",
+    "Household Name",
+    "Success IPO"
+  ];
+
+  // Add text rotation effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentText((prev) => (prev + 1) % rotatingTexts.length);
+    }, 2500); // Change text every 2.5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
   
   return (
     <section className="hero-noise relative pb-8 md:pb-8 lg:pb-8 pt-24 md:pt-40 flex flex-col items-center min-h-[100svh] md:min-h-[90svh] overflow-hidden bg-[#2B2B2B] font-figtree">
@@ -103,10 +121,28 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
           </div>
         </div>
 
-        {/* Main headline - adjusted for mobile */}
+        {/* Main headline with rotating text */}
         <h1 className="text-balance text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.1] md:leading-tight text-white mx-auto mb-4 md:mb-0">
-          Guiding Founders,<br />
-          <span className="block">Inspiring Investors</span>
+          Be the next,<br />
+          <span className="block relative h-[1.2em] overflow-hidden">
+            {rotatingTexts.map((text, index) => (
+              <span
+                key={text}
+                className={`absolute inset-0 transition-transform duration-700 ease-in-out ${
+                  index === currentText
+                    ? 'transform translate-y-0 opacity-100'
+                    : index === (currentText - 1 + rotatingTexts.length) % rotatingTexts.length
+                    ? 'transform -translate-y-full opacity-0'
+                    : 'transform translate-y-full opacity-0'
+                }`}
+                style={{
+                  color: '#f59e0b' // amber-500 color for highlighted text
+                }}
+              >
+                {text}
+              </span>
+            ))}
+          </span>
         </h1>
         
         {/* Subtitle - improved mobile spacing */}

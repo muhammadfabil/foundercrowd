@@ -2,9 +2,92 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+// Add the CalendlyModal component
+function CalendlyModal({
+  url,
+  onClose,
+}: {
+  url: string;
+  onClose: () => void;
+}) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onEsc);
+    
+    // Add the Calendly script
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    
+    // Handle loading state
+    script.onload = () => {
+      // Short timeout to ensure widget initialization
+      setTimeout(() => setIsLoading(false), 1000);
+    };
+    
+    document.body.appendChild(script);
+    
+    return () => {
+      document.removeEventListener("keydown", onEsc);
+      // Clean up script if needed
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[9999] grid place-items-center p-4"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        className="absolute inset-0 bg-[#F3EFE7]/80 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="relative w-full max-w-4xl rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#8A490C]">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
+          <h3 className="text-sm font-medium text-white">Book a call</h3>
+          <button
+            onClick={onClose}
+            className="rounded-full px-3 py-1 text-xs bg-white/10 hover:bg-white/15 text-white"
+          >
+            Close
+          </button>
+        </div>
+        <div className="h-[70vh] min-h-[400px] md:min-h-[600px] relative">
+          {/* Loading animation */}
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-[#8A490C] z-10">
+              <div className="flex flex-col items-center">
+                <div className="w-12 h-12 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
+                <p className="mt-4 text-white/80 text-sm">Loading calendar...</p>
+              </div>
+            </div>
+          )}
+          
+          {/* Use the Calendly inline widget div structure */}
+          <div 
+            className="calendly-inline-widget h-full w-full" 
+            data-url={url}
+          ></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openCalendly, setOpenCalendly] = useState(false);
+
+  // Add default Calendly URL
+  const calendlyUrl = "https://calendly.com/spacefunding/raise-capital-online";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -41,7 +124,6 @@ export default function Navbar() {
         >
           {/* LEFT: Logo with Home Link */}
           <Link href="/" className="flex items-center gap-2 z-[110] relative p-1">
-          
             <img
               src="/logo.png"
               alt="FoundersCrowd Logo"
@@ -56,7 +138,6 @@ export default function Navbar() {
             }`}>
               Founderscrowd
             </span>
-            
           </Link>
 
           {/* CENTER: Links (Desktop only) */}
@@ -74,29 +155,17 @@ export default function Navbar() {
           <div className={`flex items-center gap-2 md:gap-3 z-[110] relative transition-all duration-300 ${
             scrolled ? 'text-black' : 'text-white'
           }`}>
-            {/* All Pages dropdown button (Desktop only) */}
-            <div className="hidden md:block">
-              <button
-                className="group inline-flex items-center text-sm font-medium hover:opacity-80"
-              >
-                <span>All Pages</span>
-                <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
-            
             {/* CTA Button (Desktop only) */}
-            <Link
-              href="/download"
-              className={`hidden md:block rounded-full px-4 md:px-6 py-2 md:py-2.5 text-xs md:text-sm font-medium transition-all duration-300 ${
+            <button
+              onClick={() => setOpenCalendly(true)}
+              className={`hover:bg-white hover:text-black hidden md:block rounded-full px-4 md:px-6 py-2 md:py-2.5 text-xs md:text-sm font-medium transition-all duration-300 ${
                 scrolled 
                   ? 'bg-black text-white hover:bg-gray-800' 
                   : 'bg-amber-600 text-white hover:bg-gray-100'
               }`}
             >
-              Download Free App
-            </Link>
+              Start Raising
+            </button>
             
             {/* Mobile menu button */}
             <button 
@@ -131,17 +200,6 @@ export default function Navbar() {
           {/* Menu Content */}
           <div className="absolute right-4 top-[70px] left-4 rounded-xl bg-white p-6 shadow-xl border border-gray-100 z-[95]">
             <div className="flex flex-col space-y-1">
-              {/* All Pages dropdown */}
-              <button 
-                className="flex items-center justify-between text-base font-medium py-3 px-3 hover:bg-gray-50 rounded-lg transition-colors text-left w-full"
-                type="button"
-              >
-                <span>All Pages</span>
-                <svg className="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
               {/* Navigation Links */}
               <Link 
                 href="/" 
@@ -181,17 +239,27 @@ export default function Navbar() {
               
               {/* CTA Button */}
               <div className="pt-4 border-t border-gray-100">
-                <Link
-                  href="/download"
+                <button
+                  onClick={() => {
+                    setOpenCalendly(true);
+                    setMobileMenuOpen(false);
+                  }}
                   className="block w-full rounded-full bg-black px-6 py-3 text-center text-base font-medium text-white hover:bg-gray-800 transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
                 >
-                  Download Free App
-                </Link>
+                  Start Raising
+                </button>
               </div>
             </div>
           </div>
         </div>
+      )}
+
+      {/* Calendly Modal */}
+      {openCalendly && (
+        <CalendlyModal 
+          url={calendlyUrl} 
+          onClose={() => setOpenCalendly(false)} 
+        />
       )}
     </>
   );
