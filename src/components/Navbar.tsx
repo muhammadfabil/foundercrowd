@@ -41,10 +41,11 @@ export default function Navbar() {
         >
           {/* LEFT: Logo with Home Link */}
           <Link href="/" className="flex items-center gap-2 z-[110] relative p-1">
+          
             <img
               src="/logo.png"
               alt="FoundersCrowd Logo"
-              className={`h-8 md:h-10 w-auto transition-all duration-300 ${
+              className={`h-8 md:h-14 w-auto transition-all duration-300 ${
                 scrolled 
                   ? '' 
                   : 'filter invert brightness-0'
@@ -53,8 +54,9 @@ export default function Navbar() {
             <span className={`font-medium text-base md:text-lg transition-all duration-300 ${
               scrolled ? 'text-black' : 'text-white'
             }`}>
-              founderscrowd
+              Founderscrowd
             </span>
+            
           </Link>
 
           {/* CENTER: Links (Desktop only) */}
@@ -90,7 +92,7 @@ export default function Navbar() {
               className={`hidden md:block rounded-full px-4 md:px-6 py-2 md:py-2.5 text-xs md:text-sm font-medium transition-all duration-300 ${
                 scrolled 
                   ? 'bg-black text-white hover:bg-gray-800' 
-                  : 'bg-white text-black hover:bg-gray-100'
+                  : 'bg-amber-600 text-white hover:bg-gray-100'
               }`}
             >
               Download Free App

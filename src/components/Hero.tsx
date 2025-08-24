@@ -119,7 +119,7 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
         <div className="mt-6 md:mt-6 lg:mt-10 flex flex-col sm:flex-row items-center justify-center">
           <button
             onClick={() => setOpenCalendly(true)}
-            className="rounded-full w-full sm:w-auto bg-white px-8 py-4 md:px-6 md:py-3 text-base md:text-sm font-semibold text-[#2B2B2B] shadow-lg transition hover:bg-gray-100 hover:shadow-xl max-w-xs sm:max-w-none"
+            className="rounded-full w-full sm:w-auto bg-amber-600 px-8 py-4 md:px-6 md:py-3 text-base md:text-sm font-semibold text-white shadow-lg transition hover:bg-white hover:text-black hover:shadow-xl max-w-xs sm:max-w-none"
           >
             Start Raising
           </button>
