@@ -27,7 +27,7 @@ const wixMadeforText = Wix_Madefor_Text({
 
 export const metadata: Metadata = {
   title: "Founderscrowd",
-  description: "Guiding Founders, Inspiring Investors",
+  description: "On a mission to transform how startups raise capital by making the process as easy as buying your favorite product online.",
   icons: {
     icon: {
       url: "/logo.png",
