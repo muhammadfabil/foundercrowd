@@ -1,7 +1,10 @@
+'use client';
+import { useState } from "react";
 import type { Metadata } from "next";
 import { Figtree, Roboto, Wix_Madefor_Text } from "next/font/google";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
+import PreLoader from "@/components/PreLoader";
 
 // Update the font configuration to ensure it loads correctly
 const figtree = Figtree({
@@ -25,22 +28,24 @@ const wixMadeforText = Wix_Madefor_Text({
   variable: "--font-wix-madefor",
 });
 
-export const metadata: Metadata = {
-  title: "Founderscrowd",
-  description: "On a mission to transform how startups raise capital by making the process as easy as buying your favorite product online.",
-  icons: {
-    icon: {
-      url: "/logo.png",
-      sizes: "128x128", // You can specify sizes like "32x32", "64x64", etc.
-      type: "image/png",
-    },
-  },
-};
+// Note: metadata needs to be exported from a separate file when using 'use client'
+// Create src/app/metadata.ts for metadata export
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const [showPreloader, setShowPreloader] = useState(true);
+
   return (
     <html lang="en" className={`${figtree.variable} ${roboto.variable} ${wixMadeforText.variable}`}>
-      <body className={`antialiased ${figtree.className}`}>{children}
+      <head>
+        <title>Founderscrowd</title>
+        <meta name="description" content="On a mission to transform how startups raise capital by making the process as easy as buying your favorite product online." />
+        <link rel="icon" href="/logo.png" type="image/png" sizes="128x128" />
+      </head>
+      <body className={`antialiased ${figtree.className}`}>
+        {showPreloader && (
+          <PreLoader onComplete={() => setShowPreloader(false)} />
+        )}
+        {!showPreloader && children}
         <Analytics />
       </body>
     </html>
