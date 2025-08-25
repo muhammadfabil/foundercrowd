@@ -73,13 +73,10 @@ const PreLoader = ({ onComplete }: { onComplete: () => void }) => {
           </button>
         )}
 
-        {/* Loading indicator - Desktop */}
+        {/* Loading indicator - Desktop (no text) */}
         {!videoLoaded && (
           <div className="absolute inset-0 bg-black flex items-center justify-center">
-            <div className="flex flex-col items-center">
-              <div className="w-12 h-12 border-4 border-t-transparent border-white rounded-full animate-spin mb-4"></div>
-              <p className="text-white text-sm text-center">Loading...</p>
-            </div>
+            <div className="w-12 h-12 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
           </div>
         )}
       </div>
@@ -117,13 +114,10 @@ const PreLoader = ({ onComplete }: { onComplete: () => void }) => {
             </button>
           )}
 
-          {/* Loading indicator - Mobile */}
+          {/* Loading indicator - Mobile (no text) */}
           {!videoLoaded && (
             <div className="absolute inset-0 bg-white flex items-center justify-center">
-              <div className="flex flex-col items-center px-4">
-                <div className="w-8 h-8 border-2 border-t-transparent border-black rounded-full animate-spin mb-3"></div>
-                <p className="text-black text-xs text-center">Loading...</p>
-              </div>
+              <div className="w-8 h-8 border-2 border-t-transparent border-black rounded-full animate-spin"></div>
             </div>
           )}
         </div>
