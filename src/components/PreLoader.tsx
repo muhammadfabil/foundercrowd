@@ -5,7 +5,6 @@ const PreLoader = ({ onComplete }: { onComplete: () => void }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [showSkip, setShowSkip] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
-  const [bgColor, setBgColor] = useState('bg-white');
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -14,16 +13,8 @@ const PreLoader = ({ onComplete }: { onComplete: () => void }) => {
       setShowSkip(true);
     }, 2000);
 
-    // Background color animation timing
-    const bgTimers = [
-      setTimeout(() => setBgColor('bg-white'), 1000),  // 1s: white
-      setTimeout(() => setBgColor('bg-black'), 2000),  // 2s: black
-      setTimeout(() => setBgColor('bg-white'), 3000),  // 3s: white (until 6s)
-    ];
-
     return () => {
       clearTimeout(skipTimer);
-      bgTimers.forEach(timer => clearTimeout(timer));
     };
   }, []);
 
@@ -94,9 +85,9 @@ const PreLoader = ({ onComplete }: { onComplete: () => void }) => {
       </div>
 
       {/* Mobile Version - 3 Rows Layout */}
-      <div className="md:hidden fixed inset-0 z-[9999] flex flex-col overflow-hidden">
+      <div className="md:hidden fixed inset-0 z-[9999] flex flex-col overflow-hidden bg-white">
         {/* Top Section */}
-        <div className={`flex-1 transition-colors duration-500 ${bgColor}`} />
+        <div className="flex-1 bg-white" />
         
         {/* Middle Section - Video */}
         <div className="flex-1 relative bg-black">
@@ -120,7 +111,7 @@ const PreLoader = ({ onComplete }: { onComplete: () => void }) => {
           {showSkip && (
             <button
               onClick={handleSkip}
-              className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 z-10 touch-manipulation"
+              className="absolute top-4 right-4 bg-black/20 hover:bg-black/30 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 z-10 touch-manipulation"
             >
               Skip
             </button>
@@ -128,17 +119,17 @@ const PreLoader = ({ onComplete }: { onComplete: () => void }) => {
 
           {/* Loading indicator - Mobile */}
           {!videoLoaded && (
-            <div className="absolute inset-0 bg-black flex items-center justify-center">
+            <div className="absolute inset-0 bg-white flex items-center justify-center">
               <div className="flex flex-col items-center px-4">
-                <div className="w-8 h-8 border-2 border-t-transparent border-white rounded-full animate-spin mb-3"></div>
-                <p className="text-white text-xs text-center">Loading...</p>
+                <div className="w-8 h-8 border-2 border-t-transparent border-black rounded-full animate-spin mb-3"></div>
+                <p className="text-black text-xs text-center">Loading...</p>
               </div>
             </div>
           )}
         </div>
 
         {/* Bottom Section */}
-        <div className={`flex-1 transition-colors duration-500 ${bgColor}`} />
+        <div className="flex-1 bg-white" />
       </div>
     </>
   );
