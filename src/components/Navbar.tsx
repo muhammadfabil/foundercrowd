@@ -85,6 +85,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openCalendly, setOpenCalendly] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   // Add default Calendly URL
   const calendlyUrl = "https://calendly.com/spacefunding/raise-capital-online";
@@ -109,6 +110,10 @@ export default function Navbar() {
       document.body.style.overflow = 'unset';
     };
   }, [mobileMenuOpen]);
+
+  const toggleDropdown = (menu: string) => {
+    setOpenDropdown(openDropdown === menu ? null : menu);
+  };
 
   return (
     <>
@@ -140,15 +145,77 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* CENTER: Links (Desktop only) */}
-          <div className={`text-sm md:text-base font-medium hidden items-center gap-6 md:gap-8 md:flex transition-all duration-300 ${
+          {/* CENTER: Navigation Menu (Desktop only) */}
+          <div className={`hidden lg:flex items-center gap-8 text-sm font-medium transition-all duration-300 ${
             scrolled ? 'text-black' : 'text-white'
           }`}>
-            <Link href="/" className="hover:opacity-80">Home</Link>
-            <Link href="/features" className="hover:opacity-80">Features</Link>
-            <Link href="/reviews" className="hover:opacity-80">Reviews</Link>
-            <Link href="/pricing" className="hover:opacity-80">Pricing</Link>
-            <Link href="/blog" className="hover:opacity-80">Blog</Link>
+            {/* Home */}
+            <Link href="/" className="hover:opacity-80 transition-opacity">
+              Home
+            </Link>
+
+            {/* Companies Dropdown */}
+            <div className="relative group">
+              <button className="flex items-center gap-1 hover:opacity-80 transition-opacity">
+                Companies
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="py-2">
+                  <Link href="/our-story" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
+                    Our Story
+                  </Link>
+                  <Link href="/why-founderscrowd" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
+                    Why Founderscrowd
+                  </Link>
+                  <Link href="/sports" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
+                    Sports
+                  </Link>
+                  <Link href="/our-tech" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
+                    Our Tech
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Investors Dropdown */}
+            <div className="relative group">
+              <button className="flex items-center gap-1 hover:opacity-80 transition-opacity">
+                Investors
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="py-2">
+                  <Link href="/vip-program" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
+                    Join our VIP program
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Resources Dropdown */}
+            <div className="relative group">
+              <button className="flex items-center gap-1 hover:opacity-80 transition-opacity">
+                Resources
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="py-2">
+                  <Link href="/blog" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
+                    Blog
+                  </Link>
+                  <Link href="/faq" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
+                    FAQ
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* RIGHT: Actions */}
@@ -170,7 +237,7 @@ export default function Navbar() {
             {/* Mobile menu button */}
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden z-[110] relative flex items-center justify-center p-1.5 -m-1.5 hover:opacity-80 transition-opacity"
+              className="lg:hidden z-[110] relative flex items-center justify-center p-1.5 -m-1.5 hover:opacity-80 transition-opacity"
               type="button"
               aria-label="Toggle mobile menu"
             >
@@ -188,19 +255,18 @@ export default function Navbar() {
         </nav>
       </div>
       
-      {/* Mobile Menu Overlay - Separate layer */}
+      {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[90] md:hidden">
-          {/* Backdrop without blur to avoid affecting navbar */}
+        <div className="fixed inset-0 z-[90] lg:hidden">
           <div 
             className="absolute inset-0 bg-black/50"
             onClick={() => setMobileMenuOpen(false)}
           />
           
           {/* Menu Content */}
-          <div className="absolute right-4 top-[70px] left-4 rounded-xl bg-white p-6 shadow-xl border border-gray-100 z-[95]">
+          <div className="absolute right-4 top-[70px] left-4 rounded-xl bg-white p-6 shadow-xl border border-gray-100 z-[95] max-h-[80vh] overflow-y-auto">
             <div className="flex flex-col space-y-1">
-              {/* Navigation Links */}
+              {/* Home */}
               <Link 
                 href="/" 
                 className="text-base font-medium py-3 px-3 hover:bg-gray-50 rounded-lg transition-colors block w-full text-left"
@@ -208,34 +274,78 @@ export default function Navbar() {
               >
                 Home
               </Link>
-              <Link 
-                href="/features" 
-                className="text-base font-medium py-3 px-3 hover:bg-gray-50 rounded-lg transition-colors block w-full text-left"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Features
-              </Link>
-              <Link 
-                href="/reviews" 
-                className="text-base font-medium py-3 px-3 hover:bg-gray-50 rounded-lg transition-colors block w-full text-left"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Reviews
-              </Link>
-              <Link 
-                href="/pricing" 
-                className="text-base font-medium py-3 px-3 hover:bg-gray-50 rounded-lg transition-colors block w-full text-left"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Pricing
-              </Link>
-              <Link 
-                href="/blog" 
-                className="text-base font-medium py-3 px-3 hover:bg-gray-50 rounded-lg transition-colors block w-full text-left"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Blog
-              </Link>
+
+              {/* Companies Section */}
+              <div>
+                <button 
+                  onClick={() => toggleDropdown('companies')}
+                  className="flex items-center justify-between text-base font-medium py-3 px-3 hover:bg-gray-50 rounded-lg transition-colors w-full text-left"
+                >
+                  Companies
+                  <svg className={`w-4 h-4 transition-transform ${openDropdown === 'companies' ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {openDropdown === 'companies' && (
+                  <div className="ml-4 space-y-1">
+                    <Link href="/our-story" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      Our Story
+                    </Link>
+                    <Link href="/why-founderscrowd" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      Why Founderscrowd
+                    </Link>
+                    <Link href="/sports" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      Sports
+                    </Link>
+                    <Link href="/our-tech" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      Our Tech
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              {/* Investors Section */}
+              <div>
+                <button 
+                  onClick={() => toggleDropdown('investors')}
+                  className="flex items-center justify-between text-base font-medium py-3 px-3 hover:bg-gray-50 rounded-lg transition-colors w-full text-left"
+                >
+                  Investors
+                  <svg className={`w-4 h-4 transition-transform ${openDropdown === 'investors' ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {openDropdown === 'investors' && (
+                  <div className="ml-4 space-y-1">
+                    <Link href="/vip-program" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      Join our VIP program
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              {/* Resources Section */}
+              <div>
+                <button 
+                  onClick={() => toggleDropdown('resources')}
+                  className="flex items-center justify-between text-base font-medium py-3 px-3 hover:bg-gray-50 rounded-lg transition-colors w-full text-left"
+                >
+                  Resources
+                  <svg className={`w-4 h-4 transition-transform ${openDropdown === 'resources' ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {openDropdown === 'resources' && (
+                  <div className="ml-4 space-y-1">
+                    <Link href="/blog" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      Blog
+                    </Link>
+                    <Link href="/faq" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      FAQ
+                    </Link>
+                  </div>
+                )}
+              </div>
               
               {/* CTA Button */}
               <div className="pt-4 border-t border-gray-100">

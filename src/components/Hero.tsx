@@ -117,7 +117,7 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
               <img src="/testi2.jpg" alt="" className="w-8 h-8 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full border-2 border-[#F3EFE7]" />
               <img src="/testi3.jpg" alt="" className="w-8 h-8 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full border-2 border-[#F3EFE7]" />
             </div>
-            <span className="text-sm md:text-xs lg:text-sm text-white font-medium">Trusted by 21,000+ people</span>
+            <span className="text-sm md:text-xs lg:text-sm text-white font-medium">Trusted by 41,000+ Investors</span>
           </div>
         </div>
 

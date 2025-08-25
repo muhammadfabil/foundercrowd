@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaTwitter, FaLinkedin, FaDiscord, FaReddit } from 'react-icons/fa';
+import { FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-8">
               <img src="/logo.png" alt="FoundersCrowd Logo" className="w-10 h-10 rounded-2xl object-cover" />
-              <span className="text-2xl font-semibold text-gray-900">FoundersCrowd</span>
+              <span className="text-2xl font-semibold text-gray-900">Founderscrowd</span>
             </div>
             <p className="text-gray-600 leading-relaxed mb-8 max-w-md">
               The modern fundraising platform that connects founders with investors 
@@ -29,7 +29,7 @@ const Footer = () => {
                 href="#" 
                 className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
               >
-                <FaDiscord className="w-4 h-4 text-gray-600 group-hover:text-white" />
+                <FaInstagram className="w-4 h-4 text-gray-600 group-hover:text-white" />
               </a>
               <a 
                 href="#" 
@@ -38,38 +38,57 @@ const Footer = () => {
                 <FaLinkedin className="w-4 h-4 text-gray-600 group-hover:text-white" />
               </a>
               <a 
-                href="#" 
+                href="https://www.beehiiv.com/?_sp=ezb.1756144963790.17561449637125kl5ppmyx" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
               >
-                <FaReddit className="w-4 h-4 text-gray-600 group-hover:text-white" />
+                {/* Beehiiv Icon - using a simple 'B' or envelope icon */}
+                <svg className="w-4 h-4 text-gray-600 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
               </a>
             </div>
           </div>
 
-          {/* Platform Column */}
+          {/* Companies Column */}
           <div>
             <h4 className="font-medium text-gray-900 mb-6 text-sm">
-              Platform
+              Companies
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
-                  Fundraising
+                <a href="/our-story" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                  Our Story
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
-                  Investor Network
+                <a href="/why-founderscrowd" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                  Why Founderscrowd
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
-                  Compliance
+                <a href="/sports" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                  Sports
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
-                  Pricing
+                <a href="/our-tech" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                  Our Tech
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Investors Column */}
+          <div>
+            <h4 className="font-medium text-gray-900 mb-6 text-sm">
+              Investors
+            </h4>
+            <ul className="space-y-3">
+              <li>
+                <a href="/vip-program" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                  Join our VIP program
                 </a>
               </li>
             </ul>
@@ -82,52 +101,23 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
-                  Documentation
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                <a href="/blog" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
                   Blog
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
-                  Community
+                <a href="/faq" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                  FAQ
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
-                  Support
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Legal Column */}
-          <div>
-            <h4 className="font-medium text-gray-900 mb-6 text-sm">
-              Legal
-            </h4>
-            <ul className="space-y-3">
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                <a href="/privacy" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
                   Privacy
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                <a href="/terms" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
                   Terms
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
-                  Security
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
-                  Cookies
                 </a>
               </li>
             </ul>
@@ -138,13 +128,13 @@ const Footer = () => {
         <div className="border-t border-gray-100 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-500 text-sm">
-              © 2025 FoundersCrowd. All rights reserved.
+              © 2025 Founderscrowd. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <a href="#" className="text-gray-500 hover:text-gray-900 transition-colors duration-200 text-sm">
+              <a href="/status" className="text-gray-500 hover:text-gray-900 transition-colors duration-200 text-sm">
                 Status
               </a>
-              <a href="#" className="text-gray-500 hover:text-gray-900 transition-colors duration-200 text-sm">
+              <a href="/changelog" className="text-gray-500 hover:text-gray-900 transition-colors duration-200 text-sm">
                 Changelog
               </a>
             </div>
