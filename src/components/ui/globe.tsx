@@ -1,19 +1,20 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Color, Scene, Fog, PerspectiveCamera, Vector3, Group } from "three";
-import ThreeGlobe from "three-globe";
 import { useThree, Canvas, extend } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import countries from "@/data/globe.json";
+
+// Dynamic import for ThreeGlobe to avoid SSR issues
+let ThreeGlobe: any = null;
+
 declare module "@react-three/fiber" {
   interface ThreeElements {
     threeGlobe: ThreeElements["mesh"] & {
-      new (): ThreeGlobe;
+      new (): any;
     };
   }
 }
-
-extend({ ThreeGlobe: ThreeGlobe });
 
 const RING_PROPAGATION_SPEED = 3;
 const aspect = 1.2;
@@ -63,9 +64,10 @@ interface WorldProps {
 let numbersOfRings = [0];
 
 export function Globe({ globeConfig, data }: WorldProps) {
-  const globeRef = useRef<ThreeGlobe | null>(null);
+  const globeRef = useRef<any>(null);
   const groupRef = useRef<Group | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [isLibraryLoaded, setIsLibraryLoaded] = useState(false);
 
   const defaultProps = {
     pointSize: 1,
@@ -84,18 +86,33 @@ export function Globe({ globeConfig, data }: WorldProps) {
     ...globeConfig,
   };
 
-  // Initialize globe only once
+  // Load ThreeGlobe library dynamically
   useEffect(() => {
-    if (!globeRef.current && groupRef.current) {
+    if (typeof window === 'undefined') return;
+
+    import('three-globe').then((module) => {
+      ThreeGlobe = module.default;
+      extend({ ThreeGlobe: ThreeGlobe });
+      setIsLibraryLoaded(true);
+    }).catch((error) => {
+      console.error('Failed to load three-globe:', error);
+    });
+  }, []);
+
+  // Initialize globe only once after library is loaded
+  useEffect(() => {
+    if (!ThreeGlobe || !isLibraryLoaded || !groupRef.current) return;
+
+    if (!globeRef.current) {
       globeRef.current = new ThreeGlobe();
       (groupRef.current as any).add(globeRef.current);
       setIsInitialized(true);
     }
-  }, []);
+  }, [isLibraryLoaded]);
 
   // Build material when globe is initialized or when relevant props change
   useEffect(() => {
-    if (!globeRef.current || !isInitialized) return;
+    if (!globeRef.current || !isInitialized || !isLibraryLoaded) return;
 
     const globeMaterial = globeRef.current.globeMaterial() as unknown as {
       color: Color;
@@ -109,6 +126,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
     globeMaterial.shininess = globeConfig.shininess || 0.9;
   }, [
     isInitialized,
+    isLibraryLoaded,
     globeConfig.globeColor,
     globeConfig.emissive,
     globeConfig.emissiveIntensity,
@@ -117,7 +135,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
   // Build data when globe is initialized or when data changes
   useEffect(() => {
-    if (!globeRef.current || !isInitialized || !data) return;
+    if (!globeRef.current || !isInitialized || !isLibraryLoaded || !data) return;
 
     const arcs = data;
     let points = [];
@@ -190,6 +208,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
       );
   }, [
     isInitialized,
+    isLibraryLoaded,
     data,
     defaultProps.pointSize,
     defaultProps.showAtmosphere,
@@ -204,7 +223,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
   // Handle rings animation with cleanup
   useEffect(() => {
-    if (!globeRef.current || !isInitialized || !data) return;
+    if (!globeRef.current || !isInitialized || !isLibraryLoaded || !data) return;
 
     const interval = setInterval(() => {
       if (!globeRef.current) return;
@@ -229,7 +248,19 @@ export function Globe({ globeConfig, data }: WorldProps) {
     return () => {
       clearInterval(interval);
     };
-  }, [isInitialized, data]);
+  }, [isInitialized, isLibraryLoaded, data]);
+
+  // Show loading state while library is loading
+  if (!isLibraryLoaded) {
+    return (
+      <group ref={groupRef}>
+        <mesh>
+          <sphereGeometry args={[100, 32, 32]} />
+          <meshBasicMaterial color="#1d072e" />
+        </mesh>
+      </group>
+    );
+  }
 
   return <group ref={groupRef} />;
 }
@@ -238,10 +269,13 @@ export function WebGLRendererConfig() {
   const { gl, size } = useThree();
 
   useEffect(() => {
+    // Check if we're on the client side before accessing window
+    if (typeof window === 'undefined') return;
+    
     gl.setPixelRatio(window.devicePixelRatio);
     gl.setSize(size.width, size.height);
     gl.setClearColor(0xffaaff, 0);
-  }, []);
+  }, [gl, size]);
 
   return null;
 }
