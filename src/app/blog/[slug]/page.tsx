@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import BackToTopButton from "@/components/BackToTopButton";
+
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -381,7 +381,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
             </div>
           )}
           
-          <BackToTopButton darkMode={true} />
+          
         </div>
       </div>
       <Footer />
