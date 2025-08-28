@@ -110,7 +110,14 @@ async function fetchRelatedPosts(currentPostId: number): Promise<WPPost[]> {
   }
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+// Fix the TypeScript error by using the correct params type
+type BlogPostPageProps = {
+  params: {
+    slug: string
+  }
+}
+
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const post = await fetchPost(params.slug);
 
   if (!post) {
