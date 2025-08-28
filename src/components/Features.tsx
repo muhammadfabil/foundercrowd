@@ -5,6 +5,16 @@ import Image from 'next/image';
 import { FaRegChartBar, FaRegCreditCard } from "react-icons/fa";
 import { CiStreamOn } from "react-icons/ci";
 import { BsBank } from "react-icons/bs";
+import { IconType } from "react-icons";
+
+// Define the feature type
+type Feature = {
+  id: number;
+  icon: IconType;
+  title: string;
+  description: string;
+  image: string;
+};
 
 // Memoized features data
 const useFeaturesData = () => useMemo(() => ({
@@ -36,11 +46,15 @@ const useFeaturesData = () => useMemo(() => ({
     description: "Connect bank accounts to automatically import transactions.",
     image: "/features4.png"
   }
-}), []);
+} as Record<number, Feature>), []);
 
-const FeatureList = React.memo(({ features, activeFeature, setActiveFeature }: any) => (
+const FeatureList = React.memo(({ features, activeFeature, setActiveFeature }: {
+  features: Record<number, Feature>;
+  activeFeature: number;
+  setActiveFeature: (id: number) => void;
+}) => (
   <div className="bg-gray-50 rounded-2xl p-2 space-y-2">
-    {Object.values(features).map((feature: any) => {
+    {Object.values(features).map((feature: Feature) => {
       const Icon = feature.icon;
       return (
         <div
@@ -87,7 +101,7 @@ const FeatureList = React.memo(({ features, activeFeature, setActiveFeature }: a
   </div>
 ));
 
-const FeatureImage = React.memo(({ feature }: any) => (
+const FeatureImage = React.memo(({ feature }: { feature: Feature }) => (
   <div className="relative w-full h-[400px]">
     <Image
       src={feature.image}
