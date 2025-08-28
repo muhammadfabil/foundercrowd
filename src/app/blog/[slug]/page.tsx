@@ -54,8 +54,9 @@ function getFeaturedImage(p: WPPost) {
   };
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = await fetchPost(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await fetchPost(slug);
 
   if (!post) {
     return {
@@ -110,15 +111,16 @@ async function fetchRelatedPosts(currentPostId: number): Promise<WPPost[]> {
   }
 }
 
-// Fix the TypeScript error by using the correct params type
+// Fix the TypeScript error by using the correct params type for Next.js 15
 type BlogPostPageProps = {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = await fetchPost(params.slug);
+  const { slug } = await params;
+  const post = await fetchPost(slug);
 
   if (!post) {
     notFound();
