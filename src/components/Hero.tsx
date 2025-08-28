@@ -6,7 +6,7 @@ import Image from 'next/image';
 const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
 
 // Add the CalendlyModal component from HorizontalHook
-function CalendlyModal({
+export function CalendlyModal({
   url,
   onClose,
 }: {
@@ -93,6 +93,7 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
     "Start up to Watch",
     "Category Creator", 
     "Unicorn Startup",
+    "Game Changer in Sports",
     "Household Name",
     "Success IPO"
   ];

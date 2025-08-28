@@ -176,26 +176,17 @@ export default function Navbar() {
                   <Link href="/our-tech" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
                     Our Tech
                   </Link>
+                  <Link href="/merger-acquisition" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
+                    Merger & Acquisition
+                  </Link>
                 </div>
               </div>
             </div>
 
             {/* Investors Dropdown */}
-            <div className="relative group">
-              <button className="flex items-center gap-1 hover:opacity-80 transition-opacity">
-                Investors
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <div className="py-2">
-                  <Link href="/vip-program" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
-                    Join our VIP program
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <Link href="https://founderscrowd.beehiiv.com/" className="hover:opacity-80 transition-opacity">
+              Investors
+            </Link>
 
             {/* Resources Dropdown */}
             <div className="relative group">
@@ -300,6 +291,9 @@ export default function Navbar() {
                     <Link href="/our-tech" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       Our Tech
                     </Link>
+                    <Link href="/merger-acquisition" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      Merger & Acquisition
+                    </Link>
                   </div>
                 )}
               </div>
@@ -331,8 +325,8 @@ export default function Navbar() {
                   className="flex items-center justify-between text-base font-medium py-3 px-3 hover:bg-gray-50 rounded-lg transition-colors w-full text-left"
                 >
                   Resources
-                  <svg className={`w-4 h-4 transition-transform ${openDropdown === 'resources' ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <svg className={`w-4 h-4 transition-transform ${openDropdown === 'resources' ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
                 {openDropdown === 'resources' && (

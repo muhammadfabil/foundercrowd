@@ -1,44 +1,108 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { FaRegChartBar, FaRegCreditCard } from "react-icons/fa";
 import { CiStreamOn } from "react-icons/ci";
 import { BsBank } from "react-icons/bs";
 
-const featuresData = [
-  {
+// Memoized features data
+const useFeaturesData = () => useMemo(() => ({
+  1: {
     id: 1,
-    icon: <FaRegChartBar />,
+    icon: FaRegChartBar,
     title: "Automatic Expense Tracking",
     description: "Automatically categorize expenses to see where money goes.",
     image: "/features1.png"
   },
-  {
+  2: {
     id: 2,
-    icon: <FaRegCreditCard />,
+    icon: FaRegCreditCard,
     title: "Streamlined Bill Payment",
     description: "Pay bills and manage payments all in one place without any issue.",
     image: "/features2.Jpg"
   },
-  {
+  3: {
     id: 3,
-    icon: <CiStreamOn />,
+    icon: CiStreamOn,
     title: "Real-time Money Activity",
     description: "Notifications Get notifications for unusual spending activity.",
     image: "/features3.png"
   },
-  {
+  4: {
     id: 4,
-    icon: <BsBank />,
+    icon: BsBank,
     title: "Automatic Bank Sync",
     description: "Connect bank accounts to automatically import transactions.",
     image: "/features4.png"
   }
-];
+}), []);
+
+const FeatureList = React.memo(({ features, activeFeature, setActiveFeature }: any) => (
+  <div className="bg-gray-50 rounded-2xl p-2 space-y-2">
+    {Object.values(features).map((feature: any) => {
+      const Icon = feature.icon;
+      return (
+        <div
+          key={feature.id}
+          className={`
+            cursor-pointer transition-all duration-300 rounded-xl p-6
+            ${activeFeature === feature.id
+              ? 'bg-white shadow-lg border-l-4 border-[#AC5B0F]'
+              : 'hover:bg-white/50'}
+          `}
+          onClick={() => setActiveFeature(feature.id)}
+        >
+          <div className="flex items-start gap-4">
+            <div className="text-gray-700 text-xl mt-1"><Icon /></div>
+            <div className="flex-1">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-black">
+                  {feature.title}
+                </h3>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="text-gray-400 flex-shrink-0"
+                >
+                  <path
+                    d="M9 18L15 12L9 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <p className="text-gray-600 mt-2 text-sm leading-relaxed">
+                {feature.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+));
+
+const FeatureImage = React.memo(({ feature }: any) => (
+  <div className="relative w-full h-[400px]">
+    <Image
+      src={feature.image}
+      alt={feature.title}
+      fill
+      className="object-contain"
+      priority
+    />
+  </div>
+));
 
 const Features = () => {
+  const featuresData = useFeaturesData();
   const [activeFeature, setActiveFeature] = useState(1);
+  const active = featuresData[activeFeature];
 
   return (
     <section className="py-20 bg-[white] font-figtree">
@@ -55,73 +119,18 @@ const Features = () => {
         <div className="flex flex-col lg:flex-row gap-12 items-center">
           {/* Left Side - Feature List */}
           <div className="w-full lg:w-1/2">
-            <div className="bg-gray-50 rounded-2xl p-2 space-y-2">
-              {featuresData.map((feature, index) => (
-                <div 
-                  key={feature.id}
-                  className={`
-                    cursor-pointer transition-all duration-300 rounded-xl p-6
-                    ${activeFeature === feature.id 
-                      ? 'bg-white shadow-lg border-l-4 border-[#AC5B0F]' 
-                      : 'hover:bg-white/50'}
-                  `}
-                  onClick={() => setActiveFeature(feature.id)}
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="text-gray-700 text-xl mt-1">{feature.icon}</div>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-lg font-semibold text-black">
-                          {feature.title}
-                        </h3>
-                        <svg 
-                          width="20" 
-                          height="20" 
-                          viewBox="0 0 24 24" 
-                          fill="none" 
-                          className="text-gray-400 flex-shrink-0"
-                        >
-                          <path 
-                            d="M9 18L15 12L9 6" 
-                            stroke="currentColor" 
-                            strokeWidth="2" 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                      <p className="text-gray-600 mt-2 text-sm leading-relaxed">
-                        {feature.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <FeatureList
+              features={featuresData}
+              activeFeature={activeFeature}
+              setActiveFeature={setActiveFeature}
+            />
           </div>
 
           {/* Right Side - Feature Image */}
           <div className="w-full lg:w-1/2 flex justify-center">
             <div className="relative w-full max-w-md">
               <div className="bg-white rounded-3xl p-8 shadow-2xl">
-                <div className="relative w-full h-[400px]">
-                  {featuresData.map((feature) => (
-                    <div 
-                      key={feature.id}
-                      className={`absolute inset-0 transition-opacity duration-500 ${
-                        activeFeature === feature.id ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                      }`}
-                    >
-                      <Image
-                        src={feature.image}
-                        alt={feature.title}
-                        fill
-                        className="object-contain"
-                        priority={activeFeature === feature.id}
-                      />
-                    </div>
-                  ))}
-                </div>
+                <FeatureImage feature={active} />
               </div>
             </div>
           </div>

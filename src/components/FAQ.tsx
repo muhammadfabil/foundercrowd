@@ -4,38 +4,63 @@ import React, { useState } from 'react';
 const faqData = [
 	{
 		id: 1,
-		question: 'What is FounderCrowd?',
-		answer: 'FounderCrowd is a comprehensive fundraising platform that helps startups connect with investors and the community.',
+		question: 'What is FoundersCrowd?',
+		answer:
+			'FoundersCrowd is the all-in-one platform where startups can raise capital online from anywhere in the world. We combine AI-powered investor funnels, global marketing tools, and compliance support to help founders launch and scale successful funding campaigns.',
 	},
 	{
 		id: 2,
-		question: 'How does FounderCrowd work?',
-		answer: 'Startups can create profiles, upload pitches, and interact with investors through features available on the platform.',
+		question: 'Who can raise on FoundersCrowd?',
+		answer:
+			'Any founder — from early-stage startups to growth companies — can raise capital on FoundersCrowd. We support multiple raise types, including Regulation CF, Regulation D, and Regulation A+.',
 	},
 	{
 		id: 3,
-		question: 'Who can use FounderCrowd?',
-		answer: 'FounderCrowd can be used by startup founders, investors, and anyone interested in the startup world.',
+		question: 'How is FoundersCrowd different from other platforms?',
+		answer:
+			'We convert 20% higher on average than traditional platforms, with the lowest fees in the industry. Plus, we give you AI tools to optimize your campaign and global marketing to reach investors anywhere with an internet connection.',
 	},
 	{
 		id: 4,
-		question: 'Is FounderCrowd paid?',
-		answer: 'FounderCrowd offers free and paid plans with additional features for more advanced fundraising needs.',
+		question: 'How much can I raise?',
+		answer:
+			'It depends on what you’re looking for. With FoundersCrowd you can raise anywhere from $50,000 to $5 million, and even beyond if your funding needs are larger. Reach out to our team and we’ll help you decide which raise type and strategy is the best fit for your goals.',
 	},
 	{
 		id: 5,
-		question: 'How is data security handled on FounderCrowd?',
-		answer: 'We use encryption and industry-standard security measures to protect user data on our platform.',
+		question: 'Who can invest?',
+		answer:
+			'Investors from around the world can participate, depending on the regulation type you choose. This includes everyday retail investors, accredited investors, institutions, and even your own customers and fans.',
 	},
 	{
 		id: 6,
-		question: 'How can I contact the FounderCrowd team?',
-		answer: 'You can contact us through the contact page on our website or by emailing support@foundercrowd.com.',
+		question: 'How quickly can I launch my campaign?',
+		answer:
+			'With FoundersCrowd AI and our guided onboarding, you can go live in days, not months. We handle compliance, funnel setup, and campaign design so you can focus on your business.',
 	},
 	{
 		id: 7,
-		question: 'Is FounderCrowd available for startups outside Indonesia?',
-		answer: 'Currently, FounderCrowd focuses on the Indonesian market, but we plan to expand to other countries in the future.',
+		question: 'What does it cost to raise on FoundersCrowd?',
+		answer:
+			'We operate on a founder-first pricing model: low upfront costs, transparent terms, and success-based fees. We only win when you win.',
+	},
+	{
+		id: 8,
+		question: 'Is FoundersCrowd secure and compliant?',
+		answer:
+			'Yes. We integrate robust KYC/AML checks and work with trusted legal partners to keep your raise safe, compliant, and ready for global participation.',
+	},
+	{
+		id: 9,
+		question: 'Can investors outside my country join my raise?',
+		answer:
+			'Yes. As long as your chosen regulation allows it, investors worldwide can participate in your raise, giving you access to capital without borders.',
+	},
+	{
+		id: 10,
+		question: 'How do I get started?',
+		answer:
+			'Click Start Raising to apply. Our team will guide you through onboarding, set up your investor funnel, and launch your campaign to the world.',
 	},
 ];
 

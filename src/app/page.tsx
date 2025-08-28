@@ -8,6 +8,8 @@ import Testimony from "@/components/Testimony";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import Paralax from "@/components/paralax";
+import TestiMap from "@/components/TestiMap";
+import Statement from "@/components/Statement";
 
 
 
@@ -17,7 +19,8 @@ export default function Page() {
       <Navbar />
       <Hero />
       <Features />
-      <Steps />
+      <TestiMap />
+      <Statement />
       <Plan />
       <Integration />
       <Testimony /> 

@@ -94,7 +94,7 @@ const PreLoader = ({ onComplete }: { onComplete: () => void }) => {
           }}
         >
           <source src="/preloader.mp4" type="video/mp4" />
-          <source src="/preloader.webm" type="video/webm" />
+          
           Your browser does not support the video tag.
         </video>
 
@@ -150,7 +150,7 @@ const PreLoader = ({ onComplete }: { onComplete: () => void }) => {
             }}
           >
             <source src="/preloader.mp4" type="video/mp4" />
-            <source src="/preloader.webm" type="video/webm" />
+           
             Your browser does not support the video tag.
           </video>
 
