@@ -1,19 +1,50 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import Navbar from "@/components/Navbar";
-import Features from "@/components/Features";
-import Plan from "@/components/Plan";
-import Integration from "@/components/Integration";
-import Testimony from "@/components/Testimony";
 import Footer from "@/components/Footer";
-import TestiMap from "@/components/TestiMap";
-import Statement from "@/components/Statement";
-import { CalendlyModal } from "@/components/Hero"; // Reusing the CalendlyModal component
+import { CalendlyModal } from "@/components/Hero";
+
+// Dynamically import components that might use browser APIs
+const Features = dynamic(() => import("@/components/Features"), {
+  ssr: false,
+  loading: () => <div className="py-16 md:py-24 bg-white flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500"></div></div>
+});
+
+const Plan = dynamic(() => import("@/components/Plan"), {
+  ssr: false,
+  loading: () => <div className="py-16 md:py-24 bg-white flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500"></div></div>
+});
+
+const Integration = dynamic(() => import("@/components/Integration"), {
+  ssr: false,
+  loading: () => <div className="py-16 md:py-24 bg-white flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500"></div></div>
+});
+
+const Testimony = dynamic(() => import("@/components/Testimony"), {
+  ssr: false,
+  loading: () => <div className="py-16 md:py-24 bg-white flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500"></div></div>
+});
+
+const TestiMap = dynamic(() => import("@/components/TestiMap"), {
+  ssr: false,
+  loading: () => <div className="py-16 md:py-24 bg-white flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500"></div></div>
+});
+
+const Statement = dynamic(() => import("@/components/Statement"), {
+  ssr: false,
+  loading: () => <div className="py-16 md:py-24 bg-white flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500"></div></div>
+});
 
 const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
 
 const OurTechPage = () => {
   const [openCalendly, setOpenCalendly] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <>
@@ -37,32 +68,32 @@ const OurTechPage = () => {
 
         {/* Features Section */}
         <section className="py-16 md:py-24">
-          <Features />
+          {isClient && <Features />}
         </section>
 
         {/* TestiMap Section */}
         <section className="py-16 md:py-24 bg-white">
-          <TestiMap />
+          {isClient && <TestiMap />}
         </section>
 
         {/* Statement Section */}
         <section className="py-16 md:py-24">
-          <Statement />
+          {isClient && <Statement />}
         </section>
 
         {/* Plan Section */}
         <section className="py-16 md:py-24 bg-white">
-          <Plan />
+          {isClient && <Plan />}
         </section>
 
         {/* Integration Section */}
         <section className="py-16 md:py-24">
-          <Integration />
+          {isClient && <Integration />}
         </section>
 
         {/* Testimony Section */}
         <section className="py-16 md:py-24 bg-white">
-          <Testimony />
+          {isClient && <Testimony />}
         </section>
 
         {/* CTA Section */}
@@ -73,7 +104,7 @@ const OurTechPage = () => {
               <p className="text-lg text-white/80 mb-8">
                 Let us show you how our platform can transform your capital raising experience.
               </p>
-              
+
               <button
                 onClick={() => setOpenCalendly(true)}
                 className="rounded-full bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-white hover:text-black hover:shadow-xl"
@@ -86,9 +117,9 @@ const OurTechPage = () => {
 
         {/* Calendly Modal */}
         {openCalendly && (
-          <CalendlyModal 
-            url={DEFAULT_CALENDLY_URL} 
-            onClose={() => setOpenCalendly(false)} 
+          <CalendlyModal
+            url={DEFAULT_CALENDLY_URL}
+            onClose={() => setOpenCalendly(false)}
           />
         )}
 
