@@ -30,6 +30,14 @@ type Position = {
   color: string;
 };
 
+type PointData = {
+  size: number;
+  order: number;
+  color: string;
+  lat: number;
+  lng: number;
+};
+
 export type GlobeConfig = {
   pointSize?: number;
   globeColor?: string;
@@ -138,7 +146,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
     if (!globeRef.current || !isInitialized || !isLibraryLoaded || !data) return;
 
     const arcs = data;
-    let points = [];
+    let points: PointData[] = [];
     for (let i = 0; i < arcs.length; i++) {
       const arc = arcs[i];
       const rgb = hexToRgb(arc.color) as { r: number; g: number; b: number };
@@ -193,7 +201,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
     globeRef.current
       .pointsData(filteredPoints)
-      .pointColor((e) => (e as { color: string }).color)
+      .pointColor((e: PointData) => e.color)
       .pointsMerge(true)
       .pointAltitude(0.0)
       .pointRadius(2);
