@@ -69,13 +69,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title: stripHtml(post.title.rendered),
       description: stripHtml(post.excerpt.rendered).slice(0, 160),
-      images: getFeaturedImage(post).src ? [getFeaturedImage(post).src] : [],
+      images: getFeaturedImage(post).src ? [getFeaturedImage(post).src as string] : [],
     },
     twitter: {
       card: "summary_large_image",
       title: stripHtml(post.title.rendered),
       description: stripHtml(post.excerpt.rendered).slice(0, 160),
-      images: getFeaturedImage(post).src ? [getFeaturedImage(post).src] : [],
+      images: getFeaturedImage(post).src ? [getFeaturedImage(post).src].filter((src): src is string => src !== null) : [],
     },
   };
 }
