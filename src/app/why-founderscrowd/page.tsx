@@ -61,7 +61,7 @@ const WhyFoundersCrowdPage = () => {
               <div className="order-1 md:order-2 relative">
                 <div className="aspect-square relative rounded-2xl overflow-hidden shadow-2xl transform transition-transform duration-700 hover:rotate-1 hover:scale-[1.02]">
                   <Image 
-                    src="/founder.jpg" 
+                    src="/founders.png" 
                     alt="José Ruiz, Founder of FoundersCrowd" 
                     fill
                     className="object-cover"
@@ -107,7 +107,7 @@ const WhyFoundersCrowdPage = () => {
         <section className="py-12 md:py-16 bg-[#F3EFE7]">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
-              <p className="text-lg font-bold text-[#2B2B2B]">As Seen On</p>
+              <p className="text-lg font-bold text-[#2B2B2B]">Trusted by</p>
             </div>
             
             <div className="relative overflow-hidden">
