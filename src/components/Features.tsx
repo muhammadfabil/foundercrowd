@@ -30,7 +30,7 @@ const useFeaturesData = () => useMemo(() => ({
     icon: FaRegCreditCard,
     title: "Streamlined Bill Payment",
     description: "Pay bills and manage payments all in one place without any issue.",
-    image: "/features2.Jpg"
+    image: "/features2.jpg"
   },
   3: {
     id: 3,
