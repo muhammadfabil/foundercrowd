@@ -67,27 +67,44 @@ const OurTechPage = () => {
           </div>
         </section>
 
-        {/* Wavy Background Section */}
-        {isClient && (
-          <WavyBackground 
-            containerClassName="py-8 md:py-12 h-auto min-h-[200px]" 
-            colors={["#F59E0B", "#FBBF24", "#FCD34D", "#FDE68A", "#FEF3C7"]} 
-            waveWidth={20}
-            blur={2}
-            backgroundFill="#2B2B2B"
-            speed="fast"
-            waveOpacity={0.3}
-          >
+        {/* Wavy Background Section - Hidden on mobile, visible on larger screens */}
+        <div className="relative">
+          {/* Desktop version with wavy background (hidden on mobile) */}
+          {isClient && (
+            <div className="hidden md:block">
+              <WavyBackground 
+                containerClassName="py-8 md:py-12 h-auto min-h-[200px]" 
+                colors={["#F59E0B", "#FBBF24", "#FCD34D", "#FDE68A", "#FEF3C7"]} 
+                waveWidth={20}
+                blur={2}
+                backgroundFill="#2B2B2B"
+                speed="fast"
+                waveOpacity={0.3}
+              >
+                <div className="max-w-4xl mx-auto text-center px-4">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-3 text-[#F3EFE7]">
+                    Advanced Solutions for Modern Fundraising
+                  </h2>
+                  <p className="text-base text-[#F3EFE7]/80">
+                    Our proprietary technology streamlines the capital raising process, connecting founders with investors more efficiently than ever before.
+                  </p>
+                </div>
+              </WavyBackground>
+            </div>
+          )}
+          
+          {/* Mobile version without wavy background */}
+          <div className="md:hidden bg-[#2B2B2B] py-10">
             <div className="max-w-4xl mx-auto text-center px-4">
-              <h2 className="text-2xl md:text-3xl font-bold mb-3 text-[#F3EFE7]">
+              <h2 className="text-2xl font-bold mb-3 text-[#F3EFE7]">
                 Advanced Solutions for Modern Fundraising
               </h2>
               <p className="text-base text-[#F3EFE7]/80">
                 Our proprietary technology streamlines the capital raising process, connecting founders with investors more efficiently than ever before.
               </p>
             </div>
-          </WavyBackground>
-        )}
+          </div>
+        </div>
 
         {/* Features Section */}
         <section className="py-16 md:py-24">

@@ -277,9 +277,7 @@ export default function Navbar() {
                 </button>
                 {openDropdown === 'companies' && (
                   <div className="ml-4 space-y-1">
-                    <Link href="/our-story" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                      Our Story
-                    </Link>
+                    
                     <Link href="/why-founderscrowd" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       Why Founderscrowd
                     </Link>
