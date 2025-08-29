@@ -74,43 +74,50 @@ const SportsPage = () => {
                 <div className="absolute inset-0 w-full h-full bg-[#2B2B2B] [mask-image:radial-gradient(350px_100px_at_top,transparent_20%,white)]"></div>
               </div>
               
-              <div className="h-20 md:h-24 overflow-hidden relative mb-8">
-                <p 
-                  className="text-2xl md:text-3xl font-medium absolute transition-all duration-500 w-full"
-                  style={{ 
-                    opacity: currentHeadline === 0 ? 1 : 0,
-                    transform: `translateY(${currentHeadline === 0 ? 0 : -20}px)`
-                  }}
-                >
-                  {headlines[0]}
-                </p>
-                <p 
-                  className="text-2xl md:text-3xl font-medium absolute transition-all duration-500 w-full"
-                  style={{ 
-                    opacity: currentHeadline === 1 ? 1 : 0,
-                    transform: `translateY(${currentHeadline === 1 ? 0 : -20}px)`
-                  }}
-                >
-                  {headlines[1]}
-                </p>
-                <p 
-                  className="text-2xl md:text-3xl font-medium absolute transition-all duration-500 w-full"
-                  style={{ 
-                    opacity: currentHeadline === 2 ? 1 : 0,
-                    transform: `translateY(${currentHeadline === 2 ? 0 : -20}px)`
-                  }}
-                >
-                  {headlines[2]}
-                </p>
-                <p 
-                  className="text-2xl md:text-3xl font-medium absolute transition-all duration-500 w-full"
-                  style={{ 
-                    opacity: currentHeadline === 3 ? 1 : 0,
-                    transform: `translateY(${currentHeadline === 3 ? 0 : -20}px)`
-                  }}
-                >
-                  {headlines[3]}
-                </p>
+              <div className="h-20 md:h-34 overflow-hidden relative mb-8">
+                <div className="text-center">
+                  <p className="text-2xl md:text-3xl font-medium text-white mb-4">
+                    Be the next
+                  </p>
+                  <div className="relative overflow-hidden h-12 md:h-16">
+                    <p 
+                      className="text-2xl md:text-3xl font-medium text-amber-500 absolute transition-all duration-500 w-full text-center"
+                      style={{ 
+                        opacity: currentHeadline === 0 ? 1 : 0,
+                        transform: `translateY(${currentHeadline === 0 ? 0 : -20}px)`
+                      }}
+                    >
+                      Club They Cheer For
+                    </p>
+                    <p 
+                      className="text-2xl md:text-3xl font-medium text-amber-500 absolute transition-all duration-500 w-full text-center"
+                      style={{ 
+                        opacity: currentHeadline === 1 ? 1 : 0,
+                        transform: `translateY(${currentHeadline === 1 ? 0 : -20}px)`
+                      }}
+                    >
+                      Game Changer in Sports
+                    </p>
+                    <p 
+                      className="text-2xl md:text-3xl font-medium text-amber-500 absolute transition-all duration-500 w-full text-center"
+                      style={{ 
+                        opacity: currentHeadline === 2 ? 1 : 0,
+                        transform: `translateY(${currentHeadline === 2 ? 0 : -20}px)`
+                      }}
+                    >
+                      Household Team Name
+                    </p>
+                    <p 
+                      className="text-2xl md:text-3xl font-medium text-amber-500 absolute transition-all duration-500 w-full text-center"
+                      style={{ 
+                        opacity: currentHeadline === 3 ? 1 : 0,
+                        transform: `translateY(${currentHeadline === 3 ? 0 : -20}px)`
+                      }}
+                    >
+                      Sports Unicorn
+                    </p>
+                  </div>
+                </div>
               </div>
               
               <div className="flex justify-center space-x-4 mb-8">
@@ -181,7 +188,7 @@ const SportsPage = () => {
               <div className="bg-[#F3EFE7] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
                 <div className="h-40 mb-4 relative rounded-lg overflow-hidden">
                   <Image 
-                    src="/caledonian-braves.jpg" 
+                    src="/hook1.jpg" 
                     alt="Caledonian Braves" 
                     fill
                     className="object-cover"
@@ -205,7 +212,7 @@ const SportsPage = () => {
               <div className="bg-[#F3EFE7] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
                 <div className="h-40 mb-4 relative rounded-lg overflow-hidden">
                   <Image 
-                    src="/watford.jpg" 
+                    src="/hook1.jpg" 
                     alt="Watford" 
                     fill
                     className="object-cover"
@@ -229,7 +236,7 @@ const SportsPage = () => {
               <div className="bg-[#F3EFE7] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
                 <div className="h-40 mb-4 relative rounded-lg overflow-hidden">
                   <Image 
-                    src="/nk-tabor.jpg" 
+                    src="/hook1.jpg" 
                     alt="NK Tabor" 
                     fill
                     className="object-cover"
@@ -253,7 +260,7 @@ const SportsPage = () => {
               <div className="bg-[#F3EFE7] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
                 <div className="h-40 mb-4 relative rounded-lg overflow-hidden">
                   <Image 
-                    src="/carrick-rangers.jpg" 
+                    src="/hook1.jpg" 
                     alt="Carrick Rangers" 
                     fill
                     className="object-cover"

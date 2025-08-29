@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CalendlyModal } from "@/components/Hero";
+import { WavyBackground } from "@/components/ui/wavy-background";
 
 // Dynamically import components that might use browser APIs
 const Features = dynamic(() => import("@/components/Features"), {
@@ -49,7 +50,7 @@ const OurTechPage = () => {
   return (
     <>
       <Navbar />
-      <main className="bg-[#F3EFE7] text-[#2B2B2B] font-figtree">
+      <main className="bg-[#2B2B2B] text-[#F3EFE7] font-figtree">
         {/* Header Section */}
         <section className="relative py-24 md:py-32 bg-[#2B2B2B] text-white overflow-hidden">
           <div className="absolute inset-0 opacity-20 hero-noise"></div>
@@ -65,6 +66,28 @@ const OurTechPage = () => {
             </div>
           </div>
         </section>
+
+        {/* Wavy Background Section */}
+        {isClient && (
+          <WavyBackground 
+            containerClassName="py-8 md:py-12 h-auto min-h-[200px]" 
+            colors={["#F59E0B", "#FBBF24", "#FCD34D", "#FDE68A", "#FEF3C7"]} 
+            waveWidth={20}
+            blur={2}
+            backgroundFill="#2B2B2B"
+            speed="fast"
+            waveOpacity={0.3}
+          >
+            <div className="max-w-4xl mx-auto text-center px-4">
+              <h2 className="text-2xl md:text-3xl font-bold mb-3 text-[#F3EFE7]">
+                Advanced Solutions for Modern Fundraising
+              </h2>
+              <p className="text-base text-[#F3EFE7]/80">
+                Our proprietary technology streamlines the capital raising process, connecting founders with investors more efficiently than ever before.
+              </p>
+            </div>
+          </WavyBackground>
+        )}
 
         {/* Features Section */}
         <section className="py-16 md:py-24">
