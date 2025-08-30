@@ -11,7 +11,7 @@ const PreLoader: React.FC<PreLoaderProps> = ({ onComplete }) => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
       onComplete();
-    }, 5000); // Fallback timeout jika video gagal
+    }, 10000); // Fallback timeout jika video gagal
 
     return () => clearTimeout(timer);
   }, [onComplete]);
