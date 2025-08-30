@@ -12,6 +12,12 @@ const config: Config = {
         roboto: ['var(--font-roboto)'],
         'wix-madefor': ['var(--font-wix-madefor)'],
       },
+      colors: {
+        emerald: {
+          400: '#34d399',
+          // other emerald shades as needed
+        }
+      }
     },
   },
   plugins: [],

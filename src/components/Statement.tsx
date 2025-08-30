@@ -2,12 +2,12 @@
 
 import React from "react";
 import Image from "next/image";
-import { World, GlobeConfig } from "../components/ui/globe"; // Pastikan path benar
+import { World, GlobeConfig } from "../components/ui/globe";
 
 const Statement = () => {
   const globeConfig: GlobeConfig = {
     pointSize: 4,
-    globeColor: "#1d4ed8", // Biru gelap untuk kontras dengan background gelap
+    globeColor: "#002716", // Darker green like Shopify image
     showAtmosphere: true,
     atmosphereColor: "#FFFFFF",
     atmosphereAltitude: 0.1,
@@ -15,20 +15,20 @@ const Statement = () => {
     emissiveIntensity: 0.1,
     shininess: 0.9,
     polygonColor: "rgba(255,255,255,0.7)",
-    ambientLight: "#f59e0b", // Amber untuk match tema
+    ambientLight: "#f59e0b",
     directionalLeftLight: "#ffffff",
     directionalTopLight: "#ffffff",
     pointLight: "#ffffff",
-    arcTime: 1000, // Lebih cepat untuk lancar
+    arcTime: 1000,
     arcLength: 0.9,
     rings: 1,
     maxRings: 3,
     initialPosition: { lat: 22.3193, lng: 114.1694 },
     autoRotate: true,
-    autoRotateSpeed: 0.5, // Lebih lambat untuk smooth
+    autoRotateSpeed: 0.5,
   };
 
-  const colors = ["#f59e0b", "#fbbf24", "#d97706"]; // Amber shades untuk match tema
+  const colors = ["#f59e0b", "#fbbf24", "#d97706"];
   const data = [
     {
       order: 1,
@@ -393,61 +393,110 @@ const Statement = () => {
   ];
 
   return (
-    <section className="bg-[#2C2C2C] text-white">
-      <div className="max-w-6xl mx-auto px-4 py-16 md:py-20">
-        {/* Header */}
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-5xl leading-tight font-semibold">
-            There’s no better place <br className="hidden md:block" />
+    <section className="bg-[#002716] text-white overflow-hidden relative py-24">
+      {/* Dotted particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-[5%] right-[10%] w-2 h-2 rounded-full bg-white/30"></div>
+        <div className="absolute top-[15%] right-[20%] w-2 h-2 rounded-full bg-white/30"></div>
+        <div className="absolute top-[25%] right-[15%] w-1 h-1 rounded-full bg-white/30"></div>
+        <div className="absolute top-[20%] left-[10%] w-2 h-2 rounded-full bg-white/30"></div>
+        <div className="absolute bottom-[15%] right-[30%] w-1 h-1 rounded-full bg-white/30"></div>
+        <div className="absolute bottom-[25%] right-[40%] w-2 h-2 rounded-full bg-white/30"></div>
+        <div className="absolute bottom-[45%] left-[5%] w-1 h-1 rounded-full bg-white/30"></div>
+        <div className="absolute bottom-[35%] left-[15%] w-2 h-2 rounded-full bg-white/30"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header - Exactly like Shopify */}
+        <div className="text-center mb-20 max-w-4xl mx-auto">
+          <h2 className="text-5xl md:text-6xl font-medium leading-tight mb-4">
+            There's no better place
+            <br />
             for you to raise
           </h2>
-          <div className="mx-auto mt-4 h-1 w-24 bg-amber-600 rounded-full" />
         </div>
 
-        {/* Row 1: Text | Image */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-          <div className="order-2 md:order-1">
-            <h3 className="text-xl md:text-2xl font-semibold mb-3">
-              Convert capital raising into simple ecommerce
-            </h3>
-            <div className="h-1 w-16 bg-amber-600 mb-4 rounded-full" />
-            <p className="text-white/90 leading-relaxed">
-              FoundersCrowd converts 20% higher on average than other fundraising
-              platforms, with the lowest fees in the industry — giving your brand
-              exposure to anyone in the world with an internet connection.
-            </p>
+        {/* First row: Text | Checkout Image */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-32">
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-3xl md:text-4xl font-medium leading-tight mb-6">
+                The world's best-
+                <br />converting checkout
+              </h3>
+            </div>
+
+            <div className="flex space-x-24">
+              <div className="space-y-1">
+                <p className="text-emerald-400 text-sm font-medium uppercase tracking-wider">
+                  Higher Conversions
+                </p>
+                <p className="text-6xl font-medium">
+                  15
+                  <span className="text-3xl align-top">%</span>
+                </p>
+              </div>
+
+              <div className="space-y-1">
+                <p className="text-emerald-400 text-sm font-medium uppercase tracking-wider">
+                  High-Intent Shoppers
+                </p>
+                <p className="text-6xl font-medium">
+                  150M
+                  <span className="text-3xl align-top">+</span>
+                </p>
+              </div>
+            </div>
+
+            <div className="border-l-4 border-emerald-400 pl-4 py-1 text-sm max-w-md text-white/80">
+              <p>
+                FounderCrowd converts 15% higher on average than other commerce
+                platforms and exposes your brand to 150 million buy-ready
+                investors.
+              </p>
+              <p className="text-white/60 text-xs mt-3">
+                Based on external study with a Big Three global consulting firm
+                in April, 2023.
+              </p>
+            </div>
           </div>
 
-          <div className="order-1 md:order-2">
-            <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden shadow-lg ring-1 ring-white/10">
+            <div className="relative flex justify-center items-center">
               <Image
-                src="/features2.jpg"
-                alt="Feature 1"
-                fill
-                className="object-cover"
+                src="/shopify2.png"
+                alt="Checkout Interface"
+                width={600}
+                height={500}
+                className="object-contain"
+                priority
+              />
+              <Image
+                src="/shopify1.png"
+                alt="Checkout Overlay"
+                width={400}
+                height={300}
+                className="object-contain absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
                 priority
               />
             </div>
-          </div>
         </div>
 
-        {/* Row 2: Globe | Text */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center mt-12 md:mt-16">
-          <div className="order-1">
-            <div className="relative w-full h-96">
-              <World globeConfig={globeConfig} data={data} />
-            </div>
+        {/* Second row: Globe | Text */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="relative h-[500px]">
+            <World globeConfig={globeConfig} data={data} />
           </div>
 
-          <div className="order-2">
-            <h3 className="text-xl md:text-2xl font-semibold mb-3">
-              Raise capital while building a global community of supporters
+          <div>
+            <h3 className="text-4xl md:text-5xl font-medium leading-tight mb-6">
+              Rock steady
+              <br />
+              and blazing fast
             </h3>
-            <div className="h-1 w-16 bg-amber-600 mb-4 rounded-full" />
-            <p className="text-white/90 leading-relaxed">
-              FoundersCrowd puts your raise within 60 milliseconds of every
-              potential investor worldwide, with the capacity to handle even the
-              biggest funding launches.
+            <p className="text-lg text-white/80 leading-relaxed max-w-md">
+              FounderCrowd puts your raise within 60 milliseconds of every
+              investor on the planet, with the capacity to handle even the most
+              epic product drops.
             </p>
           </div>
         </div>

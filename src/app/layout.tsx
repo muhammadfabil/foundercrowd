@@ -32,8 +32,8 @@ const wixMadeforText = Wix_Madefor_Text({
 // Create src/app/metadata.ts for metadata export
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // Preloader dinonaktifkan dengan mengatur nilai default state menjadi false
-  const [showPreloader, setShowPreloader] = useState(false);
+  // Preloader diaktifkan dengan mengatur nilai default state menjadi true
+  const [showPreloader, setShowPreloader] = useState(true);
 
   return (
     <html lang="en" className={`${figtree.variable} ${roboto.variable} ${wixMadeforText.variable}`}>
