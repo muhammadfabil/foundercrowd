@@ -138,22 +138,22 @@ const TestiMap = () => {
       const isRow = orientation === "row";
       return (
         <div className={isRow ? "flex flex-col items-stretch w-full" : "flex flex-col items-center w-full"}>
-          <div className={`flex ${isRow ? "flex-row gap-3 justify-center" : "flex-col space-y-4 items-center"}`}>
+          <div className={`flex ${isRow ? "flex-row gap-2 justify-center" : "flex-col space-y-4 items-center"}`}>
             {countries.map(({ country, testimonials }) => {
               const FlagComponent = CountryFlags[country];
               const isActive = country === activeCountry;
-              const btnClass = isRow ? "w-12 h-12" : "w-14 h-14";
-              const flagClass = isRow ? "w-9 h-9" : "w-10 h-10";
+              const btnClass = isRow ? "w-10 h-10" : "w-14 h-14";
+              const flagClass = isRow ? "w-7 h-7" : "w-10 h-10";
               return (
                 <button
                   key={country}
                   onClick={() => onSelectCountry(testimonials[0].id)}
-                  className={`${btnClass} rounded-xl flex items-center justify-center border transition-all ${
+                  className={`${btnClass} rounded-lg flex items-center justify-center border transition-all ${
                     isActive ? "bg-[#2B2B2B] border-gray-700" : "bg-gray-100 border-gray-300"
                   }`}
                   aria-label={`Select ${country}`}
                 >
-                  <div className={`${flagClass} rounded-lg overflow-hidden`}>
+                  <div className={`${flagClass} rounded overflow-hidden`}>
                     <FlagComponent className="w-full h-full" />
                   </div>
                 </button>
@@ -162,7 +162,7 @@ const TestiMap = () => {
           </div>
 
           {showCaption && (
-            <div className="mt-5 text-center">
+            <div className="mt-4 text-center">
               <p className="text-gray-700 font-medium text-sm">From funnel to funding</p>
               <p className="text-gray-600 mt-1 text-xs">
                 FoundersCrowd AI builds the path. FoundersCrowd Marketing gets you seen.
@@ -185,14 +185,17 @@ const TestiMap = () => {
           absolute rounded-xl shadow-lg overflow-hidden bg-white border border-gray-200
           transition-all duration-500 ease-out cursor-pointer
           ${position === 'center' ? 'z-30 scale-100 opacity-100' : 
-            position === 'left' ? 'z-20 -translate-x-[70%] scale-[0.85] opacity-70' : 
-            'z-20 translate-x-[70%] scale-[0.85] opacity-70'}
+            position === 'left' ? 'z-20 -translate-x-[85%] scale-[0.75] opacity-60' : 
+            'z-20 translate-x-[85%] scale-[0.75] opacity-60'}
         `}
-        style={{ width: '240px' }}
+        style={{ 
+          width: position === 'center' ? '280px' : '200px',
+          maxWidth: '90vw'
+        }}
         onClick={onClick}
       >
         {/* Image at the top */}
-        <div className="relative w-full h-[140px]">
+        <div className="relative w-full h-[120px]">
           <Image src={testimonial.image} alt={testimonial.name} fill className="object-cover" />
         </div>
         
@@ -217,20 +220,20 @@ const TestiMap = () => {
   });
 
   return (
-    <section className="py-12 bg-white font-figtree">
+    <section className="py-8 md:py-12 bg-white font-figtree">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-medium text-black mb-2">
+        <div className="text-center mb-6 md:mb-8">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium text-black mb-2">
             Success stories from around the world
           </h2>
-          <p className="text-gray-600 text-base max-w-xl mx-auto">
+          <p className="text-gray-600 text-sm md:text-base max-w-xl mx-auto px-4">
             See how founders across the globe have leveraged FounderCrowd to achieve their fundraising goals.
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-300">
+        <div className="bg-white rounded-xl md:rounded-2xl p-3 md:p-5 shadow-sm border border-gray-300">
           {/* MOBILE: flags (atas) */}
-          <div className="md:hidden">
+          <div className="md:hidden mb-4">
             <CountryFlagList
               countries={visibleCountries}
               activeCountry={activeTestimonial.country}
@@ -240,7 +243,7 @@ const TestiMap = () => {
             />
           </div>
 
-          <div className="flex flex-col md:flex-row gap-4 mt-4">
+          <div className="flex flex-col md:flex-row gap-3 md:gap-4">
             {/* DESKTOP: kolom bendera kiri */}
             <div className="hidden md:block md:w-1/5">
               <CountryFlagList
@@ -254,18 +257,18 @@ const TestiMap = () => {
 
             {/* Map + Carousel Cards */}
             <div className="w-full md:w-4/5">
-              <div className="relative w-full aspect-[16/9] md:aspect-[16/8] rounded-lg overflow-hidden">
+              <div className="relative w-full aspect-[4/3] md:aspect-[16/9] lg:aspect-[16/8] rounded-lg overflow-hidden">
                 <Image src="/TestiMap.png" alt="World Map" fill className="object-cover" />
                 
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div 
                     ref={carouselRef}
-                    className="relative h-[320px] w-full flex items-center justify-center"
+                    className="relative h-[280px] md:h-[320px] w-full flex items-center justify-center"
                   >
                     <motion.div
                       className="flex relative w-full justify-center items-center h-full"
                       animate={{ 
-                        x: direction * 20,
+                        x: direction * 15,
                         transition: { duration: 0.2 }
                       }}
                       onAnimationComplete={() => {
@@ -307,7 +310,7 @@ const TestiMap = () => {
           </div>
 
           {/* MOBILE: caption di bawah */}
-          <div className="md:hidden mt-6 text-center">
+          <div className="md:hidden mt-4 text-center">
             <p className="text-gray-700 font-medium text-sm">From funnel to funding</p>
             <p className="text-gray-600 mt-1 text-xs">
               FoundersCrowd AI builds the path. FoundersCrowd Marketing gets you seen.
