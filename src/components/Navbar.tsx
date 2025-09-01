@@ -164,7 +164,6 @@ export default function Navbar() {
               </button>
               <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="py-2">
-                  
                   <Link href="/why-founderscrowd" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
                     Why Founderscrowd
                   </Link>
@@ -173,6 +172,9 @@ export default function Navbar() {
                   </Link>
                   <Link href="/our-tech" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
                     Our Tech
+                  </Link>
+                  <Link href="/merger-acquisition" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
+                    Merger & Acquisition
                   </Link>
                 </div>
               </div>
@@ -277,7 +279,6 @@ export default function Navbar() {
                 </button>
                 {openDropdown === 'companies' && (
                   <div className="ml-4 space-y-1">
-                    
                     <Link href="/why-founderscrowd" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       Why Founderscrowd
                     </Link>
