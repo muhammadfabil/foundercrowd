@@ -116,12 +116,21 @@ const FeatureImage = React.memo(({ feature }: { feature: Feature }) => (
 
 const ImageCarousel = () => {
   const [currentPattern, setCurrentPattern] = useState(0);
+  const [activeTextIndex, setActiveTextIndex] = useState(0);
   
   // Data gambar untuk carousel
   const carouselImages = [
-    { id: 1, src: '/1.png', alt: 'Raise online' },
-    { id: 2, src: '/2.png', alt: 'Raise globally' },
-    { id: 3, src: '/3.png', alt: 'Raise with funds' }
+    { id: 1, src: '/f1.jpg', alt: 'Raise online' },
+    { id: 2, src: '/f2.jpg', alt: 'Raise globally' },
+    { id: 3, src: '/f3.jpg', alt: 'Raise with funds' }
+  ];
+
+  // Phrases for sequential highlighting
+  const phrases = [
+    "Raise capital online and offline.",
+    "Raise locally and globally.",
+    "Raise with fans and with funds.",
+    "Raise from day one to IPO day."
   ];
 
   // Layout patterns to cycle through
@@ -155,16 +164,37 @@ const ImageCarousel = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Cycle through text highlights every 2 seconds
+  useEffect(() => {
+    const textInterval = setInterval(() => {
+      setActiveTextIndex((prev) => (prev + 1) % phrases.length);
+    }, 2000);
+    
+    return () => clearInterval(textInterval);
+  }, []);
+
   // Get the current layout pattern
   const currentLayout = patterns[currentPattern];
 
   return (
     <div className="mb-28">
-      <h2 className="text-4xl md:text-6xl font-medium text-black mb-4">
+      <h2 className="text-4xl md:text-5xl font-medium text-black mb-4">
         The one platform behind the next generation of startups
       </h2>
-      <p className="text-gray-600 text-xl md:text-2xl mt-6 mb-12 max-w-5xl">
-        Raise capital online and offline. Raise locally and globally. Raise with fans and with funds. Raise from day one to IPO day.
+      <p className="text-black text-xl md:text-2xl mt-6 mb-12 max-w-5xl">
+        {phrases.map((phrase, index) => (
+          <span 
+            key={index}
+            className={`
+              inline-block px-1 py-0.5
+              transition-all duration-300
+              ${activeTextIndex === index ? 'text-[#F59E0B]' : 'text-black'}
+              hover:text-[#00c28a] cursor-pointer
+            `}
+          >
+            {phrase}
+          </span>
+        ))}
       </p>
       
       {/* Image gallery carousel */}

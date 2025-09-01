@@ -33,12 +33,15 @@ function stripHtml(html: string) {
 function getFeaturedImage(p: WPPost) {
   const media = p._embedded?.["wp:featuredmedia"]?.[0];
   const sizes = media?.media_details?.sizes;
+  
+  // Prioritize sizes: medium_large > large > medium > full
   const pick =
     (sizes?.medium_large ?? sizes?.large ?? sizes?.medium ?? sizes?.full) as
       | { source_url: string; width: number; height: number }
       | undefined;
 
   const src = pick?.source_url ?? media?.source_url;
+  
   return {
     src: src || null,
     alt: media?.alt_text || stripHtml(p.title.rendered),
@@ -47,14 +50,22 @@ function getFeaturedImage(p: WPPost) {
   };
 }
 
-async function fetchPosts(page: number = 1, perPage: number = 6): Promise<WPPost[]> {
+async function fetchPosts(page: number = 1, perPage: number = 6): Promise<{ posts: WPPost[], totalPages: number }> {
   const url =
     `${API}/posts` +
     `?per_page=${perPage}&page=${page}&_embed` +
     `&_fields=id,slug,date_gmt,link,title,excerpt,_embedded`;
+  
   const res = await fetch(url, { next: { revalidate: 60 } });
+  
   if (!res.ok) throw new Error(`WP API error ${res.status}`);
-  return res.json();
+  
+  // Get total pages from headers
+  const totalPages = parseInt(res.headers.get('X-WP-TotalPages') || '1');
+  
+  const posts = await res.json();
+  
+  return { posts, totalPages };
 }
 
 export default function BlogPage() {
@@ -72,18 +83,18 @@ export default function BlogPage() {
     const loadPosts = async () => {
       setLoading(true);
       try {
-        const result = await fetchPosts(page);
+        const { posts: result, totalPages: total } = await fetchPosts(page);
         setPosts(result);
+        setTotalPages(total);
         
-        // Set the first post as featured if first page
+        // Set the first post as featured if first page and has posts
         if (page === 1 && result.length > 0) {
           setFeaturedPost(result[0]);
         }
-        
-        // Estimate total pages (WordPress API doesn't always return total pages in headers)
-        setTotalPages(5); // Placeholder - in real app would come from API headers
       } catch (error) {
         console.error("Failed to fetch posts:", error);
+        setPosts([]);
+        setTotalPages(1);
       } finally {
         setLoading(false);
       }
@@ -104,6 +115,9 @@ export default function BlogPage() {
   };
 
   const renderPagination = () => {
+    // Only show pagination if there are more than 6 posts total or current page has posts
+    if (totalPages <= 1 || posts.length === 0) return null;
+    
     const pages = [];
     const maxButtons = 3;
     
@@ -329,8 +343,8 @@ export default function BlogPage() {
             </div>
           )}
 
-          {/* Pagination */}
-          {!loading && totalPages > 1 && (
+          {/* Pagination - Only show when needed */}
+          {!loading && renderPagination() && (
             <div className="mt-16">
               {renderPagination()}
             </div>

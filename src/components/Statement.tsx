@@ -7,28 +7,29 @@ import { World, GlobeConfig } from "../components/ui/globe";
 const Statement = () => {
   const globeConfig: GlobeConfig = {
     pointSize: 4,
-    globeColor: "#002716", // Darker green like Shopify image
-    showAtmosphere: true,
-    atmosphereColor: "#FFFFFF",
-    atmosphereAltitude: 0.1,
-    emissive: "#1d4ed8",
-    emissiveIntensity: 0.1,
-    shininess: 0.9,
-    polygonColor: "rgba(255,255,255,0.7)",
-    ambientLight: "#f59e0b",
-    directionalLeftLight: "#ffffff",
-    directionalTopLight: "#ffffff",
-    pointLight: "#ffffff",
+    globeColor: "#0a1a2a", // Dark blue-black base
+    showAtmosphere: true, // Enable for neon glow
+    atmosphereColor: "#00ccff", // Bright cyan atmosphere
+    atmosphereAltitude: 0.2, // Strong glow effect
+    emissive: "#001155", // Dark blue emissive
+    emissiveIntensity: 0.4, // Higher for glow
+    shininess: 0.9, // High shine for neon effect
+    polygonColor: "rgba(255, 255, 255, 0.8)", // Bright white countries for continent visibility
+    ambientLight: "#001144",
+    directionalLeftLight: "#00aaff",
+    directionalTopLight: "#0088cc",
+    pointLight: "#00ccff",
     arcTime: 1000,
     arcLength: 0.9,
     rings: 1,
     maxRings: 3,
     initialPosition: { lat: 22.3193, lng: 114.1694 },
     autoRotate: true,
-    autoRotateSpeed: 0.5,
+    autoRotateSpeed: 1.5, // Increased from 0.5 to 1.5 for faster rotation
   };
 
-  const colors = ["#f59e0b", "#fbbf24", "#d97706"];
+  // Change all colors to neon cyan
+  const colors = ["#00ffff", "#00ffff", "#00ffff"];
   const data = [
     {
       order: 1,
@@ -37,7 +38,7 @@ const Statement = () => {
       endLat: -22.9068,
       endLng: -43.1729,
       arcAlt: 0.1,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff", // Neon cyan
     },
     {
       order: 1,
@@ -46,7 +47,7 @@ const Statement = () => {
       endLat: 3.139,
       endLng: 101.6869,
       arcAlt: 0.2,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 1,
@@ -55,7 +56,7 @@ const Statement = () => {
       endLat: -1.303396,
       endLng: 36.852443,
       arcAlt: 0.5,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 2,
@@ -64,7 +65,7 @@ const Statement = () => {
       endLat: 35.6762,
       endLng: 139.6503,
       arcAlt: 0.2,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 2,
@@ -73,7 +74,7 @@ const Statement = () => {
       endLat: 3.139,
       endLng: 101.6869,
       arcAlt: 0.3,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 2,
@@ -82,7 +83,7 @@ const Statement = () => {
       endLat: 36.162809,
       endLng: -115.119411,
       arcAlt: 0.3,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 3,
@@ -91,7 +92,7 @@ const Statement = () => {
       endLat: 22.3193,
       endLng: 114.1694,
       arcAlt: 0.3,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 3,
@@ -100,7 +101,7 @@ const Statement = () => {
       endLat: 40.7128,
       endLng: -74.006,
       arcAlt: 0.3,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 3,
@@ -109,7 +110,7 @@ const Statement = () => {
       endLat: 51.5072,
       endLng: -0.1276,
       arcAlt: 0.3,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 4,
@@ -118,7 +119,7 @@ const Statement = () => {
       endLat: -15.595412,
       endLng: -56.05918,
       arcAlt: 0.5,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 4,
@@ -127,7 +128,7 @@ const Statement = () => {
       endLat: 22.3193,
       endLng: 114.1694,
       arcAlt: 0.7,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 4,
@@ -136,7 +137,7 @@ const Statement = () => {
       endLat: 48.8566,
       endLng: -2.3522,
       arcAlt: 0.1,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 5,
@@ -145,7 +146,7 @@ const Statement = () => {
       endLat: 51.5072,
       endLng: -0.1276,
       arcAlt: 0.3,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 5,
@@ -154,7 +155,7 @@ const Statement = () => {
       endLat: -33.8688,
       endLng: 151.2093,
       arcAlt: 0.2,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 5,
@@ -163,7 +164,7 @@ const Statement = () => {
       endLat: 48.8566,
       endLng: -2.3522,
       arcAlt: 0.2,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 6,
@@ -172,7 +173,7 @@ const Statement = () => {
       endLat: 1.094136,
       endLng: -63.34546,
       arcAlt: 0.7,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 6,
@@ -181,7 +182,7 @@ const Statement = () => {
       endLat: 35.6762,
       endLng: 139.6503,
       arcAlt: 0.1,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 6,
@@ -190,7 +191,7 @@ const Statement = () => {
       endLat: 51.5072,
       endLng: -0.1276,
       arcAlt: 0.3,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 7,
@@ -199,7 +200,7 @@ const Statement = () => {
       endLat: -15.595412,
       endLng: -56.05918,
       arcAlt: 0.1,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 7,
@@ -208,7 +209,7 @@ const Statement = () => {
       endLat: 52.52,
       endLng: 13.405,
       arcAlt: 0.1,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 7,
@@ -217,7 +218,7 @@ const Statement = () => {
       endLat: 34.0522,
       endLng: -118.2437,
       arcAlt: 0.2,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 8,
@@ -226,7 +227,7 @@ const Statement = () => {
       endLat: -33.936138,
       endLng: 18.436529,
       arcAlt: 0.2,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 8,
@@ -235,7 +236,7 @@ const Statement = () => {
       endLat: 52.3676,
       endLng: 4.9041,
       arcAlt: 0.2,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 8,
@@ -244,7 +245,7 @@ const Statement = () => {
       endLat: 40.7128,
       endLng: -74.006,
       arcAlt: 0.5,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 9,
@@ -253,7 +254,7 @@ const Statement = () => {
       endLat: 34.0522,
       endLng: -118.2437,
       arcAlt: 0.2,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 9,
@@ -262,7 +263,7 @@ const Statement = () => {
       endLat: -22.9068,
       endLng: -43.1729,
       arcAlt: 0.7,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 9,
@@ -271,7 +272,7 @@ const Statement = () => {
       endLat: -34.6037,
       endLng: -58.3816,
       arcAlt: 0.5,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 10,
@@ -280,7 +281,7 @@ const Statement = () => {
       endLat: 28.6139,
       endLng: 77.209,
       arcAlt: 0.7,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 10,
@@ -289,7 +290,7 @@ const Statement = () => {
       endLat: 31.2304,
       endLng: 121.4737,
       arcAlt: 0.3,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 10,
@@ -298,7 +299,7 @@ const Statement = () => {
       endLat: 52.3676,
       endLng: 4.9041,
       arcAlt: 0.3,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 11,
@@ -307,7 +308,7 @@ const Statement = () => {
       endLat: 34.0522,
       endLng: -118.2437,
       arcAlt: 0.2,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 11,
@@ -316,7 +317,7 @@ const Statement = () => {
       endLat: 31.2304,
       endLng: 121.4737,
       arcAlt: 0.2,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 11,
@@ -325,7 +326,7 @@ const Statement = () => {
       endLat: 1.3521,
       endLng: 103.8198,
       arcAlt: 0.2,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 12,
@@ -334,7 +335,7 @@ const Statement = () => {
       endLat: 37.7749,
       endLng: -122.4194,
       arcAlt: 0.1,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 12,
@@ -343,7 +344,7 @@ const Statement = () => {
       endLat: 22.3193,
       endLng: 114.1694,
       arcAlt: 0.2,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 12,
@@ -352,7 +353,7 @@ const Statement = () => {
       endLat: 34.0522,
       endLng: -118.2437,
       arcAlt: 0.3,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 13,
@@ -361,7 +362,7 @@ const Statement = () => {
       endLat: 22.3193,
       endLng: 114.1694,
       arcAlt: 0.3,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 13,
@@ -370,7 +371,7 @@ const Statement = () => {
       endLat: 35.6762,
       endLng: 139.6503,
       arcAlt: 0.3,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 13,
@@ -379,7 +380,7 @@ const Statement = () => {
       endLat: -34.6037,
       endLng: -58.3816,
       arcAlt: 0.1,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
     {
       order: 14,
@@ -388,26 +389,51 @@ const Statement = () => {
       endLat: 21.395643,
       endLng: 39.883798,
       arcAlt: 0.3,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: "#00ffff",
     },
   ];
 
   return (
-    <section className="bg-[#002716] text-white overflow-hidden relative py-12 md:py-24">
-      {/* Dotted particles */}
+    <section className="bg-gradient-to-b from-[#041E18] to-black text-white overflow-hidden relative py-12 md:py-24">
+      {/* Enhanced star particles with cyan glow */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-[5%] right-[10%] w-2 h-2 rounded-full bg-white/30"></div>
-        <div className="absolute top-[15%] right-[20%] w-2 h-2 rounded-full bg-white/30"></div>
-        <div className="absolute top-[25%] right-[15%] w-1 h-1 rounded-full bg-white/30"></div>
-        <div className="absolute top-[20%] left-[10%] w-2 h-2 rounded-full bg-white/30"></div>
-        <div className="absolute bottom-[15%] right-[30%] w-1 h-1 rounded-full bg-white/30"></div>
-        <div className="absolute bottom-[25%] right-[40%] w-2 h-2 rounded-full bg-white/30"></div>
-        <div className="absolute bottom-[45%] left-[5%] w-1 h-1 rounded-full bg-white/30"></div>
-        <div className="absolute bottom-[35%] left-[15%] w-2 h-2 rounded-full bg-white/30"></div>
+        {Array.from({ length: 50 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-70 animate-pulse shadow-lg shadow-cyan-400/30"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 3}s`,
+            }}
+          />
+        ))}
+        {Array.from({ length: 20 }).map((_, i) => (
+          <div
+            key={`large-${i}`}
+            className="absolute w-2 h-2 bg-cyan-300 rounded-full opacity-50 animate-pulse shadow-lg shadow-cyan-300/40"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 4}s`,
+              animationDuration: `${3 + Math.random() * 2}s`,
+            }}
+          />
+        ))}
+        {/* Existing dotted particles with cyan theme */}
+        <div className="absolute top-[5%] right-[10%] w-2 h-2 rounded-full bg-cyan-400/30 shadow-lg shadow-cyan-400/20"></div>
+        <div className="absolute top-[15%] right-[20%] w-2 h-2 rounded-full bg-cyan-400/30 shadow-lg shadow-cyan-400/20"></div>
+        <div className="absolute top-[25%] right-[15%] w-1 h-1 rounded-full bg-cyan-400/30"></div>
+        <div className="absolute top-[20%] left-[10%] w-2 h-2 rounded-full bg-cyan-400/30 shadow-lg shadow-cyan-400/20"></div>
+        <div className="absolute bottom-[15%] right-[30%] w-1 h-1 rounded-full bg-cyan-400/30"></div>
+        <div className="absolute bottom-[25%] right-[40%] w-2 h-2 rounded-full bg-cyan-400/30 shadow-lg shadow-cyan-400/20"></div>
+        <div className="absolute bottom-[45%] left-[5%] w-1 h-1 rounded-full bg-cyan-400/30"></div>
+        <div className="absolute bottom-[35%] left-[15%] w-2 h-2 rounded-full bg-cyan-400/30 shadow-lg shadow-cyan-400/20"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header - Exactly like Shopify */}
+        {/* Header */}
         <div className="text-center mb-12 md:mb-20 max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium leading-tight mb-4">
             There's no better place
@@ -483,7 +509,8 @@ const Statement = () => {
 
         {/* Second row: Globe | Text */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
-          <div className="relative h-[300px] md:h-[500px] order-2 md:order-1">
+          {/* Removed border and background, globe seamlessly blends */}
+          <div className="relative h-[300px] md:h-[500px] order-2 md:order-1 overflow-hidden">
             <World globeConfig={globeConfig} data={data} />
           </div>
 

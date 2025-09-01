@@ -174,9 +174,6 @@ export default function Navbar() {
                   <Link href="/our-tech" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
                     Our Tech
                   </Link>
-                  <Link href="/merger-acquisition" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
-                    Merger & Acquisition
-                  </Link>
                 </div>
               </div>
             </div>
@@ -201,6 +198,9 @@ export default function Navbar() {
                   </Link>
                   <Link href="/faq" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
                     FAQ
+                  </Link>
+                  <Link href="/team" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
+                    Our Team
                   </Link>
                 </div>
               </div>
@@ -332,6 +332,9 @@ export default function Navbar() {
                     </Link>
                     <Link href="/faq" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
                       FAQ
+                    </Link>
+                    <Link href="/team" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                      Our Team
                     </Link>
                   </div>
                 )}

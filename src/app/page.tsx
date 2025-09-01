@@ -19,6 +19,7 @@ export default function Page() {
       <Navbar />
       <Hero />
       <Features />
+      <Steps />
       <TestiMap />
       <Statement />
       <Plan />
