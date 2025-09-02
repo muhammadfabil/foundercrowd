@@ -7,6 +7,7 @@ import { CiStreamOn } from "react-icons/ci";
 import { BsBank } from "react-icons/bs";
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 import { IconType } from "react-icons";
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Define the feature type
 type Feature = {
@@ -117,6 +118,7 @@ const FeatureImage = React.memo(({ feature }: { feature: Feature }) => (
 const ImageCarousel = () => {
   const [currentPattern, setCurrentPattern] = useState(0);
   const [activeTextIndex, setActiveTextIndex] = useState(0);
+  const [mobileImageIndex, setMobileImageIndex] = useState(0);
   
   // Data gambar untuk carousel
   const carouselImages = [
@@ -155,7 +157,7 @@ const ImageCarousel = () => {
     ]
   ];
 
-  // Auto slide every 3 seconds
+  // Auto slide every 3 seconds for desktop
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentPattern((prev) => (prev + 1) % patterns.length);
@@ -163,6 +165,15 @@ const ImageCarousel = () => {
     
     return () => clearInterval(interval);
   }, []);
+
+  // Auto slide for mobile every 4 seconds
+  useEffect(() => {
+    const mobileInterval = setInterval(() => {
+      setMobileImageIndex((prev) => (prev + 1) % carouselImages.length);
+    }, 4000);
+    
+    return () => clearInterval(mobileInterval);
+  }, [carouselImages.length]);
 
   // Cycle through text highlights every 2 seconds
   useEffect(() => {
@@ -199,7 +210,44 @@ const ImageCarousel = () => {
       
       {/* Image gallery carousel */}
       <div className="relative w-full">
-        <div className="flex justify-between gap-4 w-full transition-all duration-1000 ease-in-out">
+        {/* Mobile: Animated carousel with single image */}
+        <div className="md:hidden relative w-full h-64 rounded-2xl overflow-hidden bg-gray-100">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={mobileImageIndex}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="absolute inset-0"
+            >
+              <Image 
+                src={carouselImages[mobileImageIndex].src}
+                alt={carouselImages[mobileImageIndex].alt}
+                fill
+                className="object-cover" 
+                priority
+              />
+            </motion.div>
+          </AnimatePresence>
+          
+          {/* Mobile navigation dots */}
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            {carouselImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setMobileImageIndex(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === mobileImageIndex ? 'bg-white' : 'bg-white/50'
+                }`}
+                aria-label={`Go to image ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop: Original layout */}
+        <div className="hidden md:flex justify-between gap-4 w-full transition-all duration-1000 ease-in-out">
           {currentLayout.map((item) => {
             const image = carouselImages.find(img => img.id === item.id);
             return (
