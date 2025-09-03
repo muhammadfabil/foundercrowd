@@ -246,9 +246,9 @@ const TestimonialMap = () => {
           ${isCenter ? 'z-30' : 'z-20 cursor-pointer'}
         `}
         style={{ 
-          width: isCenter ? '240px' : '210px',
-          maxWidth: '90vw',
-          transform: isCenter ? 'scale(1)' : isLeft ? 'translateX(-75%) scale(0.8)' : 'translateX(75%) scale(0.8)',
+          width: isCenter ? '240px' : '200px',
+          maxWidth: '35vw',
+          transform: isCenter ? 'scale(1)' : isLeft ? 'translateX(-55%) scale(0.8)' : 'translateX(55%) scale(0.8)',
           opacity: isCenter ? 1 : 0.7
         }}
         onClick={onClick}
@@ -340,14 +340,14 @@ const TestimonialMap = () => {
             </div>
 
             {/* Mobile: Card area */}
-            <div className="relative h-80 flex items-center justify-center">
+            <div className="relative h-72 flex items-center justify-center overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex}
                   className="flex relative w-full justify-center items-center h-full"
-                  initial={{ x: direction * 100, opacity: 0 }}
+                  initial={{ x: direction * 70, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  exit={{ x: direction * -100, opacity: 0 }}
+                  exit={{ x: direction * -70, opacity: 0 }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                   onAnimationComplete={() => {
                     setDirection(0);

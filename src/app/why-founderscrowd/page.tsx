@@ -10,6 +10,16 @@ const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-on
 const WhyFoundersCrowdPage = () => {
   const [openCalendly, setOpenCalendly] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [currentText, setCurrentText] = useState(0);
+
+  const rotatingTexts = [
+    "Start up to Watch",
+    "Category Creator", 
+    "Unicorn Startup",
+    "Game Changer in Sports",
+    "Household Name",
+    "Success IPO"
+  ];
 
   // Track scroll for parallax and animation effects
   useEffect(() => {
@@ -20,6 +30,15 @@ const WhyFoundersCrowdPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Add text rotation effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentText((prev) => (prev + 1) % rotatingTexts.length);
+    }, 2500); // Change text every 2.5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -28,9 +47,28 @@ const WhyFoundersCrowdPage = () => {
         <section className="relative py-16 md:py-20 lg:py-24 bg-[#2B2B2B] text-white overflow-hidden">
           <div className="absolute inset-0 opacity-20 hero-noise"></div>
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="text-center max-w-4xl mx-auto">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-balance">
-                Why <span className="text-amber-500">FoundersCrowd</span>
+            <div className="text-center max-w-4xl mx-auto mt-5">
+              <h1 className="text-balance text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                Be the next,<br />
+                <span className="block relative h-[1.2em] overflow-hidden">
+                  {rotatingTexts.map((text, index) => (
+                    <span
+                      key={text}
+                      className={`absolute inset-0 transition-transform duration-700 ease-in-out ${
+                        index === currentText
+                          ? 'transform translate-y-0 opacity-100'
+                          : index === (currentText - 1 + rotatingTexts.length) % rotatingTexts.length
+                          ? 'transform -translate-y-full opacity-0'
+                          : 'transform translate-y-full opacity-0'
+                      }`}
+                      style={{
+                        color: '#f59e0b' // amber-500 color for highlighted text
+                      }}
+                    >
+                      {text}
+                    </span>
+                  ))}
+                </span>
               </h1>
               <p className="text-lg md:text-2xl font-medium text-white/80 mb-8">
                 Built by Founders, for Founders
