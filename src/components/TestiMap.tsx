@@ -327,19 +327,95 @@ const TestimonialMap = () => {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          {/* Mobile: Flags at top */}
-          <div className="md:hidden mb-4">
-            <CountryFlagList
-              countries={visibleCountries}
-              activeCountry={activeTestimonial.country}
-              onSelectCountry={goToTestimonial}
-              orientation="row"
-            />
+          {/* Mobile Layout */}
+          <div className="lg:hidden space-y-6">
+            {/* Mobile: Flags area */}
+            <div className="text-center">
+              <CountryFlagList
+                countries={visibleCountries}
+                activeCountry={activeTestimonial.country}
+                onSelectCountry={goToTestimonial}
+                orientation="row"
+              />
+            </div>
+
+            {/* Mobile: Card area */}
+            <div className="relative h-80 flex items-center justify-center">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  className="flex relative w-full justify-center items-center h-full"
+                  initial={{ x: direction * 100, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: direction * -100, opacity: 0 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  onAnimationComplete={() => {
+                    setDirection(0);
+                    setIsAnimating(false);
+                  }}
+                >
+                  <TestimonialCard 
+                    testimonial={testimonials[displayIndices[0]]}
+                    position="left"
+                    onClick={() => {
+                      if (!isAnimating) {
+                        setDirection(-1);
+                        setIsAnimating(true);
+                        setActiveIndex(displayIndices[0]);
+                      }
+                    }}
+                  />
+                  <TestimonialCard 
+                    testimonial={testimonials[displayIndices[1]]}
+                    position="center"
+                  />
+                  <TestimonialCard 
+                    testimonial={testimonials[displayIndices[2]]}
+                    position="right"
+                    onClick={() => {
+                      if (!isAnimating) {
+                        setDirection(1);
+                        setIsAnimating(true);
+                        setActiveIndex(displayIndices[2]);
+                      }
+                    }}
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Mobile: Map + Overmap */}
+            <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100">
+              {/* World Map Background */}
+              <img 
+                src="/TestiMap.png" 
+                alt="World Map" 
+                className="absolute inset-0 w-full h-full object-cover opacity-30"
+              />
+              
+              {/* Overlay Image - positioned at right center */}
+              <img 
+                src="/overmap.png" 
+                alt="Overlay" 
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 h-full w-80 object-contain z-10"
+              />
+            </div>
+
+            {/* Mobile: Text */}
+            <div className="text-center">
+              <div className="inline-block p-4 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl">
+                <p className="text-gray-800 font-bold text-sm mb-1">From Funnel to Funding</p>
+                <p className="text-gray-600 text-xs leading-relaxed">
+                  FoundersCrowd AI builds the path. FoundersCrowd Marketing gets you seen.
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-4 md:gap-8">
+          {/* Desktop Layout */}
+          <div className="hidden lg:flex lg:gap-8">
             {/* Desktop: Flag sidebar */}
-            <div className="hidden lg:flex lg:w-1/6 flex-col items-center">
+            <div className="lg:w-1/6 flex flex-col items-center">
               <div className="sticky top-8">
                 <CountryFlagList
                   countries={visibleCountries}
@@ -359,9 +435,9 @@ const TestimonialMap = () => {
               </div>
             </div>
 
-            {/* Map + Testimonial Carousel */}
-            <div className="w-full">
-              <div className="relative w-full aspect-[4/3] md:aspect-[16/10] lg:aspect-[16/9] rounded-xl md:rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100">
+            {/* Desktop: Map + Testimonial Carousel */}
+            <div className="lg:flex-1">
+              <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100">
                 {/* World Map Background */}
                 <img 
                   src="/TestiMap.png" 
@@ -373,19 +449,19 @@ const TestimonialMap = () => {
                 <img 
                   src="/overmap.png" 
                   alt="Overlay" 
-                  className="absolute right-0 top-1/2 transform -translate-y-1/2 h-full w-80 md:w-90 object-contain z-10"
+                  className="absolute right-0 top-1/2 transform -translate-y-1/2 h-full w-90 object-contain z-10"
                 />
                 
                 {/* Testimonial Cards Carousel */}
-                <div className="absolute inset-0 flex items-center justify-start pl-2 md:pl-6 lg:pl-12 ml-8 md:ml-16 lg:ml-24">
-                  <div className="relative h-48 w-48 md:h-60 md:w-60 flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center justify-start pl-12 ml-24">
+                  <div className="relative h-60 w-60 flex items-center justify-center">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={activeIndex}
                         className="flex relative w-full justify-center items-center h-full"
-                        initial={{ x: direction * 60, opacity: 0 }}
+                        initial={{ x: direction * 75, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: direction * -60, opacity: 0 }}
+                        exit={{ x: direction * -75, opacity: 0 }}
                         transition={{ duration: 0.5, ease: "easeInOut" }}
                         onAnimationComplete={() => {
                           setDirection(0);
@@ -424,7 +500,7 @@ const TestimonialMap = () => {
                 </div>
 
                 {/* Dots indicator */}
-                <div className="absolute bottom-2 md:bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
                   {testimonials.map((_, index) => (
                     <button
                       key={index}
@@ -438,16 +514,6 @@ const TestimonialMap = () => {
                   ))}
                 </div>
               </div>
-            </div>
-          </div>
-
-          {/* Mobile: Caption at bottom */}
-          <div className="lg:hidden mt-4 md:mt-6 text-center">
-            <div className="inline-block p-3 md:p-4 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl md:rounded-2xl">
-              <p className="text-gray-800 font-bold text-sm mb-1">From Funnel to Funding</p>
-              <p className="text-gray-600 text-xs leading-relaxed">
-                FoundersCrowd AI builds the path. FoundersCrowd Marketing gets you seen.
-              </p>
             </div>
           </div>
         </motion.div>
