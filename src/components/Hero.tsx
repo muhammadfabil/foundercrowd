@@ -5,7 +5,7 @@ import Image from 'next/image';
 // First, set a default Calendly URL at the top level
 const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
 
-// Add the CalendlyModal component from HorizontalHook
+// Update the CalendlyModal component to match Navbar
 export function CalendlyModal({
   url,
   onClose,
@@ -13,8 +13,6 @@ export function CalendlyModal({
   url: string;
   onClose: () => void;
 }) {
-  const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onEsc);
@@ -24,12 +22,6 @@ export function CalendlyModal({
     script.type = 'text/javascript';
     script.src = 'https://assets.calendly.com/assets/external/widget.js';
     script.async = true;
-    
-    // Handle loading state
-    script.onload = () => {
-      // Short timeout to ensure widget initialization
-      setTimeout(() => setIsLoading(false), 1000);
-    };
     
     document.body.appendChild(script);
     
@@ -44,42 +36,27 @@ export function CalendlyModal({
 
   return (
     <div
-      className="fixed inset-0 z-[9999] grid place-items-center p-4"
+      className="fixed inset-0 z-[9999] bg-black/50"
       role="dialog"
       aria-modal="true"
+      onClick={onClose} // Close when clicking backdrop
     >
-      <div
-        className="absolute inset-0 bg-[#F3EFE7]/80 backdrop-blur-sm"
+      {/* Close button */}
+      <button
         onClick={onClose}
-      />
-      <div className="relative w-full max-w-4xl rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#8A490C]">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
-          <h3 className="text-sm font-medium text-white">Book a call</h3>
-          <button
-            onClick={onClose}
-            className="rounded-full px-3 py-1 text-xs bg-white/10 hover:bg-white/15 text-white"
-          >
-            Close
-          </button>
-        </div>
-        <div className="h-[70vh] min-h-[400px] md:min-h-[600px] relative">
-          {/* Loading animation */}
-          {isLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-[#8A490C] z-10">
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
-                <p className="mt-4 text-white/80 text-sm">Loading calendar...</p>
-              </div>
-            </div>
-          )}
-          
-          {/* Use the Calendly inline widget div structure */}
-          <div 
-            className="calendly-inline-widget h-full w-full" 
-            data-url={url}
-          ></div>
-        </div>
-      </div>
+        className="absolute top-4 right-4 z-[10000] bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      {/* Calendly widget container */}
+      <div 
+        className="calendly-inline-widget h-full w-full" 
+        data-url={url}
+        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on Calendly widget
+      ></div>
     </div>
   );
 }

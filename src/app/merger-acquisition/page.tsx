@@ -1,10 +1,65 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { CalendlyModal } from '@/components/Hero'; // Reusing the CalendlyModal component
 
 const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
+
+// Add the same CalendlyModal component from Navbar
+function CalendlyModal({
+  url,
+  onClose,
+}: {
+  url: string;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onEsc);
+    
+    // Add the Calendly script
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    
+    document.body.appendChild(script);
+    
+    return () => {
+      document.removeEventListener("keydown", onEsc);
+      // Clean up script if needed
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[9999] bg-black/50"
+      role="dialog"
+      aria-modal="true"
+      onClick={onClose} // Close when clicking backdrop
+    >
+      {/* Close button */}
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 z-[10000] bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      {/* Calendly widget container */}
+      <div 
+        className="calendly-inline-widget h-full w-full" 
+        data-url={url}
+        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on Calendly widget
+      ></div>
+    </div>
+  );
+}
 
 const MergerAcquisitionPage = () => {
   const [openCalendly, setOpenCalendly] = useState(false);
