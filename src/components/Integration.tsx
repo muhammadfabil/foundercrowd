@@ -1,47 +1,39 @@
 import React from 'react';
+import Image from 'next/image';
 
 const integrationLogos = [
-  // First row - 8 items
-  [
-    { name: 'Affinity', color: 'bg-gray-900' },
-    { name: 'Vercel', color: 'bg-black' },
-    { name: 'VVave', color: 'bg-gray-800' },
-    { name: 'Elysia', color: 'bg-gray-700' },
-    { name: 'Microsoft', color: 'bg-gray-900' },
-    { name: 'Textexpander', color: 'bg-black' },
-    { name: 'Transporter', color: 'bg-gray-800' },
-    { name: 'Spotify', color: 'bg-gray-700' },
-  ],
-  // Second row - 7 items
-  [
-    { name: 'ABBC', color: 'bg-orange-500' },
-    { name: 'Affinity', color: 'bg-gray-900' },
-    { name: 'MoneyLover', color: 'bg-gray-800' },
-    { name: 'Origami', color: 'bg-black' },
-    { name: 'Spring', color: 'bg-gray-700' },
-    { name: 'SteadyTune', color: 'bg-gray-900' },
-    { name: 'Transporter', color: 'bg-gray-800' },
-  ],
-  // Third row - 6 items
-  [
-    { name: 'TablePlus', color: 'bg-gray-700' },
-    { name: 'TikTok', color: 'bg-black' },
-    { name: 'Twitter', color: 'bg-gray-900' },
-    { name: 'Discord', color: 'bg-gray-800' },
-    { name: 'Mela', color: 'bg-gray-700' },
-    { name: 'CleanMyMac', color: 'bg-black' },
-  ],
-  // Fourth row - 5 items
-  [
-    { name: 'Notion', color: 'bg-gray-900' },
-    { name: 'Figma', color: 'bg-black' },
-    { name: 'Slack', color: 'bg-gray-800' },
-    { name: 'Zoom', color: 'bg-gray-700' },
-    { name: 'GitHub', color: 'bg-gray-900' },
-  ]
+  '/integ (1).svg',
+  '/integ (2).svg',
+  '/integ (3).svg',
+  '/integ (4).svg',
+  '/integ (5).svg',
+  '/integ (6).svg',
+  '/integ (7).svg',
+  '/integ (8).svg',
+  '/integ (9).svg',
+  '/integ (10).svg',
+  '/integ (11).svg',
+  '/integ (12).svg',
+  '/integ (13).svg',
+  '/integ (14).svg',
+  '/integ (15).svg',
+  '/integ (16).svg',
+  '/integ (17).svg',
+  '/integ (18).svg',
+  '/integ (19).svg',
+  '/integ (20).svg',
+  '/integ (21).svg',
+  '/integ (22).svg',
+  '/integ (23).svg',
+  '/integ (24).svg',
+  '/integ (25).svg'
 ];
 
 const Integration = () => {
+  // Define the number of logos per row for the triangle layout
+  const rows = [7, 6, 5, 4, 3];
+  let currentIndex = 0;
+
   return (
     <section className="py-20 bg-white font-figtree">
       <div className="max-w-5xl mx-auto px-4">
@@ -56,52 +48,42 @@ const Integration = () => {
           </p>
         </div>
 
-        {/* Integration Grid - Desktop version */}
-        <div className="hidden md:block space-y-8 mb-12">
-          {integrationLogos.map((row, rowIndex) => (
-            <div 
-              key={`desktop-${rowIndex}`}
-              className="flex justify-center items-center gap-6"
-            >
-              {row.map((integration, index) => (
-                <div
-                  key={`desktop-${rowIndex}-${index}`}
-                  className="group cursor-pointer"
-                >
-                  {/* Integration Circle */}
-                  <div className={`
-                    w-16 h-16 rounded-2xl flex items-center justify-center
-                    transition-all duration-300 hover:scale-105 hover:-translate-y-1
-                    ${integration.color}
-                    border border-gray-100 hover:border-gray-200
-                  `}>
-                    <span className="text-white font-semibold text-lg">
-                      {integration.name.charAt(0)}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
+        {/* Integration Grid - Triangle Layout */}
+        <div className="mb-12">
+          {rows.map((numLogos, rowIndex) => {
+            const rowLogos = integrationLogos.slice(currentIndex, currentIndex + numLogos);
+            currentIndex += numLogos;
 
-        {/* Integration Grid - Mobile version */}
-        <div className="md:hidden grid grid-cols-5 gap-4 mb-12 justify-items-center">
-          {integrationLogos.flat().slice(0, 15).map((integration, index) => (
-            <div
-              key={`mobile-${index}`}
-              className="flex flex-col items-center"
-            >
-              <div className={`
-                w-12 h-12 rounded-xl flex items-center justify-center
-                ${integration.color}
-              `}>
-                <span className="text-white font-semibold text-sm">
-                  {integration.name.charAt(0)}
-                </span>
+            return (
+              <div
+                key={`row-${rowIndex}`}
+                className="flex justify-center gap-4 md:gap-6 mb-4"
+              >
+                {rowLogos.map((logo, logoIndex) => (
+                  <div
+                    key={`logo-${currentIndex - numLogos + logoIndex}`}
+                    className="group cursor-pointer"
+                  >
+                    {/* Integration Circle */}
+                    <div className="
+                      w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl flex items-center justify-center
+                      transition-all duration-300 hover:scale-105 hover:-translate-y-1
+                      bg-white border border-gray-100 hover:border-gray-200
+                      shadow-sm hover:shadow-md
+                    ">
+                      <Image
+                        src={logo}
+                        alt={`Integration ${currentIndex - numLogos + logoIndex + 1}`}
+                        width={32}
+                        height={32}
+                        className="md:w-10 md:h-10 object-contain"
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Bottom text */}

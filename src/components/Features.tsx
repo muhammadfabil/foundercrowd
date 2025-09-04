@@ -64,7 +64,7 @@ const FeatureList = React.memo(({ features, activeFeature, setActiveFeature }: {
           className={`
             cursor-pointer transition-all duration-300 rounded-xl p-6
             ${activeFeature === feature.id
-              ? 'bg-white shadow-lg border-l-4 border-[#AC5B0F]'
+              ? 'bg-white shadow-lg border-l-4 border-[#FEA757]'
               : 'hover:bg-white/50'}
           `}
           onClick={() => setActiveFeature(feature.id)}

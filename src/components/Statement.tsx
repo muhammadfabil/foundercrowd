@@ -447,42 +447,13 @@ const Statement = () => {
           <div className="space-y-4 md:space-y-6">
             <div>
               <h3 className="text-2xl md:text-3xl lg:text-4xl font-medium leading-tight mb-4 md:mb-6">
-                The world's best-
-                <br />converting checkout
+                Convert capital raising into simple ecommerce
               </h3>
             </div>
 
-            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-12 md:space-x-24">
-              <div className="space-y-1">
-                <p className="text-emerald-400 text-sm font-medium uppercase tracking-wider">
-                  Higher Conversions
-                </p>
-                <p className="text-5xl md:text-6xl font-medium">
-                  15
-                  <span className="text-2xl md:text-3xl align-top">%</span>
-                </p>
-              </div>
-
-              <div className="space-y-1">
-                <p className="text-emerald-400 text-sm font-medium uppercase tracking-wider">
-                  High-Intent Shoppers
-                </p>
-                <p className="text-5xl md:text-6xl font-medium">
-                  150M
-                  <span className="text-2xl md:text-3xl align-top">+</span>
-                </p>
-              </div>
-            </div>
-
-            <div className="border-l-4 border-emerald-400 pl-4 py-1 text-sm max-w-md text-white/80">
+            <div className="border-l-4 border-emerald-400 pl-4 py-1 text-lg max-w-md text-white/80">
               <p>
-                FounderCrowd converts 15% higher on average than other commerce
-                platforms and exposes your brand to 150 million buy-ready
-                investors.
-              </p>
-              <p className="text-white/60 text-xs mt-3">
-                Based on external study with a Big Three global consulting firm
-                in April, 2023.
+                FoundersCrowd converts 20% higher on average than other fundraising platforms, with the lowest fees in the industry — giving your brand exposure to anyone in the world with an internet connection.
               </p>
             </div>
           </div>
@@ -516,14 +487,10 @@ const Statement = () => {
 
           <div className="order-1 md:order-2">
             <h3 className="text-2xl md:text-4xl lg:text-5xl font-medium leading-tight mb-4 md:mb-6">
-              Rock steady
-              <br />
-              and blazing fast
+              Raise capital while building a global community of supporters
             </h3>
             <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-md">
-              FounderCrowd puts your raise within 60 milliseconds of every
-              investor on the planet, with the capacity to handle even the most
-              epic product drops.
+              FoundersCrowd puts your raise within 60 milliseconds of every potential investor worldwide, with the capacity to handle even the biggest funding launches.
             </p>
           </div>
         </div>
