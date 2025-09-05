@@ -266,8 +266,8 @@ const TestimonialMap = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Success Stories from 
-            <span className="text-[#F59E0B]"> Around the World</span>
+            Raise from all Around the World <br/>
+            <span className="text-[#F59E0B]"> Invest and raise everywhere</span>
           </motion.h2>
           <motion.p 
             className="text-[#2B2B2B]/70 text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-2"
@@ -275,7 +275,7 @@ const TestimonialMap = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            See how founders across the globe have leveraged FounderCrowd to achieve their fundraising goals and scale their innovative businesses.
+            FoundersCrowd takes the complexity out of global fundraising. From connecting with investors worldwide to growing your brand and community, we make raising capital as simple as investing online.
           </motion.p>
         </div>
 
