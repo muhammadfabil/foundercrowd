@@ -40,7 +40,7 @@ const TestimonialMap = () => {
         company: "TechInnovate", 
         country: "US", 
         testimonial: "FounderCrowd helped us secure our Series A funding in half the time we expected. The platform connected us with investors who truly understood our vision.", 
-        image: "hhttps://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&fit=crop&crop=face",
+        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
         investment: "$125,000 USD"
       },
       { 
