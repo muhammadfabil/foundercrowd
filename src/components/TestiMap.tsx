@@ -342,17 +342,29 @@ const TestimonialMap = () => {
                     }}
                   />
 
-                  {/* Investment amount overlay for center card */}
-                  <div className="absolute top-[-40px] right-0 transform translate-x-[20%] z-40 flex items-center bg-[#2B2B2B] text-white rounded-full pl-2 pr-4 py-1.5 shadow-lg">
-                    <div className="w-6 h-6 mr-2 overflow-hidden rounded-full">
+                  {/* Investment amount overlay for center card - MOBILE RESPONSIVE */}
+                  <div className="absolute top-[-30px] left-1/2 transform -translate-x-1/2 z-40 flex items-center bg-[#2B2B2B] text-white rounded-full pl-2 pr-3 py-1 shadow-lg">
+                    <div className="w-4 h-4 mr-1.5 overflow-hidden rounded-full flex-shrink-0">
                       <FlagIcon country={testimonials[displayIndices[1]].country} className="w-full h-full" />
                     </div>
-                    <span className="text-sm font-semibold whitespace-nowrap">
+                    <span className="text-xs font-semibold whitespace-nowrap">
                       {testimonials[displayIndices[1]].investment}
                     </span>
                   </div>
                 </motion.div>
               </AnimatePresence>
+            </div>
+
+            {/* Mobile: Investment info card - tambahan untuk lebih jelas */}
+            <div className="text-center">
+              <div className="inline-flex items-center gap-2 bg-[#2B2B2B] text-white rounded-full px-4 py-2 text-sm font-medium">
+                <div className="w-5 h-5 overflow-hidden rounded-full">
+                  <FlagIcon country={activeTestimonial.country} className="w-full h-full" />
+                </div>
+                <span>{activeTestimonial.name}</span>
+                <span className="text-[#F59E0B]">•</span>
+                <span className="font-bold">{activeTestimonial.investment}</span>
+              </div>
             </div>
 
             {/* Mobile: Map + Overmap */}
@@ -466,7 +478,7 @@ const TestimonialMap = () => {
                           }}
                         />
 
-                        {/* Investment amount overlay for center card */}
+                        {/* Investment amount overlay for center card - DESKTOP */}
                         <div className="absolute top-[-40px] right-0 transform translate-x-[20%] z-40 flex items-center bg-[#2B2B2B] text-white rounded-full pl-2 pr-4 py-1.5 shadow-lg">
                           <div className="w-6 h-6 mr-2 overflow-hidden rounded-full">
                             <FlagIcon country={testimonials[displayIndices[1]].country} className="w-full h-full" />
