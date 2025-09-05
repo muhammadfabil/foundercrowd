@@ -82,8 +82,8 @@ export function Globe({ globeConfig, data }: WorldProps) {
     atmosphereColor: "#F59E0B",
     showAtmosphere: true,
     atmosphereAltitude: 0.1,
-    polygonColor: "#FFFFFF", // Benua warna amber/orange
-    globeColor: "#E5E7EB", // Globe base bright light gray
+    polygonColor: "#F59E0B", // Benua warna amber/orange
+    globeColor: "#2B2B2B", // Globe base bright light gray
     emissive: "#F3F4F6", // Light emissive untuk glow terang
     emissiveIntensity: 0.3, // Tingkatkan untuk lebih terang
     shininess: 0.7,
@@ -195,7 +195,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
       .hexPolygonResolution(3)
       .hexPolygonMargin(0.7)
       .showAtmosphere(false) // Disable atmosphere
-      .hexPolygonColor(() => "#FFFFFF"); // Benua orange solid
+      .hexPolygonColor(() => "#F59E0B"); // Benua orange solid
       
     globeRef.current
       .arcsData(neonData)
@@ -306,14 +306,14 @@ export function World(props: WorldProps) {
       <Canvas camera={new PerspectiveCamera(50, aspect, 180, 1800)}>
         <WebGLRendererConfig />
         {/* Enhanced lighting untuk globe terang */}
-        <ambientLight color="#FFFFFF" intensity={0.8} />
+        <ambientLight color="#ffffff" intensity={0.8} />
         <directionalLight
-          color="#FFFFFF"
+          color="#2B2B2B"
           position={new Vector3(-400, 100, 400)}
           intensity={1.2}
         />
         <directionalLight
-          color="#FFFFFF"
+          color="#2B2B2B"
           position={new Vector3(400, 100, -400)}
           intensity={1.0}
         />
