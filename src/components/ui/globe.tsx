@@ -1,6 +1,7 @@
 "use client";
+
 import { useEffect, useRef, useState } from "react";
-import { Color, Scene, Fog, PerspectiveCamera, Vector3, Group } from "three";
+import { Color, PerspectiveCamera, Vector3, Group } from "three";
 import { useThree, Canvas, extend } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import countries from "@/data/globe.json";
@@ -20,17 +21,17 @@ const RING_PROPAGATION_SPEED = 3;
 const aspect = 1.2;
 const cameraZ = 300;
 
-type Position = {
+export type Position = {
   order: number;
   startLat: number;
   startLng: number;
   endLat: number;
   endLng: number;
   arcAlt: number;
-  color: string;
+  color?: string;
 };
 
-type PointData = {
+export type PointData = {
   size: number;
   order: number;
   color: string;
@@ -40,14 +41,14 @@ type PointData = {
 
 export type GlobeConfig = {
   pointSize?: number;
-  globeColor?: string;
+  globeColor?: string; // base sphere color
   showAtmosphere?: boolean;
   atmosphereColor?: string;
   atmosphereAltitude?: number;
   emissive?: string;
   emissiveIntensity?: number;
   shininess?: number;
-  polygonColor?: string;
+  polygonColor?: string; // continent (hex polygons) color
   ambientLight?: string;
   directionalLeftLight?: string;
   directionalTopLight?: string;
@@ -56,71 +57,87 @@ export type GlobeConfig = {
   arcLength?: number;
   rings?: number;
   maxRings?: number;
-  initialPosition?: {
-    lat: number;
-    lng: number;
-  };
+  initialPosition?: { lat: number; lng: number };
   autoRotate?: boolean;
   autoRotateSpeed?: number;
 };
 
-interface WorldProps {
-  globeConfig: GlobeConfig;
-  data: Position[];
+export interface WorldProps {
+  globeConfig?: GlobeConfig;
+  data?: Position[];
 }
 
 let numbersOfRings = [0];
 
-export function Globe({ globeConfig, data }: WorldProps) {
+/**
+ * Core Globe (colors locked to brand):
+ * - Sphere: #2B2B2B
+ * - Continents: #F59E0B
+ */
+export function Globe({ globeConfig = {}, data = [] }: WorldProps) {
   const globeRef = useRef<any>(null);
   const groupRef = useRef<Group | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
   const [isLibraryLoaded, setIsLibraryLoaded] = useState(false);
 
-  const defaultProps = {
-    pointSize: 1,
+  // Brand defaults
+  const defaultProps: Required<Pick<GlobeConfig,
+    | "pointSize"
+    | "atmosphereColor"
+    | "showAtmosphere"
+    | "atmosphereAltitude"
+    | "polygonColor"
+    | "globeColor"
+    | "emissive"
+    | "emissiveIntensity"
+    | "shininess"
+    | "arcTime"
+    | "arcLength"
+    | "rings"
+    | "maxRings"
+  >> = {
+    pointSize: 1.6,
     atmosphereColor: "#F59E0B",
-    showAtmosphere: true,
-    atmosphereAltitude: 0.1,
-    polygonColor: "#F59E0B", // Benua warna amber/orange
-    globeColor: "#2B2B2B", // Globe base bright light gray
-    emissive: "#F3F4F6", // Light emissive untuk glow terang
-    emissiveIntensity: 0.3, // Tingkatkan untuk lebih terang
-    shininess: 0.7,
+    showAtmosphere: false,
+    atmosphereAltitude: 0.06,
+    polygonColor: "#F59E0B", // Continents amber
+    globeColor: "#2B2B2B", // Base globe dark gray
+    emissive: "#1f1f1f",
+    emissiveIntensity: 0.35,
+    shininess: 0.6,
     arcTime: 1800,
     arcLength: 0.75,
     rings: 1,
     maxRings: 3,
   };
 
-  // BUAT merged config terpisah untuk behavior saja
   const behaviorConfig = {
-    arcTime: globeConfig.arcTime || defaultProps.arcTime,
-    arcLength: globeConfig.arcLength || defaultProps.arcLength,
-    rings: globeConfig.rings || defaultProps.rings,
-    maxRings: globeConfig.maxRings || defaultProps.maxRings,
+    arcTime: globeConfig.arcTime ?? defaultProps.arcTime,
+    arcLength: globeConfig.arcLength ?? defaultProps.arcLength,
+    rings: globeConfig.rings ?? defaultProps.rings,
+    maxRings: globeConfig.maxRings ?? defaultProps.maxRings,
     autoRotate: globeConfig.autoRotate !== false,
-    autoRotateSpeed: globeConfig.autoRotateSpeed || 1.5,
+    autoRotateSpeed: globeConfig.autoRotateSpeed ?? 1.5,
     initialPosition: globeConfig.initialPosition,
   };
 
   // Load ThreeGlobe library dynamically
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    import('three-globe').then((module) => {
-      ThreeGlobe = module.default;
-      extend({ ThreeGlobe: ThreeGlobe });
-      setIsLibraryLoaded(true);
-    }).catch((error) => {
-      console.error('Failed to load three-globe:', error);
-    });
+    if (typeof window === "undefined") return;
+    import("three-globe")
+      .then((module) => {
+        ThreeGlobe = module.default;
+        extend({ ThreeGlobe: ThreeGlobe });
+        setIsLibraryLoaded(true);
+      })
+      .catch((error) => {
+        console.error("Failed to load three-globe:", error);
+      });
   }, []);
 
   // Initialize globe only once after library is loaded
   useEffect(() => {
     if (!ThreeGlobe || !isLibraryLoaded || !groupRef.current) return;
-
     if (!globeRef.current) {
       globeRef.current = new ThreeGlobe();
       (groupRef.current as any).add(globeRef.current);
@@ -128,11 +145,11 @@ export function Globe({ globeConfig, data }: WorldProps) {
     }
   }, [isLibraryLoaded]);
 
-  // Build material when globe is initialized or when relevant props change
+  // Material + base styles
   useEffect(() => {
     if (!globeRef.current || !isInitialized || !isLibraryLoaded) return;
 
-    const globeMaterial = globeRef.current.globeMaterial() as unknown as {
+    const mat = globeRef.current.globeMaterial() as unknown as {
       color: Color;
       emissive: Color;
       emissiveIntensity: number;
@@ -140,140 +157,98 @@ export function Globe({ globeConfig, data }: WorldProps) {
       opacity: number;
       transparent: boolean;
     };
-    
-    // Globe terang dengan emissive glow
-    globeMaterial.color = new Color("#F9FAFB"); // Very light gray/white
-    globeMaterial.emissive = new Color("#E5E7EB"); // Light gray emissive
-    globeMaterial.emissiveIntensity = 0.2; // Subtle glow
-    globeMaterial.shininess = 0.8; // Glossy finish
-    globeMaterial.opacity = 1.0; // Solid
-    globeMaterial.transparent = false;
-  }, [isInitialized, isLibraryLoaded]);
 
-  // Build data when globe is initialized or when data changes
+    // BRAND COLORS applied here
+    mat.color = new Color(globeConfig.globeColor ?? defaultProps.globeColor); // #2B2B2B
+    mat.emissive = new Color(globeConfig.emissive ?? defaultProps.emissive);
+    mat.emissiveIntensity = globeConfig.emissiveIntensity ?? defaultProps.emissiveIntensity;
+    mat.shininess = globeConfig.shininess ?? defaultProps.shininess;
+    mat.opacity = 1.0;
+    mat.transparent = false;
+  }, [isInitialized, isLibraryLoaded, globeConfig.globeColor, globeConfig.emissive, globeConfig.emissiveIntensity, globeConfig.shininess]);
+
+  // Build data + continents
   useEffect(() => {
-    if (!globeRef.current || !isInitialized || !isLibraryLoaded || !data) return;
+    if (!globeRef.current || !isInitialized || !isLibraryLoaded) return;
 
-    // Orange/amber colors untuk arcs dan points
-    const neonData = data.map(arc => ({
-      ...arc,
-      color: "#F59E0B" // Orange/amber
-    }));
+    const arcs = (data || []).map((arc) => ({ ...arc, color: "#F59E0B" }));
 
-    const arcs = neonData;
     let points: PointData[] = [];
     for (let i = 0; i < arcs.length; i++) {
       const arc = arcs[i];
-      points.push({
-        size: defaultProps.pointSize,
-        order: arc.order,
-        color: "#F59E0B", // Orange points
-        lat: arc.startLat,
-        lng: arc.startLng,
-      });
-      points.push({
-        size: defaultProps.pointSize,
-        order: arc.order,
-        color: "#F59E0B", // Orange points
-        lat: arc.endLat,
-        lng: arc.endLng,
-      });
+      points.push({ size: defaultProps.pointSize, order: arc.order, color: "#F59E0B", lat: arc.startLat, lng: arc.startLng });
+      points.push({ size: defaultProps.pointSize, order: arc.order, color: "#F59E0B", lat: arc.endLat, lng: arc.endLng });
     }
 
-    // remove duplicates for same lat and lng
     const filteredPoints = points.filter(
-      (v, i, a) =>
-        a.findIndex((v2) =>
-          ["lat", "lng"].every(
-            (k) => v2[k as "lat" | "lng"] === v[k as "lat" | "lng"],
-          ),
-        ) === i,
+      (v, i, a) => a.findIndex((v2) => ["lat", "lng"].every((k) => (v2 as any)[k] === (v as any)[k])) === i
     );
 
+    // Continents color (HEX polygons)
     globeRef.current
-      .hexPolygonsData(countries.features)
+      .hexPolygonsData((countries as any).features)
       .hexPolygonResolution(3)
       .hexPolygonMargin(0.7)
-      .showAtmosphere(false) // Disable atmosphere
-      .hexPolygonColor(() => "#F59E0B"); // Benua orange solid
-      
+      .showAtmosphere(globeConfig.showAtmosphere ?? defaultProps.showAtmosphere)
+      .atmosphereColor(globeConfig.atmosphereColor ?? defaultProps.atmosphereColor)
+      .atmosphereAltitude(globeConfig.atmosphereAltitude ?? defaultProps.atmosphereAltitude)
+      .hexPolygonColor(() => globeConfig.polygonColor ?? defaultProps.polygonColor); // #F59E0B
+
     globeRef.current
-      .arcsData(neonData)
-      .arcStartLat((d: Position) => d.startLat * 1)
-      .arcStartLng((d: Position) => d.startLng * 1)
-      .arcEndLat((d: Position) => d.endLat * 1)
-      .arcEndLng((d: Position) => d.endLng * 1)
-      .arcColor(() => "#F59E0B") // Orange arcs
-      .arcAltitude((d: Position) => d.arcAlt * 1)
-      .arcStroke(() => [0.8, 1.0, 1.2][Math.round(Math.random() * 2)]) // Thick glowing arcs
-      .arcDashLength(defaultProps.arcLength)
-      .arcDashInitialGap((d: Position) => d.order * 1)
+      .arcsData(arcs)
+      .arcStartLat((d: Position) => d.startLat)
+      .arcStartLng((d: Position) => d.startLng)
+      .arcEndLat((d: Position) => d.endLat)
+      .arcEndLng((d: Position) => d.endLng)
+      .arcColor(() => "#F59E0B")
+      .arcAltitude((d: Position) => d.arcAlt)
+      .arcStroke(() => [0.8, 1.0, 1.2][Math.round(Math.random() * 2)])
+      .arcDashLength(behaviorConfig.arcLength)
+      .arcDashInitialGap((d: Position) => d.order)
       .arcDashGap(15)
       .arcDashAnimateTime(() => Math.random() * 2000 + 1000);
 
     globeRef.current
       .pointsData(filteredPoints)
-      .pointColor(() => "#F59E0B") // Orange points
+      .pointColor(() => "#F59E0B")
       .pointsMerge(true)
-      .pointAltitude(0.01) // Slightly elevated for glow
-      .pointRadius(2.5); // Medium sized glowing points
+      .pointAltitude(0.01)
+      .pointRadius(2.5);
 
     globeRef.current
       .ringsData([])
-      .ringColor(() => "#F59E0B") // Orange rings
-      .ringMaxRadius(defaultProps.maxRings)
+      .ringColor(() => "#F59E0B")
+      .ringMaxRadius(behaviorConfig.maxRings)
       .ringPropagationSpeed(RING_PROPAGATION_SPEED)
-      .ringRepeatPeriod(
-        (defaultProps.arcTime * defaultProps.arcLength) / defaultProps.rings,
-      );
-  }, [
-    isInitialized,
-    isLibraryLoaded,
-    data,
-    defaultProps.pointSize,
-    defaultProps.polygonColor,
-    behaviorConfig.arcLength,
-    behaviorConfig.arcTime,
-    behaviorConfig.rings,
-    behaviorConfig.maxRings,
-  ]);
+      .ringRepeatPeriod((behaviorConfig.arcTime * behaviorConfig.arcLength) / Math.max(1, behaviorConfig.rings));
+  }, [isInitialized, isLibraryLoaded, data, globeConfig.showAtmosphere, globeConfig.atmosphereColor, globeConfig.atmosphereAltitude, globeConfig.polygonColor, behaviorConfig.arcLength, behaviorConfig.arcTime, behaviorConfig.rings, behaviorConfig.maxRings]);
 
   // Handle rings animation with cleanup
   useEffect(() => {
-    if (!globeRef.current || !isInitialized || !isLibraryLoaded || !data) return;
+    if (!globeRef.current || !isInitialized || !isLibraryLoaded || !data?.length) return;
 
     const interval = setInterval(() => {
       if (!globeRef.current) return;
 
-      const newNumbersOfRings = genRandomNumbers(
-        0,
-        data.length,
-        Math.floor((data.length * 3) / 8),
-      );
+      const newNumbersOfRings = genRandomNumbers(0, data.length, Math.floor((data.length * 3) / 8));
 
       const ringsData = data
-        .filter((d, i) => newNumbersOfRings.includes(i))
-        .map((d) => ({
-          lat: d.startLat,
-          lng: d.startLng,
-          color: "#F59E0B", // Orange rings untuk konsistensi
-        }));
+        .filter((_, i) => newNumbersOfRings.includes(i))
+        .map((d) => ({ lat: d.startLat, lng: d.startLng, color: "#F59E0B" }));
 
       globeRef.current.ringsData(ringsData);
     }, 2000);
 
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, [isInitialized, isLibraryLoaded, data]);
 
-  // Show loading state while library is loading - bright loading sphere
   if (!isLibraryLoaded) {
+    // Lightweight placeholder (keeps layout stable)
     return (
       <group ref={groupRef}>
         <mesh>
           <sphereGeometry args={[100, 32, 32]} />
-          <meshBasicMaterial color="#E5E7EB" opacity={1.0} transparent={false} />
+          <meshBasicMaterial color="#2B2B2B" opacity={1} transparent={false} />
         </mesh>
       </group>
     );
@@ -284,50 +259,33 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
 export function WebGLRendererConfig() {
   const { gl, size } = useThree();
-
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
+    if (typeof window === "undefined") return;
     gl.setPixelRatio(window.devicePixelRatio);
     gl.setSize(size.width, size.height);
     gl.setClearColor(0x000000, 0); // Transparent background
   }, [gl, size]);
-
   return null;
 }
 
 export function World(props: WorldProps) {
-  // Provide default values for autoRotate and autoRotateSpeed if not present in globeConfig
-  const autoRotate = props.globeConfig.autoRotate !== false;
-  const autoRotateSpeed = props.globeConfig.autoRotateSpeed ?? 1.5;
+  const autoRotate = props.globeConfig?.autoRotate !== false;
+  const autoRotateSpeed = props.globeConfig?.autoRotateSpeed ?? 1.5;
 
   return (
     <div className="relative w-full h-full">
       <Canvas camera={new PerspectiveCamera(50, aspect, 180, 1800)}>
         <WebGLRendererConfig />
-        {/* Enhanced lighting untuk globe terang */}
-        <ambientLight color="#ffffff" intensity={0.8} />
-        <directionalLight
-          color="#2B2B2B"
-          position={new Vector3(-400, 100, 400)}
-          intensity={1.2}
-        />
-        <directionalLight
-          color="#2B2B2B"
-          position={new Vector3(400, 100, -400)}
-          intensity={1.0}
-        />
-        <pointLight
-          color="#F59E0B"
-          position={new Vector3(-200, 500, 200)}
-          intensity={0.7}
-        />
-        <pointLight
-          color="#F59E0B"
-          position={new Vector3(200, -500, -200)}
-          intensity={0.5}
-        />
+
+        {/* Lighting tuned for brand palette */}
+        <ambientLight color="#ffffff" intensity={0.6} />
+        <directionalLight color="#ffffff" position={new Vector3(-400, 100, 400)} intensity={1.1} />
+        <directionalLight color="#ffffff" position={new Vector3(400, 100, -400)} intensity={0.9} />
+        <pointLight color="#F59E0B" position={new Vector3(-200, 500, 200)} intensity={0.7} />
+        <pointLight color="#F59E0B" position={new Vector3(200, -500, -200)} intensity={0.5} />
+
         <Globe {...props} />
+
         <OrbitControls
           enablePan={false}
           enableZoom={false}
@@ -339,58 +297,31 @@ export function World(props: WorldProps) {
           maxPolarAngle={Math.PI - Math.PI / 3}
         />
       </Canvas>
-      
-      {/* Dark elegant UI overlay */}
+
+      {/* Optional UI overlay examples (can be removed) */}
       <div className="absolute bottom-8 left-8 text-[#F59E0B] text-xs sm:text-sm font-mono">
         <div className="flex items-center mb-1">
           <div className="w-2 h-2 rounded-full bg-[#F59E0B] mr-2 animate-pulse shadow-lg shadow-[#F59E0B]/50"></div>
           <span className="text-shadow-glow">300 POINTS OF PRESENCE</span>
         </div>
         <div className="pl-4 text-white/90 font-medium">
-          SO YOUR RAISE LOADS INSTANTLY<br />
-          EVERYWHERE
+          SO YOUR RAISE LOADS INSTANTLY<br />EVERYWHERE
         </div>
       </div>
 
-      <div className="absolute top-8 right-8 text-[#F59E0B] text-xs sm:text-sm font-mono">
-        <div className="text-right">
-          <div className="text-white mb-1 opacity-80 text-xl font-bold">US$4,200,000</div>
-          <div className="text-shadow-glow">SALES PER MINUTE DURING PEAK<br />SALES TIMES</div>
-        </div>
-      </div>
-
-      {/* CSS untuk orange glow */}
       <style jsx>{`
-        .text-shadow-glow {
-          text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
-        }
+        .text-shadow-glow { text-shadow: 0 0 10px rgba(245, 158, 11, 0.5); }
       `}</style>
     </div>
   );
 }
 
-export function hexToRgb(hex: string) {
-  var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-  hex = hex.replace(shorthandRegex, function (m, r, g, b) {
-    return r + r + g + g + b + b;
-  });
-
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
-    : null;
-}
-
+// Utilities
 export function genRandomNumbers(min: number, max: number, count: number) {
-  const arr = [];
+  const arr: number[] = [];
   while (arr.length < count) {
     const r = Math.floor(Math.random() * (max - min)) + min;
-    if (arr.indexOf(r) === -1) arr.push(r);
+    if (!arr.includes(r)) arr.push(r);
   }
-
   return arr;
 }

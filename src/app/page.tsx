@@ -7,7 +7,7 @@ import Integration from "@/components/Integration";
 import Testimony from "@/components/Testimony";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
-import Paralax from "@/components/CTAP";
+import CTAP from "@/components/CTAP";
 import TestiMap from "@/components/TestiMap";
 import Statement from "@/components/Statement";
 
@@ -26,7 +26,7 @@ export default function Page() {
       <Integration />
       <Testimony /> 
       <FAQ />
-      <Paralax />
+      <CTAP />
       <Footer />
 
     </main>
