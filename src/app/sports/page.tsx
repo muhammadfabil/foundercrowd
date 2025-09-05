@@ -176,12 +176,13 @@ const SportsPage = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* Caledonian Braves */}
               <div className="bg-[#F3EFE7] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
-                <div className="h-40 mb-4 relative rounded-lg overflow-hidden">
+                <div className="h-40 mb-4 relative rounded-lg overflow-hidden flex items-center justify-center">
                   <Image 
-                    src="/hook1.jpg" 
+                    src="/caledonian.png" 
                     alt="Caledonian Braves" 
-                    fill
-                    className="object-cover"
+                    width={160}
+                    height={160}
+                    className="object-contain max-w-full max-h-full"
                     onError={(e) => {
                       e.currentTarget.src = "https://placehold.co/600x400/ddd/999?text=Caledonian+Braves"
                     }}
@@ -200,12 +201,13 @@ const SportsPage = () => {
               
               {/* Watford */}
               <div className="bg-[#F3EFE7] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
-                <div className="h-40 mb-4 relative rounded-lg overflow-hidden">
+                <div className="h-40 mb-4 relative rounded-lg overflow-hidden flex items-center justify-center">
                   <Image 
-                    src="/hook1.jpg" 
+                    src="/watford.png" 
                     alt="Watford" 
-                    fill
-                    className="object-cover"
+                    width={160}
+                    height={160}
+                    className="object-contain max-w-full max-h-full"
                     onError={(e) => {
                       e.currentTarget.src = "https://placehold.co/600x400/ddd/999?text=Watford"
                     }}
@@ -224,12 +226,13 @@ const SportsPage = () => {
               
               {/* NK Tabor */}
               <div className="bg-[#F3EFE7] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
-                <div className="h-40 mb-4 relative rounded-lg overflow-hidden">
+                <div className="h-40 mb-4 relative rounded-lg overflow-hidden flex items-center justify-center">
                   <Image 
-                    src="/hook1.jpg" 
+                    src="/nktabor.png" 
                     alt="NK Tabor" 
-                    fill
-                    className="object-cover"
+                    width={160}
+                    height={160}
+                    className="object-contain max-w-full max-h-full"
                     onError={(e) => {
                       e.currentTarget.src = "https://placehold.co/600x400/ddd/999?text=NK+Tabor"
                     }}
@@ -248,12 +251,13 @@ const SportsPage = () => {
               
               {/* Carrick Rangers */}
               <div className="bg-[#F3EFE7] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
-                <div className="h-40 mb-4 relative rounded-lg overflow-hidden">
+                <div className="h-40 mb-4 relative rounded-lg overflow-hidden flex items-center justify-center">
                   <Image 
-                    src="/hook1.jpg" 
+                    src="/carrick.png" 
                     alt="Carrick Rangers" 
-                    fill
-                    className="object-cover"
+                    width={160}
+                    height={160}
+                    className="object-contain max-w-full max-h-full"
                     onError={(e) => {
                       e.currentTarget.src = "https://placehold.co/600x400/ddd/999?text=Carrick+Rangers"
                     }}

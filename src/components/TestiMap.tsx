@@ -1,31 +1,22 @@
 'use client'
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { GB, US, DE, FR, SG, AU, IN, BR } from "country-flag-icons/react/3x2";
+import { GB, US, DE, AU, ES, JP } from "country-flag-icons/react/3x2";
 
 // Flag components mapping
 const FlagComponents: Record<string, React.ComponentType<any>> = {
   GB,
   US,
   DE,
-  FR,
-  SG,
   AU,
-  IN,
-  BR,
+  ES,
+  JP,
 };
 
-// Flag Icon component using country-flag-icons
+// FlagIcon component
 const FlagIcon = ({ country, className }: { country: string; className?: string }) => {
-  const FlagComponent = FlagComponents[country];
-  if (!FlagComponent) {
-    return (
-      <div className={`flex items-center justify-center text-2xl ${className}`}>
-        🏳️
-      </div>
-    );
-  }
-  return <FlagComponent className={className} />;
+  const Flag = FlagComponents[country];
+  return Flag ? <Flag className={className} /> : null;
 };
 
 type Testimonial = {
@@ -35,6 +26,7 @@ type Testimonial = {
   country: string;
   testimonial: string;
   image: string;
+  investment: string; // Tambahan field untuk investment amount
 };
 
 const VISIBLE_COUNT = 5;
@@ -48,7 +40,8 @@ const TestimonialMap = () => {
         company: "TechInnovate", 
         country: "US", 
         testimonial: "FounderCrowd helped us secure our Series A funding in half the time we expected. The platform connected us with investors who truly understood our vision.", 
-        image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face" 
+        image: "hhttps://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&fit=crop&crop=face",
+        investment: "$125,000 USD"
       },
       { 
         id: "gb1", 
@@ -56,31 +49,8 @@ const TestimonialMap = () => {
         company: "Fintech Solutions", 
         country: "GB", 
         testimonial: "As a fintech startup in London, we needed specialized investors. FounderCrowd's targeted matching algorithm connected us with the perfect partners.", 
-        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face" 
-      },
-      { 
-        id: "de1", 
-        name: "Anna Schmidt", 
-        company: "GreenEnergy", 
-        country: "DE", 
-        testimonial: "The comprehensive tools on FounderCrowd made our fundraising process efficient and transparent. We closed our €2M round in just two months.", 
-        image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face" 
-      },
-      { 
-        id: "fr1", 
-        name: "Jean Dupont", 
-        company: "AI Solutions", 
-        country: "FR", 
-        testimonial: "FounderCrowd's platform provided us incredible exposure to international investors we wouldn't have reached otherwise.", 
-        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face" 
-      },
-      { 
-        id: "sg1", 
-        name: "Li Wei", 
-        company: "EcoTech", 
-        country: "SG", 
-        testimonial: "The seamless experience of connecting with investors across Asia and beyond made FounderCrowd invaluable for our expansion plans.", 
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" 
+        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+        investment: "£100,000 GBP"
       },
       { 
         id: "au1", 
@@ -88,23 +58,35 @@ const TestimonialMap = () => {
         company: "HealthTech Pro", 
         country: "AU", 
         testimonial: "We were able to find investors who specialize in healthcare technology through FounderCrowd, making our Series B round remarkably smooth.", 
-        image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&fit=crop&crop=face" 
+        image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&fit=crop&crop=face",
+        investment: "1,000 AUD"
       },
       { 
-        id: "in1", 
-        name: "Raj Patel", 
-        company: "EdTech Solutions", 
-        country: "IN", 
-        testimonial: "FounderCrowd opened doors to global investors for our education platform, helping us scale across multiple markets.", 
-        image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=face" 
+        id: "es1", 
+        name: "Maria Garcia", 
+        company: "GreenEnergy Spain", 
+        country: "ES", 
+        testimonial: "FounderCrowd made global fundraising accessible for our Spanish startup. We connected with international investors effortlessly.", 
+        image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
+        investment: "150,000 EUR"
       },
       { 
-        id: "br1", 
-        name: "Carlos Silva", 
-        company: "SustainableTech", 
-        country: "BR", 
-        testimonial: "The visibility and reach FounderCrowd provided helped us attract international capital for sustainable innovation.", 
-        image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face" 
+        id: "de1", 
+        name: "Anna Schmidt", 
+        company: "GreenEnergy", 
+        country: "DE", 
+        testimonial: "The comprehensive tools on FounderCrowd made our fundraising process efficient and transparent. We closed our €2M round in just two months.", 
+        image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
+        investment: "250,000 EUR"
+      },
+      { 
+        id: "jp1", 
+        name: "Hiroshi Tanaka", 
+        company: "AI Solutions Japan", 
+        country: "JP", 
+        testimonial: "FounderCrowd's platform provided incredible exposure to global investors, helping our Japanese startup scale internationally.", 
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+        investment: "¥20,000,000 JPY"
       },
     ],
     []
@@ -208,8 +190,8 @@ const TestimonialMap = () => {
                 ${isRow ? "w-12 h-12" : "w-16 h-16"} 
                 rounded-xl flex items-center justify-center border-2 transition-all duration-300
                 ${isActive 
-                  ? "bg-gradient-to-br from-emerald-500 to-teal-600 border-emerald-400 shadow-lg transform scale-105" 
-                  : "bg-white border-gray-200 hover:border-gray-300 hover:shadow-md"
+                  ? "bg-[#F59E0B] border-[#F59E0B] shadow-lg transform scale-105" 
+                  : "bg-white border-[#2B2B2B]/20 hover:border-[#F59E0B] hover:shadow-md"
                 }
               `}
               whileHover={{ scale: isActive ? 1.05 : 1.1 }}
@@ -241,8 +223,8 @@ const TestimonialMap = () => {
     return (
       <div
         className={`
-          absolute rounded-xl shadow-lg overflow-hidden bg-white border border-gray-100
-          transition-all duration-500 ease-out backdrop-blur-sm
+          absolute rounded-xl shadow-lg overflow-hidden bg-white border border-[#2B2B2B]/10
+          transition-all duration-500 ease-out
           ${isCenter ? 'z-30' : 'z-20 cursor-pointer'}
         `}
         style={{ 
@@ -253,63 +235,42 @@ const TestimonialMap = () => {
         }}
         onClick={onClick}
       >
-        {/* Profile Image */}
-        <div className="relative w-full h-24 bg-gradient-to-br from-emerald-100 to-teal-100">
+        {/* Profile Image (75%) */}
+        <div className="relative w-full h-[75%]">
           <img 
             src={testimonial.image} 
             alt={testimonial.name} 
             className="w-full h-full object-cover"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
         </div>
         
-        {/* Content */}
-        <div className="p-3 bg-white">
-          <div className="flex items-start justify-between mb-2">
-            <div className="flex-1">
-              <h3 className="font-bold text-gray-900 text-sm leading-tight">{testimonial.name}</h3>
-              <p className="text-emerald-600 font-semibold text-xs">{testimonial.company}</p>
-            </div>
-            <div className="ml-1">
-              <FlagIcon country={testimonial.country} className="w-5 h-5" />
-            </div>
-          </div>
-          
-          <div className="mb-3">
-            <p className="text-gray-700 text-xs leading-relaxed line-clamp-2">
-              "{testimonial.testimonial}"
-            </p>
-          </div>
-          
-          <motion.button 
-            className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-semibold py-2 px-3 rounded-lg hover:from-emerald-600 hover:to-teal-700 transition-all duration-300 shadow-sm"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
+        {/* Button (25% height) */}
+        <div className="h-[25%] bg-[#2B2B2B] text-white flex items-center justify-center hover:bg-[#F59E0B] transition-colors duration-300">
+          <button className="text-center font-medium py-2 px-4 text-sm">
             Invest Now
-          </motion.button>
+          </button>
         </div>
       </div>
     );
   });
 
   return (
-    <section className="py-8 md:py-12 lg:py-20 bg-gradient-to-br from-gray-50 to-white">
+    <section className="py-8 md:py-12 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8 md:mb-12">
           <motion.h2 
-            className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4"
+            className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#2B2B2B] mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             Success Stories from 
-            <span className="bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent"> Around the World</span>
+            <span className="text-[#F59E0B]"> Around the World</span>
           </motion.h2>
           <motion.p 
-            className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-2"
+            className="text-[#2B2B2B]/70 text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -320,7 +281,7 @@ const TestimonialMap = () => {
 
         {/* Main Container */}
         <motion.div 
-          className="bg-white rounded-2xl md:rounded-3xl p-4 md:p-6 lg:p-8 shadow-xl border border-gray-100 backdrop-blur-sm"
+          className="bg-[#F3EFE7] rounded-2xl md:rounded-3xl p-4 md:p-6 lg:p-8 shadow-xl border border-[#2B2B2B]/10 backdrop-blur-sm"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -380,12 +341,22 @@ const TestimonialMap = () => {
                       }
                     }}
                   />
+
+                  {/* Investment amount overlay for center card */}
+                  <div className="absolute top-[-40px] right-0 transform translate-x-[20%] z-40 flex items-center bg-[#2B2B2B] text-white rounded-full pl-2 pr-4 py-1.5 shadow-lg">
+                    <div className="w-6 h-6 mr-2 overflow-hidden rounded-full">
+                      <FlagIcon country={testimonials[displayIndices[1]].country} className="w-full h-full" />
+                    </div>
+                    <span className="text-sm font-semibold whitespace-nowrap">
+                      {testimonials[displayIndices[1]].investment}
+                    </span>
+                  </div>
                 </motion.div>
               </AnimatePresence>
             </div>
 
             {/* Mobile: Map + Overmap */}
-            <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100">
+            <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-[#2B2B2B]/5">
               {/* World Map Background */}
               <img 
                 src="/TestiMap.png" 
@@ -403,9 +374,9 @@ const TestimonialMap = () => {
 
             {/* Mobile: Text */}
             <div className="text-center">
-              <div className="inline-block p-4 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl">
-                <p className="text-gray-800 font-bold text-sm mb-1">From Funnel to Funding</p>
-                <p className="text-gray-600 text-xs leading-relaxed">
+              <div className="inline-block p-4 bg-[#F59E0B]/10 border border-[#F59E0B]/20 rounded-2xl">
+                <p className="text-[#2B2B2B] font-bold text-sm mb-1">From Funnel to Funding</p>
+                <p className="text-[#2B2B2B]/70 text-xs leading-relaxed">
                   FoundersCrowd AI builds the path. FoundersCrowd Marketing gets you seen.
                 </p>
               </div>
@@ -424,9 +395,9 @@ const TestimonialMap = () => {
                   orientation="col"
                 />
                 <div className="mt-8 text-center">
-                  <div className="inline-block p-4 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl">
-                    <p className="text-gray-800 font-bold text-sm mb-1">From Funnel to Funding</p>
-                    <p className="text-gray-600 text-xs leading-relaxed">
+                  <div className="inline-block p-4 bg-[#F59E0B]/10 border border-[#F59E0B]/20 rounded-2xl">
+                    <p className="text-[#2B2B2B] font-bold text-sm mb-1">From Funnel to Funding</p>
+                    <p className="text-[#2B2B2B]/70 text-xs leading-relaxed">
                       FoundersCrowd AI builds the path.<br />
                       FoundersCrowd Marketing gets you seen.
                     </p>
@@ -437,7 +408,7 @@ const TestimonialMap = () => {
 
             {/* Desktop: Map + Testimonial Carousel */}
             <div className="lg:flex-1">
-              <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100">
+              <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden bg-[#2B2B2B]/5">
                 {/* World Map Background */}
                 <img 
                   src="/TestiMap.png" 
@@ -494,6 +465,16 @@ const TestimonialMap = () => {
                             }
                           }}
                         />
+
+                        {/* Investment amount overlay for center card */}
+                        <div className="absolute top-[-40px] right-0 transform translate-x-[20%] z-40 flex items-center bg-[#2B2B2B] text-white rounded-full pl-2 pr-4 py-1.5 shadow-lg">
+                          <div className="w-6 h-6 mr-2 overflow-hidden rounded-full">
+                            <FlagIcon country={testimonials[displayIndices[1]].country} className="w-full h-full" />
+                          </div>
+                          <span className="text-sm font-semibold whitespace-nowrap">
+                            {testimonials[displayIndices[1]].investment}
+                          </span>
+                        </div>
                       </motion.div>
                     </AnimatePresence>
                   </div>
@@ -507,8 +488,8 @@ const TestimonialMap = () => {
                       onClick={() => goToTestimonial(testimonials[index].id)}
                       className={`w-2 h-2 rounded-full transition-all duration-300 ${
                         index === activeIndex 
-                          ? 'bg-emerald-500 w-6' 
-                          : 'bg-white/50 hover:bg-white/80'
+                          ? 'bg-[#F59E0B] w-6' 
+                          : 'bg-[#2B2B2B]/30 hover:bg-[#2B2B2B]/60'
                       }`}
                     />
                   ))}

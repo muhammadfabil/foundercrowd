@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
-import { FaRegChartBar, FaRegCreditCard } from "react-icons/fa";
+import { FaHome, FaRegChartBar, FaRegCreditCard,FaFileSignature } from "react-icons/fa";
 import { CiStreamOn } from "react-icons/ci";
 import { BsBank } from "react-icons/bs";
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
@@ -22,30 +22,30 @@ type Feature = {
 const useFeaturesData = () => useMemo(() => ({
   1: {
     id: 1,
-    icon: FaRegChartBar,
-    title: "Automatic Expense Tracking",
-    description: "Automatically categorize expenses to see where money goes.",
+    icon: FaHome,
+    title: "Self-Hosted Investor Funnels",
+    description: "Run your raise on your own branded funnel. Keep control, keep ownership, and connect directly with your investors.",
     image: "/features1.png"
   },
   2: {
     id: 2,
-    icon: FaRegCreditCard,
-    title: "Streamlined Bill Payment",
-    description: "Pay bills and manage payments all in one place without any issue.",
+    icon: FaRegChartBar,
+    title: "Grow Your Brand",
+    description: "Every raise is also a marketing engine. Turn investors into advocates who amplify your startup worldwide.",
     image: "/features2.jpg"
   },
   3: {
     id: 3,
-    icon: CiStreamOn,
-    title: "Real-time Money Activity",
-    description: "Notifications Get notifications for unusual spending activity.",
+    icon: FaRegCreditCard,
+    title: "Seamless Investor Checkout",
+    description: "Investing is as simple as shopping online. Fast, secure, and friction-free for every backer.",
     image: "/features3.png"
   },
   4: {
     id: 4,
-    icon: BsBank,
-    title: "Automatic Bank Sync",
-    description: "Connect bank accounts to automatically import transactions.",
+    icon: FaFileSignature,
+    title: "Sign Agreements",
+    description: "No endless paperwork. Investors sign instantly with secure digital agreements, keeping your raise compliant and quick.",
     image: "/features4.png"
   }
 } as Record<number, Feature>), []);
@@ -116,17 +116,8 @@ const FeatureImage = React.memo(({ feature }: { feature: Feature }) => (
 ));
 
 const ImageCarousel = () => {
-  const [currentPattern, setCurrentPattern] = useState(0);
   const [activeTextIndex, setActiveTextIndex] = useState(0);
-  const [mobileImageIndex, setMobileImageIndex] = useState(0);
   
-  // Data gambar untuk carousel
-  const carouselImages = [
-    { id: 1, src: '/f1.jpg', alt: 'Raise online' },
-    { id: 2, src: '/f2.jpg', alt: 'Raise globally' },
-    { id: 3, src: '/f3.jpg', alt: 'Raise with funds' }
-  ];
-
   // Phrases for sequential highlighting
   const phrases = [
     "Raise capital online and offline.",
@@ -134,46 +125,6 @@ const ImageCarousel = () => {
     "Raise with fans and with funds.",
     "Raise from day one to IPO day."
   ];
-
-  // Layout patterns to cycle through
-  const patterns = [
-    // Initial pattern: 1, 2, 3
-    [
-      { id: 1, type: 'portrait' },
-      { id: 2, type: 'landscape' },
-      { id: 3, type: 'landscape' }
-    ],
-    // Second pattern: 2, 3, 1
-    [
-      { id: 2, type: 'landscape' },
-      { id: 3, type: 'landscape' },
-      { id: 1, type: 'portrait' }
-    ],
-    // Third pattern: 3, 1, 2
-    [
-      { id: 3, type: 'landscape' },
-      { id: 1, type: 'portrait' },
-      { id: 2, type: 'landscape' }
-    ]
-  ];
-
-  // Auto slide every 3 seconds for desktop
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentPattern((prev) => (prev + 1) % patterns.length);
-    }, 3000);
-    
-    return () => clearInterval(interval);
-  }, []);
-
-  // Auto slide for mobile every 4 seconds
-  useEffect(() => {
-    const mobileInterval = setInterval(() => {
-      setMobileImageIndex((prev) => (prev + 1) % carouselImages.length);
-    }, 4000);
-    
-    return () => clearInterval(mobileInterval);
-  }, [carouselImages.length]);
 
   // Cycle through text highlights every 2 seconds
   useEffect(() => {
@@ -183,9 +134,6 @@ const ImageCarousel = () => {
     
     return () => clearInterval(textInterval);
   }, []);
-
-  // Get the current layout pattern
-  const currentLayout = patterns[currentPattern];
 
   return (
     <div className="mb-28">
@@ -208,67 +156,41 @@ const ImageCarousel = () => {
         ))}
       </p>
       
-      {/* Image gallery carousel */}
-      <div className="relative w-full">
-        {/* Mobile: Animated carousel with single image */}
-        <div className="md:hidden relative w-full h-64 rounded-2xl overflow-hidden bg-gray-100">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={mobileImageIndex}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="absolute inset-0"
-            >
-              <Image 
-                src={carouselImages[mobileImageIndex].src}
-                alt={carouselImages[mobileImageIndex].alt}
-                fill
-                className="object-cover" 
-                priority
-              />
-            </motion.div>
-          </AnimatePresence>
-          
-          {/* Mobile navigation dots */}
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-            {carouselImages.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setMobileImageIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === mobileImageIndex ? 'bg-white' : 'bg-white/50'
-                }`}
-                aria-label={`Go to image ${index + 1}`}
-              />
-            ))}
+      {/* Gambar dengan efek hover membesar saja (tanpa border oranye dan shadow) */}
+      <div className="flex flex-col md:flex-row gap-8 mt-8">
+        <div className="flex-1 flex justify-center">
+          <div className="relative w-full max-w-lg h-80 rounded-2xl overflow-hidden bg-gray-100 
+                          cursor-pointer transition-all duration-300 ease-in-out 
+                          hover:scale-105 
+                          focus:scale-105 
+                          focus:outline-none">
+            <Image
+              src="/feat1.png"
+              alt="Investor Funnel Screenshot 1"
+              fill
+              className="object-contain transition-transform duration-300 hover:scale-110"
+              priority
+            />
+            {/* Overlay efek hover */}
+            <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-300 rounded-2xl"></div>
           </div>
         </div>
-
-        {/* Desktop: Original layout */}
-        <div className="hidden md:flex justify-between gap-4 w-full transition-all duration-1000 ease-in-out">
-          {currentLayout.map((item) => {
-            const image = carouselImages.find(img => img.id === item.id);
-            return (
-              <div 
-                key={`img-${item.id}`}
-                className={`
-                  rounded-2xl overflow-hidden bg-gray-100 transition-all duration-1000
-                  ${item.type === 'portrait' ? 'w-1/4' : 'w-1/3 flex-grow'}
-                  h-80
-                `}
-              >
-                <Image 
-                  src={image?.src || ''}
-                  alt={image?.alt || ''}
-                  width={800} 
-                  height={600}
-                  className="w-full h-full object-cover" 
-                />
-              </div>
-            );
-          })}
+        <div className="flex-1 flex justify-center">
+          <div className="relative w-full max-w-lg h-80 rounded-2xl overflow-hidden bg-gray-100 
+                          cursor-pointer transition-all duration-300 ease-in-out 
+                          hover:scale-105 
+                          focus:scale-105 
+                          focus:outline-none">
+            <Image
+              src="/feat2.png"
+              alt="Investor Funnel Screenshot 2"
+              fill
+              className="object-contain transition-transform duration-300 hover:scale-110"
+              priority
+            />
+            {/* Overlay efek hover */}
+            <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-300 rounded-2xl"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -289,11 +211,10 @@ const Features = () => {
         {/* Original Features Section */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-medium text-black mb-4">
-            FounderCrowd offers extensive features
+            FoundersCrowd makes investing in startups as simple as buying a product online.
+
           </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            We provide the necessary tools to help founders raise capital efficiently and investors find the perfect opportunities.
-          </p>
+          
         </div>
 
         <div className="flex flex-col lg:flex-row gap-12 items-center">

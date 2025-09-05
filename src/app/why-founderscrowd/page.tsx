@@ -43,7 +43,7 @@ const WhyFoundersCrowdPage = () => {
     <>
       <Navbar />
       <main className="bg-[#F3EFE7] text-[#2B2B2B] font-figtree">
-        {/* Header Section - Centered Text Only */}
+        {/* Header Section - Centered Text with Video */}
         <section className="relative py-16 md:py-20 lg:py-24 bg-[#2B2B2B] text-white overflow-hidden">
           <div className="absolute inset-0 opacity-20 hero-noise"></div>
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
@@ -73,32 +73,12 @@ const WhyFoundersCrowdPage = () => {
               <p className="text-lg md:text-2xl font-medium text-white/80 mb-8">
                 Built by Founders, for Founders
               </p>
-              <p className="text-base md:text-lg text-white/80 mb-6 max-w-3xl mx-auto">
-                FoundersCrowd was created to solve one of the biggest problems in the startup world: raising capital is still outdated, expensive, and stacked against the founder.
-              </p>
-              <p className="text-base md:text-lg text-white/80 mb-6 max-w-3xl mx-auto">
-                Our founder, José Ruiz, knows this challenge first-hand.
-              </p>
-              <p className="text-base md:text-lg text-white/80 mb-6 max-w-3xl mx-auto">
-                He started in ecommerce, where he built and scaled his own online business, eventually selling it successfully. From there, he brought the same innovation and growth mindset into the world of capital markets. What he discovered was eye-opening: while technology transformed industries like ecommerce, capital raising was stuck in the past.
-              </p>
-              <div className="w-12 h-1 bg-amber-500 mx-auto rounded-full"></div>
-            </div>
-          </div>
-        </section>
-
-        {/* Video Section */}
-        <section className="py-16 md:py-20 bg-white">
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">See Our Vision in Action</h2>
-              <p className="text-lg text-[#2B2B2B]/70 max-w-2xl mx-auto">
-                A platform designed to transform how founders connect with capital.
-              </p>
+              <div className="w-12 h-1 bg-amber-500 mx-auto rounded-full mb-12"></div>
             </div>
 
+            {/* Video in Header Section */}
             <div className="mx-auto max-w-4xl relative">
-              <div className="aspect-[16/9] overflow-hidden rounded-lg md:rounded-xl shadow-xl border border-[#2B2B2B]/10">
+              <div className="aspect-[16/9] overflow-hidden rounded-lg md:rounded-xl shadow-xl border border-white/10">
                 <iframe
                   src="https://player.vimeo.com/video/1115691817?h=0&autoplay=1&loop=1&muted=1"
                   className="h-full w-full"
@@ -166,7 +146,7 @@ const WhyFoundersCrowdPage = () => {
 
         {/* Zig-Zag Content Sections */}
         
-        {/* Section 1: The First Breakthrough (Image Left, Content Right) */}
+        {/* Section 1: Updated Content (Image Left, Content Right) */}
         <section className="py-16 md:py-20 bg-white">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -175,7 +155,7 @@ const WhyFoundersCrowdPage = () => {
                 <div className="overflow-hidden rounded-2xl shadow-xl">
                   <Image
                     src="/why.jpg"
-                    alt="The First Breakthrough - Problem illustration"
+                    alt="FoundersCrowd story illustration"
                     width={600}
                     height={400}
                     className="w-full h-auto object-cover"
@@ -186,6 +166,34 @@ const WhyFoundersCrowdPage = () => {
 
               {/* Content */}
               <div className="space-y-6">
+                <div>
+                  <h2 className="text-3xl md:text-4xl font-bold text-[#2B2B2B] mb-4">
+                    Our Story
+                  </h2>
+                </div>
+                
+                <div className="space-y-4 text-[#2B2B2B]/80">
+                  <p className="text-base md:text-lg leading-relaxed">
+                    FoundersCrowd was created to solve one of the biggest problems in the startup world: raising capital is still outdated, expensive, and stacked against the founder.
+                  </p>
+                  <p className="text-base md:text-lg leading-relaxed">
+                    Our founder, José Ruiz, knows this challenge first-hand.
+                  </p>
+                  <p className="text-base md:text-lg leading-relaxed">
+                    He started in ecommerce, where he built and scaled his own online business, eventually selling it successfully. From there, he brought the same innovation and growth mindset into the world of capital markets. What he discovered was eye-opening: while technology transformed industries like ecommerce, capital raising was stuck in the past.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 2: The First Breakthrough (Content Left, Image Right) */}
+        <section className="py-16 md:py-20 bg-[#F3EFE7]">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Content */}
+              <div className="space-y-6 order-2 lg:order-1">
                 <div>
                   <p className="text-sm font-semibold text-red-600 uppercase tracking-wider mb-2">
                     THE PROBLEM
@@ -219,12 +227,26 @@ const WhyFoundersCrowdPage = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Image */}
+              <div className="relative order-1 lg:order-2">
+                <div className="overflow-hidden rounded-2xl shadow-xl">
+                  <Image
+                    src="/why.jpg"
+                    alt="The First Breakthrough - Problem illustration"
+                    width={600}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                    priority
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Section 2: Why FoundersCrowd (Content Left, Image Right) */}
-        <section className="py-16 md:py-20 bg-[#F3EFE7]">
+        <section className="py-16 md:py-20 bg-white">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Content */}
@@ -295,7 +317,7 @@ const WhyFoundersCrowdPage = () => {
         </section>
 
         {/* Section 3: Best Price Guaranteed (Image Left, Content Right) */}
-        <section className="py-16 md:py-20 bg-white">
+        <section className="py-16 md:py-20 bg-[#F3EFE7]">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Image */}
@@ -361,7 +383,7 @@ const WhyFoundersCrowdPage = () => {
         </section>
 
         {/* Section 4: What We've Achieved (Content Left, Image Right) */}
-        <section className="py-16 md:py-20 bg-[#F3EFE7]">
+        <section className="py-16 md:py-20 bg-white">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Content */}

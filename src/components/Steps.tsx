@@ -28,37 +28,13 @@ const stepsData = [
   },
   {
     id: 5,
-    title: "Document Verification",
-    description: "Upload required identification and financial documents"
-  },
-  {
-    id: 6,
-    title: "Background Check",
-    description: "Complete automated background verification process"
-  },
-  {
-    id: 7,
-    title: "Fund Transfer",
-    description: "Transfer investment funds through secure banking channels"
-  },
-  {
-    id: 8,
-    title: "Investment Confirmation",
-    description: "Receive investment confirmation and portfolio allocation details"
-  },
-  {
-    id: 9,
-    title: "Portfolio Setup",
-    description: "Configure investment dashboard and notification preferences"
-  },
-  {
-    id: 10,
-    title: "Welcome Package",
-    description: "Access investor resources and quarterly reporting schedule"
+    title: "Done",
+    
   }
+
 ];
 
-// Add the CalendlyModal component from HorizontalHook
+// Ganti komponen CalendlyModal dengan versi sederhana
 function CalendlyModal({
   url,
   onClose,
@@ -66,29 +42,20 @@ function CalendlyModal({
   url: string;
   onClose: () => void;
 }) {
-  const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onEsc);
-    
+
     // Add the Calendly script
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = 'https://assets.calendly.com/assets/external/widget.js';
     script.async = true;
-    
-    // Handle loading state
-    script.onload = () => {
-      // Short timeout to ensure widget initialization
-      setTimeout(() => setIsLoading(false), 1000);
-    };
-    
+
     document.body.appendChild(script);
-    
+
     return () => {
       document.removeEventListener("keydown", onEsc);
-      // Clean up script if needed
       if (document.body.contains(script)) {
         document.body.removeChild(script);
       }
@@ -97,42 +64,26 @@ function CalendlyModal({
 
   return (
     <div
-      className="fixed inset-0 z-[9999] grid place-items-center p-4"
+      className="fixed inset-0 z-[9999] bg-black/50"
       role="dialog"
       aria-modal="true"
+      onClick={onClose}
     >
-      <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+      {/* Close button */}
+      <button
         onClick={onClose}
-      />
-      <div className="relative w-full max-w-4xl rounded-2xl overflow-hidden border border-gray-200 shadow-2xl bg-white">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900">Book a call</h3>
-          <button
-            onClick={onClose}
-            className="rounded-full px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
-          >
-            Close
-          </button>
-        </div>
-        <div className="h-[70vh] min-h-[600px] relative">
-          {/* Loading animation */}
-          {isLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-white z-10">
-              <div className="flex flex-col items-center">
-                <div className="w-8 h-8 border-2 border-t-transparent border-gray-400 rounded-full animate-spin"></div>
-                <p className="mt-4 text-gray-600 text-sm">Loading calendar...</p>
-              </div>
-            </div>
-          )}
-          
-          {/* Use the Calendly inline widget div structure */}
-          <div 
-            className="calendly-inline-widget h-full w-full" 
-            data-url={url}
-          ></div>
-        </div>
-      </div>
+        className="absolute top-4 right-4 z-[10000] bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      {/* Calendly widget container */}
+      <div
+        className="calendly-inline-widget h-full w-full"
+        data-url={url}
+        onClick={e => e.stopPropagation()}
+      ></div>
     </div>
   );
 }
@@ -195,7 +146,7 @@ const Steps = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
               <span className="text-sm text-gray-500 font-medium">Investor Checkout</span>
             </div>
             <h2 className="text-4xl lg:text-5xl font-medium text-gray-900 mb-6 leading-tight">
-              Simple, e-commerce style investor checkout experience.
+              Simple, e-commerce style investor  experience.
             </h2>
             <p className="text-lg text-gray-600 mb-10 leading-relaxed">
               Investors are guided through a linear investment creation process – no side quests, no ambiguity.
@@ -213,11 +164,12 @@ const Steps = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
             <div className="space-y-12">
               {stepsData.slice(0, 10).map((step, index) => {
                 const isCompleted = visibleSteps.has(step.id);
-                
+                const isLast = index === stepsData.length - 1;
+
                 return (
                   <div key={step.id} id={`step-${step.id}`} className="relative">
                     {/* Timeline Line - only show if not last item */}
-                    {index < 9 && (
+                    {index < stepsData.length - 1 && (
                       <div 
                         className={`absolute left-4 top-9 w-px h-full transition-colors duration-500 ${
                           isCompleted ? 'bg-gray-900' : 'bg-gray-300'
@@ -257,15 +209,17 @@ const Steps = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
 
                       {/* Step Content */}
                       <div className="flex-1 pb-2">
-                        <div className="mb-2">
-                          <span 
-                            className={`text-sm font-medium transition-colors duration-300 ${
-                              isCompleted ? 'text-gray-900' : 'text-gray-500'
-                            }`}
-                          >
-                            Step {step.id}
-                          </span>
-                        </div>
+                        {!isLast && (
+                          <div className="mb-2">
+                            <span 
+                              className={`text-sm font-medium transition-colors duration-300 ${
+                                isCompleted ? 'text-gray-900' : 'text-gray-500'
+                              }`}
+                            >
+                              Step {step.id}
+                            </span>
+                          </div>
+                        )}
                         <h3 
                           className={`text-xl font-semibold mb-3 transition-colors duration-300 ${
                             isCompleted ? 'text-gray-900' : 'text-gray-600'
@@ -273,9 +227,11 @@ const Steps = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
                         >
                           {step.title}
                         </h3>
-                        <p className="text-gray-600 leading-relaxed">
-                          {step.description}
-                        </p>
+                        {step.description && (
+                          <p className="text-gray-600 leading-relaxed">
+                            {step.description}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>

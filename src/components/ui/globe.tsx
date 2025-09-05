@@ -79,19 +79,29 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
   const defaultProps = {
     pointSize: 1,
-    atmosphereColor: "#00ffff", // Cyan atmosphere
+    atmosphereColor: "#F59E0B",
     showAtmosphere: true,
-    atmosphereAltitude: 0.15, // Stronger atmosphere for glow effect
-    polygonColor: "rgba(255, 255, 255, 0.8)", // Bright white polygons for continent visibility
-    globeColor: "#0a1a2a", // Dark blue-black base
-    emissive: "#001133", // Dark blue emissive
-    emissiveIntensity: 0.3, // Higher for glow
-    shininess: 0.8, // High shine for neon effect
+    atmosphereAltitude: 0.1,
+    polygonColor: "#FFFFFF", // Benua warna amber/orange
+    globeColor: "#E5E7EB", // Globe base bright light gray
+    emissive: "#F3F4F6", // Light emissive untuk glow terang
+    emissiveIntensity: 0.3, // Tingkatkan untuk lebih terang
+    shininess: 0.7,
     arcTime: 1800,
     arcLength: 0.75,
     rings: 1,
     maxRings: 3,
-    ...globeConfig,
+  };
+
+  // BUAT merged config terpisah untuk behavior saja
+  const behaviorConfig = {
+    arcTime: globeConfig.arcTime || defaultProps.arcTime,
+    arcLength: globeConfig.arcLength || defaultProps.arcLength,
+    rings: globeConfig.rings || defaultProps.rings,
+    maxRings: globeConfig.maxRings || defaultProps.maxRings,
+    autoRotate: globeConfig.autoRotate !== false,
+    autoRotateSpeed: globeConfig.autoRotateSpeed || 1.5,
+    initialPosition: globeConfig.initialPosition,
   };
 
   // Load ThreeGlobe library dynamically
@@ -131,30 +141,23 @@ export function Globe({ globeConfig, data }: WorldProps) {
       transparent: boolean;
     };
     
-    // Dark blue-black base with neon blue emissive glow
-    globeMaterial.color = new Color("#0a1a2a");
-    globeMaterial.emissive = new Color("#001155");
-    globeMaterial.emissiveIntensity = 0.4;
-    globeMaterial.shininess = 0.9;
-    globeMaterial.opacity = 1.0;
+    // Globe terang dengan emissive glow
+    globeMaterial.color = new Color("#F9FAFB"); // Very light gray/white
+    globeMaterial.emissive = new Color("#E5E7EB"); // Light gray emissive
+    globeMaterial.emissiveIntensity = 0.2; // Subtle glow
+    globeMaterial.shininess = 0.8; // Glossy finish
+    globeMaterial.opacity = 1.0; // Solid
     globeMaterial.transparent = false;
-  }, [
-    isInitialized,
-    isLibraryLoaded,
-    globeConfig.globeColor,
-    globeConfig.emissive,
-    globeConfig.emissiveIntensity,
-    globeConfig.shininess,
-  ]);
+  }, [isInitialized, isLibraryLoaded]);
 
   // Build data when globe is initialized or when data changes
   useEffect(() => {
     if (!globeRef.current || !isInitialized || !isLibraryLoaded || !data) return;
 
-    // Neon colors for arcs and points
+    // Orange/amber colors untuk arcs dan points
     const neonData = data.map(arc => ({
       ...arc,
-      color: "#00ffff" // Bright cyan
+      color: "#F59E0B" // Orange/amber
     }));
 
     const arcs = neonData;
@@ -164,14 +167,14 @@ export function Globe({ globeConfig, data }: WorldProps) {
       points.push({
         size: defaultProps.pointSize,
         order: arc.order,
-        color: "#00ffff", // Bright cyan points
+        color: "#F59E0B", // Orange points
         lat: arc.startLat,
         lng: arc.startLng,
       });
       points.push({
         size: defaultProps.pointSize,
         order: arc.order,
-        color: "#00ffff", // Bright cyan points
+        color: "#F59E0B", // Orange points
         lat: arc.endLat,
         lng: arc.endLng,
       });
@@ -191,10 +194,8 @@ export function Globe({ globeConfig, data }: WorldProps) {
       .hexPolygonsData(countries.features)
       .hexPolygonResolution(3)
       .hexPolygonMargin(0.7)
-      .showAtmosphere(true) // Enable atmosphere for glow
-      .atmosphereColor("#00ccff") // Bright cyan atmosphere
-      .atmosphereAltitude(0.2) // Stronger glow
-      .hexPolygonColor(() => "rgba(255, 255, 255, 0.9)"); // Bright white glowing continents
+      .showAtmosphere(false) // Disable atmosphere
+      .hexPolygonColor(() => "#FFFFFF"); // Benua orange solid
       
     globeRef.current
       .arcsData(neonData)
@@ -202,7 +203,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
       .arcStartLng((d: Position) => d.startLng * 1)
       .arcEndLat((d: Position) => d.endLat * 1)
       .arcEndLng((d: Position) => d.endLng * 1)
-      .arcColor(() => "#00ffff") // Bright cyan arcs
+      .arcColor(() => "#F59E0B") // Orange arcs
       .arcAltitude((d: Position) => d.arcAlt * 1)
       .arcStroke(() => [0.8, 1.0, 1.2][Math.round(Math.random() * 2)]) // Thick glowing arcs
       .arcDashLength(defaultProps.arcLength)
@@ -212,14 +213,14 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
     globeRef.current
       .pointsData(filteredPoints)
-      .pointColor(() => "#00ffff") // Bright cyan points
+      .pointColor(() => "#F59E0B") // Orange points
       .pointsMerge(true)
       .pointAltitude(0.01) // Slightly elevated for glow
       .pointRadius(2.5); // Medium sized glowing points
 
     globeRef.current
       .ringsData([])
-      .ringColor(() => "#00ffff") // Cyan rings
+      .ringColor(() => "#F59E0B") // Orange rings
       .ringMaxRadius(defaultProps.maxRings)
       .ringPropagationSpeed(RING_PROPAGATION_SPEED)
       .ringRepeatPeriod(
@@ -230,14 +231,11 @@ export function Globe({ globeConfig, data }: WorldProps) {
     isLibraryLoaded,
     data,
     defaultProps.pointSize,
-    defaultProps.showAtmosphere,
-    defaultProps.atmosphereColor,
-    defaultProps.atmosphereAltitude,
     defaultProps.polygonColor,
-    defaultProps.arcLength,
-    defaultProps.arcTime,
-    defaultProps.rings,
-    defaultProps.maxRings,
+    behaviorConfig.arcLength,
+    behaviorConfig.arcTime,
+    behaviorConfig.rings,
+    behaviorConfig.maxRings,
   ]);
 
   // Handle rings animation with cleanup
@@ -258,7 +256,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
         .map((d) => ({
           lat: d.startLat,
           lng: d.startLng,
-          color: "#00ffff", // Cyan rings
+          color: "#F59E0B", // Orange rings untuk konsistensi
         }));
 
       globeRef.current.ringsData(ringsData);
@@ -269,13 +267,13 @@ export function Globe({ globeConfig, data }: WorldProps) {
     };
   }, [isInitialized, isLibraryLoaded, data]);
 
-  // Show loading state while library is loading
+  // Show loading state while library is loading - bright loading sphere
   if (!isLibraryLoaded) {
     return (
       <group ref={groupRef}>
         <mesh>
           <sphereGeometry args={[100, 32, 32]} />
-          <meshBasicMaterial color="#0a1a2a" opacity={1.0} transparent={false} />
+          <meshBasicMaterial color="#E5E7EB" opacity={1.0} transparent={false} />
         </mesh>
       </group>
     );
@@ -292,38 +290,42 @@ export function WebGLRendererConfig() {
     
     gl.setPixelRatio(window.devicePixelRatio);
     gl.setSize(size.width, size.height);
-    gl.setClearColor(0x000000, 1); // Pure black background for contrast
+    gl.setClearColor(0x000000, 0); // Transparent background
   }, [gl, size]);
 
   return null;
 }
 
 export function World(props: WorldProps) {
+  // Provide default values for autoRotate and autoRotateSpeed if not present in globeConfig
+  const autoRotate = props.globeConfig.autoRotate !== false;
+  const autoRotateSpeed = props.globeConfig.autoRotateSpeed ?? 1.5;
+
   return (
     <div className="relative w-full h-full">
       <Canvas camera={new PerspectiveCamera(50, aspect, 180, 1800)}>
         <WebGLRendererConfig />
-        {/* Enhanced lighting for neon effect */}
-        <ambientLight color="#001144" intensity={0.3} />
+        {/* Enhanced lighting untuk globe terang */}
+        <ambientLight color="#FFFFFF" intensity={0.8} />
         <directionalLight
-          color="#00aaff"
+          color="#FFFFFF"
           position={new Vector3(-400, 100, 400)}
-          intensity={1.8}
-        />
-        <directionalLight
-          color="#0088cc"
-          position={new Vector3(400, 100, -400)}
           intensity={1.2}
         />
-        <pointLight
-          color="#00ccff"
-          position={new Vector3(-200, 500, 200)}
-          intensity={2.0}
+        <directionalLight
+          color="#FFFFFF"
+          position={new Vector3(400, 100, -400)}
+          intensity={1.0}
         />
         <pointLight
-          color="#0066aa"
+          color="#F59E0B"
+          position={new Vector3(-200, 500, 200)}
+          intensity={0.7}
+        />
+        <pointLight
+          color="#F59E0B"
           position={new Vector3(200, -500, -200)}
-          intensity={1.5}
+          intensity={0.5}
         />
         <Globe {...props} />
         <OrbitControls
@@ -331,17 +333,17 @@ export function World(props: WorldProps) {
           enableZoom={false}
           minDistance={cameraZ}
           maxDistance={cameraZ}
-          autoRotateSpeed={props.globeConfig.autoRotateSpeed || 1.5} // Increased default speed
-          autoRotate={props.globeConfig.autoRotate !== false}
+          autoRotateSpeed={autoRotateSpeed}
+          autoRotate={autoRotate}
           minPolarAngle={Math.PI / 3.5}
           maxPolarAngle={Math.PI - Math.PI / 3}
         />
       </Canvas>
       
-      {/* Enhanced UI overlay with neon theme */}
-      <div className="absolute bottom-8 left-8 text-cyan-400 text-xs sm:text-sm font-mono">
+      {/* Dark elegant UI overlay */}
+      <div className="absolute bottom-8 left-8 text-[#F59E0B] text-xs sm:text-sm font-mono">
         <div className="flex items-center mb-1">
-          <div className="w-2 h-2 rounded-full bg-cyan-400 mr-2 animate-pulse shadow-lg shadow-cyan-400/50"></div>
+          <div className="w-2 h-2 rounded-full bg-[#F59E0B] mr-2 animate-pulse shadow-lg shadow-[#F59E0B]/50"></div>
           <span className="text-shadow-glow">300 POINTS OF PRESENCE</span>
         </div>
         <div className="pl-4 text-white/90 font-medium">
@@ -350,17 +352,17 @@ export function World(props: WorldProps) {
         </div>
       </div>
 
-      <div className="absolute top-8 right-8 text-cyan-400 text-xs sm:text-sm font-mono">
+      <div className="absolute top-8 right-8 text-[#F59E0B] text-xs sm:text-sm font-mono">
         <div className="text-right">
           <div className="text-white mb-1 opacity-80 text-xl font-bold">US$4,200,000</div>
           <div className="text-shadow-glow">SALES PER MINUTE DURING PEAK<br />SALES TIMES</div>
         </div>
       </div>
 
-      {/* Add some CSS for text glow effect */}
+      {/* CSS untuk orange glow */}
       <style jsx>{`
         .text-shadow-glow {
-          text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+          text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
         }
       `}</style>
     </div>

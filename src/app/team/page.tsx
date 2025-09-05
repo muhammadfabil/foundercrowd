@@ -67,7 +67,7 @@ const TeamPage = () => {
 				<Navbar />
 				{/* Hero section with dark background to make navbar visible */}
 				<div className="pt-32 pb-16 px-4 max-w-7xl mx-auto text-center">
-					<h1 className="text-4xl md:text-5xl font-medium text-white mb-4">
+					<h1 className="text-4xl md:text-5xl font-medium text-white mb-2 mt-12">
 						Meet Our Team
 					</h1>
 					<p className="text-gray-300 text-lg max-w-2xl mx-auto">
