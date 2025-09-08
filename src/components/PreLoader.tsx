@@ -9,9 +9,9 @@ const PreLoader: React.FC<PreLoaderProps> = ({ onComplete }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Detect mobile device
+    // Detect mobile device - lowered threshold for better mobile detection
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 640); // Changed from 768 to 640
     };
 
     // Check on mount
