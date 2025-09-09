@@ -96,12 +96,10 @@ export default function CTAP() {
           data-aos="fade-up"
           data-aos-delay="750"
         >
-          <button className="px-8 py-4 bg-teal-400 text-black font-semibold rounded-full shadow-lg hover:scale-105 transition text-lg">
+          <button className="px-8 py-4 bg-amber-600 text-white font-semibold rounded-full shadow-lg hover:scale-105 transition text-lg">
             Book a Call
           </button>
-          <button className="px-8 py-4 border border-white/80 text-white font-semibold rounded-full backdrop-blur-md hover:bg-white hover:text-black transition text-lg">
-            View Case Studies
-          </button>
+          
         </div>
       </div>
     </section>
