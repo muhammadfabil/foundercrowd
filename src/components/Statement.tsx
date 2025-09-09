@@ -477,21 +477,14 @@ const Statement = () => {
           <div className="relative flex justify-center items-center mt-8 md:mt-0">
             <div className="relative">
               <Image
-                src="/shopify2.png"
+                src="/rightstatement.jpg"
                 alt="Checkout Interface"
-                width={400}
+                width={300}
                 height={300}
                 className="object-contain w-full max-w-sm md:max-w-md filter drop-shadow-lg"
                 priority
               />
-              <Image
-                src="/shopify1.png"
-                alt="Checkout Overlay"
-                width={300}
-                height={200}
-                className="object-contain absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none w-3/4 md:w-full max-w-xs md:max-w-sm filter drop-shadow-lg"
-                priority
-              />
+             
               {/* Subtle glow effect */}
               <div className="absolute inset-0 bg-[#F59E0B]/5 rounded-lg blur-xl -z-10"></div>
             </div>
