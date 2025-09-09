@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
+const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
 
 // Add the same CalendlyModal component from Navbar
 function CalendlyModal({
@@ -278,11 +278,11 @@ const MergerAcquisitionPage = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-[#2B2B2B] text-white">
+        <section className="py-20 bg-white text-amber-600">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to explore an exit?</h2>
-              <p className="text-lg text-white/80 mb-8">
+              <h2 className="text-3xl md:text-6xl font-bold mb-6">Ready to explore an exit?</h2>
+              <p className="text-lg text-amber-600 mb-8">
                 Let's find the right acquirer, cut out the noise, and help you close your deal — on your terms.
               </p>
               

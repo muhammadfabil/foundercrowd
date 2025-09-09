@@ -1,5 +1,65 @@
-import React from 'react';
+'use client'
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+
+// First, set a default Calendly URL at the top level
+const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
+
+// Update the CalendlyModal component to match Plan.tsx
+function CalendlyModal({  
+  url,
+  onClose,
+}: {
+  url: string;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onEsc);
+    
+    // Add the Calendly script
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    
+    document.body.appendChild(script);
+    
+    return () => {
+      document.removeEventListener("keydown", onEsc);
+      // Clean up script if needed
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[9999] bg-black/50"
+      role="dialog"
+      aria-modal="true"
+      onClick={onClose} // Close when clicking backdrop
+    >
+      {/* Close button */}
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 z-[10000] bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      {/* Calendly widget container */}
+      <div 
+        className="calendly-inline-widget h-full w-full" 
+        data-url={url}
+        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on Calendly widget
+      ></div>
+    </div>
+  );
+}
 
 const integrationLogos = [
   '/integ (1).svg',
@@ -29,7 +89,9 @@ const integrationLogos = [
   '/integ (25).svg'
 ];
 
-const Integration = () => {
+const Integration = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
+  const [openCalendly, setOpenCalendly] = useState(false);
+
   // Define the number of logos per row for different screen sizes
   const rows = [
     { mobile: 4, tablet: 5, desktop: 7 }, // Row 1
@@ -112,16 +174,22 @@ const Integration = () => {
           <p className="text-gray-600 mb-6 md:mb-8 max-w-lg mx-auto text-sm md:text-base">
             Need a specific integration? We're constantly expanding our ecosystem.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
-            <button className="bg-black text-white px-6 md:px-8 py-2.5 md:py-3 rounded-full font-medium hover:bg-gray-800 transition-colors duration-300 text-sm md:text-base">
-              View All Integrations
-            </button>
-            <button className="border border-gray-300 text-gray-700 px-6 md:px-8 py-2.5 md:py-3 rounded-full font-medium hover:border-orange-500 hover:text-orange-500 transition-colors duration-300 text-sm md:text-base">
-              Request Integration
-            </button>
-          </div>
+          <button 
+            onClick={() => setOpenCalendly(true)}
+            className="bg-orange-500 text-white px-6 md:px-8 py-2.5 md:py-3 rounded-full font-medium hover:bg-orange-600 transition-colors duration-300 text-sm md:text-base"
+          >
+            Request Integration
+          </button>
         </div>
       </div>
+
+      {/* Calendly Modal */}
+      {openCalendly && (
+        <CalendlyModal 
+          url={calendlyUrl} 
+          onClose={() => setOpenCalendly(false)}
+        />
+      )}
     </section>
   );
 };

@@ -1,48 +1,93 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 
 interface PreLoaderProps {
   onComplete: () => void;
 }
 
 const PreLoader: React.FC<PreLoaderProps> = ({ onComplete }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isGone, setIsGone] = useState(false);
+  const [isFading, setIsFading] = useState(false);
+  const fadeMs = 500; // durasi cross-fade cepat
+  const timerRef = useRef<number | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const startedFadeRef = useRef(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-      onComplete();
-    }, 10000); // Fallback timeout jika video gagal
+    // Fallback jika video tak pernah main/selesai
+    timerRef.current = window.setTimeout(() => startFade(), 10000);
+    return () => {
+      if (timerRef.current) window.clearTimeout(timerRef.current);
+    };
+  }, []);
 
-    return () => clearTimeout(timer);
-  }, [onComplete]);
-
-  const handleVideoEnd = () => {
-    setIsLoaded(true);
-    onComplete();
+  const cleanup = () => {
+    if (timerRef.current) window.clearTimeout(timerRef.current);
   };
 
-  if (isLoaded) return null;
+  const startFade = () => {
+    if (startedFadeRef.current) return;
+    startedFadeRef.current = true;
+    cleanup();
+    setIsFading(true);
+    // Setelah fade: lepas overlay + notify parent
+    window.setTimeout(() => {
+      setIsGone(true);
+      onComplete();
+    }, fadeMs);
+  };
+
+  const handleTimeUpdate = () => {
+    const v = videoRef.current;
+    if (!v || startedFadeRef.current) return;
+    // Mulai cross-fade 3% terakhir durasi (overlap ke hero)
+    if (isFinite(v.duration) && v.duration > 0 && v.currentTime / v.duration >= 0.97) {
+      startFade();
+    }
+  };
+
+  if (isGone) return null;
 
   return (
-    <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
+    // overlay di atas hero: hero sudah render di bawah untuk cross-fade
+    <div
+      className={[
+        "fixed inset-0 z-50 flex items-center justify-center",
+        // cross-fade cepat, hint performa
+        "transition-opacity duration-500 ease-out [will-change:opacity]",
+        isFading ? "opacity-0" : "opacity-100",
+        // saat fade berlangsung, biarkan event tembus ke bawah lebih cepat
+        isFading ? "pointer-events-none" : "pointer-events-auto",
+      ].join(" ")}
+    >
       <video
+        ref={videoRef}
         autoPlay
         muted
+        playsInline
         loop={false}
-        onEnded={handleVideoEnd}
-        className="w-full h-full object-cover mobile:object-contain mobile:bg-white"
+        onEnded={startFade}
+        onTimeUpdate={handleTimeUpdate}
+        // Full Tailwind, orientasi-aware:
+        className={[
+          "w-screen h-screen",
+          // default (desktop/landscape): isi penuh → cover, latar hitam
+          "object-cover bg-black",
+          // portrait phones: jangan crop → contain, latar putih (match end frame)
+          "[@media(orientation:portrait)]:object-contain",
+          "[@media(orientation:portrait)]:bg-white",
+          // sedikit smoothing bila fade (opsional micro-scale untuk kesan premium)
+          "transition-transform duration-500",
+          isFading ? "scale-[1.01]" : "scale-100",
+        ].join(" ")}
       >
         <source src="/webpre.mp4" type="video/mp4" />
-        {/* Fallback jika video tidak didukung */}
-        <p>Browser Anda tidak mendukung video.</p>
+        <p className="text-white">Browser Anda tidak mendukung video.</p>
       </video>
-      <style jsx>{`
-        @media (max-width: 768px) {
-          .mobile\\:object-contain {
-            contain: white;
-          }
-        }
-      `}</style>
+
+      {/* Respect reduced motion */}
+      <span className="sr-only motion-reduce:inline">
+        Loading…
+      </span>
     </div>
   );
 };

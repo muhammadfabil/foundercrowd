@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 
 // First, set a default Calendly URL at the top level
-const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
+const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
 
 const stepsData = [
   {

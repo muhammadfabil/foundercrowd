@@ -40,7 +40,7 @@ const TestimonialMap = () => {
         company: "TechInnovate", 
         country: "US", 
         testimonial: "FounderCrowd helped us secure our Series A funding in half the time we expected. The platform connected us with investors who truly understood our vision.", 
-        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
         investment: "$125,000 USD"
       },
       { 
@@ -49,7 +49,7 @@ const TestimonialMap = () => {
         company: "Fintech Solutions", 
         country: "GB", 
         testimonial: "As a fintech startup in London, we needed specialized investors. FounderCrowd's targeted matching algorithm connected us with the perfect partners.", 
-        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face", // Updated to a new portrait photo of a man from Unsplash
         investment: "£100,000 GBP"
       },
       { 
@@ -58,7 +58,7 @@ const TestimonialMap = () => {
         company: "HealthTech Pro", 
         country: "AU", 
         testimonial: "We were able to find investors who specialize in healthcare technology through FounderCrowd, making our Series B round remarkably smooth.", 
-        image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&fit=crop&crop=face",
+        image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=400&fit=crop&crop=face",
         investment: "1,000 AUD"
       },
       { 
@@ -67,7 +67,7 @@ const TestimonialMap = () => {
         company: "GreenEnergy Spain", 
         country: "ES", 
         testimonial: "FounderCrowd made global fundraising accessible for our Spanish startup. We connected with international investors effortlessly.", 
-        image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
+        image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=400&fit=crop&crop=face",
         investment: "150,000 EUR"
       },
       { 
@@ -76,7 +76,7 @@ const TestimonialMap = () => {
         company: "GreenEnergy", 
         country: "DE", 
         testimonial: "The comprehensive tools on FounderCrowd made our fundraising process efficient and transparent. We closed our €2M round in just two months.", 
-        image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
+        image: "/ger.jpg" , // Updated to a new portrait photo of a woman from Unsplash
         investment: "250,000 EUR"
       },
       { 
@@ -85,7 +85,7 @@ const TestimonialMap = () => {
         company: "AI Solutions Japan", 
         country: "JP", 
         testimonial: "FounderCrowd's platform provided incredible exposure to global investors, helping our Japanese startup scale internationally.", 
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+        image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&h=400&fit=crop&crop=face",
         investment: "¥20,000,000 JPY"
       },
     ],
@@ -248,7 +248,7 @@ const TestimonialMap = () => {
         {/* Button (25% height) */}
         <div className="h-[25%] bg-[#2B2B2B] text-white flex items-center justify-center hover:bg-[#F59E0B] transition-colors duration-300">
           <button className="text-center font-medium py-2 px-4 text-sm">
-            Invest Now
+            Invested
           </button>
         </div>
       </div>
@@ -378,7 +378,7 @@ const TestimonialMap = () => {
               
               {/* Overlay Image - positioned at right center */}
               <img 
-                src="/overmap.png" 
+                src="/overmap.jpg" 
                 alt="Overlay" 
                 className="absolute right-0 top-1/2 transform -translate-y-1/2 h-full w-80 object-contain z-10"
               />
@@ -430,7 +430,7 @@ const TestimonialMap = () => {
                 
                 {/* Overlay Image - positioned at right center */}
                 <img 
-                  src="/overmap.png" 
+                  src="/overmap.jpg" 
                   alt="Overlay" 
                   className="absolute right-0 top-1/2 transform -translate-y-1/2 h-full w-90 object-contain z-10"
                 />

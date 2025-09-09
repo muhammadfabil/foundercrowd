@@ -174,14 +174,14 @@ export default function BlogPage() {
   return (
     <>
       <Navbar />
-      <div className="bg-[#0F0F0F] text-white font-figtree">
+      <div className="bg-white text-[#2B2B2B] font-figtree">
         {/* Hero Section */}
-        <div className="pt-24 bg-gradient-to-b from-black to-[#0F0F0F]">
+        <div className="pt-24 bg-gradient-to-b from-[#F3EFE7] to-white">
           <div className="max-w-6xl mx-auto px-4 py-16 md:py-24">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
               FoundersCrowd <span className="text-orange-500">Journal</span>
             </h1>
-            <p className="text-gray-400 text-xl max-w-2xl">
+            <p className="text-gray-600 text-xl max-w-2xl">
               Insights, strategies, and stories to help founders build remarkable companies.
             </p>
           </div>
@@ -189,14 +189,14 @@ export default function BlogPage() {
 
         <main className="max-w-6xl mx-auto px-4 pb-24">
           {/* Category Filter */}
-          <div className="flex flex-wrap items-center gap-3 mb-12 py-4 border-b border-gray-800">
+          <div className="flex flex-wrap items-center gap-3 mb-12 py-4 border-b border-gray-200">
             {categories.map(category => (
               <button
                 key={category}
                 className={`px-4 py-1.5 text-sm rounded-full transition-all duration-300 ${
                   selectedCategory === category 
                     ? "bg-orange-500 text-white" 
-                    : "bg-transparent text-gray-400 hover:text-white"
+                    : "bg-transparent text-gray-600 hover:text-black"
                 }`}
                 onClick={() => handleCategoryChange(category)}
               >
@@ -208,7 +208,7 @@ export default function BlogPage() {
           {/* Featured Post (First Page Only) */}
           {page === 1 && featuredPost && (
             <div className="mb-16">
-              <div className="group grid md:grid-cols-5 gap-8 bg-black rounded-3xl p-4 md:p-8 hover:bg-[#1A1A1A] transition-all duration-300">
+              <div className="group grid md:grid-cols-5 gap-8 bg-[#F3EFE7] rounded-3xl p-4 md:p-8 hover:bg-gray-100 transition-all duration-300">
                 <div className="md:col-span-3 relative aspect-[16/9] md:aspect-auto w-full overflow-hidden rounded-xl">
                   {getFeaturedImage(featuredPost).src ? (
                     <Image
@@ -220,8 +220,8 @@ export default function BlogPage() {
                       priority={true}
                     />
                   ) : (
-                    <div className="h-full w-full bg-gray-800 flex items-center justify-center">
-                      <svg className="w-12 h-12 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                    <div className="h-full w-full bg-gray-200 flex items-center justify-center">
+                      <svg className="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M4 4h16v16H4V4zm2 2v12h12V6H6zm2 2h8v6H8V8zm2 2v2h4v-2h-4z"/>
                       </svg>
                     </div>
@@ -231,10 +231,10 @@ export default function BlogPage() {
                 <div className="md:col-span-2 flex flex-col justify-center">
                   <span className="text-orange-500 text-sm mb-2">Featured</span>
                   <h2
-                    className="text-2xl md:text-3xl font-semibold mb-4 leading-tight"
+                    className="text-2xl md:text-3xl font-semibold mb-4 leading-tight text-[#2B2B2B]"
                     dangerouslySetInnerHTML={{ __html: featuredPost.title.rendered }}
                   />
-                  <p className="text-gray-400 mb-6 line-clamp-3">
+                  <p className="text-gray-600 mb-6 line-clamp-3">
                     {stripHtml(featuredPost.excerpt.rendered).slice(0, 180) + "…"}
                   </p>
                   <Link
@@ -283,7 +283,7 @@ export default function BlogPage() {
                     <Link
                       key={p.id}
                       href={`/blog/${p.slug}`}
-                      className="group block bg-black rounded-3xl overflow-hidden hover:bg-[#1A1A1A] transition-all duration-300"
+                      className="group block bg-[#F3EFE7] rounded-3xl overflow-hidden hover:bg-gray-100 transition-all duration-300"
                     >
                       {/* Featured Image */}
                       <div className="relative aspect-[16/9] w-full overflow-hidden">
@@ -297,8 +297,8 @@ export default function BlogPage() {
                             priority={false}
                           />
                         ) : (
-                          <div className="h-full w-full bg-gray-800 flex items-center justify-center">
-                            <svg className="w-12 h-12 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                          <div className="h-full w-full bg-gray-200 flex items-center justify-center">
+                            <svg className="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M4 4h16v16H4V4zm2 2v12h12V6H6zm2 2h8v6H8V8zm2 2v2h4v-2h-4z"/>
                             </svg>
                           </div>
@@ -314,12 +314,12 @@ export default function BlogPage() {
 
                         {/* Title */}
                         <h3
-                          className="text-xl font-semibold text-white mb-3 leading-tight line-clamp-2"
+                          className="text-xl font-semibold text-[#2B2B2B] mb-3 leading-tight line-clamp-2"
                           dangerouslySetInnerHTML={{ __html: p.title.rendered }}
                         />
 
                         {/* Excerpt */}
-                        <p className="text-gray-400 mb-4 leading-relaxed line-clamp-3">
+                        <p className="text-gray-600 mb-4 leading-relaxed line-clamp-3">
                           {excerpt}
                         </p>
 
@@ -351,19 +351,19 @@ export default function BlogPage() {
           )}
 
           {/* Newsletter Subscription */}
-          <div className="mt-24 bg-gradient-to-r from-black to-[#1A1A1A] rounded-3xl p-8 md:p-12">
+          <div className="mt-24 bg-gradient-to-r from-[#F3EFE7] to-gray-100 rounded-3xl p-8 md:p-12">
             <div className="max-w-3xl mx-auto text-center">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-[#2B2B2B]">
                 Subscribe to our <span className="text-orange-500">newsletter</span>
               </h3>
-              <p className="text-gray-400 mb-8 max-w-lg mx-auto">
+              <p className="text-gray-600 mb-8 max-w-lg mx-auto">
                 Get the latest insights on fundraising, growth strategies, and startup resources delivered straight to your inbox.
               </p>
               <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
                 <input
                   type="email"
                   placeholder="Your email address"
-                  className="flex-1 bg-[#0F0F0F] border border-gray-800 rounded-full px-6 py-3 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="flex-1 bg-white border border-gray-300 rounded-full px-6 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500"
                   required
                 />
                 <button

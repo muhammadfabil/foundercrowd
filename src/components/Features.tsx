@@ -159,7 +159,7 @@ const ImageCarousel = () => {
       {/* Gambar dengan efek hover membesar saja (tanpa border oranye dan shadow) */}
       <div className="flex flex-col md:flex-row gap-8 mt-8">
         <div className="flex-1 flex justify-center">
-          <div className="relative w-full max-w-lg h-80 rounded-2xl overflow-hidden bg-gray-100 
+          <div className="relative w-full max-w-lg h-80 rounded-2xl overflow-hidden  
                           cursor-pointer transition-all duration-300 ease-in-out 
                           hover:scale-105 
                           focus:scale-105 
@@ -172,11 +172,11 @@ const ImageCarousel = () => {
               priority
             />
             {/* Overlay efek hover */}
-            <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-300 rounded-2xl"></div>
+            <div className="absolute inset-0 bg-black/0  transition-all duration-300 rounded-2xl"></div>
           </div>
         </div>
         <div className="flex-1 flex justify-center">
-          <div className="relative w-full max-w-lg h-80 rounded-2xl overflow-hidden bg-gray-100 
+          <div className="relative w-full max-w-lg h-80 rounded-2xl overflow-hidden 
                           cursor-pointer transition-all duration-300 ease-in-out 
                           hover:scale-105 
                           focus:scale-105 
@@ -189,7 +189,7 @@ const ImageCarousel = () => {
               priority
             />
             {/* Overlay efek hover */}
-            <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-300 rounded-2xl"></div>
+            <div className="absolute inset-0  transition-all duration-300 rounded-2xl"></div>
           </div>
         </div>
       </div>

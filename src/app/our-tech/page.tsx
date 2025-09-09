@@ -10,7 +10,7 @@ import Plan from "@/components/Plan";
 import Integration from "@/components/Integration";
 import { CalendlyModal } from "@/components/Hero";
 
-const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
+const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
 
 const OurTechPage = () => {
   const [openCalendly, setOpenCalendly] = useState(false);
@@ -20,7 +20,7 @@ const OurTechPage = () => {
       <Navbar />
       <main className="bg-white">
         {/* Hero Section */}
-        <section className="relative py-24 md:py-32 lg:py-40 bg-[#2B2B2B] text-white overflow-hidden">
+        <section className="relative pt-24 md:pt-32 lg:pt-40 bg-[#2B2B2B] text-white overflow-hidden pb-24">
           <div className="absolute inset-0 opacity-20 hero-noise"></div>
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
@@ -30,6 +30,19 @@ const OurTechPage = () => {
               <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto">
                 Discover the cutting-edge platform that powers successful capital raises for businesses worldwide.
               </p>
+              {/* Hero video - improved mobile spacing and sizing */}
+              <div className="mt-4 md:mt-6 lg:mt-8 xl:mt-10 mb-6 md:mb-8 relative mx-auto max-w-xs sm:max-w-2xl md:max-w-3xl lg:max-w-4xl">
+                <div className="aspect-[16/9] overflow-hidden rounded-lg md:rounded-xl shadow-lg border border-gray-100">
+                  <iframe 
+                    src="https://player.vimeo.com/video/1115691817?h=0&autoplay=1&loop=1&muted=1"
+                    className="h-full w-full"
+                    frameBorder="0" 
+                    allow="autoplay; fullscreen; picture-in-picture" 
+                    allowFullScreen
+                    title="Platform demo video"
+                  />
+                </div>
+              </div>
               <button
                 onClick={() => setOpenCalendly(true)}
                 className="rounded-full bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-white hover:text-black hover:shadow-xl"
@@ -59,11 +72,11 @@ const OurTechPage = () => {
         <Integration />
 
         {/* CTA Section */}
-        <section className="py-20 bg-[#2B2B2B] text-white">
+        <section className="py-20 bg-white text-amber-600">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to leverage our technology?</h2>
-              <p className="text-lg text-white/80 mb-8">
+              <h2 className="text-3xl md:text-6xl font-bold mb-6">Ready to leverage our technology?</h2>
+              <p className="text-lg text-amber-600 mb-8">
                 Let us show you how our platform can transform your capital raising experience.
               </p>
               <button

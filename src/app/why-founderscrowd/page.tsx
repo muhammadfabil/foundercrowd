@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { CalendlyModal } from '@/components/Hero';
 
-const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
+const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
 
 const WhyFoundersCrowdPage = () => {
   const [openCalendly, setOpenCalendly] = useState(false);
@@ -146,12 +146,12 @@ const WhyFoundersCrowdPage = () => {
 
         {/* Zig-Zag Content Sections */}
         
-        {/* Section 1: Updated Content (Image Left, Content Right) */}
+        {/* Section 1: Our Story (Image Left, Content Right) */}
         <section className="py-16 md:py-20 bg-white">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              {/* Image */}
-              <div className="relative">
+              {/* Image - Left */}
+              <div className="relative order-1">
                 <div className="overflow-hidden rounded-2xl shadow-xl">
                   <Image
                     src="/why.jpg"
@@ -164,8 +164,8 @@ const WhyFoundersCrowdPage = () => {
                 </div>
               </div>
 
-              {/* Content */}
-              <div className="space-y-6">
+              {/* Content - Right */}
+              <div className="space-y-6 order-2">
                 <div>
                   <h2 className="text-3xl md:text-4xl font-bold text-[#2B2B2B] mb-4">
                     Our Story
@@ -192,7 +192,7 @@ const WhyFoundersCrowdPage = () => {
         <section className="py-16 md:py-20 bg-[#F3EFE7]">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              {/* Content */}
+              {/* Content - Left */}
               <div className="space-y-6 order-2 lg:order-1">
                 <div>
                   <p className="text-sm font-semibold text-red-600 uppercase tracking-wider mb-2">
@@ -228,7 +228,7 @@ const WhyFoundersCrowdPage = () => {
                 </div>
               </div>
 
-              {/* Image */}
+              {/* Image - Right */}
               <div className="relative order-1 lg:order-2">
                 <div className="overflow-hidden rounded-2xl shadow-xl">
                   <Image
@@ -245,12 +245,26 @@ const WhyFoundersCrowdPage = () => {
           </div>
         </section>
 
-        {/* Section 2: Why FoundersCrowd (Content Left, Image Right) */}
+        {/* Section 3: Why FoundersCrowd (Image Left, Content Right) */}
         <section className="py-16 md:py-20 bg-white">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              {/* Content */}
-              <div className="space-y-6 order-2 lg:order-1">
+              {/* Image - Left */}
+              <div className="relative order-1">
+                <div className="overflow-hidden rounded-2xl shadow-xl">
+                  <Image
+                    src="/why.jpg"
+                    alt="Why FoundersCrowd - Solution illustration"
+                    width={600}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                    priority
+                  />
+                </div>
+              </div>
+
+              {/* Content - Right */}
+              <div className="space-y-6 order-2">
                 <div>
                   <p className="text-sm font-semibold text-green-600 uppercase tracking-wider mb-2">
                     THE SOLUTION
@@ -298,44 +312,16 @@ const WhyFoundersCrowdPage = () => {
                   </div>
                 </div>
               </div>
-
-              {/* Image */}
-              <div className="relative order-1 lg:order-2">
-                <div className="overflow-hidden rounded-2xl shadow-xl">
-                  <Image
-                    src="/why.jpg"
-                    alt="Why FoundersCrowd - Solution illustration"
-                    width={600}
-                    height={400}
-                    className="w-full h-auto object-cover"
-                    priority
-                  />
-                </div>
-              </div>
             </div>
           </div>
         </section>
 
-        {/* Section 3: Best Price Guaranteed (Image Left, Content Right) */}
+        {/* Section 4: Best Price Guaranteed (Content Left, Image Right) */}
         <section className="py-16 md:py-20 bg-[#F3EFE7]">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              {/* Image */}
-              <div className="relative">
-                <div className="overflow-hidden rounded-2xl shadow-xl">
-                  <Image
-                    src="/why.jpg"
-                    alt="Best Price Guaranteed - Pricing illustration"
-                    width={600}
-                    height={400}
-                    className="w-full h-auto object-cover"
-                    priority
-                  />
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="space-y-6">
+              {/* Content - Left */}
+              <div className="space-y-6 order-2 lg:order-1">
                 <div>
                   <p className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">
                     PRICING
@@ -378,61 +364,13 @@ const WhyFoundersCrowdPage = () => {
                   Because no founder should be held back by costs.
                 </p>
               </div>
-            </div>
-          </div>
-        </section>
 
-        {/* Section 4: What We've Achieved (Content Left, Image Right) */}
-        <section className="py-16 md:py-20 bg-white">
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              {/* Content */}
-              <div className="space-y-6 order-2 lg:order-1">
-                <div>
-                  <p className="text-sm font-semibold text-amber-600 uppercase tracking-wider mb-2">
-                    OUR IMPACT
-                  </p>
-                  <h2 className="text-3xl md:text-4xl font-bold text-[#2B2B2B] mb-4">
-                    What We've Achieved
-                  </h2>
-                </div>
-                
-                <div className="space-y-4 text-[#2B2B2B]/80">
-                  <p className="text-base md:text-lg leading-relaxed">
-                    Since then, we've helped companies at every stage raise over $210 million. And we're just getting started.
-                  </p>
-                  <p className="text-base md:text-lg leading-relaxed">
-                    Our mission is bold but simple:
-                  </p>
-                </div>
-
-                <div className="bg-gradient-to-r from-amber-400 to-orange-500 p-8 rounded-2xl text-white shadow-lg">
-                  <h3 className="text-2xl md:text-3xl font-bold mb-4 text-center">
-                    Help founders raise $1 billion by 2030
-                  </h3>
-                  <p className="text-lg text-center opacity-90">
-                    Because when founders win, the world wins.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mt-8">
-                  <div className="text-center p-4 bg-white rounded-lg shadow-sm">
-                    <h4 className="text-2xl font-bold text-amber-600">$210M+</h4>
-                    <p className="text-sm text-[#2B2B2B]/70">Capital Raised</p>
-                  </div>
-                  <div className="text-center p-4 bg-white rounded-lg shadow-sm">
-                    <h4 className="text-2xl font-bold text-amber-600">1000+</h4>
-                    <p className="text-sm text-[#2B2B2B]/70">Founders Helped</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Image */}
+              {/* Image - Right */}
               <div className="relative order-1 lg:order-2">
                 <div className="overflow-hidden rounded-2xl shadow-xl">
                   <Image
                     src="/why.jpg"
-                    alt="What We've Achieved - Impact illustration"
+                    alt="Best Price Guaranteed - Pricing illustration"
                     width={600}
                     height={400}
                     className="w-full h-auto object-cover"
@@ -444,12 +382,57 @@ const WhyFoundersCrowdPage = () => {
           </div>
         </section>
 
+        {/* Section 5: What We've Achieved (Centered Content) */}
+        <section className="py-16 md:py-20 bg-white">
+          <div className="mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <div>
+                <p className="text-sm font-semibold text-amber-600 uppercase tracking-wider mb-2">
+                  OUR IMPACT
+                </p>
+                <h2 className="text-3xl md:text-4xl font-bold text-[#2B2B2B] mb-6">
+                  What We've Achieved
+                </h2>
+              </div>
+              
+              <div className="space-y-4 text-[#2B2B2B]/80 mb-8">
+                <p className="text-base md:text-lg leading-relaxed">
+                  Since then, we've helped companies at every stage raise over $210 million. And we're just getting started.
+                </p>
+                <p className="text-base md:text-lg leading-relaxed">
+                  Our mission is bold but simple:
+                </p>
+              </div>
+
+              <div className="bg-gradient-to-r from-amber-400 to-orange-500 p-8 rounded-2xl text-white shadow-lg mb-10">
+                <h3 className="text-2xl md:text-3xl font-bold mb-4 text-center">
+                  Help founders raise $1 billion by 2030
+                </h3>
+                <p className="text-lg text-center opacity-90">
+                  Because when founders win, the world wins.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-8 mt-8 max-w-md mx-auto">
+                <div className="text-center p-6 bg-white rounded-lg shadow-sm">
+                  <h4 className="text-3xl font-bold text-amber-600">$210M+</h4>
+                  <p className="text-sm text-[#2B2B2B]/70">Capital Raised</p>
+                </div>
+                <div className="text-center p-6 bg-white rounded-lg shadow-sm">
+                  <h4 className="text-3xl font-bold text-amber-600">1000+</h4>
+                  <p className="text-sm text-[#2B2B2B]/70">Founders Helped</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* CTA Section */}
-        <section className="py-20 bg-[#2B2B2B] text-white">
+        <section className="py-20 bg-white text-amber-600">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Get Started?</h2>
-              <p className="text-lg text-white/80 mb-8">
+              <h2 className="text-3xl md:text-6xl font-bold mb-6">Ready to Get Started?</h2>
+              <p className="text-lg text-amber-600 mb-8">
                 Join thousands of founders who are transforming how they raise capital.
               </p>
 

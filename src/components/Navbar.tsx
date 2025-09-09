@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 // Add the CalendlyModal component
 function CalendlyModal({
@@ -63,9 +64,13 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openCalendly, setOpenCalendly] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const pathname = usePathname();
+  
+  // Check if current page is blog related (blog index or blog post)
+  const isBlogPage = pathname?.startsWith('/blog');
 
   // Add default Calendly URL
-  const calendlyUrl = "https://calendly.com/spacefunding/raise-capital-online";
+  const calendlyUrl = "https://calendly.com/founderscrowds/30min";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -101,7 +106,7 @@ export default function Navbar() {
             'mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 transition-all duration-300',
             scrolled
               ? 'pointer-events-auto rounded-full bg-white text-black shadow-lg mt-2 py-1 md:py-2'
-              : 'pointer-events-auto text-white mt-6 py-1 md:py-2',
+              : `pointer-events-auto ${isBlogPage ? 'text-black' : 'text-white'} mt-6 py-1 md:py-2`,
           ].join(' ')}
         >
           {/* LEFT: Logo with Home Link */}
@@ -110,13 +115,13 @@ export default function Navbar() {
               src="/logo.png"
               alt="FoundersCrowd Logo"
               className={`h-8 md:h-14 w-auto transition-all duration-300 ${
-                scrolled 
+                scrolled || isBlogPage
                   ? '' 
                   : 'filter invert brightness-0'
               }`}
             />
             <span className={`font-medium text-base md:text-lg transition-all duration-300 ${
-              scrolled ? 'text-black' : 'text-white'
+              scrolled || isBlogPage ? 'text-black' : 'text-white'
             }`}>
               Founderscrowd
             </span>
@@ -124,7 +129,7 @@ export default function Navbar() {
 
           {/* CENTER: Navigation Menu (Desktop only) */}
           <div className={`hidden lg:flex items-center gap-8 text-sm font-medium transition-all duration-300 ${
-            scrolled ? 'text-black' : 'text-white'
+            scrolled || isBlogPage ? 'text-black' : 'text-white'
           }`}>
             {/* Home */}
             <Link href="/" className="hover:opacity-80 transition-opacity">
@@ -188,13 +193,13 @@ export default function Navbar() {
 
           {/* RIGHT: Actions */}
           <div className={`flex items-center gap-2 md:gap-3 z-[110] relative transition-all duration-300 ${
-            scrolled ? 'text-black' : 'text-white'
+            scrolled || isBlogPage ? 'text-black' : 'text-white'
           }`}>
             {/* CTA Button (Desktop only) */}
             <button
               onClick={() => setOpenCalendly(true)}
               className={`hover:bg-white hover:text-black hidden md:block rounded-full px-4 md:px-6 py-2 md:py-2.5 text-xs md:text-sm font-medium transition-all duration-300 ${
-                scrolled 
+                scrolled || isBlogPage
                   ? 'bg-black text-white hover:bg-gray-800' 
                   : 'bg-amber-600 text-white hover:bg-gray-100'
               }`}

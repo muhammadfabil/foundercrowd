@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Image from 'next/image';
 
 // First, set a default Calendly URL at the top level
-const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
+const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
 
 // Update the CalendlyModal component to match Navbar
 export function CalendlyModal({

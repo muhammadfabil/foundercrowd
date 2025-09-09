@@ -8,7 +8,7 @@ const FaqPage = () => {
   return (
     <>
       <Navbar />
-      <main className="bg-[#2B2B2B] min-h-screen py-24">
+      <main className="bg-[#2B2B2B] min-h-screen pt-24">
         <FAQ />
       </main>
       <Footer />

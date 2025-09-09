@@ -1,179 +1,109 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { CalendlyModal } from '@/components/Hero';
+import Image from "next/image";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
-const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
-
-const CTAP = () => {
-  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+export default function CTAP() {
+  useEffect(() => {
+    // Initialize AOS
+    AOS.init({
+      duration: 1500,
+      once: false,
+      mirror: true,
+    });
+  }, []);
 
   return (
-    <>
-      <motion.section
-        className="relative min-h-[100svh] flex items-center justify-center overflow-hidden"
-        initial={{
-          background:
-            'linear-gradient(180deg, #ffffff 0%, #ffffff 35%, #F59E0B 70%, #2B2B2B 100%)',
-        }}
-        animate={{
-          background: [
-            'linear-gradient(180deg, #ffffff 0%, #ffffff 35%, #F59E0B 70%, #2B2B2B 100%)',
-            'linear-gradient(180deg, #ffffff 0%, #fff7ed 35%, #fbbf24 70%, #2B2B2B 100%)',
-          ],
-        }}
-        transition={{ duration: 3, ease: 'easeInOut' }}
-      >
-        {/* Floating Particles - Reduced for mobile */}
-        {[...Array(4)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1.5 h-1.5 md:w-2 md:h-2 bg-yellow-400 rounded-full opacity-60"
-            style={{ 
-              left: `${15 + i * 20}%`, 
-              top: `${55 + Math.random() * 25}%` 
-            }}
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: [0, 1, 0],
-              y: [-15, -80],
-              x: [0, Math.random() * 40 - 20],
-            }}
-            transition={{ 
-              duration: 2.5, 
-              repeat: Infinity, 
-              repeatType: 'loop', 
-              delay: Math.random() * 1.5 
-            }}
-          />
-        ))}
+    <section className="relative h-screen overflow-hidden flex flex-col items-center justify-center">
+      {/* BG image */}
+      <div className="absolute inset-0 -z-20">
+        <Image
+          src="/paralax.jpg"
+          alt="City"
+          fill
+          priority
+          className="object-cover"
+        />
+      </div>
 
-        {/* Main Content Container */}
-        <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto py-8 md:py-0">
-          {/* Logo and Company Name Row */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-8 mb-8 md:mb-12">
-            {/* Logo as Sun */}
-            <motion.div
-              className="relative order-1 sm:order-none"
-              initial={{ y: 150, opacity: 0, scale: 0.8, filter: 'brightness(0.3)' }}
-              whileInView={{
-                y: 0,
-                opacity: 1,
-                scale: 1,
-                filter: ['brightness(0.3)', 'brightness(1)', 'brightness(1.1)'],
+      {/* Overlay kontras */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/30 via-black/40 to-black/60" />
+
+      {/* Content */}
+      <div className="text-center space-y-8 z-10">
+        {/* Logo + Brand */}
+        <div className="flex flex-col items-center space-y-4">
+          <div
+            className="bg-white rounded-full p-3 shadow-lg relative"
+            data-aos="fade-up"
+            data-aos-offset="200"
+            data-aos-delay="50"
+            data-aos-duration="1200"
+            data-aos-easing="ease-in-out"
+          >
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              width={100}
+              height={100}
+              className="object-contain"
+              style={{
+                filter: "drop-shadow(0 0 10px rgba(255, 165, 0, 0.5))",
               }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 1.2, ease: 'easeOut', delay: 0.2 }}
-            >
-              <motion.img
-                src="/logo.png"
-                alt="Foundercrowd Logo"
-                className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-36 lg:h-36 object-contain"
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
-              />
-
-              {/* Sun Rays - Adjusted for mobile */}
-              <motion.div
-                className="absolute inset-0 -z-10"
-                animate={{ rotate: [0, -360] }}
-                transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}
-              >
-                {[...Array(6)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute w-0.5 md:w-1 bg-gradient-to-t from-yellow-400 to-transparent opacity-40"
-                    style={{
-                      height: '40px',
-                      left: '50%',
-                      top: '-40px',
-                      transformOrigin: '50% 80px',
-                      transform: `translateX(-50%) rotate(${i * 60}deg)`,
-                    }}
-                  />
-                ))}
-              </motion.div>
-            </motion.div>
-
-            {/* Company Name */}
-            <motion.div
-              className="order-2 sm:order-none"
-              initial={{ x: 0, y: 30, opacity: 0 }}
-              whileInView={{ x: 0, y: 0, opacity: 1 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 1.0, delay: 0.8, ease: 'easeOut' }}
-            >
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#F59E0B] leading-tight">
-                Founderscrowd
-              </h1>
-              <motion.p
-                className="text-base sm:text-lg md:text-xl text-orange-500 mt-1 md:mt-2 font-light"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ delay: 1.2, duration: 0.8 }}
-              >
-                Rise with the dawn of opportunity
-              </motion.p>
-            </motion.div>
-          </div>
-
-          {/* Call to Action - Mobile optimized */}
-          <motion.button
-            onClick={() => setIsCalendlyOpen(true)}
-            className="group relative w-full sm:w-auto inline-block px-6 py-3 sm:px-8 sm:py-4 md:px-12 md:py-5 bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold text-base sm:text-lg md:text-xl rounded-full shadow-2xl border-2 border-yellow-300/30 overflow-hidden cursor-pointer max-w-xs sm:max-w-none mx-auto"
-            initial={{ scale: 0.9, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ type: 'spring', stiffness: 200, damping: 20, delay: 1.4 }}
-            whileHover={{ scale: 1.02, boxShadow: '0 0 25px rgba(245, 158, 11, 0.4)' }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <motion.span
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-              animate={{ x: ['-100%', '200%'] }}
-              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3, ease: 'easeInOut' }}
             />
-
-            <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
-              Start Raising
-              <motion.span 
-                animate={{ x: [0, 4, 0] }} 
-                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                className="text-sm sm:text-base"
-              >
-                →
-              </motion.span>
-            </span>
-          </motion.button>
-
-          {/* Subtitle - Mobile optimized */}
-          <motion.p
-            className="text-orange-700 mt-6 md:mt-8 text-sm sm:text-base max-w-sm sm:max-w-2xl mx-auto leading-relaxed px-2 sm:px-0"
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ delay: 1.6, duration: 0.9 }}
+            {/* Sunrise glow effect */}
+            <div
+              className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[140%] h-20 bg-gradient-to-t from-orange-300 to-transparent opacity-70 rounded-full blur-xl -z-10"
+              data-aos="fade-in"
+              data-aos-delay="300"
+              data-aos-duration="1500"
+            ></div>
+          </div>
+          <h2
+            className="text-white text-2xl md:text-3xl font-bold tracking-wider"
+            data-aos="fade-up"
+            data-aos-delay="300"
           >
-            Join thousands of founders who have successfully raised capital with our proven platform.
-            <span className="hidden sm:inline"> Your funding journey starts here.</span>
-          </motion.p>
+            FOUNDERSCROWD
+          </h2>
         </div>
 
-        {/* Bottom Gradient Fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-      </motion.section>
+        {/* Main Heading */}
+        <h1
+          className="text-white font-extrabold leading-[0.9] tracking-tight"
+          data-aos="fade-up"
+          data-aos-delay="450"
+        >
+          <span className="block text-[12vw] md:text-[6vw] drop-shadow-[0_8px_28px_rgba(0,0,0,0.45)]">
+            START RAISING
+          </span>
+        </h1>
 
-      {/* Calendly Modal */}
-      {isCalendlyOpen && (
-        <CalendlyModal 
-          url={DEFAULT_CALENDLY_URL} 
-          onClose={() => setIsCalendlyOpen(false)} 
-        />
-      )}
-    </>
+        {/* Subtitle */}
+        <p
+          className="text-white/95 text-lg md:text-2xl"
+          data-aos="fade-up"
+          data-aos-delay="600"
+        >
+          Your Vision. Your Terms.
+        </p>
+
+        {/* CTA Buttons */}
+        <div
+          className="flex gap-4 justify-center pt-4"
+          data-aos="fade-up"
+          data-aos-delay="750"
+        >
+          <button className="px-8 py-4 bg-teal-400 text-black font-semibold rounded-full shadow-lg hover:scale-105 transition text-lg">
+            Book a Call
+          </button>
+          <button className="px-8 py-4 border border-white/80 text-white font-semibold rounded-full backdrop-blur-md hover:bg-white hover:text-black transition text-lg">
+            View Case Studies
+          </button>
+        </div>
+      </div>
+    </section>
   );
-};
-
-export default CTAP;
+}

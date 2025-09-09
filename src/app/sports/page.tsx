@@ -8,7 +8,7 @@ import Integration from '@/components/Integration';
 import { CalendlyModal } from '@/components/Hero'; // Reusing the CalendlyModal component
 import { SparklesCore } from '@/components/ui/sparkles';
 
-const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
+const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
 
 const SportsPage = () => {
   const [openCalendly, setOpenCalendly] = useState(false);
@@ -169,7 +169,7 @@ const SportsPage = () => {
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Success Stories</h2>
               <p className="text-lg text-[#2B2B2B]/70 max-w-2xl mx-auto">
-                Teams and clubs that have successfully raised capital with FoundersCrowd.
+                Teams and clubs that we have been involved with.
               </p>
             </div>
             
@@ -418,11 +418,11 @@ const SportsPage = () => {
         
 
         {/* CTA Section */}
-        <section className="py-12 bg-[#2B2B2B] text-white">
+        <section className="py-12 bg-white text-amber-600">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to take your club or sports startup to the next level?</h2>
-              <p className="text-lg text-white/80 mb-8">
+              <h2 className="text-3xl md:text-6xl font-bold mb-6">Ready to take your club or sports startup to the next level?</h2>
+              <p className="text-lg text-amber-600/80 mb-8">
                 Join thousands of sports organizations transforming how they engage with fans and raise capital.
               </p>
               
