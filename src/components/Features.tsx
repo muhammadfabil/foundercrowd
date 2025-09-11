@@ -112,11 +112,12 @@ const FeatureList = React.memo(({ features, activeFeature, setActiveFeature }: {
 ));
 
 const FeatureImage = React.memo(({ feature }: { feature: Feature }) => (
-  <div className="relative w-full h-[400px]">
+  <div className="relative w-full h-[400px] flex items-center justify-center">
     <Image
       src={feature.image}
       alt={feature.title}
-      fill
+      width={400}
+      height={400}
       className="object-contain"
       priority
     />
@@ -163,11 +164,12 @@ const ImageCarousel = React.memo(() => {
                           cursor-pointer transition-all duration-300 ease-in-out 
                           hover:scale-105 
                           focus:scale-105 
-                          focus:outline-none">
+                          focus:outline-none flex items-center justify-center">
             <Image
               src="/feat1.png"
               alt="Investor Funnel Screenshot 1"
-              fill
+              width={480}
+              height={480}
               className="object-contain transition-transform duration-300 hover:scale-110"
               priority
             />
@@ -180,11 +182,12 @@ const ImageCarousel = React.memo(() => {
                           cursor-pointer transition-all duration-300 ease-in-out 
                           hover:scale-105 
                           focus:scale-105 
-                          focus:outline-none">
+                          focus:outline-none flex items-center justify-center">
             <Image
               src="/feat2.png"
               alt="Investor Funnel Screenshot 2"
-              fill
+              width={480}
+              height={480}
               className="object-contain transition-transform duration-300 hover:scale-110"
               priority
             />

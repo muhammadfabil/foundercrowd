@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useMemo, useEffect, useRef, memo, useCallback } from "react";
+import Image from 'next/image';
 import { motion, AnimatePresence } from "framer-motion";
 import { GB, US, DE, AU, ES, JP } from "country-flag-icons/react/3x2";
 
@@ -234,11 +235,13 @@ const TestimonialMap = memo(() => {
       >
         {/* Profile Image (75%) */}
         <div className="relative w-full h-[75%]">
-          <img 
-            src={testimonial.image} 
-            alt={testimonial.name} 
+          <Image
+            src={testimonial.image}
+            alt={testimonial.name}
+            width={400}
+            height={400}
             className="w-full h-full object-cover"
-            loading="lazy"
+            priority={isCenter}
           />
         </div>
         
@@ -367,17 +370,23 @@ const TestimonialMap = memo(() => {
             {/* Mobile: Map + Overmap */}
             <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-[#2B2B2B]/5">
               {/* World Map Background */}
-              <img 
-                src="/TestiMap.png" 
-                alt="World Map" 
+              <Image
+                src="/TestiMap.png"
+                alt="World Map"
+                width={1600}
+                height={900}
                 className="absolute inset-0 w-full h-full object-cover opacity-30"
+                priority={false}
               />
               
               {/* Overlay Image - positioned at right center */}
-              <img 
-                src="/overmap.jpg" 
-                alt="Overlay" 
+              <Image
+                src="/overmap.jpg"
+                alt="Overlay"
+                width={320}
+                height={320}
                 className="absolute right-0 top-1/2 transform -translate-y-1/2 h-full w-80 object-contain z-10"
+                priority={false}
               />
             </div>
 
@@ -419,17 +428,23 @@ const TestimonialMap = memo(() => {
             <div className="lg:flex-1">
               <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden bg-[#2B2B2B]/5">
                 {/* World Map Background */}
-                <img 
-                  src="/TestiMap.png" 
-                  alt="World Map" 
+                <Image
+                  src="/TestiMap.png"
+                  alt="World Map"
+                  width={1600}
+                  height={900}
                   className="absolute inset-0 w-full h-full object-cover opacity-30"
+                  priority={false}
                 />
                 
                 {/* Overlay Image - positioned at right center */}
-                <img 
-                  src="/overmap.jpg" 
-                  alt="Overlay" 
+                <Image
+                  src="/overmap.jpg"
+                  alt="Overlay"
+                  width={360}
+                  height={360}
                   className="absolute right-0 top-1/2 transform -translate-y-1/2 h-full w-90 object-contain z-10"
+                  priority={false}
                 />
                 
                 {/* Testimonial Cards Carousel */}

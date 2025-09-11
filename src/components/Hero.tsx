@@ -92,9 +92,30 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
         <div className="flex justify-center mb-6 md:mb-4 lg:mb-6">
           <div className="flex items-center gap-2 md:gap-3">
             <div className="flex -space-x-1 md:-space-x-2">
-              <img src="/testi1.jpg" alt="" className="w-8 h-8 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full border-2 border-[#F3EFE7]" />
-              <img src="/testi2.jpg" alt="" className="w-8 h-8 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full border-2 border-[#F3EFE7]" />
-              <img src="/testi3.jpg" alt="" className="w-8 h-8 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full border-2 border-[#F3EFE7]" />
+              <Image 
+                src="/testi1.jpg" 
+                alt="Testimonial avatar 1" 
+                width={32} 
+                height={32} 
+                className="w-8 h-8 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full border-2 border-[#F3EFE7]" 
+                priority={true}
+              />
+              <Image 
+                src="/testi2.jpg" 
+                alt="Testimonial avatar 2" 
+                width={32} 
+                height={32} 
+                className="w-8 h-8 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full border-2 border-[#F3EFE7]" 
+                priority={true}
+              />
+              <Image 
+                src="/testi3.jpg" 
+                alt="Testimonial avatar 3" 
+                width={32} 
+                height={32} 
+                className="w-8 h-8 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full border-2 border-[#F3EFE7]" 
+                priority={true}
+              />
             </div>
             <span className="text-sm md:text-xs lg:text-sm text-white font-medium">Trusted by 41,000+ Investors</span>
           </div>
@@ -179,10 +200,13 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
                     key={`logo-set1-${index}`}
                     className="flex-shrink-0 w-20 h-12 lg:w-24 lg:h-12 xl:w-32 xl:h-16 flex items-center justify-center"
                   >
-                    <img 
+                    <Image 
                       src="/logo1.png" 
                       alt="Partner Logo" 
+                      width={128} 
+                      height={64} 
                       className="max-w-full max-h-full object-contain"
+                      priority={false}
                     />
                   </div>
                 ))}
@@ -193,10 +217,13 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
                     key={`logo-set2-${index}`}
                     className="flex-shrink-0 w-20 h-12 lg:w-24 lg:h-12 xl:w-32 xl:h-16 flex items-center justify-center"
                   >
-                    <img 
+                    <Image 
                       src="/logo1.png" 
                       alt="Partner Logo" 
+                      width={128} 
+                      height={64} 
                       className="max-w-full max-h-full object-contain"
+                      priority={false}
                     />
                   </div>
                 ))}
@@ -223,10 +250,13 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
                     key={`mobile-logo-set1-${index}`}
                     className="flex-shrink-0 w-16 h-10 flex items-center justify-center"
                   >
-                    <img 
+                    <Image 
                       src="/logo1.png" 
                       alt="Partner Logo" 
+                      width={64} 
+                      height={40} 
                       className="max-w-full max-h-full object-contain"
+                      priority={false}
                     />
                   </div>
                 ))}
@@ -237,10 +267,13 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
                     key={`mobile-logo-set2-${index}`}
                     className="flex-shrink-0 w-16 h-10 flex items-center justify-center"
                   >
-                    <img 
+                    <Image 
                       src="/logo1.png" 
                       alt="Partner Logo" 
+                      width={64} 
+                      height={40} 
                       className="max-w-full max-h-full object-contain"
+                      priority={false}
                     />
                   </div>
                 ))}

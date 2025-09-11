@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState, useCallback, memo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 // Add the CalendlyModal component
@@ -120,14 +121,17 @@ export default function Navbar() {
         >
           {/* LEFT: Logo with Home Link */}
           <Link href="/" className="flex items-center gap-2 z-[110] relative p-1">
-            <img
+            <Image
               src="/logo.png"
               alt="FoundersCrowd Logo"
+              width={56}
+              height={56}
               className={`h-8 md:h-14 w-auto transition-all duration-300 ${
                 scrolled || isBlogPage
                   ? '' 
                   : 'filter invert brightness-0'
               }`}
+              priority={true}
             />
             <span className={`font-medium text-base md:text-lg transition-all duration-300 ${
               scrolled || isBlogPage ? 'text-black' : 'text-white'
