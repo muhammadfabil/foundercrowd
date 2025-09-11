@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, memo, useCallback } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Features from "@/components/Features";
@@ -10,10 +10,14 @@ import Plan from "@/components/Plan";
 import Integration from "@/components/Integration";
 import { CalendlyModal } from "@/components/Hero";
 
+// Extract constants for better performance
 const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
 
-const OurTechPage = () => {
+const OurTechPage = memo(() => {
   const [openCalendly, setOpenCalendly] = useState(false);
+
+  const handleOpenCalendly = useCallback(() => setOpenCalendly(true), []);
+  const handleCloseCalendly = useCallback(() => setOpenCalendly(false), []);
 
   return (
     <>
@@ -44,7 +48,7 @@ const OurTechPage = () => {
                 </div>
               </div>
               <button
-                onClick={() => setOpenCalendly(true)}
+                onClick={handleOpenCalendly}
                 className="rounded-full bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-white hover:text-black hover:shadow-xl"
               >
                 Book a Call
@@ -80,7 +84,7 @@ const OurTechPage = () => {
                 Let us show you how our platform can transform your capital raising experience.
               </p>
               <button
-                onClick={() => setOpenCalendly(true)}
+                onClick={handleOpenCalendly}
                 className="rounded-full bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-white hover:text-black hover:shadow-xl"
               >
                 Book a Call
@@ -93,7 +97,7 @@ const OurTechPage = () => {
         {openCalendly && (
           <CalendlyModal
             url={DEFAULT_CALENDLY_URL}
-            onClose={() => setOpenCalendly(false)}
+            onClose={handleCloseCalendly}
           />
         )}
 
@@ -107,6 +111,6 @@ const OurTechPage = () => {
       <Footer />
     </>
   );
-};
+});
 
 export default OurTechPage;

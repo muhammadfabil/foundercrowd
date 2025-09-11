@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo, useCallback } from 'react';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -8,25 +8,26 @@ import Integration from '@/components/Integration';
 import { CalendlyModal } from '@/components/Hero'; // Reusing the CalendlyModal component
 import { SparklesCore } from '@/components/ui/sparkles';
 
+// Extract constants for better performance
 const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
 
-const SportsPage = () => {
+const headlines = [
+  "Club They Cheer For",
+  "Game Changer in Sports", 
+  "Household Team Name",
+  "Sports Unicorn"
+];
+
+const SportsPage = memo(() => {
   const [openCalendly, setOpenCalendly] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [currentHeadline, setCurrentHeadline] = useState(0);
 
-  const headlines = [
-    "Club They Cheer For",
-    "Game Changer in Sports", 
-    "Household Team Name",
-    "Sports Unicorn"
-  ];
-
   // Track scroll for parallax and animation effects
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = useCallback(() => {
       setScrollY(window.scrollY);
-    };
+    }, []);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -38,6 +39,9 @@ const SportsPage = () => {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
+
+  const handleOpenCalendly = useCallback(() => setOpenCalendly(true), []);
+  const handleCloseCalendly = useCallback(() => setOpenCalendly(false), []);
 
   return (
     <>
@@ -154,7 +158,7 @@ const SportsPage = () => {
               </p>
               
               <button
-                onClick={() => setOpenCalendly(true)}
+                onClick={handleOpenCalendly}
                 className="rounded-full bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-white hover:text-black hover:shadow-xl mb-4"
               >
                 Start Raising
@@ -427,7 +431,7 @@ const SportsPage = () => {
               </p>
               
               <button
-                onClick={() => setOpenCalendly(true)}
+                onClick={handleOpenCalendly}
                 className="rounded-full bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-white hover:text-black hover:shadow-xl"
               >
                 Book a Call
@@ -440,20 +444,20 @@ const SportsPage = () => {
         {openCalendly && (
           <CalendlyModal 
             url={DEFAULT_CALENDLY_URL} 
-            onClose={() => setOpenCalendly(false)} 
+            onClose={handleCloseCalendly} 
           />
         )}
 
         {/* Animation styles */}
         <style jsx>{`
           .hero-noise {
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulase type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
           }
         `}</style>
       </main>
       <Footer />
     </>
   );
-};
+});
 
 export default SportsPage;

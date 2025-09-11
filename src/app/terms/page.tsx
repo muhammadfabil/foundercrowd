@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { memo } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { 
@@ -12,7 +12,24 @@ import {
   FiMail
 } from 'react-icons/fi';
 
-const Page = () => {
+// Extract constants for better performance
+const sections = [
+  { num: 5, title: "Intellectual Property", content: "All software, content, and materials available through the Services are owned by Founderscrowd or our licensors and are protected by copyright, trademark, and other laws. You may not copy, distribute, reverse-engineer, or otherwise exploit our Services except as expressly permitted in writing." },
+  { num: 6, title: "User Content", content: "If you submit, upload, or post content (\"User Content\"), you grant Founderscrowd a nonexclusive, royalty-free license to use, display, and store that content as needed to operate the Services. You represent that you own or have rights to such content and that it does not violate laws or third-party rights." },
+  { num: 7, title: "Third-Party Services", content: "The Services may integrate with third-party providers (e.g., payment processors, identity verification services). Founderscrowd does not control these services and is not responsible for their performance, accuracy, or security. Your use of third-party services is at your own risk and subject to their terms." },
+  { num: 8, title: "Privacy", content: "Your use of the Services is also governed by our Privacy Policy, which explains how we collect, use, and protect your information." }
+];
+
+const legalSections = [
+  { num: 10, title: "Limitation of Liability", content: "To the maximum extent permitted by law: (1) Founderscrowd will not be liable for any indirect, incidental, consequential, punitive, or special damages, including lost profits. (2) Our total liability for any claim related to the Services will not exceed the greater of (i) $100 or (ii) the total amount paid by you to Founderscrowd in the 12 months preceding the claim." },
+  { num: 11, title: "Indemnification", content: "You agree to indemnify, defend, and hold harmless Founderscrowd, its officers, directors, employees, and affiliates from any claims, damages, liabilities, and expenses arising out of your: use of the Services, violation of these Terms, or infringement of third-party rights." },
+  { num: 12, title: "Governing Law & Dispute Resolution", content: "These Terms are governed by the laws of the Commonwealth of Massachusetts, United States, without regard to conflicts of law. Any disputes will be resolved through binding arbitration under the rules of the American Arbitration Association, held in Boston, Massachusetts. You waive the right to participate in class actions or jury trials." },
+  { num: 13, title: "Modifications", content: "We may update these Terms from time to time. Changes will be posted with a \"last updated\" date. Your continued use of the Services after changes take effect constitutes acceptance of the revised Terms." },
+  { num: 14, title: "Termination", content: "We may suspend or terminate your account or access to the Services at any time, with or without cause. Upon termination, all licenses granted under these Terms will immediately end." },
+  { num: 15, title: "Miscellaneous", content: "These Terms constitute the entire agreement between you and Founderscrowd regarding the Services. If any provision is held unenforceable, the remaining provisions remain in effect. You may not assign your rights under these Terms without our prior consent. Our failure to enforce any right is not a waiver of such right." }
+];
+
+const Page = memo(() => {
   return (
     <>
       <Navbar />
@@ -232,12 +249,7 @@ const Page = () => {
 
               {/* Remaining sections with better formatting */}
               <div className="space-y-12">
-                {[
-                  { num: 5, title: "Intellectual Property", content: "All software, content, and materials available through the Services are owned by Founderscrowd or our licensors and are protected by copyright, trademark, and other laws. You may not copy, distribute, reverse-engineer, or otherwise exploit our Services except as expressly permitted in writing." },
-                  { num: 6, title: "User Content", content: "If you submit, upload, or post content (\"User Content\"), you grant Founderscrowd a nonexclusive, royalty-free license to use, display, and store that content as needed to operate the Services. You represent that you own or have rights to such content and that it does not violate laws or third-party rights." },
-                  { num: 7, title: "Third-Party Services", content: "The Services may integrate with third-party providers (e.g., payment processors, identity verification services). Founderscrowd does not control these services and is not responsible for their performance, accuracy, or security. Your use of third-party services is at your own risk and subject to their terms." },
-                  { num: 8, title: "Privacy", content: "Your use of the Services is also governed by our Privacy Policy, which explains how we collect, use, and protect your information." }
-                ].map((section) => (
+                {sections.map((section) => (
                   <div key={section.num} className="border-l-4 border-gray-300 pl-6">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
                       <span className="bg-gray-600 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold mr-3">{section.num}</span>
@@ -276,14 +288,7 @@ const Page = () => {
 
               {/* Liability and Legal sections */}
               <div className="space-y-12">
-                {[
-                  { num: 10, title: "Limitation of Liability", content: "To the maximum extent permitted by law: (1) Founderscrowd will not be liable for any indirect, incidental, consequential, punitive, or special damages, including lost profits. (2) Our total liability for any claim related to the Services will not exceed the greater of (i) $100 or (ii) the total amount paid by you to Founderscrowd in the 12 months preceding the claim." },
-                  { num: 11, title: "Indemnification", content: "You agree to indemnify, defend, and hold harmless Founderscrowd, its officers, directors, employees, and affiliates from any claims, damages, liabilities, and expenses arising out of your: use of the Services, violation of these Terms, or infringement of third-party rights." },
-                  { num: 12, title: "Governing Law & Dispute Resolution", content: "These Terms are governed by the laws of the Commonwealth of Massachusetts, United States, without regard to conflicts of law. Any disputes will be resolved through binding arbitration under the rules of the American Arbitration Association, held in Boston, Massachusetts. You waive the right to participate in class actions or jury trials." },
-                  { num: 13, title: "Modifications", content: "We may update these Terms from time to time. Changes will be posted with a \"last updated\" date. Your continued use of the Services after changes take effect constitutes acceptance of the revised Terms." },
-                  { num: 14, title: "Termination", content: "We may suspend or terminate your account or access to the Services at any time, with or without cause. Upon termination, all licenses granted under these Terms will immediately end." },
-                  { num: 15, title: "Miscellaneous", content: "These Terms constitute the entire agreement between you and Founderscrowd regarding the Services. If any provision is held unenforceable, the remaining provisions remain in effect. You may not assign your rights under these Terms without our prior consent. Our failure to enforce any right is not a waiver of such right." }
-                ].map((section) => (
+                {legalSections.map((section) => (
                   <div key={section.num} className="border-l-4 border-gray-300 pl-6">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
                       <span className="bg-gray-600 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold mr-3">{section.num}</span>
@@ -321,6 +326,6 @@ const Page = () => {
       <Footer />
     </>
   )
-}
+});
 
-export default Page
+export default Page;

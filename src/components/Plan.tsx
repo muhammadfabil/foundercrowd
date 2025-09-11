@@ -1,10 +1,11 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo, useCallback } from 'react';
 import { FiUsers, FiTrendingUp, FiShield } from 'react-icons/fi';
 
 // First, set a default Calendly URL at the top level
 const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
 
+// Extract planData as constant for better performance
 const planData = [
   {
     id: 1,
@@ -33,7 +34,7 @@ const planData = [
 ];
 
 // Update the CalendlyModal component to match Navbar
-function CalendlyModal({
+const CalendlyModal = memo(function CalendlyModal({
   url,
   onClose,
 }: {
@@ -86,10 +87,13 @@ function CalendlyModal({
       ></div>
     </div>
   );
-}
+});
 
 const Plan = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
   const [openCalendly, setOpenCalendly] = useState(false);
+
+  // Memoized handler for opening Calendly
+  const handleOpenCalendly = useCallback(() => setOpenCalendly(true), []);
 
   return (
     <section className="py-24 bg-white font-figtree">
@@ -142,7 +146,7 @@ const Plan = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
 
                   {/* CTA Button */}
                   <button 
-                    onClick={() => setOpenCalendly(true)}
+                    onClick={handleOpenCalendly}
                     className="hover:cursor-pointer w-full py-3 px-6 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors duration-300 flex items-center justify-center gap-2"
                   >
                     Get Started
@@ -177,7 +181,7 @@ const Plan = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
             </p>
           </div>
           <button 
-            onClick={() => setOpenCalendly(true)}
+            onClick={handleOpenCalendly}
             className="bg-orange-500 text-white px-10 py-4 rounded-full font-medium hover:bg-orange-600 transition-colors duration-300 text-lg"
           >
             Start Raising Today

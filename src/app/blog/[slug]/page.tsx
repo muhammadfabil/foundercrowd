@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+// Extract constants for better performance
 const SITE = "fcblog5.wordpress.com";
 const API = `https://public-api.wordpress.com/wp/v2/sites/${SITE}`;
 

@@ -1,12 +1,13 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, memo, useCallback, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
+// Extract constants for better performance
 const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
 
 // Add the same CalendlyModal component from Navbar
-function CalendlyModal({
+const CalendlyModal = memo(function CalendlyModal({
   url,
   onClose,
 }: {
@@ -59,10 +60,13 @@ function CalendlyModal({
       ></div>
     </div>
   );
-}
+});
 
-const MergerAcquisitionPage = () => {
+const MergerAcquisitionPage = memo(() => {
   const [openCalendly, setOpenCalendly] = useState(false);
+
+  const handleOpenCalendly = useCallback(() => setOpenCalendly(true), []);
+  const handleCloseCalendly = useCallback(() => setOpenCalendly(false), []);
 
   return (
     <>
@@ -287,7 +291,7 @@ const MergerAcquisitionPage = () => {
               </p>
               
               <button
-                onClick={() => setOpenCalendly(true)}
+                onClick={handleOpenCalendly}
                 className="rounded-full bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-white hover:text-black hover:shadow-xl"
               >
                 Start Your M&A Journey
@@ -300,7 +304,7 @@ const MergerAcquisitionPage = () => {
         {openCalendly && (
           <CalendlyModal 
             url={DEFAULT_CALENDLY_URL} 
-            onClose={() => setOpenCalendly(false)} 
+            onClose={handleCloseCalendly} 
           />
         )}
 
@@ -314,6 +318,6 @@ const MergerAcquisitionPage = () => {
       <Footer />
     </>
   );
-};
+});
 
 export default MergerAcquisitionPage;

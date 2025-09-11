@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { memo } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { 
@@ -25,7 +25,53 @@ import {
   FaEnvelope
 } from 'react-icons/fa';
 
-const Page = () => {
+// Extract constants for better performance
+const sections = [
+  {
+    num: 5, 
+    title: "Cookies and Tracking", 
+    content: "We use cookies and similar technologies to: Analyze usage trends and improve our Services. Store user preferences and authentication details. Deliver relevant advertising. You may disable cookies in your browser settings, but some features may not function properly.",
+    icon: <FaCookie />
+  },
+  {
+    num: 6, 
+    title: "Data Security", 
+    content: "We use commercially reasonable technical, organizational, and administrative measures to protect personal information against unauthorized access, loss, misuse, or alteration. However, no system is 100% secure. By using the Services, you acknowledge that we cannot guarantee the security of data transmitted through or stored on the platform.",
+    icon: <FaShieldAlt />
+  },
+  {
+    num: 7, 
+    title: "Data Retention", 
+    content: "We retain personal information as long as reasonably necessary to: provide the Services, comply with legal obligations, resolve disputes, and enforce agreements. Users may request deletion of personal data (see Section 9).",
+    icon: <FaCalendarAlt />
+  },
+  {
+    num: 8, 
+    title: "Children's Privacy", 
+    content: "The Services are not directed to, and we do not knowingly collect information from, anyone under 18 years old. If we learn that we have collected data from a minor, we will delete it.",
+    icon: <FaChild />
+  }
+];
+
+const legalSections = [
+  {
+    num: 10, 
+    title: "International Users", 
+    content: "If you access the Services from outside the United States, your information may be transferred to and processed in the United States, where privacy laws may differ."
+  },
+  {
+    num: 11, 
+    title: "Legal Basis (GDPR Notice)", 
+    content: "For users in the European Economic Area (EEA), we process personal data under the following legal bases: Contract performance (providing the Services). Legitimate interests (improving and securing the platform). Legal obligations (compliance with law). Consent (marketing communications)."
+  },
+  {
+    num: 12, 
+    title: "Changes to This Privacy Policy", 
+    content: "We may update this Privacy Policy from time to time. Updates will be posted with a \"last updated\" date. Continued use of the Services after changes take effect constitutes acceptance of the revised Privacy Policy."
+  }
+];
+
+const Page = memo(() => {
   return (
     <>
       <Navbar />
@@ -220,34 +266,7 @@ const Page = () => {
 
               {/* Remaining sections with better formatting */}
               <div className="space-y-12">
-              {/* Remaining sections with better formatting */}
-              <div className="space-y-12">
-                {[
-                  {
-                    num: 5, 
-                    title: "Cookies and Tracking", 
-                    content: "We use cookies and similar technologies to: Analyze usage trends and improve our Services. Store user preferences and authentication details. Deliver relevant advertising. You may disable cookies in your browser settings, but some features may not function properly.",
-                    icon: <FaCookie />
-                  },
-                  {
-                    num: 6, 
-                    title: "Data Security", 
-                    content: "We use commercially reasonable technical, organizational, and administrative measures to protect personal information against unauthorized access, loss, misuse, or alteration. However, no system is 100% secure. By using the Services, you acknowledge that we cannot guarantee the security of data transmitted through or stored on the platform.",
-                    icon: <FaShieldAlt />
-                  },
-                  {
-                    num: 7, 
-                    title: "Data Retention", 
-                    content: "We retain personal information as long as reasonably necessary to: provide the Services, comply with legal obligations, resolve disputes, and enforce agreements. Users may request deletion of personal data (see Section 9).",
-                    icon: <FaCalendarAlt />
-                  },
-                  {
-                    num: 8, 
-                    title: "Children's Privacy", 
-                    content: "The Services are not directed to, and we do not knowingly collect information from, anyone under 18 years old. If we learn that we have collected data from a minor, we will delete it.",
-                    icon: <FaChild />
-                  }
-                ].map((section) => (
+                {sections.map((section) => (
                   <div key={section.num} className="border-l-4 border-gray-300 pl-6">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
                       <span className="bg-gray-600 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold mr-3">{section.num}</span>
@@ -305,23 +324,7 @@ const Page = () => {
 
               {/* International and Legal sections */}
               <div className="space-y-12">
-                {[
-                  {
-                    num: 10, 
-                    title: "International Users", 
-                    content: "If you access the Services from outside the United States, your information may be transferred to and processed in the United States, where privacy laws may differ."
-                  },
-                  {
-                    num: 11, 
-                    title: "Legal Basis (GDPR Notice)", 
-                    content: "For users in the European Economic Area (EEA), we process personal data under the following legal bases: Contract performance (providing the Services). Legitimate interests (improving and securing the platform). Legal obligations (compliance with law). Consent (marketing communications)."
-                  },
-                  {
-                    num: 12, 
-                    title: "Changes to This Privacy Policy", 
-                    content: "We may update this Privacy Policy from time to time. Updates will be posted with a \"last updated\" date. Continued use of the Services after changes take effect constitutes acceptance of the revised Privacy Policy."
-                  }
-                ].map((section) => (
+                {legalSections.map((section) => (
                   <div key={section.num} className="border-l-4 border-gray-300 pl-6">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
                       <span className="bg-gray-600 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold mr-3">{section.num}</span>
@@ -347,7 +350,6 @@ const Page = () => {
 
             </div>
           </div>
-          </div>
         </section>
 
         <style jsx>{`
@@ -359,6 +361,6 @@ const Page = () => {
       <Footer />
     </>
   )
-}
+});
 
-export default Page
+export default Page;

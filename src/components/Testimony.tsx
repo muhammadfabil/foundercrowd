@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, memo, useCallback, useMemo } from "react";
 
 // First, set a default Calendly URL at the top level
 const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
@@ -32,7 +32,7 @@ const testimonials = [
 ];
 
 // Update the CalendlyModal component to match Navbar
-function CalendlyModal({
+const CalendlyModal = memo(function CalendlyModal({
   url,
   onClose,
 }: {
@@ -85,9 +85,9 @@ function CalendlyModal({
       ></div>
     </div>
   );
-}
+});
 
-const PlatformIcon = ({ platform }: { platform: string }) => {
+const PlatformIcon = memo(({ platform }: { platform: string }) => {
   const iconClass = "w-4 h-4 text-gray-400";
   switch (platform) {
     case "twitter":
@@ -115,9 +115,9 @@ const PlatformIcon = ({ platform }: { platform: string }) => {
         </svg>
       );
   }
-};
+});
 
-const TestimonialCard = ({ testimonial }: { testimonial: (typeof testimonials)[0] }) => (
+const TestimonialCard = memo(({ testimonial }: { testimonial: (typeof testimonials)[0] }) => (
   <a
     href={testimonial.link}
     target="_blank"
@@ -140,11 +140,14 @@ const TestimonialCard = ({ testimonial }: { testimonial: (typeof testimonials)[0
       </div>
     </div>
   </a>
-);
+));
 
-const Testimony = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
+const Testimony = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
   const [openCalendly, setOpenCalendly] = useState(false);
-  const duplicatedTestimonials = [...testimonials, ...testimonials];
+  const duplicatedTestimonials = useMemo(() => [...testimonials, ...testimonials], []);
+
+  const handleOpenCalendly = useCallback(() => setOpenCalendly(true), []);
+  const handleCloseCalendly = useCallback(() => setOpenCalendly(false), []);
 
   return (
     <section className="py-24 bg-gradient-to-b from-[#F4F4F3] to-[#EBFEB3] font-figtree overflow-hidden relative">
@@ -157,7 +160,7 @@ const Testimony = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
           And other great things our users say about us.
         </p>
         <button 
-          onClick={() => setOpenCalendly(true)}
+          onClick={handleOpenCalendly}
           className="bg-black text-white px-10 py-4 rounded-full font-medium hover:bg-gray-800 transition-colors duration-300"
         >
           Start Raising
@@ -190,7 +193,7 @@ const Testimony = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
       {openCalendly && (
         <CalendlyModal 
           url={calendlyUrl} 
-          onClose={() => setOpenCalendly(false)} 
+          onClose={handleCloseCalendly} 
         />
       )}
 
@@ -223,6 +226,6 @@ const Testimony = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
       `}</style>
     </section>
   );
-};
+});
 
 export default Testimony;

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Image from 'next/image';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
+// Extract constants for better performance
 const teamMembers = [
 	{
 		id: 1,
@@ -60,7 +61,7 @@ const teamMembers = [
 	},
 ];
 
-const TeamPage = () => {
+const TeamPage = memo(() => {
 	return (
 		<>
 			<div className="bg-[#2B2B2B] min-h-[50vh] relative">
@@ -116,6 +117,6 @@ const TeamPage = () => {
 			<Footer />
 		</>
 	);
-};
+});
 
 export default TeamPage;

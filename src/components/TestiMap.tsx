@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useMemo, useEffect, useRef } from "react";
+import React, { useState, useMemo, useEffect, useRef, memo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GB, US, DE, AU, ES, JP } from "country-flag-icons/react/3x2";
 
@@ -13,11 +13,70 @@ const FlagComponents: Record<string, React.ComponentType<any>> = {
   JP,
 };
 
+const VISIBLE_COUNT = 5;
+
+const testimonials = [
+  { 
+    id: "us1", 
+    name: "Sarah Johnson", 
+    company: "TechInnovate", 
+    country: "US", 
+    testimonial: "FounderCrowd helped us secure our Series A funding in half the time we expected. The platform connected us with investors who truly understood our vision.", 
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+    investment: "$125,000 USD"
+  },
+  { 
+    id: "gb1", 
+    name: "James Wilson", 
+    company: "Fintech Solutions", 
+    country: "GB", 
+    testimonial: "As a fintech startup in London, we needed specialized investors. FounderCrowd's targeted matching algorithm connected us with the perfect partners.", 
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+    investment: "£100,000 GBP"
+  },
+  { 
+    id: "au1", 
+    name: "Emma Thompson", 
+    company: "HealthTech Pro", 
+    country: "AU", 
+    testimonial: "We were able to find investors who specialize in healthcare technology through FounderCrowd, making our Series B round remarkably smooth.", 
+    image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=400&fit=crop&crop=face",
+    investment: "1,000 AUD"
+  },
+  { 
+    id: "es1", 
+    name: "Maria Garcia", 
+    company: "GreenEnergy Spain", 
+    country: "ES", 
+    testimonial: "FounderCrowd made global fundraising accessible for our Spanish startup. We connected with international investors effortlessly.", 
+    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=400&fit=crop&crop=face",
+    investment: "150,000 EUR"
+  },
+  { 
+    id: "de1", 
+    name: "Anna Schmidt", 
+    company: "GreenEnergy", 
+    country: "DE", 
+    testimonial: "The comprehensive tools on FounderCrowd made our fundraising process efficient and transparent. We closed our €2M round in just two months.", 
+    image: "/ger.jpg",
+    investment: "250,000 EUR"
+  },
+  { 
+    id: "jp1", 
+    name: "Hiroshi Tanaka", 
+    company: "AI Solutions Japan", 
+    country: "JP", 
+    testimonial: "FounderCrowd's platform provided incredible exposure to global investors, helping our Japanese startup scale internationally.", 
+    image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&h=400&fit=crop&crop=face",
+    investment: "¥20,000,000 JPY"
+  },
+];
+
 // FlagIcon component
-const FlagIcon = ({ country, className }: { country: string; className?: string }) => {
+const FlagIcon = memo(({ country, className }: { country: string; className?: string }) => {
   const Flag = FlagComponents[country];
   return Flag ? <Flag className={className} /> : null;
-};
+});
 
 type Testimonial = {
   id: string;
@@ -26,78 +85,16 @@ type Testimonial = {
   country: string;
   testimonial: string;
   image: string;
-  investment: string; // Tambahan field untuk investment amount
+  investment: string;
 };
 
-const VISIBLE_COUNT = 5;
-
-const TestimonialMap = () => {
-  const testimonials = useMemo<Testimonial[]>(
-    () => [
-      { 
-        id: "us1", 
-        name: "Sarah Johnson", 
-        company: "TechInnovate", 
-        country: "US", 
-        testimonial: "FounderCrowd helped us secure our Series A funding in half the time we expected. The platform connected us with investors who truly understood our vision.", 
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-        investment: "$125,000 USD"
-      },
-      { 
-        id: "gb1", 
-        name: "James Wilson", 
-        company: "Fintech Solutions", 
-        country: "GB", 
-        testimonial: "As a fintech startup in London, we needed specialized investors. FounderCrowd's targeted matching algorithm connected us with the perfect partners.", 
-        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face", // Updated to a new portrait photo of a man from Unsplash
-        investment: "£100,000 GBP"
-      },
-      { 
-        id: "au1", 
-        name: "Emma Thompson", 
-        company: "HealthTech Pro", 
-        country: "AU", 
-        testimonial: "We were able to find investors who specialize in healthcare technology through FounderCrowd, making our Series B round remarkably smooth.", 
-        image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=400&fit=crop&crop=face",
-        investment: "1,000 AUD"
-      },
-      { 
-        id: "es1", 
-        name: "Maria Garcia", 
-        company: "GreenEnergy Spain", 
-        country: "ES", 
-        testimonial: "FounderCrowd made global fundraising accessible for our Spanish startup. We connected with international investors effortlessly.", 
-        image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=400&fit=crop&crop=face",
-        investment: "150,000 EUR"
-      },
-      { 
-        id: "de1", 
-        name: "Anna Schmidt", 
-        company: "GreenEnergy", 
-        country: "DE", 
-        testimonial: "The comprehensive tools on FounderCrowd made our fundraising process efficient and transparent. We closed our €2M round in just two months.", 
-        image: "/ger.jpg" , // Updated to a new portrait photo of a woman from Unsplash
-        investment: "250,000 EUR"
-      },
-      { 
-        id: "jp1", 
-        name: "Hiroshi Tanaka", 
-        company: "AI Solutions Japan", 
-        country: "JP", 
-        testimonial: "FounderCrowd's platform provided incredible exposure to global investors, helping our Japanese startup scale internationally.", 
-        image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&h=400&fit=crop&crop=face",
-        investment: "¥20,000,000 JPY"
-      },
-    ],
-    []
-  );
-
+const TestimonialMap = memo(() => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
 
-  const activeTestimonial = useMemo(() => testimonials[activeIndex], [testimonials, activeIndex]);
+  const activeTestimonial = useMemo(() => testimonials[activeIndex], [activeIndex]);
 
   const countriesWithTestimonials = useMemo(() => {
     const unique = Array.from(new Set(testimonials.map((t) => t.country)));
@@ -105,7 +102,7 @@ const TestimonialMap = () => {
       country: countryCode,
       testimonials: testimonials.filter((t) => t.country === countryCode),
     }));
-  }, [testimonials]);
+  }, []);
 
   const activeCountryIndex = useMemo(() => {
     const country = activeTestimonial.country;
@@ -132,9 +129,9 @@ const TestimonialMap = () => {
       activeIndex,
       (activeIndex + 1) % n
     ];
-  }, [activeIndex, testimonials.length]);
+  }, [activeIndex]);
 
-  const goToTestimonial = (id: string) => {
+  const goToTestimonial = useCallback((id: string) => {
     if (isAnimating) return;
     
     const newIndex = testimonials.findIndex(t => t.id === id);
@@ -150,7 +147,7 @@ const TestimonialMap = () => {
     setDirection(dir);
     setIsAnimating(true);
     setActiveIndex(newIndex);
-  };
+  }, [activeIndex, isAnimating]);
 
   // Auto-scroll with pause on hover
   useEffect(() => {
@@ -513,6 +510,6 @@ const TestimonialMap = () => {
       </div>
     </section>
   );
-};
+});
 
 export default TestimonialMap;

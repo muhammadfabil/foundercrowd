@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo, useCallback, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
@@ -23,8 +23,12 @@ type WPPost = {
   };
 };
 
+// Extract constants for better performance
 const SITE = "fcblog5.wordpress.com";
 const API = `https://public-api.wordpress.com/wp/v2/sites/${SITE}`;
+const categories = [
+  "All", "Fundraising", "Growth", "Investing", "Tech"
+];
 
 function stripHtml(html: string) {
   return html.replace(/<[^>]*>/g, "").trim();
@@ -68,15 +72,12 @@ async function fetchPosts(page: number = 1, perPage: number = 6): Promise<{ post
   return { posts, totalPages };
 }
 
-export default function BlogPage() {
+const BlogPage = memo(() => {
   const [posts, setPosts] = useState<WPPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [featuredPost, setFeaturedPost] = useState<WPPost | null>(null);
-  const [categories] = useState([
-    "All", "Fundraising", "Growth", "Investing", "Tech"
-  ]);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
@@ -103,18 +104,18 @@ export default function BlogPage() {
     loadPosts();
   }, [page]);
 
-  const handlePageChange = (newPage: number) => {
+  const handlePageChange = useCallback((newPage: number) => {
     setPage(newPage);
     window.scrollTo(0, 0);
-  };
+  }, []);
 
-  const handleCategoryChange = (category: string) => {
+  const handleCategoryChange = useCallback((category: string) => {
     setSelectedCategory(category);
     setPage(1);
     // In a real implementation, you'd filter by category in the API call
-  };
+  }, []);
 
-  const renderPagination = () => {
+  const renderPagination = useMemo(() => {
     // Only show pagination if there are more than 6 posts total or current page has posts
     if (totalPages <= 1 || posts.length === 0) return null;
     
@@ -169,7 +170,7 @@ export default function BlogPage() {
         </button>
       </div>
     );
-  };
+  }, [totalPages, posts.length, page, handlePageChange]);
 
   return (
     <>
@@ -344,9 +345,9 @@ export default function BlogPage() {
           )}
 
           {/* Pagination - Only show when needed */}
-          {!loading && renderPagination() && (
+          {!loading && renderPagination && (
             <div className="mt-16">
-              {renderPagination()}
+              {renderPagination}
             </div>
           )}
 
@@ -380,4 +381,6 @@ export default function BlogPage() {
       <Footer />
     </>
   );
-}
+});
+
+export default BlogPage;

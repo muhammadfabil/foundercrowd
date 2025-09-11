@@ -1,10 +1,10 @@
 "use client";
-import React from 'react';
+import React, { memo } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FAQ from '@/components/FAQ';
 
-const FaqPage = () => {
+const FaqPage = memo(() => {
   return (
     <>
       <Navbar />
@@ -13,7 +13,7 @@ const FaqPage = () => {
       </main>
       <Footer />
     </>
-  )
-}
+  );
+});
 
 export default FaqPage;

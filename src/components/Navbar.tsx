@@ -1,10 +1,10 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, memo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 // Add the CalendlyModal component
-function CalendlyModal({
+const CalendlyModal = memo(function CalendlyModal({
   url,
   onClose,
 }: {
@@ -57,7 +57,7 @@ function CalendlyModal({
       ></div>
     </div>
   );
-}
+});
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -69,15 +69,17 @@ export default function Navbar() {
   // Check if current page is blog related (blog index or blog post)
   const isBlogPage = pathname?.startsWith('/blog');
 
-  // Add default Calendly URL
+  // Add default Calendly URL as constant
   const calendlyUrl = "https://calendly.com/founderscrowds/30min";
 
+  // Memoized scroll handler
+  const onScroll = useCallback(() => setScrolled(window.scrollY > 16), []);
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [onScroll]);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -93,9 +95,16 @@ export default function Navbar() {
     };
   }, [mobileMenuOpen]);
 
-  const toggleDropdown = (menu: string) => {
+  // Memoized toggle dropdown function
+  const toggleDropdown = useCallback((menu: string) => {
     setOpenDropdown(openDropdown === menu ? null : menu);
-  };
+  }, [openDropdown]);
+
+  // Memoized handlers
+  const handleOpenCalendly = useCallback(() => setOpenCalendly(true), []);
+  const handleCloseCalendly = useCallback(() => setOpenCalendly(false), []);
+  const handleToggleMobileMenu = useCallback(() => setMobileMenuOpen(!mobileMenuOpen), [mobileMenuOpen]);
+  const handleCloseMobileMenu = useCallback(() => setMobileMenuOpen(false), []);
 
   return (
     <>
@@ -197,7 +206,7 @@ export default function Navbar() {
           }`}>
             {/* CTA Button (Desktop only) */}
             <button
-              onClick={() => setOpenCalendly(true)}
+              onClick={handleOpenCalendly}
               className={`hover:bg-white hover:text-black hidden md:block rounded-full px-4 md:px-6 py-2 md:py-2.5 text-xs md:text-sm font-medium transition-all duration-300 ${
                 scrolled || isBlogPage
                   ? 'bg-black text-white hover:bg-gray-800' 
@@ -209,7 +218,7 @@ export default function Navbar() {
             
             {/* Mobile menu button */}
             <button 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={handleToggleMobileMenu}
               className="lg:hidden z-[110] relative flex items-center justify-center p-1.5 -m-1.5 hover:opacity-80 transition-opacity"
               type="button"
               aria-label="Toggle mobile menu"
@@ -233,7 +242,7 @@ export default function Navbar() {
         <div className="fixed inset-0 z-[90] lg:hidden">
           <div 
             className="absolute inset-0 bg-black/50"
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={handleCloseMobileMenu}
           />
           
           {/* Menu Content */}
@@ -243,7 +252,7 @@ export default function Navbar() {
               <Link 
                 href="/" 
                 className="text-base font-medium py-3 px-3 hover:bg-gray-50 rounded-lg transition-colors block w-full text-left"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={handleCloseMobileMenu}
               >
                 Home
               </Link>
@@ -261,16 +270,16 @@ export default function Navbar() {
                 </button>
                 {openDropdown === 'companies' && (
                   <div className="ml-4 space-y-1">
-                    <Link href="/why-founderscrowd" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                    <Link href="/why-founderscrowd" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
                       Why Founderscrowd
                     </Link>
-                    <Link href="/sports" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                    <Link href="/sports" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
                       Sports
                     </Link>
-                    <Link href="/our-tech" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                    <Link href="/our-tech" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
                       Our Tech
                     </Link>
-                    <Link href="/merger-acquisition" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                    <Link href="/merger-acquisition" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
                       Merger & Acquisition
                     </Link>
                   </div>
@@ -290,7 +299,7 @@ export default function Navbar() {
                 </button>
                 {openDropdown === 'investors' && (
                   <div className="ml-4 space-y-1">
-                    <Link href="/vip-program" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                    <Link href="/vip-program" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
                       Join our VIP program
                     </Link>
                   </div>
@@ -310,13 +319,13 @@ export default function Navbar() {
                 </button>
                 {openDropdown === 'resources' && (
                   <div className="ml-4 space-y-1">
-                    <Link href="/blog" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                    <Link href="/blog" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
                       Blog
                     </Link>
-                    <Link href="/faq" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                    <Link href="/faq" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
                       FAQ
                     </Link>
-                    <Link href="/team" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                    <Link href="/team" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
                       Our Team
                     </Link>
                   </div>
@@ -327,8 +336,8 @@ export default function Navbar() {
               <div className="pt-4 border-t border-gray-100">
                 <button
                   onClick={() => {
-                    setOpenCalendly(true);
-                    setMobileMenuOpen(false);
+                    handleOpenCalendly();
+                    handleCloseMobileMenu();
                   }}
                   className="block w-full rounded-full bg-black px-6 py-3 text-center text-base font-medium text-white hover:bg-gray-800 transition-colors"
                 >
@@ -344,7 +353,7 @@ export default function Navbar() {
       {openCalendly && (
         <CalendlyModal 
           url={calendlyUrl} 
-          onClose={() => setOpenCalendly(false)} 
+          onClose={handleCloseCalendly} 
         />
       )}
     </>

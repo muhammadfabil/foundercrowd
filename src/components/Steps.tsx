@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo, useCallback, useMemo } from 'react';
 
 // First, set a default Calendly URL at the top level
 const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
@@ -29,13 +29,11 @@ const stepsData = [
   {
     id: 5,
     title: "Done",
-    
   }
-
 ];
 
 // Ganti komponen CalendlyModal dengan versi sederhana
-function CalendlyModal({
+const CalendlyModal = memo(function CalendlyModal({
   url,
   onClose,
 }: {
@@ -86,15 +84,21 @@ function CalendlyModal({
       ></div>
     </div>
   );
-}
+});
 
-const Steps = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
+type StepsProps = {
+  calendlyUrl?: string;
+};
+
+const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
   const [openCalendly, setOpenCalendly] = useState(false);
   const [visibleSteps, setVisibleSteps] = useState<Set<number>>(new Set());
 
-  useEffect(() => {
-    const observers = new Map();
+  const handleOpenCalendly = useCallback(() => setOpenCalendly(true), []);
+  const handleCloseCalendly = useCallback(() => setOpenCalendly(false), []);
 
+  const observers = useMemo(() => {
+    const obs = new Map();
     stepsData.forEach((step) => {
       const observer = new IntersectionObserver(
         (entries) => {
@@ -116,10 +120,12 @@ const Steps = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
           rootMargin: '-50px 0px -50px 0px' // Add some margin for better UX
         }
       );
-
-      observers.set(step.id, observer);
+      obs.set(step.id, observer);
     });
+    return obs;
+  }, []);
 
+  useEffect(() => {
     // Observe all step elements after a short delay to ensure DOM is ready
     const timeoutId = setTimeout(() => {
       stepsData.forEach((step) => {
@@ -134,7 +140,7 @@ const Steps = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
       clearTimeout(timeoutId);
       observers.forEach(observer => observer.disconnect());
     };
-  }, []);
+  }, [observers]);
   
   return (
     <section className="py-20 bg-white font-figtree">
@@ -152,7 +158,7 @@ const Steps = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
               Investors are guided through a linear investment creation process – no side quests, no ambiguity.
             </p>
             <button 
-              onClick={() => setOpenCalendly(true)}
+              onClick={handleOpenCalendly}
               className="bg-black text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors"
             >
               Try it yourself
@@ -246,11 +252,11 @@ const Steps = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
       {openCalendly && (
         <CalendlyModal 
           url={calendlyUrl} 
-          onClose={() => setOpenCalendly(false)} 
+          onClose={handleCloseCalendly} 
         />
       )}
     </section>
   );
-};
+});
 
 export default Steps;

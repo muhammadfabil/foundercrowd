@@ -1,30 +1,34 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, memo, useCallback } from "react";
 
 interface PreLoaderProps {
   onComplete: () => void;
 }
 
-const PreLoader: React.FC<PreLoaderProps> = ({ onComplete }) => {
+// Extract constants for better performance
+const FADE_MS = 500; // durasi cross-fade cepat
+const FALLBACK_TIMEOUT = 10000; // Fallback timeout
+const FADE_THRESHOLD = 0.97; // Mulai cross-fade 3% terakhir durasi
+
+const PreLoader: React.FC<PreLoaderProps> = memo(({ onComplete }) => {
   const [isGone, setIsGone] = useState(false);
   const [isFading, setIsFading] = useState(false);
-  const fadeMs = 500; // durasi cross-fade cepat
   const timerRef = useRef<number | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const startedFadeRef = useRef(false);
 
   useEffect(() => {
     // Fallback jika video tak pernah main/selesai
-    timerRef.current = window.setTimeout(() => startFade(), 10000);
+    timerRef.current = window.setTimeout(() => startFade(), FALLBACK_TIMEOUT);
     return () => {
       if (timerRef.current) window.clearTimeout(timerRef.current);
     };
   }, []);
 
-  const cleanup = () => {
+  const cleanup = useCallback(() => {
     if (timerRef.current) window.clearTimeout(timerRef.current);
-  };
+  }, []);
 
-  const startFade = () => {
+  const startFade = useCallback(() => {
     if (startedFadeRef.current) return;
     startedFadeRef.current = true;
     cleanup();
@@ -33,17 +37,17 @@ const PreLoader: React.FC<PreLoaderProps> = ({ onComplete }) => {
     window.setTimeout(() => {
       setIsGone(true);
       onComplete();
-    }, fadeMs);
-  };
+    }, FADE_MS);
+  }, [cleanup, onComplete]);
 
-  const handleTimeUpdate = () => {
+  const handleTimeUpdate = useCallback(() => {
     const v = videoRef.current;
     if (!v || startedFadeRef.current) return;
     // Mulai cross-fade 3% terakhir durasi (overlap ke hero)
-    if (isFinite(v.duration) && v.duration > 0 && v.currentTime / v.duration >= 0.97) {
+    if (isFinite(v.duration) && v.duration > 0 && v.currentTime / v.duration >= FADE_THRESHOLD) {
       startFade();
     }
-  };
+  }, [startFade]);
 
   if (isGone) return null;
 
@@ -90,6 +94,6 @@ const PreLoader: React.FC<PreLoaderProps> = ({ onComplete }) => {
       </span>
     </div>
   );
-};
+});
 
 export default PreLoader;

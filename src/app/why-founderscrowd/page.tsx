@@ -1,31 +1,32 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo, useCallback } from 'react';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { CalendlyModal } from '@/components/Hero';
 
+// Extract constants for better performance
 const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
 
-const WhyFoundersCrowdPage = () => {
+const rotatingTexts = [
+  "Start up to Watch",
+  "Category Creator", 
+  "Unicorn Startup",
+  "Game Changer in Sports",
+  "Household Name",
+  "Success IPO"
+];
+
+const WhyFoundersCrowdPage = memo(() => {
   const [openCalendly, setOpenCalendly] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [currentText, setCurrentText] = useState(0);
 
-  const rotatingTexts = [
-    "Start up to Watch",
-    "Category Creator", 
-    "Unicorn Startup",
-    "Game Changer in Sports",
-    "Household Name",
-    "Success IPO"
-  ];
-
   // Track scroll for parallax and animation effects
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = useCallback(() => {
       setScrollY(window.scrollY);
-    };
+    }, []);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -38,6 +39,9 @@ const WhyFoundersCrowdPage = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleOpenCalendly = useCallback(() => setOpenCalendly(true), []);
+  const handleCloseCalendly = useCallback(() => setOpenCalendly(false), []);
 
   return (
     <>
@@ -155,7 +159,7 @@ const WhyFoundersCrowdPage = () => {
                 <div className="overflow-hidden rounded-2xl shadow-xl">
                   <Image
                     src="/why.jpg"
-                    alt="FoundersCrowd story illustration"
+                    alt="FoundersCrowD story illustration"
                     width={600}
                     height={400}
                     className="w-full h-auto object-cover"
@@ -437,7 +441,7 @@ const WhyFoundersCrowdPage = () => {
               </p>
 
               <button
-                onClick={() => setOpenCalendly(true)}
+                onClick={handleOpenCalendly}
                 className="rounded-full bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-amber-700 hover:shadow-xl"
               >
                 Start Raising
@@ -450,7 +454,7 @@ const WhyFoundersCrowdPage = () => {
         {openCalendly && (
           <CalendlyModal
             url={DEFAULT_CALENDLY_URL}
-            onClose={() => setOpenCalendly(false)}
+            onClose={handleCloseCalendly}
           />
         )}
 
@@ -482,6 +486,6 @@ const WhyFoundersCrowdPage = () => {
       <Footer />
     </>
   );
-};
+});
 
 export default WhyFoundersCrowdPage;
