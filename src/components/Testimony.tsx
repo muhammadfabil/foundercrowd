@@ -142,7 +142,11 @@ const TestimonialCard = memo(({ testimonial }: { testimonial: (typeof testimonia
   </a>
 ));
 
-const Testimony = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
+type TestimonyProps = {
+  calendlyUrl?: string;
+};
+
+const Testimony = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: TestimonyProps) => {
   const [openCalendly, setOpenCalendly] = useState(false);
   const duplicatedTestimonials = useMemo(() => [...testimonials, ...testimonials], []);
 
