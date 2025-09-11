@@ -1,12 +1,22 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import Image from 'next/image';
 
 // First, set a default Calendly URL at the top level
 const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
 
+// Rotating texts extracted as constant for better performance
+const rotatingTexts = [
+  "Start up to Watch",
+  "Category Creator", 
+  "Unicorn Startup",
+  "Game Changer in Sports",
+  "Household Name",
+  "Success IPO"
+];
+
 // Update the CalendlyModal component to match Navbar
-export function CalendlyModal({
+export const CalendlyModal = memo(function CalendlyModal({
   url,
   onClose,
 }: {
@@ -59,21 +69,12 @@ export function CalendlyModal({
       ></div>
     </div>
   );
-}
+});
 
 export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
   const [openCalendly, setOpenCalendly] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [currentText, setCurrentText] = useState(0);
-
-  const rotatingTexts = [
-    "Start up to Watch",
-    "Category Creator", 
-    "Unicorn Startup",
-    "Game Changer in Sports",
-    "Household Name",
-    "Success IPO"
-  ];
 
   // Add text rotation effect
   useEffect(() => {

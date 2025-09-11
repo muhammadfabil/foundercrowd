@@ -1,11 +1,82 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState, memo } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+// First, set a default Calendly URL at the top level
+const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
+
+// Memoize CalendlyModal to prevent unnecessary re-renders
+const CalendlyModal = memo(function CalendlyModal({
+  url,
+  onClose,
+}: {
+  url: string;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onEsc);
+
+    // Add the Calendly script
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.removeEventListener("keydown", onEsc);
+      // Clean up script if needed
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[9999] bg-black/50"
+      role="dialog"
+      aria-modal="true"
+      onClick={onClose} // Close when clicking backdrop
+    >
+      {/* Close button */}
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 z-[10000] bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors"
+      >
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+
+      {/* Calendly widget container */}
+      <div
+        className="calendly-inline-widget h-full w-full"
+        data-url={url}
+        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on Calendly widget
+      ></div>
+    </div>
+  );
+});
+
 export default function CTAP() {
+  const [openCalendly, setOpenCalendly] = useState(false);
+
   useEffect(() => {
     // Initialize AOS
     AOS.init({
@@ -96,12 +167,22 @@ export default function CTAP() {
           data-aos="fade-up"
           data-aos-delay="750"
         >
-          <button className="px-8 py-4 bg-amber-600 text-white font-semibold rounded-full shadow-lg hover:scale-105 transition text-lg">
+          <button
+            onClick={() => setOpenCalendly(true)}
+            className="px-8 py-4 bg-amber-600 text-white font-semibold rounded-full shadow-lg hover:scale-105 transition text-lg"
+          >
             Book a Call
           </button>
-          
         </div>
       </div>
+
+      {/* Calendly Modal */}
+      {openCalendly && (
+        <CalendlyModal
+          url={DEFAULT_CALENDLY_URL}
+          onClose={() => setOpenCalendly(false)}
+        />
+      )}
     </section>
   );
 }

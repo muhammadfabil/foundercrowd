@@ -1,12 +1,41 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import Image from 'next/image';
 
 // First, set a default Calendly URL at the top level
 const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
 
+// Integration logos extracted as constant for better performance
+const integrationLogos = [
+  '/integ (1).svg',
+  '/integ (2).svg',
+  '/integ (3).svg',
+  '/integ (4).svg',
+  '/integ (5).svg',
+  '/integ (6).svg',
+  '/integ (7).svg',
+  '/integ (8).svg',
+  '/integ (9).svg',
+  '/integ (10).svg',
+  '/integ (11).svg',
+  '/integ (12).svg',
+  '/integ (13).svg',
+  '/integ (14).svg',
+  '/integ (15).svg',
+  '/integ (16).svg',
+  '/integ (17).svg',
+  '/integ (18).svg',
+  '/integ (19).svg',
+  '/integ (20).svg',
+  '/integ (21).svg',
+  '/integ (22).svg',
+  '/integ (23).svg',
+  '/integ (24).svg',
+  '/integ (25).svg'
+];
+
 // Update the CalendlyModal component to match Plan.tsx
-function CalendlyModal({  
+const CalendlyModal = memo(function CalendlyModal({  
   url,
   onClose,
 }: {
@@ -59,35 +88,7 @@ function CalendlyModal({
       ></div>
     </div>
   );
-}
-
-const integrationLogos = [
-  '/integ (1).svg',
-  '/integ (2).svg',
-  '/integ (3).svg',
-  '/integ (4).svg',
-  '/integ (5).svg',
-  '/integ (6).svg',
-  '/integ (7).svg',
-  '/integ (8).svg',
-  '/integ (9).svg',
-  '/integ (10).svg',
-  '/integ (11).svg',
-  '/integ (12).svg',
-  '/integ (13).svg',
-  '/integ (14).svg',
-  '/integ (15).svg',
-  '/integ (16).svg',
-  '/integ (17).svg',
-  '/integ (18).svg',
-  '/integ (19).svg',
-  '/integ (20).svg',
-  '/integ (21).svg',
-  '/integ (22).svg',
-  '/integ (23).svg',
-  '/integ (24).svg',
-  '/integ (25).svg'
-];
+});
 
 const Integration = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
   const [openCalendly, setOpenCalendly] = useState(false);

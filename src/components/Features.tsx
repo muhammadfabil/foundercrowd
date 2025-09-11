@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
-import { FaHome, FaRegChartBar, FaRegCreditCard,FaFileSignature } from "react-icons/fa";
+import { FaHome, FaRegChartBar, FaRegCreditCard, FaFileSignature } from "react-icons/fa";
 import { CiStreamOn } from "react-icons/ci";
 import { BsBank } from "react-icons/bs";
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
@@ -17,6 +17,14 @@ type Feature = {
   description: string;
   image: string;
 };
+
+// Phrases for sequential highlighting (extracted as constant for better performance)
+const phrases = [
+  "Raise capital online and offline.",
+  "Raise locally and globally.",
+  "Raise with fans and with funds.",
+  "Raise from day one to IPO day."
+];
 
 // Memoized features data
 const useFeaturesData = () => useMemo(() => ({
@@ -115,16 +123,8 @@ const FeatureImage = React.memo(({ feature }: { feature: Feature }) => (
   </div>
 ));
 
-const ImageCarousel = () => {
+const ImageCarousel = React.memo(() => {
   const [activeTextIndex, setActiveTextIndex] = useState(0);
-  
-  // Phrases for sequential highlighting
-  const phrases = [
-    "Raise capital online and offline.",
-    "Raise locally and globally.",
-    "Raise with fans and with funds.",
-    "Raise from day one to IPO day."
-  ];
 
   // Cycle through text highlights every 2 seconds
   useEffect(() => {
@@ -195,7 +195,7 @@ const ImageCarousel = () => {
       </div>
     </div>
   );
-};
+});
 
 const Features = () => {
   const featuresData = useFeaturesData();
