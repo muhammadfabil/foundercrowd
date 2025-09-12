@@ -1,123 +1,74 @@
-import React, { useEffect, useRef, useState, memo, useCallback } from "react";
+import React, { useEffect, useState, memo, useCallback } from "react";
 
 interface PreLoaderProps {
   onComplete: () => void;
+  /** Opsional: pakai GIF berbeda untuk mobile portrait */
+  mobileSrc?: string;
+  /** GIF default/desktop */
+  src?: string;
+  /** Warna latar belakang saat letterbox */
+  backgroundClassName?: string; // e.g. "bg-black"
 }
 
-const FADE_MS = 500;
-const FALLBACK_TIMEOUT = 10000;
-const FADE_THRESHOLD = 0.97;
+const FADE_MS = 500;           // durasi fade-out
+const FALLBACK_TIMEOUT = 5000; // timeout fallback
 
-const PreLoader: React.FC<PreLoaderProps> = memo(({ onComplete }) => {
-  const [isGone, setIsGone] = useState(false);
-  const [isFading, setIsFading] = useState(false);
-  const timerRef = useRef<number | null>(null);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const startedFadeRef = useRef(false);
+const PreLoader: React.FC<PreLoaderProps> = memo(
+  ({ onComplete, mobileSrc, src = "/gif.gif", backgroundClassName = "bg-white" }) => {
+    const [isGone, setIsGone] = useState(false);
+    const [isFading, setIsFading] = useState(false);
 
-  useEffect(() => {
-    // --- iOS autoplay nudges ---
-    const v = videoRef.current;
-    if (v) {
-      // pastikan benar-benar inline & senyap SEBELUM play()
-      v.muted = true;
-      // @ts-ignore – tambahkan atribut vendor lama untuk Safari lama
-      v.setAttribute("webkit-playsinline", "true");
-      v.setAttribute("playsinline", "true");
-      v.setAttribute("preload", "auto");
-      v.removeAttribute("controls"); // jangan tampilkan tombol play native
+    const startFade = useCallback(() => {
+      setIsFading(true);
+      window.setTimeout(() => {
+        setIsGone(true);
+        onComplete();
+      }, FADE_MS);
+    }, [onComplete]);
 
-      // coba play segera; iOS baru biasanya mengizinkan
-      v.play().catch(() => {
-        // kalau ditolak (mis. Low Power Mode), coba lagi saat bisa diputar
-        const tryOnce = () => {
-          v.play().catch(() => {});
-          v.removeEventListener("canplaythrough", tryOnce);
-        };
-        v.addEventListener("canplaythrough", tryOnce);
-      });
-    }
+    useEffect(() => {
+      const id = window.setTimeout(startFade, FALLBACK_TIMEOUT);
+      return () => window.clearTimeout(id);
+    }, [startFade]);
 
-    // Fallback timeout jika video tak selesai
-    timerRef.current = window.setTimeout(() => startFade(), FALLBACK_TIMEOUT);
+    if (isGone) return null;
 
-    // Fallback sekali sentuh (mode hemat daya kadang blokir autoplay)
-    const kick = () => {
-      if (!videoRef.current) return;
-      videoRef.current.muted = true;
-      videoRef.current.play().catch(() => {});
-      window.removeEventListener("touchstart", kick, { capture: true } as any);
-    };
-    window.addEventListener("touchstart", kick, { capture: true, once: true } as any);
-
-    return () => {
-      if (timerRef.current) window.clearTimeout(timerRef.current);
-      window.removeEventListener("touchstart", kick, { capture: true } as any);
-    };
-  }, []);
-
-  const cleanup = useCallback(() => {
-    if (timerRef.current) window.clearTimeout(timerRef.current);
-  }, []);
-
-  const startFade = useCallback(() => {
-    if (startedFadeRef.current) return;
-    startedFadeRef.current = true;
-    cleanup();
-    setIsFading(true);
-    window.setTimeout(() => {
-      setIsGone(true);
-      onComplete();
-    }, FADE_MS);
-  }, [cleanup, onComplete]);
-
-  const handleTimeUpdate = useCallback(() => {
-    const v = videoRef.current;
-    if (!v || startedFadeRef.current) return;
-    if (isFinite(v.duration) && v.duration > 0 && v.currentTime / v.duration >= FADE_THRESHOLD) {
-      startFade();
-    }
-  }, [startFade]);
-
-  if (isGone) return null;
-
-  return (
-    <div
-      className={[
-        "fixed inset-0 z-50 flex items-center justify-center",
-        "transition-opacity duration-500 ease-out [will-change:opacity]",
-        isFading ? "opacity-0" : "opacity-100",
-        isFading ? "pointer-events-none" : "pointer-events-auto",
-      ].join(" ")}
-    >
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        playsInline
-        // @ts-ignore — atribut lama Safari
-        webkit-playsinline="true"
-        loop={false}
-        controls={false}
-        disablePictureInPicture
-        onEnded={startFade}
-        onTimeUpdate={handleTimeUpdate}
+    return (
+      <div
         className={[
-          "w-screen h-screen",
-          "object-cover bg-black",
-          "[@media(orientation:portrait)]:object-contain",
-          "[@media(orientation:portrait)]:bg-white",
-          "transition-transform duration-500",
-          isFading ? "scale-[1.01]" : "scale-100",
+          // full-screen yang tahan address bar iOS/Android
+          "fixed inset-0 z-50",                 // cover screen
+          "w-[100vw] h-[100dvh] sm:h-[100svh]", // dynamic/small viewport unit fallbacks
+          "relative",
+          backgroundClassName,
+          "transition-opacity duration-500 ease-out [will-change:opacity]",
+          isFading ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto",
         ].join(" ")}
       >
-        <source src="/webpre.mp4" type="video/mp4" />
-        <p className="text-white">Browser Anda tidak mendukung video.</p>
-      </video>
+        {/* Gunakan <picture> agar bisa beda aset untuk mobile portrait */}
+        <picture>
+          {mobileSrc && (
+            <source media="(max-width: 767px)" srcSet={mobileSrc} />
+          )}
+          <img
+            src={src}
+            alt="Loading"
+            // Mobile: object-contain (portrait friendly, tidak terpotong)
+            // ≥ md: object-cover (penuhi layar, sinematik)
+            className={[
+              "absolute inset-0 w-full h-full",
+              "object-contain md:object-cover",
+              // Sedikit scaling saat fade untuk rasa halus
+              "transition-transform duration-500",
+              isFading ? "scale-100" : "scale-100",
+            ].join(" ")}
+          />
+        </picture>
 
-      <span className="sr-only motion-reduce:inline">Loading…</span>
-    </div>
-  );
-});
+        <span className="sr-only">Loading…</span>
+      </div>
+    );
+  }
+);
 
 export default PreLoader;
