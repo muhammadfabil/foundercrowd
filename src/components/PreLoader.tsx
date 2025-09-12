@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo, useCallback } from "react";
+import React, { useEffect, useRef, useState, memo, useCallback } from "react";
 
 interface PreLoaderProps {
   onComplete: () => void;
@@ -8,15 +8,26 @@ interface PreLoaderProps {
   src?: string;
   /** Warna latar belakang saat letterbox */
   backgroundClassName?: string; // e.g. "bg-black"
+  /** Durasi 1x putaran GIF (ms). Default: 3060 ms */
+  durationMs?: number;
 }
 
-const FADE_MS = 500;           // durasi fade-out
-const FALLBACK_TIMEOUT = 5000; // timeout fallback
+const FADE_MS = 200; // durasi fade-out
 
 const PreLoader: React.FC<PreLoaderProps> = memo(
-  ({ onComplete, mobileSrc, src = "/gif.gif", backgroundClassName = "bg-white" }) => {
+  ({
+    onComplete,
+    mobileSrc,
+    src = "/gif.gif",
+    backgroundClassName = "bg-white",
+    durationMs = 2400, // 3.06s
+  }) => {
     const [isGone, setIsGone] = useState(false);
     const [isFading, setIsFading] = useState(false);
+
+    // Cegah timer dijalankan dua kali saat React StrictMode di DEV
+    const startedRef = useRef(false);
+    const timeoutRef = useRef<number | null>(null);
 
     const startFade = useCallback(() => {
       setIsFading(true);
@@ -27,9 +38,15 @@ const PreLoader: React.FC<PreLoaderProps> = memo(
     }, [onComplete]);
 
     useEffect(() => {
-      const id = window.setTimeout(startFade, FALLBACK_TIMEOUT);
-      return () => window.clearTimeout(id);
-    }, [startFade]);
+      if (startedRef.current) return;
+      startedRef.current = true;
+
+      timeoutRef.current = window.setTimeout(startFade, durationMs);
+
+      return () => {
+        if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+      };
+    }, [durationMs, startFade]);
 
     if (isGone) return null;
 
@@ -37,8 +54,8 @@ const PreLoader: React.FC<PreLoaderProps> = memo(
       <div
         className={[
           // full-screen yang tahan address bar iOS/Android
-          "fixed inset-0 z-50",                 // cover screen
-          "w-[100vw] h-[100dvh] sm:h-[100svh]", // dynamic/small viewport unit fallbacks
+          "fixed inset-0 z-50",
+          "w-[100vw] h-[100dvh] sm:h-[100svh]",
           "relative",
           backgroundClassName,
           "transition-opacity duration-500 ease-out [will-change:opacity]",
@@ -47,21 +64,18 @@ const PreLoader: React.FC<PreLoaderProps> = memo(
       >
         {/* Gunakan <picture> agar bisa beda aset untuk mobile portrait */}
         <picture>
-          {mobileSrc && (
-            <source media="(max-width: 767px)" srcSet={mobileSrc} />
-          )}
+          {mobileSrc && <source media="(max-width: 767px)" srcSet={mobileSrc} />}
           <img
             src={src}
             alt="Loading"
-            // Mobile: object-contain (portrait friendly, tidak terpotong)
-            // ≥ md: object-cover (penuhi layar, sinematik)
             className={[
               "absolute inset-0 w-full h-full",
+              // Mobile: object-contain (portrait friendly), ≥ md: object-cover (penuhi layar)
               "object-contain md:object-cover",
-              // Sedikit scaling saat fade untuk rasa halus
               "transition-transform duration-500",
-              isFading ? "scale-100" : "scale-100",
+              "select-none pointer-events-none",
             ].join(" ")}
+            draggable={false}
           />
         </picture>
 
