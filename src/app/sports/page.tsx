@@ -23,14 +23,16 @@ const SportsPage = memo(() => {
   const [scrollY, setScrollY] = useState(0);
   const [currentHeadline, setCurrentHeadline] = useState(0);
 
+  // ✅ FIXED: Move useCallback outside useEffect (Rules of Hooks)
+  const handleScroll = useCallback(() => {
+    setScrollY(window.scrollY);
+  }, []);
+
   // Track scroll for parallax and animation effects
   useEffect(() => {
-    const handleScroll = useCallback(() => {
-      setScrollY(window.scrollY);
-    }, []);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [handleScroll]); // ✅ FIXED: Add dependency
 
   // Rotate headlines
   useEffect(() => {
@@ -59,7 +61,7 @@ const SportsPage = memo(() => {
               {/* Sparkles Particle Effect */}
               <div className="w-full h-32 relative mb-1">
                 {/* Gradients */}
-                <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-amber-500 to-transparent h-[2px] w-3/4 blur-sm" />
+                <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-amber-500 to-transparent h-[2px] blur-sm" />
                 <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-amber-500 to-transparent h-px w-3/4" />
                 <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-orange-500 to-transparent h-[5px] w-1/4 blur-sm" />
                 <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-orange-500 to-transparent h-px w-1/4" />

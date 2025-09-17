@@ -22,14 +22,16 @@ const WhyFoundersCrowdPage = memo(() => {
   const [scrollY, setScrollY] = useState(0);
   const [currentText, setCurrentText] = useState(0);
 
+  // ✅ FIXED: Move useCallback outside useEffect (Rules of Hooks)
+  const handleScroll = useCallback(() => {
+    setScrollY(window.scrollY);
+  }, []);
+
   // Track scroll for parallax and animation effects
   useEffect(() => {
-    const handleScroll = useCallback(() => {
-      setScrollY(window.scrollY);
-    }, []);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [handleScroll]); // ✅ FIXED: Add dependency
 
   // Add text rotation effect
   useEffect(() => {
