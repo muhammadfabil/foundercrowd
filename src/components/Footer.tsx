@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { FaLinkedin, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -19,31 +19,45 @@ const Footer = () => {
             
             {/* Social Icons */}
             <div className="flex items-center gap-3">
+              {/* X (Twitter) */}
               <a 
-                href="#" 
-                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
-              >
-                <FaTwitter className="w-4 h-4 text-gray-600 group-hover:text-white" />
-              </a>
-              <a 
-                href="#" 
-                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
-              >
-                <FaInstagram className="w-4 h-4 text-gray-600 group-hover:text-white" />
-              </a>
-              <a 
-                href="#" 
-                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
-              >
-                <FaLinkedin className="w-4 h-4 text-gray-600 group-hover:text-white" />
-              </a>
-              <a 
-                href="https://www.beehiiv.com/?_sp=ezb.1756144963790.17561449637125kl5ppmyx" 
+                href="https://x.com/ninjamagno" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
               >
-                {/* Beehiiv Icon - using a simple 'B' or envelope icon */}
+                <svg className="w-4 h-4 text-gray-600 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+              
+              {/* Instagram */}
+              <a 
+                href="https://www.instagram.com/founderscrowd/" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
+              >
+                <FaInstagram className="w-4 h-4 text-gray-600 group-hover:text-white" />
+              </a>
+              
+              {/* LinkedIn */}
+              <a 
+                href="https://www.linkedin.com/company/founderscrowd/" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
+              >
+                <FaLinkedin className="w-4 h-4 text-gray-600 group-hover:text-white" />
+              </a>
+              
+              {/* Beehiiv */}
+              <a 
+                href="https://founderscrowd.beehiiv.com/subscribe" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
+              >
                 <svg className="w-4 h-4 text-gray-600 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                 </svg>
