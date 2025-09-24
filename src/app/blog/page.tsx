@@ -78,7 +78,6 @@ const BlogPage = memo(() => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [featuredPost, setFeaturedPost] = useState<WPPost | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
     const loadPosts = async () => {
@@ -107,12 +106,6 @@ const BlogPage = memo(() => {
   const handlePageChange = useCallback((newPage: number) => {
     setPage(newPage);
     window.scrollTo(0, 0);
-  }, []);
-
-  const handleCategoryChange = useCallback((category: string) => {
-    setSelectedCategory(category);
-    setPage(1);
-    // In a real implementation, you'd filter by category in the API call
   }, []);
 
   const renderPagination = useMemo(() => {
@@ -189,23 +182,6 @@ const BlogPage = memo(() => {
         </div>
 
         <main className="max-w-6xl mx-auto px-4 pb-24">
-          {/* Category Filter */}
-          <div className="flex flex-wrap items-center gap-3 mb-12 py-4 border-b border-gray-200">
-            {categories.map(category => (
-              <button
-                key={category}
-                className={`px-4 py-1.5 text-sm rounded-full transition-all duration-300 ${
-                  selectedCategory === category 
-                    ? "bg-orange-500 text-white" 
-                    : "bg-transparent text-gray-600 hover:text-black"
-                }`}
-                onClick={() => handleCategoryChange(category)}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-
           {/* Featured Post (First Page Only) */}
           {page === 1 && featuredPost && (
             <div className="mb-16">
@@ -382,5 +358,7 @@ const BlogPage = memo(() => {
     </>
   );
 });
+
+BlogPage.displayName = 'BlogPage';
 
 export default BlogPage;

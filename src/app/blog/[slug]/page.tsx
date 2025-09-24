@@ -1,16 +1,17 @@
-// app/blog/[slug]/page.tsx
+// app/blog/[slug]/page.tsx (Server Component - Remove 'use client')
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ShareButtons from "@/components/ShareButtons";
+import BlogCTA from "@/components/BlogCTA";
 import { notFound } from "next/navigation";
-import "./blog-post.css"; // Import CSS file
+import "./blog-post.css";
 
 // ------- Config
 const SITE = "fcblog5.wordpress.com";
 const API = `https://public-api.wordpress.com/wp/v2/sites/${SITE}`;
-const REVALIDATE_SECONDS = 1800; // 30 menit
+const REVALIDATE_SECONDS = 1800;
 
 // ------- Types
 type WPPost = {
@@ -28,13 +29,6 @@ type WPPost = {
         sizes?: Record<string, { source_url: string; width: number; height: number }>;
       };
     }>;
-    ["wp:term"]?: Array<
-      Array<{
-        taxonomy: string;
-        name: string;
-        slug: string;
-      }>
-    >;
   };
 };
 
@@ -90,20 +84,15 @@ function createSlug(text: string) {
 function processWordPressContent(html: string): string {
   let processed = html;
 
-  // Decode HTML entities first
   processed = decodeHtmlEntities(processed);
-
-  // Remove WordPress block comments
   processed = processed.replace(/<!-- wp:[\s\S]*? -->/g, '');
   processed = processed.replace(/<!-- \/wp:[\s\S]*? -->/g, '');
 
-  // Process WordPress separators (hr blocks)
   processed = processed.replace(
     /<hr class="wp-block-separator[^"]*"[^>]*>/g,
     '<div class="separator-block"></div>'
   );
 
-  // Process WordPress headings with better styling
   processed = processed.replace(
     /<h2 class="wp-block-heading"><strong>(.*?)<\/strong><\/h2>/g,
     '<h2 class="content-heading-2">$1</h2>'
@@ -114,20 +103,13 @@ function processWordPressContent(html: string): string {
     '<h3 class="content-heading-3">$1</h3>'
   );
 
-  // Process WordPress lists with better styling
   processed = processed.replace(
     /<ul class="wp-block-list">/g,
     '<ul class="content-list">'
   );
 
-  // Remove line breaks inside list items that WordPress adds
-  // Fixed: Use [\s\S] instead of 's' flag for better compatibility
   processed = processed.replace(/<li>([\s\S]*?)<br><\/li>/g, '<li>$1</li>');
-
-  // Process paragraphs with proper spacing
   processed = processed.replace(/<p>/g, '<p class="content-paragraph">');
-
-  // Process emphasis and strong tags
   processed = processed.replace(/<strong>(.*?)<\/strong>/g, '<span class="content-bold">$1</span>');
   processed = processed.replace(/<em>(.*?)<\/em>/g, '<span class="content-italic">$1</span>');
 
@@ -238,7 +220,7 @@ export async function generateMetadata({
   };
 }
 
-// ------- Page
+// ------- Page (Server Component)
 export default async function BlogPostPage({
   params,
 }: {
@@ -255,8 +237,6 @@ export default async function BlogPostPage({
   const featured = getFeaturedImage(post);
   const date = toDateString(post.date_gmt, "en-US");
   const readingTime = calcReadingTime(post.content.rendered);
-  const categories =
-    post._embedded?.["wp:term"]?.[0]?.filter((t) => t.taxonomy === "category") ?? [];
   const related = await fetchRelatedPosts(post.id);
 
   const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.founderscrowd.com"}/blog/${post.slug}`;
@@ -281,22 +261,6 @@ export default async function BlogPostPage({
                 Back to Blog
               </Link>
             </div>
-
-            {/* Categories */}
-            {categories.length > 0 && (
-              <div className="mb-6">
-                <div className="flex flex-wrap items-center gap-2">
-                  {categories.map((c) => (
-                    <span 
-                      key={c.slug} 
-                      className="bg-orange-100 text-orange-700 px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wide"
-                    >
-                      {c.name}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
 
             {/* Title */}
             <div className="mb-8">
@@ -379,6 +343,9 @@ export default async function BlogPostPage({
             </aside>
           </div>
         </div>
+
+        {/* CTA Section - NEW */}
+        <BlogCTA />
 
         {/* Related Articles */}
         {related.length > 0 && (
