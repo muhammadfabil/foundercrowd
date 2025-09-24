@@ -102,7 +102,7 @@ const Plan = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
         <div className="text-center mb-20">
           <h2 className="text-5xl lg:text-6xl font-medium text-gray-900 mb-6 leading-tight">
             Capital Raising,<br />
-            <span className="text-orange-500">Revolutionized</span>
+            <span className="text-amber-600">Revolutionized</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Craft the perfect offering with control over raise amount, valuation, voting 
@@ -182,7 +182,7 @@ const Plan = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
           </div>
           <button 
             onClick={handleOpenCalendly}
-            className="bg-orange-500 text-white px-10 py-4 rounded-full font-medium hover:bg-orange-600 transition-colors duration-300 text-lg"
+            className="bg-amber-600 text-white px-10 py-4 rounded-full font-medium hover:bg-orange-600 transition-colors duration-300 text-lg"
           >
             Start Raising Today
           </button>

@@ -80,7 +80,7 @@ const TeamPage = memo(() => {
                     <div className="mt-8 md:mt-12 lg:mt-16 xl:mt-20 relative mx-auto max-w-xs sm:max-w-2xl md:max-w-3xl lg:max-w-4xl">
                         <div className="aspect-[16/9] overflow-hidden rounded-lg md:rounded-xl shadow-lg border border-gray-100">
                             <iframe 
-                                src="https://player.vimeo.com/video/1115691817?h=0&autoplay=1&loop=1&muted=1"
+                                src="https://player.vimeo.com/video/1120665006?h=0&autoplay=1&loop=1&muted=1"
                                 className="h-full w-full"
                                 frameBorder="0" 
                                 allow="autoplay; fullscreen; picture-in-picture" 

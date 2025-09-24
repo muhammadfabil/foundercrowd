@@ -177,7 +177,7 @@ const Integration = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
           </p>
           <button 
             onClick={() => setOpenCalendly(true)}
-            className="bg-orange-500 text-white px-6 md:px-8 py-2.5 md:py-3 rounded-full font-medium hover:bg-orange-600 transition-colors duration-300 text-sm md:text-base"
+            className="bg-amber-600 text-white px-6 md:px-8 py-2.5 md:py-3 rounded-full font-medium hover:bg-orange-600 transition-colors duration-300 text-sm md:text-base"
           >
             Request Integration
           </button>

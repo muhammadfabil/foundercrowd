@@ -1,0 +1,248 @@
+/* app/blog/[slug]/blog-post.css */
+
+.blog-content .content-heading-2 {
+  font-size: 2.25rem; /* text-4xl */
+  font-weight: 900; /* font-black */
+  color: #111827; /* text-gray-900 */
+  margin-top: 4rem; /* mt-16 */
+  margin-bottom: 2rem; /* mb-8 */
+  line-height: 1.25; /* leading-tight */
+  letter-spacing: -0.025em; /* tracking-tight */
+  border-bottom: 4px solid #f97316;
+  padding-bottom: 1rem;
+}
+
+/* Responsive for md and up */
+@media (min-width: 768px) {
+  .blog-content .content-heading-2 {
+    font-size: 3rem; /* md:text-5xl */
+  }
+}
+
+.blog-content .content-heading-3 {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700; /* font-bold */
+  color: #111827; /* text-gray-900 */
+  margin-top: 3rem; /* mt-12 */
+  margin-bottom: 1.5rem; /* mb-6 */
+  line-height: 1.25; /* leading-tight */
+}
+
+/* Responsive for md and up */
+@media (min-width: 768px) {
+  .blog-content .content-heading-3 {
+    font-size: 2.25rem; /* md:text-4xl */
+  }
+}
+
+.blog-content .content-paragraph {
+  font-size: 1.25rem; /* text-xl */
+  color: #374151; /* text-gray-700 */
+  line-height: 1.625; /* leading-relaxed */
+  margin-bottom: 2rem; /* mb-8 */
+}
+
+/* Responsive for md and up */
+@media (min-width: 768px) {
+  .blog-content .content-paragraph {
+    font-size: 1.5rem; /* md:text-2xl */
+  }
+}
+
+.blog-content .content-list {
+  font-size: 1.25rem; /* text-xl */
+  color: #374151; /* text-gray-700 */
+  margin-bottom: 2rem; /* mb-8 */
+}
+
+.blog-content .content-list > * + * {
+  margin-top: 1rem; /* space-y-4 */
+}
+
+/* Responsive for md and up */
+@media (min-width: 768px) {
+  .blog-content .content-list {
+    font-size: 1.5rem; /* md:text-2xl */
+  }
+}
+
+.blog-content .content-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  line-height: 1.625; /* leading-relaxed */
+}
+
+.blog-content .content-list li::before {
+  content: "•";
+  color: #f97316; /* text-orange-500 */
+  font-weight: 700; /* font-bold */
+  font-size: 1.5rem; /* text-2xl */
+  flex-shrink: 0;
+}
+
+.blog-content .content-bold {
+  font-weight: 700; /* font-bold */
+  color: #111827; /* text-gray-900 */
+}
+
+.blog-content .content-italic {
+  font-style: italic;
+  color: #4b5563; /* text-gray-600 */
+}
+
+.blog-content .separator-block {
+  width: 6rem; /* w-24 */
+  height: 0.25rem; /* h-1 */
+  background: linear-gradient(
+    to right,
+    #fb923c,
+    #f97316
+  ); /* bg-gradient-to-r from-orange-400 to-orange-600 */
+  border-radius: 9999px; /* rounded-full */
+  margin: 4rem auto; /* mx-auto my-16 */
+}
+
+.blog-content a {
+  color: #ea580c; /* text-orange-600 */
+  font-weight: 600; /* font-semibold */
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transition-property: color, text-decoration-color;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.blog-content a:hover {
+  color: #c2410c; /* hover:text-orange-700 */
+  text-decoration-color: #fdba74; /* hover:decoration-orange-300 */
+}
+
+.blog-content code {
+  background-color: #f3f4f6; /* bg-gray-100 */
+  color: #1f2937; /* text-gray-800 */
+  padding: 0.25rem 0.75rem; /* px-3 py-1 */
+  border-radius: 0.5rem; /* rounded-lg */
+  font-size: 1.125rem; /* text-lg */
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace; /* font-mono */
+}
+
+.blog-content pre {
+  background-color: #111827; /* bg-gray-900 */
+  color: #f3f4f6; /* text-gray-100 */
+  padding: 1.5rem; /* p-6 */
+  border-radius: 1rem; /* rounded-2xl */
+  font-size: 1rem; /* text-base */
+  overflow-x: auto;
+  margin-bottom: 2rem; /* mb-8 */
+}
+
+.blog-content img {
+  border-radius: 1rem; /* rounded-2xl */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+  margin-bottom: 2rem; /* mb-8 */
+  margin-left: auto; /* mx-auto */
+  margin-right: auto; /* mx-auto */
+}
+
+.blog-content blockquote {
+  border-left: 4px solid #f97316; /* border-l-4 border-orange-500 */
+  background-color: #fff7ed; /* bg-orange-50 */
+  padding: 2rem; /* p-8 */
+  margin: 3rem 0; /* my-12 */
+  font-size: 1.5rem; /* text-2xl */
+  font-style: italic;
+  color: #1f2937; /* text-gray-800 */
+  border-top-right-radius: 1rem; /* rounded-r-2xl */
+  border-bottom-right-radius: 1rem; /* rounded-r-2xl */
+}
+
+/* Additional responsive styles */
+@media (min-width: 1024px) {
+  .blog-content .content-heading-2 {
+    font-size: 3.75rem; /* lg:text-6xl */
+  }
+
+  .blog-content .content-heading-3 {
+    font-size: 3rem; /* lg:text-5xl */
+  }
+}
+
+/* Handle any remaining WordPress classes */
+.blog-content .wp-block-separator {
+  display: none; /* Hide original separators since we replace them */
+}
+
+.blog-content h1,
+.blog-content h2:not(.content-heading-2),
+.blog-content h3:not(.content-heading-3),
+.blog-content h4,
+.blog-content h5,
+.blog-content h6 {
+  font-weight: 700;
+  color: #111827;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  line-height: 1.25;
+}
+
+.blog-content h1 {
+  font-size: 2.25rem;
+}
+.blog-content h2:not(.content-heading-2) {
+  font-size: 1.875rem;
+}
+.blog-content h3:not(.content-heading-3) {
+  font-size: 1.5rem;
+}
+.blog-content h4 {
+  font-size: 1.25rem;
+}
+.blog-content h5 {
+  font-size: 1.125rem;
+}
+.blog-content h6 {
+  font-size: 1rem;
+}
+
+/* Ensure proper spacing for all paragraphs */
+.blog-content p:not(.content-paragraph) {
+  font-size: 1.125rem;
+  color: #374151;
+  line-height: 1.625;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .blog-content p:not(.content-paragraph) {
+    font-size: 1.25rem;
+  }
+}
+
+/* Style regular lists that aren't processed */
+.blog-content ul:not(.content-list),
+.blog-content ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+  font-size: 1.125rem;
+  color: #374151;
+  line-height: 1.625;
+}
+
+@media (min-width: 768px) {
+  .blog-content ul:not(.content-list),
+  .blog-content ol {
+    font-size: 1.25rem;
+  }
+}
+
+.blog-content ul:not(.content-list) li {
+  margin-bottom: 0.5rem;
+}
+
+.blog-content ol li {
+  margin-bottom: 0.5rem;
+}

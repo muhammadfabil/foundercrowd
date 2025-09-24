@@ -15,12 +15,19 @@ const config: Config = {
       colors: {
         emerald: {
           400: '#34d399',
-          // other emerald shades as needed
-        }
-      }
+          // tambahkan shade lain kalau perlu
+        },
+        orange: {
+          500: '#f97316',
+          600: '#ea580c',
+        },
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/line-clamp'),
+  ],
 }
 
 export default config

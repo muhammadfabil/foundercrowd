@@ -174,7 +174,7 @@ const FAQ = () => {
                         </p>
                         <button 
                             onClick={() => setOpenCalendly(true)}
-                            className="bg-[#E17100] text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors duration-300"
+                            className="bg-amber-600 text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors duration-300"
                         >
                             Contact Support
                         </button>
