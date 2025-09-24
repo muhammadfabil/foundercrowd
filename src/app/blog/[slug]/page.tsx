@@ -121,7 +121,8 @@ function processWordPressContent(html: string): string {
   );
 
   // Remove line breaks inside list items that WordPress adds
-  processed = processed.replace(/<li>(.*?)<br><\/li>/gs, '<li>$1</li>');
+  // Fixed: Use [\s\S] instead of 's' flag for better compatibility
+  processed = processed.replace(/<li>([\s\S]*?)<br><\/li>/g, '<li>$1</li>');
 
   // Process paragraphs with proper spacing
   processed = processed.replace(/<p>/g, '<p class="content-paragraph">');
@@ -203,6 +204,38 @@ async function fetchRelatedPosts(currentPostId: number): Promise<WPPost[]> {
     console.error("Error fetching related posts:", e);
     return [];
   }
+}
+
+// ------- SEO / Metadata
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = await fetchPost(slug);
+  if (!post) return { title: "Post Not Found | FoundersCrowd" };
+
+  const title = decodeHtmlEntities(stripHtml(post.title.rendered));
+  const desc = stripHtml(post.excerpt.rendered).slice(0, 160);
+  const ogImg = getFeaturedImage(post).src;
+
+  return {
+    title: `${title} | FoundersCrowd Blog`,
+    description: desc,
+    openGraph: {
+      title,
+      description: desc,
+      images: ogImg ? [ogImg] : [],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: desc,
+      images: ogImg ? [ogImg] : [],
+    },
+  };
 }
 
 // ------- Page
