@@ -124,13 +124,7 @@ export default function CTAP() {
                 filter: "drop-shadow(0 0 10px rgba(255, 165, 0, 0.5))",
               }}
             />
-            {/* Sunrise glow effect */}
-            <div
-              className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[140%] h-20 bg-gradient-to-t from-orange-300 to-transparent opacity-70 rounded-full blur-xl -z-10"
-              data-aos="fade-in"
-              data-aos-delay="300"
-              data-aos-duration="1500"
-            ></div>
+            
           </div>
           <h2
             className="text-white text-2xl md:text-3xl font-bold tracking-wider"

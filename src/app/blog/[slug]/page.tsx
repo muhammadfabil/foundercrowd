@@ -391,7 +391,7 @@ export default async function BlogPostPage({
                       </div>
 
                       <div className="p-8">
-                        <div className="text-sm font-semibold text-orange-600 mb-3 uppercase tracking-wide">
+                        <div className="text-sm font-semibold text-amber-600 mb-3 uppercase tracking-wide">
                           {postDate}
                         </div>
                         <h3 className="text-2xl font-bold text-gray-900 mb-4 leading-tight group-hover:text-orange-700 transition-colors line-clamp-2">
@@ -400,7 +400,7 @@ export default async function BlogPostPage({
                         <p className="text-gray-600 text-lg leading-relaxed mb-6 line-clamp-3">
                           {excerpt}
                         </p>
-                        <div className="flex items-center text-orange-600 font-bold text-lg group-hover:gap-3 transition-all">
+                        <div className="flex items-center text-amber-600 font-bold text-lg group-hover:gap-3 transition-all">
                           Read More
                           <svg className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
