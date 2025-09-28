@@ -3,11 +3,9 @@ import React, { useState, useEffect, memo, useCallback } from 'react';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { CalendlyModal } from '@/components/Hero';
+import CTAButton from '@/components/CTAButton'; // Import CTAButton instead of CalendlyModal
 
 // Extract constants for better performance
-const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
-
 const rotatingTexts = [
   "Start up to Watch",
   "Category Creator", 
@@ -18,7 +16,6 @@ const rotatingTexts = [
 ];
 
 const WhyFoundersCrowdPage = memo(() => {
-  const [openCalendly, setOpenCalendly] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [currentText, setCurrentText] = useState(0);
 
@@ -41,9 +38,6 @@ const WhyFoundersCrowdPage = memo(() => {
 
     return () => clearInterval(interval);
   }, []);
-
-  const handleOpenCalendly = useCallback(() => setOpenCalendly(true), []);
-  const handleCloseCalendly = useCallback(() => setOpenCalendly(false), []);
 
   return (
     <>
@@ -433,32 +427,20 @@ const WhyFoundersCrowdPage = memo(() => {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-20 bg-white text-amber-600">
+        {/* CTA Section - Updated to use CTAButton */}
+        <section className="py-20 bg-white">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-6xl font-bold mb-6">Ready to Get Started?</h2>
-              <p className="text-lg text-amber-600 mb-8">
+              <h2 className="text-3xl md:text-6xl font-bold mb-6 text-amber-600">Ready to Get Started?</h2>
+              <p className="text-lg text-gray-600 mb-8">
                 Join thousands of founders who are transforming how they raise capital.
               </p>
 
-              <button
-                onClick={handleOpenCalendly}
-                className="rounded-full bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-amber-700 hover:shadow-xl"
-              >
-                Start Raising
-              </button>
+              {/* Use the exported CTAButton - exactly same as CTAP */}
+              <CTAButton size="md">Start Raising</CTAButton>
             </div>
           </div>
         </section>
-
-        {/* Calendly Modal */}
-        {openCalendly && (
-          <CalendlyModal
-            url={DEFAULT_CALENDLY_URL}
-            onClose={handleCloseCalendly}
-          />
-        )}
 
         {/* Animation styles */}
         <style jsx>{`

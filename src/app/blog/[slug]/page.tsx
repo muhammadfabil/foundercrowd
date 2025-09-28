@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ShareButtons from "@/components/ShareButtons";
 import BlogCTA from "@/components/BlogCTA";
+import CTAP from "@/components/CTAP";
 import { notFound } from "next/navigation";
 import "./blog-post.css";
 
@@ -250,10 +251,10 @@ export default async function BlogPostPage({
         <div className="bg-gradient-to-b from-gray-50 to-white pt-20 pb-16">
           <div className="max-w-4xl mx-auto px-4 md:px-8">
             {/* Breadcrumb */}
-            <div className="mb-8">
+            <div className="mt-14 mb-8">
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-2 text-gray-600 hover:text-orange-600 transition-colors text-sm font-medium"
+                className="inline-flex items-center gap-2 text-amber-600 hover:text-orange-600 transition-colors text-md font-bold"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 12H5M12 19l-7-7 7-7" />
@@ -345,7 +346,7 @@ export default async function BlogPostPage({
         </div>
 
         {/* CTA Section - NEW */}
-        <BlogCTA />
+        <CTAP />
 
         {/* Related Articles */}
         {related.length > 0 && (

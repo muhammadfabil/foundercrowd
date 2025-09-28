@@ -1,9 +1,7 @@
 "use client";
 import { useState, useEffect, memo } from "react";
 import Image from 'next/image';
-
-// First, set a default Calendly URL at the top level
-const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
+import CTAButton from './CTAButton'; // Replace CalendlyModal import
 
 // Rotating texts extracted as constant for better performance
 const rotatingTexts = [
@@ -15,64 +13,7 @@ const rotatingTexts = [
   "Success IPO"
 ];
 
-// Update the CalendlyModal component to match Navbar
-export const CalendlyModal = memo(function CalendlyModal({
-  url,
-  onClose,
-}: {
-  url: string;
-  onClose: () => void;
-}) {
-  useEffect(() => {
-    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    document.addEventListener("keydown", onEsc);
-    
-    // Add the Calendly script
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    
-    document.body.appendChild(script);
-    
-    return () => {
-      document.removeEventListener("keydown", onEsc);
-      // Clean up script if needed
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
-  }, [onClose]);
-
-  return (
-    <div
-      className="fixed inset-0 z-[9999] bg-black/50"
-      role="dialog"
-      aria-modal="true"
-      onClick={onClose} // Close when clicking backdrop
-    >
-      {/* Close button */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 z-[10000] bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-
-      {/* Calendly widget container */}
-      <div 
-        className="calendly-inline-widget h-full w-full" 
-        data-url={url}
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on Calendly widget
-      ></div>
-    </div>
-  );
-});
-
-export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
-  const [openCalendly, setOpenCalendly] = useState(false);
+export function Hero({ calendlyUrl }: { calendlyUrl?: string }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [currentText, setCurrentText] = useState(0);
 
@@ -151,14 +92,15 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
           making everything happen in minutes, not months.
         </p>
 
-        {/* CTA Button - improved mobile layout */}
+        {/* CTA Button - Updated to use CTAButton */}
         <div className="mt-6 md:mt-6 lg:mt-10 flex flex-col sm:flex-row items-center justify-center">
-          <button
-            onClick={() => setOpenCalendly(true)}
-            className="rounded-full w-full sm:w-auto bg-amber-600 px-8 py-4 md:px-6 md:py-3 text-base md:text-sm font-semibold text-white shadow-lg transition hover:bg-white hover:text-black hover:shadow-xl max-w-xs sm:max-w-none"
+          <CTAButton 
+            calendlyUrl={calendlyUrl}
+            size="md"
+            className="w-full sm:w-auto max-w-xs sm:max-w-none"
           >
             Start Raising
-          </button>
+          </CTAButton>
         </div>
         
         {/* Hero video - improved mobile spacing and sizing */}
@@ -282,14 +224,6 @@ export function Hero({ calendlyUrl = DEFAULT_CALENDLY_URL }) {
           </div>
         </div>
       </div>
-      
-      {/* Calendly Modal */}
-      {openCalendly && (
-        <CalendlyModal 
-          url={calendlyUrl} 
-          onClose={() => setOpenCalendly(false)} 
-        />
-      )}
 
       {/* Update the CSS as well */}
       <style jsx>{`

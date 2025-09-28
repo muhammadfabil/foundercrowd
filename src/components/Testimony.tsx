@@ -1,8 +1,6 @@
 "use client";
-import React, { useState, useEffect, memo, useCallback, useMemo } from "react";
-
-// First, set a default Calendly URL at the top level
-const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
+import React, { memo, useMemo } from "react";
+import CTAButton from './CTAButton'; // Replace CalendlyModal import
 
 const testimonials = [
   { id: 1, name: "Sarah Johnson", username: "@sarahj_founder", avatar: "SJ", text: "FounderCrowd made raising capital so much easier. The process was streamlined and professional.", platform: "twitter", link: "https://twitter.com/sarahj_founder/status/1234567890" },
@@ -30,62 +28,6 @@ const testimonials = [
   { id: 23, name: "Lauren Adams", username: "@lauren_tech", avatar: "LA", text: "Finally, a fundraising platform built by founders, for founders.", platform: "twitter", link: "https://twitter.com/lauren_tech/status/1234567900" },
   { id: 24, name: "Ryan Miller", username: "@ryan_ventures", avatar: "RM", text: "The speed and efficiency of the platform is unmatched in the industry.", platform: "linkedin", link: "https://linkedin.com/in/ryan-ventures" },
 ];
-
-// Update the CalendlyModal component to match Navbar
-const CalendlyModal = memo(function CalendlyModal({
-  url,
-  onClose,
-}: {
-  url: string;
-  onClose: () => void;
-}) {
-  useEffect(() => {
-    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    document.addEventListener("keydown", onEsc);
-    
-    // Add the Calendly script
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    
-    document.body.appendChild(script);
-    
-    return () => {
-      document.removeEventListener("keydown", onEsc);
-      // Clean up script if needed
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
-  }, [onClose]);
-
-  return (
-    <div
-      className="fixed inset-0 z-[9999] bg-black/50"
-      role="dialog"
-      aria-modal="true"
-      onClick={onClose} // Close when clicking backdrop
-    >
-      {/* Close button */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 z-[10000] bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-
-      {/* Calendly widget container */}
-      <div 
-        className="calendly-inline-widget h-full w-full" 
-        data-url={url}
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on Calendly widget
-      ></div>
-    </div>
-  );
-});
 
 const PlatformIcon = memo(({ platform }: { platform: string }) => {
   const iconClass = "w-4 h-4 text-gray-400";
@@ -146,12 +88,8 @@ type TestimonyProps = {
   calendlyUrl?: string;
 };
 
-const Testimony = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: TestimonyProps) => {
-  const [openCalendly, setOpenCalendly] = useState(false);
+const Testimony = memo(({ calendlyUrl }: TestimonyProps) => {
   const duplicatedTestimonials = useMemo(() => [...testimonials, ...testimonials], []);
-
-  const handleOpenCalendly = useCallback(() => setOpenCalendly(true), []);
-  const handleCloseCalendly = useCallback(() => setOpenCalendly(false), []);
 
   return (
     <section className="py-24 bg-gradient-to-b from-[#F4F4F3] to-[#EBFEB3] font-figtree overflow-hidden relative">
@@ -163,12 +101,15 @@ const Testimony = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: TestimonyProps) 
         <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
           And other great things our users say about us.
         </p>
-        <button 
-          onClick={handleOpenCalendly}
-          className="bg-black text-white px-10 py-4 rounded-full font-medium hover:bg-gray-800 transition-colors duration-300"
+        
+        {/* Updated CTA Button - Keep black styling to match section */}
+        <CTAButton 
+          calendlyUrl={calendlyUrl}
+          className="bg-amber-600 text-white hover:bg-gray-800 hover:scale-100"
+          size="md"
         >
           Start Raising
-        </button>
+        </CTAButton>
       </div>
 
       {/* Row 1: Left → Right */}
@@ -192,14 +133,6 @@ const Testimony = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: TestimonyProps) 
       {/* Gradient overlays for infinite scroll effect - Hidden on mobile */}
       <div className="hidden md:block absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-[#F4F4F3] to-transparent pointer-events-none z-10"></div>
       <div className="hidden md:block absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-[#EBFEB3] to-transparent pointer-events-none z-10"></div>
-
-      {/* Calendly Modal */}
-      {openCalendly && (
-        <CalendlyModal 
-          url={calendlyUrl} 
-          onClose={handleCloseCalendly} 
-        />
-      )}
 
       <style jsx>{`
         @keyframes scroll-right {

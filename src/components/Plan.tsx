@@ -1,9 +1,7 @@
 "use client"
-import React, { useState, useEffect, memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import { FiUsers, FiTrendingUp, FiShield } from 'react-icons/fi';
-
-// First, set a default Calendly URL at the top level
-const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
+import CTAButton from './CTAButton'; // Replace CalendlyModal import
 
 // Extract planData as constant for better performance
 const planData = [
@@ -33,68 +31,7 @@ const planData = [
   }
 ];
 
-// Update the CalendlyModal component to match Navbar
-const CalendlyModal = memo(function CalendlyModal({
-  url,
-  onClose,
-}: {
-  url: string;
-  onClose: () => void;
-}) {
-  useEffect(() => {
-    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    document.addEventListener("keydown", onEsc);
-    
-    // Add the Calendly script
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    
-    document.body.appendChild(script);
-    
-    return () => {
-      document.removeEventListener("keydown", onEsc);
-      // Clean up script if needed
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
-  }, [onClose]);
-
-  return (
-    <div
-      className="fixed inset-0 z-[9999] bg-black/50"
-      role="dialog"
-      aria-modal="true"
-      onClick={onClose} // Close when clicking backdrop
-    >
-      {/* Close button */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 z-[10000] bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-
-      {/* Calendly widget container */}
-      <div 
-        className="calendly-inline-widget h-full w-full" 
-        data-url={url}
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on Calendly widget
-      ></div>
-    </div>
-  );
-});
-
-const Plan = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
-  const [openCalendly, setOpenCalendly] = useState(false);
-
-  // Memoized handler for opening Calendly
-  const handleOpenCalendly = useCallback(() => setOpenCalendly(true), []);
-
+const Plan = ({ calendlyUrl }: { calendlyUrl?: string }) => {
   return (
     <section className="py-24 bg-white font-figtree">
       <div className="max-w-6xl mx-auto px-4">
@@ -116,7 +53,7 @@ const Plan = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
             const IconComponent = plan.icon;
             return (
               <div key={plan.id} className="group">
-                <div className="bg-white border  rounded-3xl p-8 hover:border-amber-500 hover:shadow-lg transition-all duration-300 h-full border-black hover:cursor-pointer">
+                <div className="bg-white border rounded-3xl p-8 hover:border-amber-500 hover:shadow-lg transition-all duration-300 h-full border-black hover:cursor-pointer">
                   {/* Icon */}
                   <div className="mb-6">
                     <div className="w-14 h-14 rounded-2xl bg-gray-100 flex items-center justify-center group-hover:bg-orange-500 transition-colors duration-300">
@@ -144,10 +81,11 @@ const Plan = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
                     {plan.description}
                   </p>
 
-                  {/* CTA Button */}
-                  <button 
-                    onClick={handleOpenCalendly}
-                    className="hover:cursor-pointer w-full py-3 px-6 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors duration-300 flex items-center justify-center gap-2"
+                  {/* CTA Button - Updated to use CTAButton with custom styling */}
+                  <CTAButton 
+                    calendlyUrl={calendlyUrl}
+                    className="w-full bg-black hover:bg-gray-800 text-white rounded-full font-medium transition-colors duration-300 flex items-center justify-center gap-2 hover:scale-100"
+                    size="md"
                   >
                     Get Started
                     <svg 
@@ -163,7 +101,7 @@ const Plan = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
                         d="M9 5l7 7-7 7"
                       />
                     </svg>
-                  </button>
+                  </CTAButton>
                 </div>
               </div>
             );
@@ -180,22 +118,16 @@ const Plan = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
               Join thousands of companies who have successfully raised capital with our platform.
             </p>
           </div>
-          <button 
-            onClick={handleOpenCalendly}
-            className="bg-amber-600 text-white px-10 py-4 rounded-full font-medium hover:bg-orange-600 transition-colors duration-300 text-lg"
+          
+          {/* Bottom CTA Button - Updated */}
+          <CTAButton 
+            calendlyUrl={calendlyUrl}
+            size="lg"
           >
             Start Raising Today
-          </button>
+          </CTAButton>
         </div>
       </div>
-
-      {/* Calendly Modal */}
-      {openCalendly && (
-        <CalendlyModal 
-          url={calendlyUrl} 
-          onClose={() => setOpenCalendly(false)} 
-        />
-      )}
     </section>
   );
 };

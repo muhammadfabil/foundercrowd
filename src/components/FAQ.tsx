@@ -1,8 +1,6 @@
 "use client";
 import React, { useState, memo } from 'react';
-import { CalendlyModal } from "@/components/Hero";
-
-const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
+import CTAButton from '@/components/CTAButton'; // Replace CalendlyModal import
 
 const faqData = [
     {
@@ -135,61 +133,47 @@ const FAQItem = memo(function FAQItem({
 
 const FAQ = () => {
     const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-    const [openCalendly, setOpenCalendly] = useState(false);
 
     const toggleFAQ = (id: number) => {
         setOpenFAQ(openFAQ === id ? null : id);
     };
 
     return (
-        <>
-            <section className="py-24 bg-white font-figtree">
-                <div className="max-w-4xl mx-auto px-4">
-                    {/* Header */}
-                    <div className="text-center mb-20">
-                        <h2 className="text-4xl lg:text-5xl font-medium text-gray-900 mb-6 leading-tight">
-                            Frequently Asked Questions
-                        </h2>
-                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                            Everything you need to know about FounderCrowd and how it works.
-                        </p>
-                    </div>
-
-                    {/* FAQ Items */}
-                    <div className="space-y-4">
-                        {faqData.map((faq) => (
-                            <FAQItem
-                                key={faq.id}
-                                faq={faq}
-                                openFAQ={openFAQ}
-                                toggleFAQ={toggleFAQ}
-                            />
-                        ))}
-                    </div>
-
-                    {/* Bottom CTA */}
-                    <div className="text-center mt-20">
-                        <p className="text-gray-600 mb-6">
-                            Still have questions? We're here to help.
-                        </p>
-                        <button 
-                            onClick={() => setOpenCalendly(true)}
-                            className="bg-amber-600 text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors duration-300"
-                        >
-                            Contact Support
-                        </button>
-                    </div>
+        <section className="py-24 bg-white font-figtree">
+            <div className="max-w-4xl mx-auto px-4">
+                {/* Header */}
+                <div className="text-center mb-20">
+                    <h2 className="text-4xl lg:text-5xl font-medium text-gray-900 mb-6 leading-tight">
+                        Frequently Asked Questions
+                    </h2>
+                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                        Everything you need to know about FounderCrowd and how it works.
+                    </p>
                 </div>
-            </section>
 
-            {/* Calendly Modal */}
-            {openCalendly && (
-                <CalendlyModal
-                    url={DEFAULT_CALENDLY_URL}
-                    onClose={() => setOpenCalendly(false)}
-                />
-            )}
-        </>
+                {/* FAQ Items */}
+                <div className="space-y-4">
+                    {faqData.map((faq) => (
+                        <FAQItem
+                            key={faq.id}
+                            faq={faq}
+                            openFAQ={openFAQ}
+                            toggleFAQ={toggleFAQ}
+                        />
+                    ))}
+                </div>
+
+                {/* Bottom CTA - Updated to use CTAButton */}
+                <div className="text-center mt-20">
+                    <p className="text-gray-600 mb-6">
+                        Still have questions? We're here to help.
+                    </p>
+                    
+                    {/* Use the exported CTAButton - exactly same as CTAP */}
+                    <CTAButton size="md">Contact Support</CTAButton>
+                </div>
+            </div>
+        </section>
     );
 };
 

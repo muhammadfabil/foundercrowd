@@ -1,9 +1,7 @@
 'use client'
-import React, { useState, useEffect, memo } from 'react';
+import React, { memo } from 'react';
 import Image from 'next/image';
-
-// First, set a default Calendly URL at the top level
-const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
+import CTAButton from './CTAButton'; // Replace CalendlyModal import
 
 // Integration logos extracted as constant for better performance
 const integrationLogos = [
@@ -34,65 +32,7 @@ const integrationLogos = [
   '/integ (25).svg'
 ];
 
-// Update the CalendlyModal component to match Plan.tsx
-const CalendlyModal = memo(function CalendlyModal({  
-  url,
-  onClose,
-}: {
-  url: string;
-  onClose: () => void;
-}) {
-  useEffect(() => {
-    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    document.addEventListener("keydown", onEsc);
-    
-    // Add the Calendly script
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    
-    document.body.appendChild(script);
-    
-    return () => {
-      document.removeEventListener("keydown", onEsc);
-      // Clean up script if needed
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
-  }, [onClose]);
-
-  return (
-    <div
-      className="fixed inset-0 z-[9999] bg-black/50"
-      role="dialog"
-      aria-modal="true"
-      onClick={onClose} // Close when clicking backdrop
-    >
-      {/* Close button */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 z-[10000] bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-
-      {/* Calendly widget container */}
-      <div 
-        className="calendly-inline-widget h-full w-full" 
-        data-url={url}
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on Calendly widget
-      ></div>
-    </div>
-  );
-});
-
-const Integration = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
-  const [openCalendly, setOpenCalendly] = useState(false);
-
+const Integration = ({ calendlyUrl }: { calendlyUrl?: string }) => {
   // Define the number of logos per row for different screen sizes
   const rows = [
     { mobile: 4, tablet: 5, desktop: 7 }, // Row 1
@@ -170,27 +110,21 @@ const Integration = ({ calendlyUrl = DEFAULT_CALENDLY_URL }) => {
           </p>
         </div>
 
-        {/* Bottom CTA */}
+        {/* Bottom CTA - Updated to use CTAButton */}
         <div className="text-center">
           <p className="text-gray-600 mb-6 md:mb-8 max-w-lg mx-auto text-sm md:text-base">
             Need a specific integration? We're constantly expanding our ecosystem.
           </p>
-          <button 
-            onClick={() => setOpenCalendly(true)}
-            className="bg-amber-600 text-white px-6 md:px-8 py-2.5 md:py-3 rounded-full font-medium hover:bg-orange-600 transition-colors duration-300 text-sm md:text-base"
+          
+          {/* Updated CTA Button */}
+          <CTAButton 
+            calendlyUrl={calendlyUrl}
+            size="md"
           >
             Request Integration
-          </button>
+          </CTAButton>
         </div>
       </div>
-
-      {/* Calendly Modal */}
-      {openCalendly && (
-        <CalendlyModal 
-          url={calendlyUrl} 
-          onClose={() => setOpenCalendly(false)}
-        />
-      )}
     </section>
   );
 };

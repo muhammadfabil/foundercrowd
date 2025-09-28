@@ -3,13 +3,8 @@ import React, { useState, useEffect, memo, useCallback } from 'react';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import Features from '@/components/Features';
-import Integration from '@/components/Integration';
-import { CalendlyModal } from '@/components/Hero'; // Reusing the CalendlyModal component
+import CTAButton from '@/components/CTAButton'; // Replace CalendlyModal import
 import { SparklesCore } from '@/components/ui/sparkles';
-
-// Extract constants for better performance
-const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
 
 const headlines = [
   "Club They Cheer For",
@@ -19,7 +14,6 @@ const headlines = [
 ];
 
 const SportsPage = memo(() => {
-  const [openCalendly, setOpenCalendly] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [currentHeadline, setCurrentHeadline] = useState(0);
 
@@ -41,9 +35,6 @@ const SportsPage = memo(() => {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
-
-  const handleOpenCalendly = useCallback(() => setOpenCalendly(true), []);
-  const handleCloseCalendly = useCallback(() => setOpenCalendly(false), []);
 
   return (
     <>
@@ -159,12 +150,8 @@ const SportsPage = memo(() => {
                 building a powerful community of fans and supporters who become lifelong investors.
               </p>
               
-              <button
-                onClick={handleOpenCalendly}
-                className="rounded-full bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-white hover:text-black hover:shadow-xl mb-4"
-              >
-                Start Raising
-              </button>
+              {/* Hero CTA Button - Updated */}
+              <CTAButton size="md">Start Raising</CTAButton>
             </div>
           </div>
         </section>
@@ -421,34 +408,20 @@ const SportsPage = memo(() => {
           </div>
         </section>
 
-        
-
-        {/* CTA Section */}
-        <section className="py-12 bg-white text-amber-600">
+        {/* CTA Section - Updated to use CTAButton */}
+        <section className="py-12 bg-white">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-6xl font-bold mb-6">Ready to take your club or sports startup to the next level?</h2>
+              <h2 className="text-3xl md:text-6xl font-bold mb-6 text-amber-600">Ready to take your club or sports startup to the next level?</h2>
               <p className="text-lg text-amber-600/80 mb-8">
                 Join thousands of sports organizations transforming how they engage with fans and raise capital.
               </p>
               
-              <button
-                onClick={handleOpenCalendly}
-                className="rounded-full bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-white hover:text-black hover:shadow-xl"
-              >
-                Book a Call
-              </button>
+              {/* Final CTA Button - Updated */}
+              <CTAButton size="md">Book a Call</CTAButton>
             </div>
           </div>
         </section>
-
-        {/* Calendly Modal */}
-        {openCalendly && (
-          <CalendlyModal 
-            url={DEFAULT_CALENDLY_URL} 
-            onClose={handleCloseCalendly} 
-          />
-        )}
 
         {/* Animation styles */}
         <style jsx>{`

@@ -1,73 +1,10 @@
 "use client";
-import React, { useState, memo, useCallback, useEffect } from 'react';
+import React, { memo } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-
-// Extract constants for better performance
-const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
-
-// Add the same CalendlyModal component from Navbar
-const CalendlyModal = memo(function CalendlyModal({
-  url,
-  onClose,
-}: {
-  url: string;
-  onClose: () => void;
-}) {
-  useEffect(() => {
-    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    document.addEventListener("keydown", onEsc);
-    
-    // Add the Calendly script
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    
-    document.body.appendChild(script);
-    
-    return () => {
-      document.removeEventListener("keydown", onEsc);
-      // Clean up script if needed
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
-  }, [onClose]);
-
-  return (
-    <div
-      className="fixed inset-0 z-[9999] bg-black/50"
-      role="dialog"
-      aria-modal="true"
-      onClick={onClose} // Close when clicking backdrop
-    >
-      {/* Close button */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 z-[10000] bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-
-      {/* Calendly widget container */}
-      <div 
-        className="calendly-inline-widget h-full w-full" 
-        data-url={url}
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on Calendly widget
-      ></div>
-    </div>
-  );
-});
+import CTAButton from '@/components/CTAButton'; // Replace CalendlyModal import
 
 const MergerAcquisitionPage = memo(() => {
-  const [openCalendly, setOpenCalendly] = useState(false);
-
-  const handleOpenCalendly = useCallback(() => setOpenCalendly(true), []);
-  const handleCloseCalendly = useCallback(() => setOpenCalendly(false), []);
-
   return (
     <>
       <Navbar />
@@ -281,32 +218,20 @@ const MergerAcquisitionPage = memo(() => {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-20 bg-white text-amber-600">
+        {/* CTA Section - Updated to use CTAButton */}
+        <section className="py-20 bg-white">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-6xl font-bold mb-6">Ready to explore an exit?</h2>
+              <h2 className="text-3xl md:text-6xl font-bold mb-6 text-amber-600">Ready to explore an exit?</h2>
               <p className="text-lg text-amber-600 mb-8">
                 Let's find the right acquirer, cut out the noise, and help you close your deal — on your terms.
               </p>
               
-              <button
-                onClick={handleOpenCalendly}
-                className="rounded-full bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-white hover:text-black hover:shadow-xl"
-              >
-                Start Your M&A Journey
-              </button>
+              {/* Updated CTA Button */}
+              <CTAButton size="md">Start Your M&A Journey</CTAButton>
             </div>
           </div>
         </section>
-
-        {/* Calendly Modal */}
-        {openCalendly && (
-          <CalendlyModal 
-            url={DEFAULT_CALENDLY_URL} 
-            onClose={handleCloseCalendly} 
-          />
-        )}
 
         {/* Animation styles */}
         <style jsx>{`

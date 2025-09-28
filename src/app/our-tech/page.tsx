@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Features from "@/components/Features";
@@ -8,17 +8,9 @@ import TestiMap from "@/components/TestiMap";
 import Statement from "@/components/Statement";
 import Plan from "@/components/Plan";
 import Integration from "@/components/Integration";
-import { CalendlyModal } from "@/components/Hero";
-
-// Extract constants for better performance
-const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
+import CTAButton from "@/components/CTAButton"; // Replace CalendlyModal import
 
 const OurTechPage = memo(() => {
-  const [openCalendly, setOpenCalendly] = useState(false);
-
-  const handleOpenCalendly = useCallback(() => setOpenCalendly(true), []);
-  const handleCloseCalendly = useCallback(() => setOpenCalendly(false), []);
-
   return (
     <>
       <Navbar />
@@ -47,12 +39,9 @@ const OurTechPage = memo(() => {
                   />
                 </div>
               </div>
-              <button
-                onClick={handleOpenCalendly}
-                className="rounded-full bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-white hover:text-black hover:shadow-xl"
-              >
-                Book a Call
-              </button>
+              
+              {/* Hero CTA Button - Updated */}
+              <CTAButton size="md">Book a Call</CTAButton>
             </div>
           </div>
         </section>
@@ -75,31 +64,20 @@ const OurTechPage = memo(() => {
         {/* Section 7: Integration */}
         <Integration />
 
-        {/* CTA Section */}
-        <section className="py-20 bg-white text-amber-600">
+        {/* CTA Section - Updated */}
+        <section className="py-20 bg-white">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-6xl font-bold mb-6">Ready to leverage our technology?</h2>
+              <h2 className="text-3xl md:text-6xl font-bold mb-6 text-amber-600">Ready to leverage our technology?</h2>
               <p className="text-lg text-amber-600 mb-8">
                 Let us show you how our platform can transform your capital raising experience.
               </p>
-              <button
-                onClick={handleOpenCalendly}
-                className="rounded-full bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-white hover:text-black hover:shadow-xl"
-              >
-                Book a Call
-              </button>
+              
+              {/* Final CTA Button - Updated */}
+              <CTAButton size="md">Book a Call</CTAButton>
             </div>
           </div>
         </section>
-
-        {/* Calendly Modal */}
-        {openCalendly && (
-          <CalendlyModal
-            url={DEFAULT_CALENDLY_URL}
-            onClose={handleCloseCalendly}
-          />
-        )}
 
         {/* Animation styles */}
         <style jsx>{`
