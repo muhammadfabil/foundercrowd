@@ -3,31 +3,30 @@
 
 import { useState, memo, useEffect } from "react";
 
-// Default Calendly URL
-const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
-
-// Calendly Modal (sama seperti di CTAP)
-const CalendlyModal = memo(function CalendlyModal({
-  url,
+// Space Funding Modal
+const SpaceFundingModal = memo(function SpaceFundingModal({
   onClose,
 }: {
-  url: string;
   onClose: () => void;
 }) {
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onEsc);
 
-    // Add the Calendly script
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = "hidden";
+
+    // Add the Space Funding script
     const script = document.createElement("script");
     script.type = "text/javascript";
-    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.src = "https://link.space-funding.us/js/form_embed.js";
     script.async = true;
-
     document.body.appendChild(script);
 
     return () => {
       document.removeEventListener("keydown", onEsc);
+      // Restore body scroll
+      document.body.style.overflow = "unset";
       if (document.body.contains(script)) {
         document.body.removeChild(script);
       }
@@ -36,7 +35,7 @@ const CalendlyModal = memo(function CalendlyModal({
 
   return (
     <div
-      className="fixed inset-0 z-[9999] bg-black/50"
+      className="fixed inset-0 z-[9999] bg-black/50 flex items-center justify-center p-4"
       role="dialog"
       aria-modal="true"
       onClick={onClose}
@@ -50,29 +49,39 @@ const CalendlyModal = memo(function CalendlyModal({
         </svg>
       </button>
 
-      <div
-        className="calendly-inline-widget h-full w-full"
-        data-url={url}
+      <div 
+        className="bg-white rounded-lg w-full max-w-4xl h-[85vh] max-h-[800px] overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
-      ></div>
+      >
+        <div className="flex-1 overflow-auto">
+          <iframe 
+            src="https://link.space-funding.us/widget/booking/rjTqfMgDh3uzLlGVvco6" 
+            style={{ 
+              width: "100%", 
+              minHeight: "100%",
+              border: "none"
+            }} 
+            scrolling="yes"
+            id="rjTqfMgDh3uzLlGVvco6_1758180452451"
+          />
+        </div>
+      </div>
     </div>
   );
 });
 
 interface CTAButtonProps {
   children?: React.ReactNode;
-  calendlyUrl?: string;
   className?: string;
   size?: 'sm' | 'md' | 'lg';
 }
 
 export default function CTAButton({ 
   children = "Book a Call", 
-  calendlyUrl = DEFAULT_CALENDLY_URL,
   className = "",
   size = "md"
 }: CTAButtonProps) {
-  const [openCalendly, setOpenCalendly] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   // Size variants
   const sizes = {
@@ -90,17 +99,16 @@ export default function CTAButton({
   return (
     <>
       <button
-        onClick={() => setOpenCalendly(true)}
+        onClick={() => setOpenModal(true)}
         className={`${baseClasses} ${sizes[size]} ${className}`}
       >
         {children}
       </button>
 
-      {/* Calendly Modal */}
-      {openCalendly && (
-        <CalendlyModal
-          url={calendlyUrl}
-          onClose={() => setOpenCalendly(false)}
+      {/* Space Funding Modal */}
+      {openModal && (
+        <SpaceFundingModal
+          onClose={() => setOpenModal(false)}
         />
       )}
     </>

@@ -118,7 +118,7 @@ const Integration = ({ calendlyUrl }: { calendlyUrl?: string }) => {
           
           {/* Updated CTA Button */}
           <CTAButton 
-            calendlyUrl={calendlyUrl}
+            
             size="md"
           >
             Request Integration

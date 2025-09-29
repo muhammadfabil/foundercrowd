@@ -94,11 +94,9 @@ export default function CTAP() {
 
         {/* CTA Buttons */}
         <div
-          className="flex gap-4 justify-center pt-4"
-          data-aos="fade-up"
-          data-aos-delay="750"
+          
         >
-          <CTAButton>Book a Call</CTAButton>
+          <CTAButton size="lg">Book a Call</CTAButton>
         </div>
       </div>
     </section>

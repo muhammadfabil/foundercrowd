@@ -104,7 +104,7 @@ const Testimony = memo(({ calendlyUrl }: TestimonyProps) => {
         
         {/* Updated CTA Button - Keep black styling to match section */}
         <CTAButton 
-          calendlyUrl={calendlyUrl}
+         
           className="bg-amber-600 text-white hover:bg-gray-800 hover:scale-100"
           size="md"
         >

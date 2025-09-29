@@ -83,7 +83,7 @@ const Plan = ({ calendlyUrl }: { calendlyUrl?: string }) => {
 
                   {/* CTA Button - Updated to use CTAButton with custom styling */}
                   <CTAButton 
-                    calendlyUrl={calendlyUrl}
+                    
                     className="w-full bg-black hover:bg-gray-800 text-white rounded-full font-medium transition-colors duration-300 flex items-center justify-center gap-2 hover:scale-100"
                     size="md"
                   >
@@ -121,7 +121,7 @@ const Plan = ({ calendlyUrl }: { calendlyUrl?: string }) => {
           
           {/* Bottom CTA Button - Updated */}
           <CTAButton 
-            calendlyUrl={calendlyUrl}
+           
             size="lg"
           >
             Start Raising Today

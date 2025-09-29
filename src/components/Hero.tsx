@@ -95,7 +95,7 @@ export function Hero({ calendlyUrl }: { calendlyUrl?: string }) {
         {/* CTA Button - Updated to use CTAButton */}
         <div className="mt-6 md:mt-6 lg:mt-10 flex flex-col sm:flex-row items-center justify-center">
           <CTAButton 
-            calendlyUrl={calendlyUrl}
+            
             size="md"
             className="w-full sm:w-auto max-w-xs sm:max-w-none"
           >

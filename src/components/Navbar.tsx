@@ -4,22 +4,20 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
-// Add the CalendlyModal component
-const CalendlyModal = memo(function CalendlyModal({
-  url,
+// Add the BookingModal component (replacing CalendlyModal)
+const BookingModal = memo(function BookingModal({
   onClose,
 }: {
-  url: string;
   onClose: () => void;
 }) {
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onEsc);
     
-    // Add the Calendly script
+    // Add the booking script
     const script = document.createElement('script');
+    script.src = 'https://link.space-funding.us/js/form_embed.js';
     script.type = 'text/javascript';
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
     script.async = true;
     
     document.body.appendChild(script);
@@ -35,7 +33,7 @@ const CalendlyModal = memo(function CalendlyModal({
 
   return (
     <div
-      className="fixed inset-0 z-[9999] bg-black/50"
+      className="fixed inset-0 z-[9999] bg-black/50 flex items-center justify-center p-4"
       role="dialog"
       aria-modal="true"
       onClick={onClose} // Close when clicking backdrop
@@ -50,12 +48,19 @@ const CalendlyModal = memo(function CalendlyModal({
         </svg>
       </button>
 
-      {/* Calendly widget container */}
+      {/* Booking widget container */}
       <div 
-        className="calendly-inline-widget h-full w-full" 
-        data-url={url}
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on Calendly widget
-      ></div>
+        className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on widget
+      >
+        <iframe 
+          src="https://link.space-funding.us/widget/booking/rjTqfMgDh3uzLlGVvco6" 
+          style={{ width: '100%', border: 'none', overflow: 'hidden' }} 
+          scrolling="no" 
+          id="rjTqfMgDh3uzLlGVvco6_1758180452451"
+          className="w-full h-[600px] md:h-[700px]" // Adjust height as needed for scrolling
+        ></iframe>
+      </div>
     </div>
   );
 });
@@ -63,15 +68,12 @@ const CalendlyModal = memo(function CalendlyModal({
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [openCalendly, setOpenCalendly] = useState(false);
+  const [openBooking, setOpenBooking] = useState(false); // Renamed from openCalendly
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
   
   // Check if current page is blog related (blog index or blog post)
   const isBlogPage = pathname?.startsWith('/blog');
-
-  // Add default Calendly URL as constant
-  const calendlyUrl = "https://calendly.com/founderscrowds/30min";
 
   // Memoized scroll handler
   const onScroll = useCallback(() => setScrolled(window.scrollY > 16), []);
@@ -102,8 +104,8 @@ export default function Navbar() {
   }, [openDropdown]);
 
   // Memoized handlers
-  const handleOpenCalendly = useCallback(() => setOpenCalendly(true), []);
-  const handleCloseCalendly = useCallback(() => setOpenCalendly(false), []);
+  const handleOpenBooking = useCallback(() => setOpenBooking(true), []); // Renamed
+  const handleCloseBooking = useCallback(() => setOpenBooking(false), []); // Renamed
   const handleToggleMobileMenu = useCallback(() => setMobileMenuOpen(!mobileMenuOpen), [mobileMenuOpen]);
   const handleCloseMobileMenu = useCallback(() => setMobileMenuOpen(false), []);
 
@@ -210,7 +212,7 @@ export default function Navbar() {
           }`}>
             {/* CTA Button (Desktop only) */}
             <button
-              onClick={handleOpenCalendly}
+              onClick={handleOpenBooking} // Updated handler
               className={`hover:bg-white hover:text-black hidden md:block rounded-full px-4 md:px-6 py-2 md:py-2.5 text-xs md:text-sm font-medium transition-all duration-300 ${
                 scrolled || isBlogPage
                   ? 'bg-black text-white hover:bg-gray-800' 
@@ -340,7 +342,7 @@ export default function Navbar() {
               <div className="pt-4 border-t border-gray-100">
                 <button
                   onClick={() => {
-                    handleOpenCalendly();
+                    handleOpenBooking(); // Updated handler
                     handleCloseMobileMenu();
                   }}
                   className="block w-full rounded-full bg-black px-6 py-3 text-center text-base font-medium text-white hover:bg-gray-800 transition-colors"
@@ -353,11 +355,10 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* Calendly Modal */}
-      {openCalendly && (
-        <CalendlyModal 
-          url={calendlyUrl} 
-          onClose={handleCloseCalendly} 
+      {/* Booking Modal */}
+      {openBooking && (
+        <BookingModal 
+          onClose={handleCloseBooking} // Updated handler
         />
       )}
     </>
