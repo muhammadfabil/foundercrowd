@@ -5,7 +5,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ShareButtons from "@/components/ShareButtons";
 import BlogCTA from "@/components/BlogCTA";
-import CTAP from "@/components/CTAP";
 import { notFound } from "next/navigation";
 import "./blog-post.css";
 
@@ -346,7 +345,7 @@ export default async function BlogPostPage({
         </div>
 
         {/* CTA Section - NEW */}
-        <CTAP />
+        <BlogCTA />
 
         {/* Related Articles */}
         {related.length > 0 && (

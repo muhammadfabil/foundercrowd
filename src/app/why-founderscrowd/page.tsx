@@ -154,7 +154,7 @@ const WhyFoundersCrowdPage = memo(() => {
               <div className="relative order-1">
                 <div className="overflow-hidden rounded-2xl shadow-xl">
                   <Image
-                    src="/why.jpg"
+                    src="/why1.jpg"
                     alt="FoundersCrowD story illustration"
                     width={600}
                     height={400}
@@ -232,7 +232,7 @@ const WhyFoundersCrowdPage = memo(() => {
               <div className="relative order-1 lg:order-2">
                 <div className="overflow-hidden rounded-2xl shadow-xl">
                   <Image
-                    src="/why.jpg"
+                    src="/why2.jpg"
                     alt="The First Breakthrough - Problem illustration"
                     width={600}
                     height={400}
@@ -253,7 +253,7 @@ const WhyFoundersCrowdPage = memo(() => {
               <div className="relative order-1">
                 <div className="overflow-hidden rounded-2xl shadow-xl">
                   <Image
-                    src="/why.jpg"
+                    src="/why3.jpg"
                     alt="Why FoundersCrowd - Solution illustration"
                     width={600}
                     height={400}
@@ -369,7 +369,7 @@ const WhyFoundersCrowdPage = memo(() => {
               <div className="relative order-1 lg:order-2">
                 <div className="overflow-hidden rounded-2xl shadow-xl">
                   <Image
-                    src="/why.jpg"
+                    src="/why4.jpg"
                     alt="Best Price Guaranteed - Pricing illustration"
                     width={600}
                     height={400}
