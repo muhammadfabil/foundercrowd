@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ShareButtons from "@/components/ShareButtons";
 import BlogCTA from "@/components/BlogCTA";
+import NewsletterSignup from '@/components/NewsletterSignup';
 import { notFound } from "next/navigation";
 import "./blog-post.css";
 
@@ -248,49 +249,51 @@ export default async function BlogPostPage({
       <div className="bg-white min-h-screen font-figtree">
         {/* Enhanced Header Section */}
         <div className="bg-gradient-to-b from-gray-50 to-white pt-20 pb-16">
-          <div className="max-w-4xl mx-auto px-4 md:px-8">
-            {/* Breadcrumb */}
-            <div className="mt-14 mb-8">
-              <Link
-                href="/blog"
-                className="inline-flex items-center gap-2 text-amber-600 hover:text-orange-600 transition-colors text-md font-bold"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 12H5M12 19l-7-7 7-7" />
-                </svg>
-                Back to Blog
-              </Link>
-            </div>
-
-            {/* Title */}
-            <div className="mb-8">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.1] text-gray-900 mb-8 tracking-tight">
-                {cleanTitle}
-              </h1>
-              
-              {/* Meta */}
-              <div className="flex flex-wrap items-center gap-6 text-gray-600 text-lg">
-                <span className="font-semibold">{date}</span>
-                <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
-                <span className="font-semibold">{readingTime}</span>
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <div className="max-w-4xl">
+              {/* Breadcrumb */}
+              <div className="mt-14 mb-8">
+                <Link
+                  href="/blog"
+                  className="inline-flex items-center gap-2 text-amber-600 hover:text-orange-600 transition-colors text-md font-bold"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 12H5M12 19l-7-7 7-7" />
+                  </svg>
+                  Back to Blog
+                </Link>
               </div>
-            </div>
 
-            {/* Featured Image */}
-            {featured.src && (
-              <div className="mb-12">
-                <div className="relative aspect-[16/9] overflow-hidden rounded-3xl shadow-2xl">
-                  <Image 
-                    src={featured.src} 
-                    alt={featured.alt} 
-                    fill 
-                    priority 
-                    className="object-cover" 
-                    sizes="100vw" 
-                  />
+              {/* Title */}
+              <div className="mb-8">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.1] text-gray-900 mb-8 tracking-tight">
+                  {cleanTitle}
+                </h1>
+                
+                {/* Meta */}
+                <div className="flex flex-wrap items-center gap-6 text-gray-600 text-lg">
+                  <span className="font-semibold">{date}</span>
+                  <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
+                  <span className="font-semibold">{readingTime}</span>
                 </div>
               </div>
-            )}
+
+              {/* Featured Image */}
+              {featured.src && (
+                <div className="mb-12">
+                  <div className="relative aspect-[16/9] overflow-hidden rounded-3xl shadow-2xl">
+                    <Image 
+                      src={featured.src} 
+                      alt={featured.alt} 
+                      fill 
+                      priority 
+                      className="object-cover" 
+                      sizes="100vw" 
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -298,7 +301,7 @@ export default async function BlogPostPage({
         <div className="max-w-7xl mx-auto px-4 md:px-8 pb-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-16">
             {/* Main Content */}
-            <article className="max-w-none">
+            <article className="max-w-4xl">
               <div 
                 className="blog-content"
                 dangerouslySetInnerHTML={{ __html: withAnchors }}
@@ -349,7 +352,7 @@ export default async function BlogPostPage({
 
         {/* Related Articles */}
         {related.length > 0 && (
-          <div className="bg-gray-50 py-24">
+          <div className="bg-gray-50 py-8">
             <div className="max-w-7xl mx-auto px-4 md:px-8">
               <div className="text-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Continue Reading</h2>
@@ -360,7 +363,6 @@ export default async function BlogPostPage({
               
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {related.map((p) => {
-                  const img = getFeaturedImage(p);
                   const excerptRaw = stripHtml(p.excerpt.rendered);
                   const excerpt = excerptRaw.slice(0, 150) + (excerptRaw.length > 150 ? "…" : "");
                   const postDate = toDateString(p.date_gmt, "en-US");
@@ -370,39 +372,42 @@ export default async function BlogPostPage({
                     <Link
                       key={p.id}
                       href={`/blog/${p.slug}`}
-                      className="group block bg-white rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+                      className="group block bg-white rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105"
                     >
                       <div className="relative aspect-[16/9] overflow-hidden">
-                        {img.src ? (
-                          <Image
-                            src={img.src}
-                            alt={img.alt}
-                            fill
-                            sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"
-                            className="object-cover transition-transform duration-700 group-hover:scale-110"
-                          />
-                        ) : (
-                          <div className="h-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
-                            <svg className="w-16 h-16 text-white opacity-50" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        <Image
+                          src="/paralax.jpg"
+                          alt={relatedTitle}
+                          fill
+                          sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"
+                          className="object-cover transition-transform duration-700 group-hover:scale-110 group-hover:brightness-110"
+                        />
+                        {/* Overlay yang muncul saat hover */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        {/* Icon yang muncul saat hover */}
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform scale-75 group-hover:scale-100">
+                          <div className="bg-white/20 backdrop-blur-sm rounded-full p-4">
+                            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                             </svg>
                           </div>
-                        )}
+                        </div>
                       </div>
 
-                      <div className="p-8">
-                        <div className="text-sm font-semibold text-amber-600 mb-3 uppercase tracking-wide">
+                      <div className="p-8 group-hover:bg-gray-50 transition-colors duration-300">
+                        <div className="text-sm font-semibold text-amber-600 mb-3 uppercase tracking-wide group-hover:text-orange-600 transition-colors duration-300">
                           {postDate}
                         </div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-4 leading-tight group-hover:text-orange-700 transition-colors line-clamp-2">
+                        <h3 className="text-2xl font-bold text-gray-900 mb-4 leading-tight group-hover:text-orange-700 transition-colors duration-300 line-clamp-2">
                           {relatedTitle}
                         </h3>
-                        <p className="text-gray-600 text-lg leading-relaxed mb-6 line-clamp-3">
+                        <p className="text-gray-600 text-lg leading-relaxed mb-6 line-clamp-3 group-hover:text-gray-700 transition-colors duration-300">
                           {excerpt}
                         </p>
-                        <div className="flex items-center text-amber-600 font-bold text-lg group-hover:gap-3 transition-all">
+                        <div className="flex items-center text-amber-600 font-bold text-lg group-hover:text-orange-600 group-hover:gap-3 transition-all duration-300">
                           Read More
-                          <svg className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                          <svg className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                           </svg>
                         </div>
@@ -415,7 +420,7 @@ export default async function BlogPostPage({
               <div className="mt-16 text-center">
                 <Link
                   href="/blog"
-                  className="inline-flex items-center gap-3 px-10 py-5 bg-orange-600 hover:bg-orange-700 text-white text-xl font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                  className="inline-flex items-center gap-3 px-10 py-5 bg-amber-600 hover:bg-orange-700 text-white text-xl font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                 >
                   Explore All Articles
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
@@ -426,6 +431,20 @@ export default async function BlogPostPage({
             </div>
           </div>
         )}
+
+        {/* Newsletter Signup Section */}
+        <div className="bg-gradient-to-b from-blue-50 to-white py-20">
+          <div className="max-w-4xl mx-auto px-4 md:px-8 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Get the latest updates
+            </h2>
+            <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+              Sign up for our monthly newsletter so you don't miss a thing.
+            </p>
+            
+            <NewsletterSignup />
+          </div>
+        </div>
       </div>
       
       <Footer />
