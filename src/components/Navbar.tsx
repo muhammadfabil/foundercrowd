@@ -198,9 +198,9 @@ export default function Navbar() {
                   <Link href="/faq" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
                     FAQ
                   </Link>
-                  <Link href="/team" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
+                  {/* <Link href="/team" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
                     Our Team
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </div>
@@ -305,7 +305,7 @@ export default function Navbar() {
                 </button>
                 {openDropdown === 'investors' && (
                   <div className="ml-4 space-y-1">
-                    <Link href="/vip-program" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
+                    <Link href="https://founderscrowd.beehiiv.com/" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
                       Join our VIP program
                     </Link>
                   </div>
@@ -331,9 +331,9 @@ export default function Navbar() {
                     <Link href="/faq" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
                       FAQ
                     </Link>
-                    <Link href="/team" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
+                    {/* <Link href="/team" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
                       Our Team
-                    </Link>
+                    </Link> */}
                   </div>
                 )}
               </div>

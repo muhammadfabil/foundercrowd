@@ -101,7 +101,7 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="/vip-program" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                <a href="https://founderscrowd.beehiiv.com/" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
                   Join our VIP program
                 </a>
               </li>
