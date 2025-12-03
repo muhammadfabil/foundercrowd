@@ -137,14 +137,22 @@ export function Hero({ calendlyUrl }: { calendlyUrl?: string }) {
               {/* Scrolling logos horizontal */}
               <div className="flex animate-scroll-horizontal items-center space-x-6 lg:space-x-12">
                 {/* First set of logos */}
-                {Array.from({ length: 8 }).map((_, index) => (
+                {[
+                  { src: '/nbc.jpg', alt: 'NBC Affiliate Marketing' },
+                  { src: '/aw.png', alt: 'Americas Wire' },
+                  { src: '/yf.png', alt: 'Yahoo Finance' },
+                  { src: '/nwr.png', alt: 'Access Newswire' },
+                  { src: '/ba.png', alt: 'Acquisition International' },
+                  { src: '/bi.jpeg', alt: 'Business Insider' },
+                  { src: '/forbes.svg', alt: 'Forbes' }
+                ].map((logo, index) => (
                   <div 
                     key={`logo-set1-${index}`}
                     className="flex-shrink-0 w-20 h-12 lg:w-24 lg:h-12 xl:w-32 xl:h-16 flex items-center justify-center"
                   >
                     <Image 
-                      src="/logo1.png" 
-                      alt="Partner Logo" 
+                      src={logo.src} 
+                      alt={logo.alt} 
                       width={128} 
                       height={64} 
                       className="max-w-full max-h-full object-contain"
@@ -154,14 +162,22 @@ export function Hero({ calendlyUrl }: { calendlyUrl?: string }) {
                 ))}
                 
                 {/* Duplicate set for seamless loop */}
-                {Array.from({ length: 8 }).map((_, index) => (
+                {[
+                  { src: '/nbc.jpg', alt: 'NBC Affiliate Marketing' },
+                  { src: '/aw.png', alt: 'Americas Wire' },
+                  { src: '/yf.png', alt: 'Yahoo Finance' },
+                  { src: '/nwr.png', alt: 'Access Newswire' },
+                  { src: '/ba.png', alt: 'Acquisition International' },
+                  { src: '/bi.jpeg', alt: 'Business Insider' },
+                  { src: '/forbes.svg', alt: 'Forbes' }
+                ].map((logo, index) => (
                   <div 
                     key={`logo-set2-${index}`}
                     className="flex-shrink-0 w-20 h-12 lg:w-24 lg:h-12 xl:w-32 xl:h-16 flex items-center justify-center"
                   >
                     <Image 
-                      src="/logo1.png" 
-                      alt="Partner Logo" 
+                      src={logo.src} 
+                      alt={logo.alt} 
                       width={128} 
                       height={64} 
                       className="max-w-full max-h-full object-contain"
@@ -187,14 +203,22 @@ export function Hero({ calendlyUrl }: { calendlyUrl?: string }) {
               {/* Horizontal scrolling logos */}
               <div className="flex animate-scroll-horizontal items-center space-x-4">
                 {/* First set of logos */}
-                {Array.from({ length: 8 }).map((_, index) => (
+                {[
+                  { src: '/nbc.jpg', alt: 'NBC Affiliate Marketing' },
+                  { src: '/aw.png', alt: 'Americas Wire' },
+                  { src: '/yf.png', alt: 'Yahoo Finance' },
+                  { src: '/nwr.png', alt: 'Access Newswire' },
+                  { src: '/ba.png', alt: 'Acquisition International' },
+                  { src: '/bi.jpeg', alt: 'Business Insider' },
+                  { src: '/forbes.svg', alt: 'Forbes' }
+                ].map((logo, index) => (
                   <div 
                     key={`mobile-logo-set1-${index}`}
                     className="flex-shrink-0 w-16 h-10 flex items-center justify-center"
                   >
                     <Image 
-                      src="/logo1.png" 
-                      alt="Partner Logo" 
+                      src={logo.src} 
+                      alt={logo.alt} 
                       width={64} 
                       height={40} 
                       className="max-w-full max-h-full object-contain"
@@ -204,14 +228,22 @@ export function Hero({ calendlyUrl }: { calendlyUrl?: string }) {
                 ))}
                 
                 {/* Duplicate set for seamless loop */}
-                {Array.from({ length: 8 }).map((_, index) => (
+                {[
+                  { src: '/nbc.jpg', alt: 'NBC Affiliate Marketing' },
+                  { src: '/aw.png', alt: 'Americas Wire' },
+                  { src: '/yf.png', alt: 'Yahoo Finance' },
+                  { src: '/nwr.png', alt: 'Access Newswire' },
+                  { src: '/ba.png', alt: 'Acquisition International' },
+                  { src: '/bi.jpeg', alt: 'Business Insider' },
+                  { src: '/forbes.svg', alt: 'Forbes' }
+                ].map((logo, index) => (
                   <div 
                     key={`mobile-logo-set2-${index}`}
                     className="flex-shrink-0 w-16 h-10 flex items-center justify-center"
                   >
                     <Image 
-                      src="/logo1.png" 
-                      alt="Partner Logo" 
+                      src={logo.src} 
+                      alt={logo.alt} 
                       width={64} 
                       height={40} 
                       className="max-w-full max-h-full object-contain"
