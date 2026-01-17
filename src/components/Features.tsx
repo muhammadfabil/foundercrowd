@@ -140,9 +140,149 @@ const ImageCarousel = React.memo(() => {
 
   return (
     <div className="mb-28">
+      {/* As Seen On Section */}
+      <div className="w-full mb-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Desktop version - horizontal */}
+          <div className="hidden md:flex items-center">
+            {/* "As Seen On" text - fixed position */}
+            <div className="flex-shrink-0 mr-2 lg:mr-16 z-20">
+              <p className="text-sm lg:text-base text-black whitespace-nowrap font-bold">As Seen On</p>
+            </div>
+            
+            {/* Logo scrolling container */}
+            <div className="flex-1 relative overflow-hidden">
+              {/* Gradient fade effects */}
+              <div className="absolute left-0 top-0 w-8 lg:w-16 h-full bg-gradient-to-r from-white to-transparent z-10"></div>
+              <div className="absolute right-0 top-0 w-8 lg:w-16 h-full bg-gradient-to-l from-white to-transparent z-10"></div>
+              
+              {/* Scrolling logos horizontal */}
+              <div className="flex animate-scroll-horizontal items-center space-x-6 lg:space-x-12">
+                {/* First set of logos */}
+                {[
+                  { src: '/nbc.jpg', alt: 'NBC Affiliate Marketing' },
+                  { src: '/aw.png', alt: 'Americas Wire' },
+                  { src: '/yf.png', alt: 'Yahoo Finance' },
+                  { src: '/nwr.png', alt: 'Access Newswire' },
+                  { src: '/ba.png', alt: 'Acquisition International' },
+                  { src: '/bi.jpeg', alt: 'Business Insider' },
+                  { src: '/forbes.svg', alt: 'Forbes' }
+                ].map((logo, index) => (
+                  <div 
+                    key={`logo-set1-${index}`}
+                    className="flex-shrink-0 w-20 h-12 lg:w-24 lg:h-12 xl:w-32 xl:h-16 flex items-center justify-center"
+                  >
+                    <Image 
+                      src={logo.src} 
+                      alt={logo.alt} 
+                      width={128} 
+                      height={64} 
+                      className="max-w-full max-h-full object-contain"
+                      priority={false}
+                    />
+                  </div>
+                ))}
+                
+                {/* Duplicate set for seamless loop */}
+                {[
+                  { src: '/nbc.jpg', alt: 'NBC Affiliate Marketing' },
+                  { src: '/aw.png', alt: 'Americas Wire' },
+                  { src: '/yf.png', alt: 'Yahoo Finance' },
+                  { src: '/nwr.png', alt: 'Access Newswire' },
+                  { src: '/ba.png', alt: 'Acquisition International' },
+                  { src: '/bi.jpeg', alt: 'Business Insider' },
+                  { src: '/forbes.svg', alt: 'Forbes' }
+                ].map((logo, index) => (
+                  <div 
+                    key={`logo-set2-${index}`}
+                    className="flex-shrink-0 w-20 h-12 lg:w-24 lg:h-12 xl:w-32 xl:h-16 flex items-center justify-center"
+                  >
+                    <Image 
+                      src={logo.src} 
+                      alt={logo.alt} 
+                      width={128} 
+                      height={64} 
+                      className="max-w-full max-h-full object-contain"
+                      priority={false}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile version - improved layout */}
+          <div className="md:hidden">
+            <div className="text-center mb-4">
+              <p className="text-sm text-black font-bold">As Seen On</p>
+            </div>
+            
+            <div className="relative overflow-hidden">
+              {/* Gradient fade effects for horizontal */}
+              <div className="absolute left-0 top-0 w-6 h-full bg-gradient-to-r from-white to-transparent z-10"></div>
+              <div className="absolute right-0 top-0 w-6 h-full bg-gradient-to-l from-white to-transparent z-10"></div>
+              
+              {/* Horizontal scrolling logos */}
+              <div className="flex animate-scroll-horizontal items-center space-x-4">
+                {/* First set of logos */}
+                {[
+                  { src: '/nbc.jpg', alt: 'NBC Affiliate Marketing' },
+                  { src: '/aw.png', alt: 'Americas Wire' },
+                  { src: '/yf.png', alt: 'Yahoo Finance' },
+                  { src: '/nwr.png', alt: 'Access Newswire' },
+                  { src: '/ba.png', alt: 'Acquisition International' },
+                  { src: '/bi.jpeg', alt: 'Business Insider' },
+                  { src: '/forbes.svg', alt: 'Forbes' }
+                ].map((logo, index) => (
+                  <div 
+                    key={`mobile-logo-set1-${index}`}
+                    className="flex-shrink-0 w-16 h-10 flex items-center justify-center"
+                  >
+                    <Image 
+                      src={logo.src} 
+                      alt={logo.alt} 
+                      width={64} 
+                      height={40} 
+                      className="max-w-full max-h-full object-contain"
+                      priority={false}
+                    />
+                  </div>
+                ))}
+                
+                {/* Duplicate set for seamless loop */}
+                {[
+                  { src: '/nbc.jpg', alt: 'NBC Affiliate Marketing' },
+                  { src: '/aw.png', alt: 'Americas Wire' },
+                  { src: '/yf.png', alt: 'Yahoo Finance' },
+                  { src: '/nwr.png', alt: 'Access Newswire' },
+                  { src: '/ba.png', alt: 'Acquisition International' },
+                  { src: '/bi.jpeg', alt: 'Business Insider' },
+                  { src: '/forbes.svg', alt: 'Forbes' }
+                ].map((logo, index) => (
+                  <div 
+                    key={`mobile-logo-set2-${index}`}
+                    className="flex-shrink-0 w-16 h-10 flex items-center justify-center"
+                  >
+                    <Image 
+                      src={logo.src} 
+                      alt={logo.alt} 
+                      width={64} 
+                      height={40} 
+                      className="max-w-full max-h-full object-contain"
+                      priority={false}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <h2 className="text-4xl md:text-5xl font-medium text-black mb-4">
         The one platform behind the next generation of startups
       </h2>
+
       <p className="text-black text-xl md:text-2xl mt-6 mb-12 max-w-5xl">
         {phrases.map((phrase, index) => (
           <span 
