@@ -147,7 +147,7 @@ const ImageCarousel = React.memo(() => {
           <div className="hidden md:flex items-center">
             {/* "As Seen On" text - fixed position */}
             <div className="flex-shrink-0 mr-2 lg:mr-16 z-20">
-              <p className="text-sm lg:text-base text-black whitespace-nowrap font-bold">As Seen On</p>
+              <p className="text-sm lg:text-base text-black whitespace-nowrap font-bold">As Seen On1</p>
             </div>
             
             {/* Logo scrolling container */}
