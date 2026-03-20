@@ -408,7 +408,7 @@ const WhySpaceFundingPage = memo(() => {
                 </p>
               </div>
 
-              <div className="bg-gradient-to-r from-[#5271ff] to-[#5271ff] p-8 rounded-2xl text-[#2B2B2B] shadow-lg mb-10">
+              <div className="bg-gradient-to-r from-[#5271ff] to-[#5271ff] p-8 rounded-2xl text-white shadow-lg mb-10">
                 <h3 className="text-2xl md:text-3xl font-bold mb-4 text-center">
                   Help founders raise $1 billion by 2030
                 </h3>
