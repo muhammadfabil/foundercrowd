@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Founderscrowd - Guiding Founders, Inspiring Investors",
+  title: "Space Funding - Guiding Founders, Inspiring Investors",
   description: "On a mission to transform how startups raise capital by making the process as easy as buying your favorite product online. From matching to due diligence, our platform streamlines the investment process.",
   keywords: [
     "startup funding",
@@ -11,11 +11,11 @@ export const metadata: Metadata = {
     "startup platform",
     "due diligence",
     "investment matching",
-    "founderscrowd"
+    "Space Funding"
   ],
-  authors: [{ name: "Founderscrowd" }],
-  creator: "Founderscrowd",
-  publisher: "Founderscrowd",
+  authors: [{ name: "Space Funding" }],
+  creator: "Space Funding",
+  publisher: "Space Funding",
   robots: {
     index: true,
     follow: true,
@@ -30,25 +30,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://founderscrowd.com",
-    title: "Founderscrowd - Guiding Founders, Inspiring Investors",
+    url: "https://Space Funding.com",
+    title: "Space Funding - Guiding Founders, Inspiring Investors",
     description: "Transform how startups raise capital. From matching to due diligence, our platform streamlines the investment process in minutes, not months.",
-    siteName: "Founderscrowd",
+    siteName: "Space Funding",
     images: [
       {
         url: "/logo.png",
         width: 1200,
         height: 630,
-        alt: "Founderscrowd - Startup Funding Platform",
+        alt: "Space Funding - Startup Funding Platform",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Founderscrowd - Guiding Founders, Inspiring Investors",
+    title: "Space Funding - Guiding Founders, Inspiring Investors",
     description: "Transform how startups raise capital. From matching to due diligence, our platform streamlines the investment process in minutes, not months.",
     images: ["/og-image.png"],
-    creator: "@founderscrowd",
+    creator: "@Space Funding",
   },
   icons: {
     icon: "/logo.png",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   other: {
-    "theme-color": "#F3EFE7",
+    "theme-color": "#f2f5ff",
     "color-scheme": "light",
   },
 };

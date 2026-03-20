@@ -3,7 +3,7 @@
 import React, { useState, useEffect, memo, useCallback, useMemo } from 'react';
 
 // First, set a default Calendly URL at the top level
-const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
+const DEFAULT_CALENDLY_URL = "https://calendly.com/Space Fundings/30min";
 
 const stepsData = [
   {
@@ -99,6 +99,8 @@ const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
 
   const observers = useMemo(() => {
     const obs = new Map();
+    if (typeof window === 'undefined' || !window.IntersectionObserver) return obs;
+    
     stepsData.forEach((step) => {
       const observer = new IntersectionObserver(
         (entries) => {
@@ -198,7 +200,7 @@ const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
                             height="10" 
                             viewBox="0 0 14 10" 
                             fill="none" 
-                            className="text-orange-500"
+                            className="text-[#5271ff]"
                           >
                             <path 
                               d="M1 5L5 9L13 1" 

@@ -3,26 +3,26 @@ import React, { memo, useMemo } from "react";
 import CTAButton from './CTAButton'; // Replace CalendlyModal import
 
 const testimonials = [
-  { id: 1, name: "Sarah Johnson", username: "@sarahj_founder", avatar: "SJ", text: "FounderCrowd made raising capital so much easier. The process was streamlined and professional.", platform: "twitter", link: "https://twitter.com/sarahj_founder/status/1234567890" },
+  { id: 1, name: "Sarah Johnson", username: "@sarahj_founder", avatar: "SJ", text: "Space Funding made raising capital so much easier. The process was streamlined and professional.", platform: "twitter", link: "https://twitter.com/sarahj_founder/status/1234567890" },
   { id: 2, name: "Michael Chen", username: "@mikec_startup", avatar: "MC", text: "Finally, a platform that understands what founders need. Highly recommended!", platform: "linkedin", link: "https://linkedin.com/in/mikec-startup" },
   { id: 3, name: "Emily Rodriguez", username: "@emily_ventures", avatar: "ER", text: "The investor matching feature is incredible. Connected with perfect investors in days, not months.", platform: "twitter", link: "https://twitter.com/emily_ventures/status/1234567891" },
-  { id: 4, name: "David Park", username: "@davidpark_ceo", avatar: "DP", text: "FounderCrowd has blown my mind 🤯. No iterations, no changes needed.", platform: "twitter", link: "https://twitter.com/davidpark_ceo/status/1234567892" },
-  { id: 5, name: "Lisa Thompson", username: "@lisa_tech", avatar: "LT", text: "Just raised $2M using FounderCrowd. The due diligence process was seamless.", platform: "linkedin", link: "https://linkedin.com/in/lisa-tech" },
-  { id: 6, name: "James Wilson", username: "@jameswilson", avatar: "JW", text: "What makes FounderCrowd special is the interaction quality and speed.", platform: "twitter", link: "https://twitter.com/jameswilson/status/1234567893" },
+  { id: 4, name: "David Park", username: "@davidpark_ceo", avatar: "DP", text: "Space Funding has blown my mind 🤯. No iterations, no changes needed.", platform: "twitter", link: "https://twitter.com/davidpark_ceo/status/1234567892" },
+  { id: 5, name: "Lisa Thompson", username: "@lisa_tech", avatar: "LT", text: "Just raised $2M using Space Funding. The due diligence process was seamless.", platform: "linkedin", link: "https://linkedin.com/in/lisa-tech" },
+  { id: 6, name: "James Wilson", username: "@jameswilson", avatar: "JW", text: "What makes Space Funding special is the interaction quality and speed.", platform: "twitter", link: "https://twitter.com/jameswilson/status/1234567893" },
   { id: 7, name: "Maria Garcia", username: "@maria_startup", avatar: "MG", text: "Amazing understanding of founder needs and thorough handling of investor relations.", platform: "producthunt", link: "https://producthunt.com/@maria_startup" },
-  { id: 8, name: "Robert Kim", username: "@robert_founder", avatar: "RK", text: "FounderCrowd revolutionizes fundraising by enabling founders to focus on building.", platform: "linkedin", link: "https://linkedin.com/in/robert-founder" },
+  { id: 8, name: "Robert Kim", username: "@robert_founder", avatar: "RK", text: "Space Funding revolutionizes fundraising by enabling founders to focus on building.", platform: "linkedin", link: "https://linkedin.com/in/robert-founder" },
   { id: 9, name: "Jessica Lee", username: "@jess_ventures", avatar: "JL", text: "The compliance features saved us months of legal work. Absolutely brilliant!", platform: "twitter", link: "https://twitter.com/jess_ventures/status/1234567894" },
-  { id: 10, name: "Alex Turner", username: "@alexturner_cto", avatar: "AT", text: "I gave FounderCrowd a try and I must be truthful, it exceeded all expectations.", platform: "twitter", link: "https://twitter.com/alexturner_cto/status/1234567895" },
+  { id: 10, name: "Alex Turner", username: "@alexturner_cto", avatar: "AT", text: "I gave Space Funding a try and I must be truthful, it exceeded all expectations.", platform: "twitter", link: "https://twitter.com/alexturner_cto/status/1234567895" },
   { id: 11, name: "Rachel Davis", username: "@rachel_angel", avatar: "RD", text: "As an investor, this platform makes due diligence so much more efficient.", platform: "linkedin", link: "https://linkedin.com/in/rachel-angel" },
   { id: 12, name: "Tom Anderson", username: "@tom_startup", avatar: "TA", text: "Started my fundraising journey here and couldn't be happier with the results.", platform: "producthunt", link: "https://producthunt.com/@tom_startup" },
   { id: 13, name: "Sophie Brown", username: "@sophie_tech", avatar: "SB", text: "The investor network quality is unmatched. Connected with tier-1 VCs easily.", platform: "twitter", link: "https://twitter.com/sophie_tech/status/1234567896" },
-  { id: 14, name: "Kevin Martinez", username: "@kevin_founder", avatar: "KM", text: "FounderCrowd has completely changed how I think about raising capital.", platform: "linkedin", link: "https://linkedin.com/in/kevin-founder" },
+  { id: 14, name: "Kevin Martinez", username: "@kevin_founder", avatar: "KM", text: "Space Funding has completely changed how I think about raising capital.", platform: "linkedin", link: "https://linkedin.com/in/kevin-founder" },
   { id: 15, name: "Amanda White", username: "@amanda_ceo", avatar: "AW", text: "The platform's automation features are incredible. Everything just works!", platform: "twitter", link: "https://twitter.com/amanda_ceo/status/1234567897" },
-  { id: 16, name: "Daniel Taylor", username: "@dan_ventures", avatar: "DT", text: "Raised our Series A in record time thanks to FounderCrowd's streamlined process.", platform: "linkedin", link: "https://linkedin.com/in/dan-ventures" },
+  { id: 16, name: "Daniel Taylor", username: "@dan_ventures", avatar: "DT", text: "Raised our Series A in record time thanks to Space Funding's streamlined process.", platform: "linkedin", link: "https://linkedin.com/in/dan-ventures" },
   { id: 17, name: "Grace Liu", username: "@grace_startup", avatar: "GL", text: "The regulatory compliance tools are a game-changer for any fundraising campaign.", platform: "producthunt", link: "https://producthunt.com/@grace_startup" },
   { id: 18, name: "Chris Johnson", username: "@chris_tech", avatar: "CJ", text: "Never thought fundraising could be this straightforward and professional.", platform: "twitter", link: "https://twitter.com/chris_tech/status/1234567898" },
   { id: 19, name: "Olivia Chen", username: "@olivia_founder", avatar: "OC", text: "The investor matching algorithm is spot-on. Found perfect fit investors immediately.", platform: "linkedin", link: "https://linkedin.com/in/olivia-founder" },
-  { id: 20, name: "Mark Robinson", username: "@mark_ceo", avatar: "MR", text: "FounderCrowd's approach to capital raising is revolutionary. Highly recommend!", platform: "twitter", link: "https://twitter.com/mark_ceo/status/1234567899" },
+  { id: 20, name: "Mark Robinson", username: "@mark_ceo", avatar: "MR", text: "Space Funding's approach to capital raising is revolutionary. Highly recommend!", platform: "twitter", link: "https://twitter.com/mark_ceo/status/1234567899" },
   { id: 21, name: "Victoria Singh", username: "@victoria_vc", avatar: "VS", text: "As an investor, I love how easy it is to discover and evaluate opportunities.", platform: "linkedin", link: "https://linkedin.com/in/victoria-vc" },
   { id: 22, name: "Jason Wong", username: "@jason_startup", avatar: "JW", text: "The documentation and legal support made our fundraising process seamless.", platform: "producthunt", link: "https://producthunt.com/@jason_startup" },
   { id: 23, name: "Lauren Adams", username: "@lauren_tech", avatar: "LA", text: "Finally, a fundraising platform built by founders, for founders.", platform: "twitter", link: "https://twitter.com/lauren_tech/status/1234567900" },
@@ -46,7 +46,7 @@ const PlatformIcon = memo(({ platform }: { platform: string }) => {
       );
     case "producthunt":
       return (
-        <div className="w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center">
+        <div className="w-4 h-4 bg-[#5271ff] rounded-full flex items-center justify-center">
           <span className="text-white text-xs font-bold">P</span>
         </div>
       );
@@ -92,11 +92,11 @@ const Testimony = memo(({ calendlyUrl }: TestimonyProps) => {
   const duplicatedTestimonials = useMemo(() => [...testimonials, ...testimonials], []);
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#F4F4F3] to-[#EBFEB3] font-figtree overflow-hidden relative">
+    <section className="py-24 bg-gradient-to-b from-[#F8FAFC] to-[#dce4ff] font-figtree overflow-hidden relative">
       <div className="max-w-6xl mx-auto px-4 text-center mb-20">
         <h2 className="text-4xl lg:text-5xl font-medium text-gray-900 mb-6 leading-tight">
-          "Okay, <span className="text-orange-500">FounderCrowd</span>{" "}
-          <span className="text-orange-500">blown my mind.</span>"
+          "Okay, <span className="text-[#5271ff]">Space Funding</span>{" "}
+          <span className="text-[#5271ff]">blown my mind.</span>"
         </h2>
         <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
           And other great things our users say about us.
@@ -105,7 +105,7 @@ const Testimony = memo(({ calendlyUrl }: TestimonyProps) => {
         {/* Updated CTA Button - Keep black styling to match section */}
         <CTAButton 
          
-          className="bg-amber-600 text-white hover:bg-gray-800 hover:scale-100"
+          className="bg-[#5271ff] text-white hover:bg-[#5271ff]/90 hover:scale-100"
           size="md"
         >
           Start Raising
@@ -131,8 +131,8 @@ const Testimony = memo(({ calendlyUrl }: TestimonyProps) => {
       </div>
 
       {/* Gradient overlays for infinite scroll effect - Hidden on mobile */}
-      <div className="hidden md:block absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-[#F4F4F3] to-transparent pointer-events-none z-10"></div>
-      <div className="hidden md:block absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-[#EBFEB3] to-transparent pointer-events-none z-10"></div>
+      <div className="hidden md:block absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none z-10"></div>
+      <div className="hidden md:block absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-[#dce4ff] to-transparent pointer-events-none z-10"></div>
 
       <style jsx>{`
         @keyframes scroll-right {

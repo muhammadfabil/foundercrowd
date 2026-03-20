@@ -72,7 +72,7 @@ let numbersOfRings = [0];
 /**
  * Core Globe (colors locked to brand):
  * - Sphere: #2B2B2B
- * - Continents: #F59E0B
+ * - Continents: #5271ff
  */
 export function Globe({ globeConfig = {}, data = [] }: WorldProps) {
   const globeRef = useRef<any>(null);
@@ -97,10 +97,10 @@ export function Globe({ globeConfig = {}, data = [] }: WorldProps) {
     | "maxRings"
   >> = {
     pointSize: 1.6,
-    atmosphereColor: "#F59E0B",
+    atmosphereColor: "#5271ff",
     showAtmosphere: false,
     atmosphereAltitude: 0.06,
-    polygonColor: "#F59E0B", // Continents amber
+    polygonColor: "#5271ff", // Continents amber
     globeColor: "#2B2B2B", // Base globe dark gray
     emissive: "#1f1f1f",
     emissiveIntensity: 0.35,
@@ -171,13 +171,13 @@ export function Globe({ globeConfig = {}, data = [] }: WorldProps) {
   useEffect(() => {
     if (!globeRef.current || !isInitialized || !isLibraryLoaded) return;
 
-    const arcs = (data || []).map((arc) => ({ ...arc, color: "#F59E0B" }));
+    const arcs = (data || []).map((arc) => ({ ...arc, color: "#5271ff" }));
 
     let points: PointData[] = [];
     for (let i = 0; i < arcs.length; i++) {
       const arc = arcs[i];
-      points.push({ size: defaultProps.pointSize, order: arc.order, color: "#F59E0B", lat: arc.startLat, lng: arc.startLng });
-      points.push({ size: defaultProps.pointSize, order: arc.order, color: "#F59E0B", lat: arc.endLat, lng: arc.endLng });
+      points.push({ size: defaultProps.pointSize, order: arc.order, color: "#5271ff", lat: arc.startLat, lng: arc.startLng });
+      points.push({ size: defaultProps.pointSize, order: arc.order, color: "#5271ff", lat: arc.endLat, lng: arc.endLng });
     }
 
     const filteredPoints = points.filter(
@@ -192,7 +192,7 @@ export function Globe({ globeConfig = {}, data = [] }: WorldProps) {
       .showAtmosphere(globeConfig.showAtmosphere ?? defaultProps.showAtmosphere)
       .atmosphereColor(globeConfig.atmosphereColor ?? defaultProps.atmosphereColor)
       .atmosphereAltitude(globeConfig.atmosphereAltitude ?? defaultProps.atmosphereAltitude)
-      .hexPolygonColor(() => globeConfig.polygonColor ?? defaultProps.polygonColor); // #F59E0B
+      .hexPolygonColor(() => globeConfig.polygonColor ?? defaultProps.polygonColor); // #5271ff
 
     globeRef.current
       .arcsData(arcs)
@@ -200,7 +200,7 @@ export function Globe({ globeConfig = {}, data = [] }: WorldProps) {
       .arcStartLng((d: Position) => d.startLng)
       .arcEndLat((d: Position) => d.endLat)
       .arcEndLng((d: Position) => d.endLng)
-      .arcColor(() => "#F59E0B")
+      .arcColor(() => "#5271ff")
       .arcAltitude((d: Position) => d.arcAlt)
       .arcStroke(() => [0.8, 1.0, 1.2][Math.round(Math.random() * 2)])
       .arcDashLength(behaviorConfig.arcLength)
@@ -210,14 +210,14 @@ export function Globe({ globeConfig = {}, data = [] }: WorldProps) {
 
     globeRef.current
       .pointsData(filteredPoints)
-      .pointColor(() => "#F59E0B")
+      .pointColor(() => "#5271ff")
       .pointsMerge(true)
       .pointAltitude(0.01)
       .pointRadius(2.5);
 
     globeRef.current
       .ringsData([])
-      .ringColor(() => "#F59E0B")
+      .ringColor(() => "#5271ff")
       .ringMaxRadius(behaviorConfig.maxRings)
       .ringPropagationSpeed(RING_PROPAGATION_SPEED)
       .ringRepeatPeriod((behaviorConfig.arcTime * behaviorConfig.arcLength) / Math.max(1, behaviorConfig.rings));
@@ -234,7 +234,7 @@ export function Globe({ globeConfig = {}, data = [] }: WorldProps) {
 
       const ringsData = data
         .filter((_, i) => newNumbersOfRings.includes(i))
-        .map((d) => ({ lat: d.startLat, lng: d.startLng, color: "#F59E0B" }));
+        .map((d) => ({ lat: d.startLat, lng: d.startLng, color: "#5271ff" }));
 
       globeRef.current.ringsData(ringsData);
     }, 2000);
@@ -281,8 +281,8 @@ export function World(props: WorldProps) {
         <ambientLight color="#ffffff" intensity={0.6} />
         <directionalLight color="#ffffff" position={new Vector3(-400, 100, 400)} intensity={1.1} />
         <directionalLight color="#ffffff" position={new Vector3(400, 100, -400)} intensity={0.9} />
-        <pointLight color="#F59E0B" position={new Vector3(-200, 500, 200)} intensity={0.7} />
-        <pointLight color="#F59E0B" position={new Vector3(200, -500, -200)} intensity={0.5} />
+        <pointLight color="#5271ff" position={new Vector3(-200, 500, 200)} intensity={0.7} />
+        <pointLight color="#5271ff" position={new Vector3(200, -500, -200)} intensity={0.5} />
 
         <Globe {...props} />
 
@@ -299,9 +299,9 @@ export function World(props: WorldProps) {
       </Canvas>
 
       {/* Optional UI overlay examples (can be removed) */}
-      <div className="absolute bottom-8 left-8 text-[#F59E0B] text-xs sm:text-sm font-mono">
+      <div className="absolute bottom-8 left-8 text-[#5271ff] text-xs sm:text-sm font-mono">
         <div className="flex items-center mb-1">
-          <div className="w-2 h-2 rounded-full bg-[#F59E0B] mr-2 animate-pulse shadow-lg shadow-[#F59E0B]/50"></div>
+          <div className="w-2 h-2 rounded-full bg-[#5271ff] mr-2 animate-pulse shadow-lg shadow-[#5271ff]/50"></div>
           <span className="text-shadow-glow">300 POINTS OF PRESENCE</span>
         </div>
         <div className="pl-4 text-white/90 font-medium">

@@ -22,7 +22,7 @@ const testimonials = [
     name: "Sarah Johnson", 
     company: "TechInnovate", 
     country: "US", 
-    testimonial: "FounderCrowd helped us secure our Series A funding in half the time we expected. The platform connected us with investors who truly understood our vision.", 
+    testimonial: "Space Funding helped us secure our Series A funding in half the time we expected. The platform connected us with investors who truly understood our vision.", 
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
     investment: "$125,000 USD"
   },
@@ -31,7 +31,7 @@ const testimonials = [
     name: "James Wilson", 
     company: "Fintech Solutions", 
     country: "GB", 
-    testimonial: "As a fintech startup in London, we needed specialized investors. FounderCrowd's targeted matching algorithm connected us with the perfect partners.", 
+    testimonial: "As a fintech startup in London, we needed specialized investors. Space Funding's targeted matching algorithm connected us with the perfect partners.", 
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
     investment: "£100,000 GBP"
   },
@@ -40,7 +40,7 @@ const testimonials = [
     name: "Emma Thompson", 
     company: "HealthTech Pro", 
     country: "AU", 
-    testimonial: "We were able to find investors who specialize in healthcare technology through FounderCrowd, making our Series B round remarkably smooth.", 
+    testimonial: "We were able to find investors who specialize in healthcare technology through Space Funding, making our Series B round remarkably smooth.", 
     image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=400&fit=crop&crop=face",
     investment: "1,000 AUD"
   },
@@ -49,7 +49,7 @@ const testimonials = [
     name: "Maria Garcia", 
     company: "GreenEnergy Spain", 
     country: "ES", 
-    testimonial: "FounderCrowd made global fundraising accessible for our Spanish startup. We connected with international investors effortlessly.", 
+    testimonial: "Space Funding made global fundraising accessible for our Spanish startup. We connected with international investors effortlessly.", 
     image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=400&fit=crop&crop=face",
     investment: "150,000 EUR"
   },
@@ -58,7 +58,7 @@ const testimonials = [
     name: "Anna Schmidt", 
     company: "GreenEnergy", 
     country: "DE", 
-    testimonial: "The comprehensive tools on FounderCrowd made our fundraising process efficient and transparent. We closed our €2M round in just two months.", 
+    testimonial: "The comprehensive tools on Space Funding made our fundraising process efficient and transparent. We closed our €2M round in just two months.", 
     image: "/ger.jpg",
     investment: "250,000 EUR"
   },
@@ -67,7 +67,7 @@ const testimonials = [
     name: "Hiroshi Tanaka", 
     company: "AI Solutions Japan", 
     country: "JP", 
-    testimonial: "FounderCrowd's platform provided incredible exposure to global investors, helping our Japanese startup scale internationally.", 
+    testimonial: "Space Funding's platform provided incredible exposure to global investors, helping our Japanese startup scale internationally.", 
     image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&h=400&fit=crop&crop=face",
     investment: "¥20,000,000 JPY"
   },
@@ -188,8 +188,8 @@ const TestimonialMap = memo(() => {
                 ${isRow ? "w-12 h-12" : "w-16 h-16"} 
                 rounded-xl flex items-center justify-center border-2 transition-all duration-300
                 ${isActive 
-                  ? "bg-[#F59E0B] border-[#F59E0B] shadow-lg transform scale-105" 
-                  : "bg-white border-[#2B2B2B]/20 hover:border-[#F59E0B] hover:shadow-md"
+                  ? "bg-[#5271ff] border-[#5271ff] shadow-lg transform scale-105" 
+                  : "bg-white border-[#2B2B2B]/20 hover:border-[#5271ff] hover:shadow-md"
                 }
               `}
               whileHover={{ scale: isActive ? 1.05 : 1.1 }}
@@ -246,7 +246,7 @@ const TestimonialMap = memo(() => {
         </div>
         
         {/* Button (25% height) */}
-        <div className="h-[25%] bg-[#2B2B2B] text-white flex items-center justify-center hover:bg-[#F59E0B] transition-colors duration-300">
+        <div className="h-[25%] bg-[#2B2B2B] text-white flex items-center justify-center hover:bg-[#5271ff] transition-colors duration-300">
           <button className="text-center font-medium py-2 px-4 text-sm">
             Invested
           </button>
@@ -267,7 +267,7 @@ const TestimonialMap = memo(() => {
             transition={{ duration: 0.6 }}
           >
             Raise from all Around the World <br/>
-            <span className="text-[#F59E0B]"> Invest and raise everywhere</span>
+            <span className="text-[#5271ff]"> Invest and raise everywhere</span>
           </motion.h2>
           <motion.p 
             className="text-[#2B2B2B]/70 text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-2"
@@ -275,13 +275,13 @@ const TestimonialMap = memo(() => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            FoundersCrowd takes the complexity out of global fundraising. From connecting with investors worldwide to growing your brand and community, we make raising capital as simple as investing online.
+            Space Funding takes the complexity out of global fundraising. From connecting with investors worldwide to growing your brand and community, we make raising capital as simple as investing online.
           </motion.p>
         </div>
 
         {/* Main Container */}
         <motion.div 
-          className="bg-[#F3EFE7] rounded-2xl md:rounded-3xl p-4 md:p-6 lg:p-8 shadow-xl border border-[#2B2B2B]/10 backdrop-blur-sm"
+          className="bg-[#f2f5ff] rounded-2xl md:rounded-3xl p-4 md:p-6 lg:p-8 shadow-xl border border-[#2B2B2B]/10 backdrop-blur-sm"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -362,7 +362,7 @@ const TestimonialMap = memo(() => {
                   <FlagIcon country={activeTestimonial.country} className="w-full h-full" />
                 </div>
                 <span>{activeTestimonial.name}</span>
-                <span className="text-[#F59E0B]">•</span>
+                <span className="text-[#5271ff]">•</span>
                 <span className="font-bold">{activeTestimonial.investment}</span>
               </div>
             </div>
@@ -392,10 +392,10 @@ const TestimonialMap = memo(() => {
 
             {/* Mobile: Text */}
             <div className="text-center">
-              <div className="inline-block p-4 bg-[#F59E0B]/10 border border-[#F59E0B]/20 rounded-2xl">
+              <div className="inline-block p-4 bg-[#5271ff]/10 border border-[#5271ff]/20 rounded-2xl">
                 <p className="text-[#2B2B2B] font-bold text-sm mb-1">From Funnel to Funding</p>
                 <p className="text-[#2B2B2B]/70 text-xs leading-relaxed">
-                  FoundersCrowd AI builds the path. FoundersCrowd Marketing gets you seen.
+                  Space Funding AI builds the path. Space Funding Marketing gets you seen.
                 </p>
               </div>
             </div>
@@ -413,11 +413,11 @@ const TestimonialMap = memo(() => {
                   orientation="col"
                 />
                 <div className="mt-8 text-center">
-                  <div className="inline-block p-4 bg-[#F59E0B]/10 border border-[#F59E0B]/20 rounded-2xl">
+                  <div className="inline-block p-4 bg-[#5271ff]/10 border border-[#5271ff]/20 rounded-2xl">
                     <p className="text-[#2B2B2B] font-bold text-sm mb-1">From Funnel to Funding</p>
                     <p className="text-[#2B2B2B]/70 text-xs leading-relaxed">
-                      FoundersCrowd AI builds the path.<br />
-                      FoundersCrowd Marketing gets you seen.
+                      Space Funding AI builds the path.<br />
+                      Space Funding Marketing gets you seen.
                     </p>
                   </div>
                 </div>
@@ -512,7 +512,7 @@ const TestimonialMap = memo(() => {
                       onClick={() => goToTestimonial(testimonials[index].id)}
                       className={`w-2 h-2 rounded-full transition-all duration-300 ${
                         index === activeIndex 
-                          ? 'bg-[#F59E0B] w-6' 
+                          ? 'bg-[#5271ff] w-6' 
                           : 'bg-[#2B2B2B]/30 hover:bg-[#2B2B2B]/60'
                       }`}
                     />

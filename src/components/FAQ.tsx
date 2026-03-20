@@ -5,19 +5,19 @@ import CTAButton from '@/components/CTAButton'; // Replace CalendlyModal import
 const faqData = [
     {
         id: 1,
-        question: 'What is FoundersCrowd?',
+        question: 'What is Space Funding?',
         answer:
-            'FoundersCrowd is the all-in-one platform where startups can raise capital online from anywhere in the world. We combine AI-powered investor funnels, global marketing tools, and compliance support to help founders launch and scale successful funding campaigns.',
+            'Space Funding is the all-in-one platform where startups can raise capital online from anywhere in the world. We combine AI-powered investor funnels, global marketing tools, and compliance support to help founders launch and scale successful funding campaigns.',
     },
     {
         id: 2,
-        question: 'Who can raise on FoundersCrowd?',
+        question: 'Who can raise on Space Funding?',
         answer:
-            'Any founder — from early-stage startups to growth companies — can raise capital on FoundersCrowd. We support multiple raise types, including Regulation CF, Regulation D, and Regulation A+.',
+            'Any founder — from early-stage startups to growth companies — can raise capital on Space Funding. We support multiple raise types, including Regulation CF, Regulation D, and Regulation A+.',
     },
     {
         id: 3,
-        question: 'How is FoundersCrowd different from other platforms?',
+        question: 'How is Space Funding different from other platforms?',
         answer:
             'We convert 20% higher on average than traditional platforms, with the lowest fees in the industry. Plus, we give you AI tools to optimize your campaign and global marketing to reach investors anywhere with an internet connection.',
     },
@@ -25,7 +25,7 @@ const faqData = [
         id: 4,
         question: 'How much can I raise?',
         answer:
-            'It depends on what you’re looking for. With FoundersCrowd you can raise anywhere from $50,000 to $5 million, and even beyond if your funding needs are larger. Reach out to our team and we’ll help you decide which raise type and strategy is the best fit for your goals.',
+            'It depends on what you’re looking for. With Space Funding you can raise anywhere from $50,000 to $5 million, and even beyond if your funding needs are larger. Reach out to our team and we’ll help you decide which raise type and strategy is the best fit for your goals.',
     },
     {
         id: 5,
@@ -37,17 +37,17 @@ const faqData = [
         id: 6,
         question: 'How quickly can I launch my campaign?',
         answer:
-            'With FoundersCrowd AI and our guided onboarding, you can go live in days, not months. We handle compliance, funnel setup, and campaign design so you can focus on your business.',
+            'With Space Funding AI and our guided onboarding, you can go live in days, not months. We handle compliance, funnel setup, and campaign design so you can focus on your business.',
     },
     {
         id: 7,
-        question: 'What does it cost to raise on FoundersCrowd?',
+        question: 'What does it cost to raise on Space Funding?',
         answer:
             'We operate on a founder-first pricing model: low upfront costs, transparent terms, and success-based fees. We only win when you win.',
     },
     {
         id: 8,
-        question: 'Is FoundersCrowd secure and compliant?',
+        question: 'Is Space Funding secure and compliant?',
         answer:
             'Yes. We integrate robust KYC/AML checks and work with trusted legal partners to keep your raise safe, compliant, and ready for global participation.',
     },
@@ -83,14 +83,14 @@ const FAQItem = memo(function FAQItem({
                 onClick={() => toggleFAQ(faq.id)}
                 className="hover:cursor-pointer w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-300 group"
             >
-                <h3 className="text-lg font-medium text-gray-900 pr-4 group-hover:text-orange-500 transition-colors duration-300">
+                <h3 className="text-lg font-medium text-gray-900 pr-4 group-hover:text-[#5271ff] transition-colors duration-300">
                     {faq.question}
                 </h3>
                 <div className="flex-shrink-0">
                     <div
                         className={`
                             w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center transition-all duration-300
-                            ${openFAQ === faq.id ? 'rotate-45 bg-orange-500' : 'rotate-0 group-hover:bg-gray-200'}
+                            ${openFAQ === faq.id ? 'rotate-45 bg-[#5271ff]' : 'rotate-0 group-hover:bg-gray-200'}
                         `}
                     >
                         <svg
@@ -147,7 +147,7 @@ const FAQ = () => {
                         Frequently Asked Questions
                     </h2>
                     <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                        Everything you need to know about FounderCrowd and how it works.
+                        Everything you need to know about Space Funding and how it works.
                     </p>
                 </div>
 

@@ -33,28 +33,28 @@ const useFeaturesData = () => useMemo(() => ({
     icon: FaHome,
     title: "Self-Hosted Investor Funnels",
     description: "Run your raise on your own branded funnel. Keep control, keep ownership, and connect directly with your investors.",
-    image: "/fix1.jpg"
+    image: "/fix1.png"
   },
   2: {
     id: 2,
     icon: FaRegChartBar,
     title: "Grow Your Brand",
     description: "Every raise is also a marketing engine. Turn investors into advocates who amplify your startup worldwide.",
-    image: "/fix2.jpg"
+    image: "/fix2.png"
   },
   3: {
     id: 3,
     icon: FaRegCreditCard,
     title: "Seamless Investor Checkout",
     description: "Investing is as simple as shopping online. Fast, secure, and friction-free for every backer.",
-    image: "/fix3.jpg"
+    image: "/fix3.png"
   },
   4: {
     id: 4,
     icon: FaFileSignature,
     title: "Sign Agreements",
     description: "No endless paperwork. Investors sign instantly with secure digital agreements, keeping your raise compliant and quick.",
-    image: "/fix4.jpg"
+    image: "/fix4.png"
   }
 } as Record<number, Feature>), []);
 
@@ -72,7 +72,7 @@ const FeatureList = React.memo(({ features, activeFeature, setActiveFeature }: {
           className={`
             cursor-pointer transition-all duration-300 rounded-xl p-6
             ${activeFeature === feature.id
-              ? 'bg-white shadow-lg border-l-4 border-[#FEA757]'
+              ? 'bg-white shadow-lg border-l-4 border-[#5271ff]'
               : 'hover:bg-white/50'}
           `}
           onClick={() => setActiveFeature(feature.id)}
@@ -290,7 +290,7 @@ const ImageCarousel = React.memo(() => {
             className={`
               inline-block px-1 py-0.5
               transition-all duration-300
-              ${activeTextIndex === index ? 'text-[#F59E0B]' : 'text-black'}
+              ${activeTextIndex === index ? 'text-[#5271ff]' : 'text-black'}
               hover:text-[#00c28a] cursor-pointer
             `}
           >
@@ -359,7 +359,7 @@ const Features = () => {
         {/* Original Features Section */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-medium text-black mb-4">
-            FoundersCrowd makes investing in startups as simple as buying a product online.
+            Space Funding makes investing in startups as simple as buying a product online.
           </h2>
         </div>
 

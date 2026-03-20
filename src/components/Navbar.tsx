@@ -122,23 +122,19 @@ export default function Navbar() {
           ].join(' ')}
         >
           {/* LEFT: Logo with Home Link */}
-          <Link href="/" className="flex items-center gap-2 z-[110] relative p-1">
+          <Link href="/" className="flex items-center gap-4 z-[110] relative p-1">
             <Image
               src="/logo.png"
-              alt="FoundersCrowd Logo"
-              width={56}
-              height={56}
-              className={`h-8 md:h-14 w-auto transition-all duration-300 ${
-                scrolled || isBlogPage
-                  ? '' 
-                  : 'filter invert brightness-0'
-              }`}
+              alt="Space Funding Logo"
+              width={40}
+              height={40}
+              className={`h-6 md:h-10 w-auto transition-all duration-300`}
               priority={true}
             />
             <span className={`font-medium text-base md:text-lg transition-all duration-300 ${
               scrolled || isBlogPage ? 'text-black' : 'text-white'
             }`}>
-              Founderscrowd
+              Space Funding
             </span>
           </Link>
 
@@ -161,8 +157,8 @@ export default function Navbar() {
               </button>
               <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="py-2">
-                  <Link href="/why-founderscrowd" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
-                    Why Founderscrowd
+                  <Link href="/why-space-funding" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
+                    Why Space Funding
                   </Link>
                   <Link href="/sports" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
                     Sports
@@ -178,7 +174,7 @@ export default function Navbar() {
             </div>
 
             {/* Investors Dropdown */}
-            <Link href="https://founderscrowd.beehiiv.com/" className="hover:opacity-80 transition-opacity">
+            <Link href="https://Space Funding.beehiiv.com/" className="hover:opacity-80 transition-opacity">
               Investors
             </Link>
 
@@ -216,7 +212,7 @@ export default function Navbar() {
               className={`hover:bg-white hover:text-black hidden md:block rounded-full px-4 md:px-6 py-2 md:py-2.5 text-xs md:text-sm font-medium transition-all duration-300 ${
                 scrolled || isBlogPage
                   ? 'bg-black text-white hover:bg-gray-800' 
-                  : 'bg-amber-600 text-white hover:bg-gray-100'
+                  : 'bg-[#5271ff] text-white hover:bg-[#5271ff]/90'
               }`}
             >
               Start Raising
@@ -276,8 +272,8 @@ export default function Navbar() {
                 </button>
                 {openDropdown === 'companies' && (
                   <div className="ml-4 space-y-1">
-                    <Link href="/why-founderscrowd" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
-                      Why Founderscrowd
+                    <Link href="/why-space-funding" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
+                      Why Space Funding
                     </Link>
                     <Link href="/sports" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
                       Sports
@@ -305,7 +301,7 @@ export default function Navbar() {
                 </button>
                 {openDropdown === 'investors' && (
                   <div className="ml-4 space-y-1">
-                    <Link href="https://founderscrowd.beehiiv.com/" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
+                    <Link href="https://Space Funding.beehiiv.com/" className="block py-2 px-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" onClick={handleCloseMobileMenu}>
                       Join our VIP program
                     </Link>
                   </div>

@@ -9,8 +9,8 @@ const Footer = () => {
           {/* Logo and Description */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-8">
-              <img src="/logo.png" alt="FoundersCrowd Logo" className="w-10 h-10 rounded-2xl object-cover" />
-              <span className="text-2xl font-semibold text-gray-900">Founderscrowd</span>
+              <img src="/logo.png" alt="Space Funding Logo" className="w-10 h-10 rounded-2xl object-cover" />
+              <span className="text-2xl font-semibold text-gray-900">Space Funding</span>
             </div>
             <p className="text-gray-600 leading-relaxed mb-8 max-w-md">
               The modern fundraising platform that connects founders with investors 
@@ -24,7 +24,7 @@ const Footer = () => {
                 href="https://x.com/ninjamagno" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
+                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-[#5271ff] hover:text-white transition-all duration-300 group"
               >
                 <svg className="w-4 h-4 text-gray-600 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -33,30 +33,30 @@ const Footer = () => {
               
               {/* Instagram */}
               <a 
-                href="https://www.instagram.com/founderscrowd/" 
+                href="https://www.instagram.com/Space Funding/" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
+                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-[#5271ff] hover:text-white transition-all duration-300 group"
               >
                 <FaInstagram className="w-4 h-4 text-gray-600 group-hover:text-white" />
               </a>
               
               {/* LinkedIn */}
               <a 
-                href="https://www.linkedin.com/company/founderscrowd/" 
+                href="https://www.linkedin.com/company/Space Funding/" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
+                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-[#5271ff] hover:text-white transition-all duration-300 group"
               >
                 <FaLinkedin className="w-4 h-4 text-gray-600 group-hover:text-white" />
               </a>
               
               {/* Beehiiv */}
               <a 
-                href="https://founderscrowd.beehiiv.com/subscribe" 
+                href="https://Space Funding.beehiiv.com/subscribe" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 group"
+                className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center hover:bg-[#5271ff] hover:text-white transition-all duration-300 group"
               >
                 <svg className="w-4 h-4 text-gray-600 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
@@ -77,8 +77,8 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="/why-founderscrowd" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
-                  Why Founderscrowd
+                <a href="/why-space-funding" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                  Why Space Funding
                 </a>
               </li>
               <li>
@@ -101,7 +101,7 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="https://founderscrowd.beehiiv.com/" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
+                <a href="https://Space Funding.beehiiv.com/" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm">
                   Join our VIP program
                 </a>
               </li>
@@ -142,7 +142,7 @@ const Footer = () => {
         <div className="border-t border-gray-100 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-500 text-sm">
-              © 2025 Founderscrowd. All rights reserved.
+              © 2025 Space Funding. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
               <a href="/status" className="text-gray-500 hover:text-gray-900 transition-colors duration-200 text-sm">

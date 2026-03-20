@@ -15,7 +15,7 @@ const rotatingTexts = [
   "Success IPO"
 ];
 
-const WhyFoundersCrowdPage = memo(() => {
+const WhySpaceFundingPage = memo(() => {
   const [scrollY, setScrollY] = useState(0);
   const [currentText, setCurrentText] = useState(0);
 
@@ -55,10 +55,10 @@ const WhyFoundersCrowdPage = memo(() => {
                     <span
                       key={text}
                       className={`absolute inset-0 transition-transform duration-700 ease-in-out ${index === currentText
-                          ? 'transform translate-y-0 opacity-100'
-                          : index === (currentText - 1 + rotatingTexts.length) % rotatingTexts.length
-                            ? 'transform -translate-y-full opacity-0'
-                            : 'transform translate-y-full opacity-0'
+                        ? 'transform translate-y-0 opacity-100'
+                        : index === (currentText - 1 + rotatingTexts.length) % rotatingTexts.length
+                          ? 'transform -translate-y-full opacity-0'
+                          : 'transform translate-y-full opacity-0'
                         }`}
                       style={{
                         color: '#5271ff' // [#5271ff] color for highlighted text
@@ -84,7 +84,7 @@ const WhyFoundersCrowdPage = memo(() => {
                   frameBorder="0"
                   allow="autoplay; fullscreen; picture-in-picture"
                   allowFullScreen
-                  title="FoundersCrowd vision video"
+                  title="Space Funding vision video"
                 />
               </div>
             </div>
@@ -154,7 +154,7 @@ const WhyFoundersCrowdPage = memo(() => {
                 <div className="overflow-hidden rounded-2xl shadow-xl">
                   <Image
                     src="/why1.jpg"
-                    alt="FoundersCrowD story illustration"
+                    alt="Space Funding story illustration"
                     width={600}
                     height={400}
                     className="w-full h-auto object-cover"
@@ -173,7 +173,7 @@ const WhyFoundersCrowdPage = memo(() => {
 
                 <div className="space-y-4 text-[#2B2B2B]/80">
                   <p className="text-base md:text-lg leading-relaxed">
-                    FoundersCrowd was created to solve one of the biggest problems in the startup world: raising capital is still outdated, expensive, and stacked against the founder.
+                    Space Funding was created to solve one of the biggest problems in the startup world: raising capital is still outdated, expensive, and stacked against the founder.
                   </p>
                   <p className="text-base md:text-lg leading-relaxed">
                     Our founder, José Ruiz, knows this challenge first-hand.
@@ -244,7 +244,7 @@ const WhyFoundersCrowdPage = memo(() => {
           </div>
         </section>
 
-        {/* Section 3: Why FoundersCrowd (Image Left, Content Right) */}
+        {/* Section 3: Why Space Funding (Image Left, Content Right) */}
         <section className="py-16 md:py-20 bg-white">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -253,7 +253,7 @@ const WhyFoundersCrowdPage = memo(() => {
                 <div className="overflow-hidden rounded-2xl shadow-xl">
                   <Image
                     src="/why3.jpg"
-                    alt="Why FoundersCrowd - Solution illustration"
+                    alt="Why Space Funding - Solution illustration"
                     width={600}
                     height={400}
                     className="w-full h-auto object-cover"
@@ -269,13 +269,13 @@ const WhyFoundersCrowdPage = memo(() => {
                     THE SOLUTION
                   </p>
                   <h2 className="text-3xl md:text-4xl font-bold text-[#2B2B2B] mb-4">
-                    Why FoundersCrowd
+                    Why Space Funding
                   </h2>
                 </div>
 
                 <div className="space-y-4 text-[#2B2B2B]/80">
                   <p className="text-base md:text-lg leading-relaxed">
-                    José founded FoundersCrowd to change that.
+                    José founded Space Funding to change that.
                   </p>
                   <p className="text-base md:text-lg leading-relaxed">
                     A platform where innovation meets fairness, where startups only pay when they raise, and where the tools are built for founders — not gatekeepers.
@@ -332,7 +332,7 @@ const WhyFoundersCrowdPage = memo(() => {
 
                 <div className="space-y-4 text-[#2B2B2B]/80">
                   <p className="text-base md:text-lg leading-relaxed">
-                    Raising capital is already hard enough — paying high upfront fees shouldn't make it harder. That's why FoundersCrowd is built on a founder-first pricing model:
+                    Raising capital is already hard enough — paying high upfront fees shouldn't make it harder. That's why Space Funding is built on a founder-first pricing model:
                   </p>
                 </div>
 
@@ -471,4 +471,4 @@ const WhyFoundersCrowdPage = memo(() => {
   );
 });
 
-export default WhyFoundersCrowdPage;
+export default WhySpaceFundingPage;

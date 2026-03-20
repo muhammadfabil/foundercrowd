@@ -1,5 +1,31 @@
 @import "tailwindcss";
 
+@theme {
+  --color-orange-50: #eef1ff;
+  --color-orange-100: #dde3ff;
+  --color-orange-200: #b9c5ff;
+  --color-orange-300: #8fa1ff;
+  --color-orange-400: #7089ff;
+  --color-orange-500: #5271ff;
+  --color-orange-600: #3d5ae0;
+  --color-orange-700: #2d49c8;
+  --color-orange-800: #1e34a8;
+  --color-orange-900: #152680;
+  --color-orange-950: #0e1860;
+
+  --color-amber-50: #eef1ff;
+  --color-amber-100: #dde3ff;
+  --color-amber-200: #b9c5ff;
+  --color-amber-300: #8fa1ff;
+  --color-amber-400: #7089ff;
+  --color-amber-500: #5271ff;
+  --color-amber-600: #3d5ae0;
+  --color-amber-700: #2d49c8;
+  --color-amber-800: #1e34a8;
+  --color-amber-900: #152680;
+  --color-amber-950: #0e1860;
+}
+
 /* Base */
 :root {
   --page-bg: #ffffff;

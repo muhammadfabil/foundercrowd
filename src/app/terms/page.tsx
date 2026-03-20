@@ -14,19 +14,19 @@ import {
 
 // Extract constants for better performance
 const sections = [
-  { num: 5, title: "Intellectual Property", content: "All software, content, and materials available through the Services are owned by Founderscrowd or our licensors and are protected by copyright, trademark, and other laws. You may not copy, distribute, reverse-engineer, or otherwise exploit our Services except as expressly permitted in writing." },
-  { num: 6, title: "User Content", content: "If you submit, upload, or post content (\"User Content\"), you grant Founderscrowd a nonexclusive, royalty-free license to use, display, and store that content as needed to operate the Services. You represent that you own or have rights to such content and that it does not violate laws or third-party rights." },
-  { num: 7, title: "Third-Party Services", content: "The Services may integrate with third-party providers (e.g., payment processors, identity verification services). Founderscrowd does not control these services and is not responsible for their performance, accuracy, or security. Your use of third-party services is at your own risk and subject to their terms." },
+  { num: 5, title: "Intellectual Property", content: "All software, content, and materials available through the Services are owned by Space Funding or our licensors and are protected by copyright, trademark, and other laws. You may not copy, distribute, reverse-engineer, or otherwise exploit our Services except as expressly permitted in writing." },
+  { num: 6, title: "User Content", content: "If you submit, upload, or post content (\"User Content\"), you grant Space Funding a nonexclusive, royalty-free license to use, display, and store that content as needed to operate the Services. You represent that you own or have rights to such content and that it does not violate laws or third-party rights." },
+  { num: 7, title: "Third-Party Services", content: "The Services may integrate with third-party providers (e.g., payment processors, identity verification services). Space Funding does not control these services and is not responsible for their performance, accuracy, or security. Your use of third-party services is at your own risk and subject to their terms." },
   { num: 8, title: "Privacy", content: "Your use of the Services is also governed by our Privacy Policy, which explains how we collect, use, and protect your information." }
 ];
 
 const legalSections = [
-  { num: 10, title: "Limitation of Liability", content: "To the maximum extent permitted by law: (1) Founderscrowd will not be liable for any indirect, incidental, consequential, punitive, or special damages, including lost profits. (2) Our total liability for any claim related to the Services will not exceed the greater of (i) $100 or (ii) the total amount paid by you to Founderscrowd in the 12 months preceding the claim." },
-  { num: 11, title: "Indemnification", content: "You agree to indemnify, defend, and hold harmless Founderscrowd, its officers, directors, employees, and affiliates from any claims, damages, liabilities, and expenses arising out of your: use of the Services, violation of these Terms, or infringement of third-party rights." },
+  { num: 10, title: "Limitation of Liability", content: "To the maximum extent permitted by law: (1) Space Funding will not be liable for any indirect, incidental, consequential, punitive, or special damages, including lost profits. (2) Our total liability for any claim related to the Services will not exceed the greater of (i) $100 or (ii) the total amount paid by you to Space Funding in the 12 months preceding the claim." },
+  { num: 11, title: "Indemnification", content: "You agree to indemnify, defend, and hold harmless Space Funding, its officers, directors, employees, and affiliates from any claims, damages, liabilities, and expenses arising out of your: use of the Services, violation of these Terms, or infringement of third-party rights." },
   { num: 12, title: "Governing Law & Dispute Resolution", content: "These Terms are governed by the laws of the Commonwealth of Massachusetts, United States, without regard to conflicts of law. Any disputes will be resolved through binding arbitration under the rules of the American Arbitration Association, held in Boston, Massachusetts. You waive the right to participate in class actions or jury trials." },
   { num: 13, title: "Modifications", content: "We may update these Terms from time to time. Changes will be posted with a \"last updated\" date. Your continued use of the Services after changes take effect constitutes acceptance of the revised Terms." },
   { num: 14, title: "Termination", content: "We may suspend or terminate your account or access to the Services at any time, with or without cause. Upon termination, all licenses granted under these Terms will immediately end." },
-  { num: 15, title: "Miscellaneous", content: "These Terms constitute the entire agreement between you and Founderscrowd regarding the Services. If any provision is held unenforceable, the remaining provisions remain in effect. You may not assign your rights under these Terms without our prior consent. Our failure to enforce any right is not a waiver of such right." }
+  { num: 15, title: "Miscellaneous", content: "These Terms constitute the entire agreement between you and Space Funding regarding the Services. If any provision is held unenforceable, the remaining provisions remain in effect. You may not assign your rights under these Terms without our prior consent. Our failure to enforce any right is not a waiver of such right." }
 ];
 
 const Page = memo(() => {
@@ -40,7 +40,7 @@ const Page = memo(() => {
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                <span className="text-amber-500">Founderscrowd</span><br />
+                <span className="text-[#5271ff]">Space Funding</span><br />
                 Terms of Service
               </h1>
               <div className="text-white/80 text-lg mb-8">
@@ -48,7 +48,7 @@ const Page = memo(() => {
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 max-w-3xl mx-auto">
                 <p className="text-white/90 leading-relaxed">
-                  Welcome to Founderscrowd, a technology platform operated by Founderscrowd, Inc. ("Founderscrowd," "we," "us," or "our"), headquartered at 1 Beacon St, Boston, MA 02108, United States. These Terms of Service (the "Terms") govern your access to and use of our website, software, and services (collectively, the "Services").
+                  Welcome to Space Funding, a technology platform operated by Space Funding, Inc. ("Space Funding," "we," "us," or "our"), headquartered at 1 Beacon St, Boston, MA 02108, United States. These Terms of Service (the "Terms") govern your access to and use of our website, software, and services (collectively, the "Services").
                 </p>
               </div>
             </div>
@@ -61,7 +61,7 @@ const Page = memo(() => {
             <div className="max-w-4xl mx-auto">
               
               {/* Introduction */}
-              <div className="bg-amber-50 border-l-4 border-amber-500 p-6 mb-12 rounded-r-lg">
+              <div className="bg-amber-50 border-l-4 border-[#5271ff] p-6 mb-12 rounded-r-lg">
                 <p className="text-gray-800 leading-relaxed text-lg">
                   <strong>By using the Services, you agree to these Terms. If you do not agree, you may not use the Services.</strong>
                 </p>
@@ -70,7 +70,7 @@ const Page = memo(() => {
               {/* Section 1 */}
               <div className="mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
-                  <span className="bg-amber-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-4">1</span>
+                  <span className="bg-[#5271ff] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-4">1</span>
                   No Investment, Brokerage, or Advisory Services
                 </h2>
                 <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
@@ -78,7 +78,7 @@ const Page = memo(() => {
                     <FiAlertTriangle className="mr-2" />
                     Important Disclaimer
                   </h3>
-                  <p className="text-red-700 mb-4">Founderscrowd is a software and technology provider only. We are not:</p>
+                  <p className="text-red-700 mb-4">Space Funding is a software and technology provider only. We are not:</p>
                   <ul className="space-y-2 text-red-700">
                     <li className="flex items-start">
                       <span className="text-red-500 mr-3">•</span>
@@ -137,7 +137,7 @@ const Page = memo(() => {
               {/* Section 2 */}
               <div className="mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
-                  <span className="bg-amber-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-4">2</span>
+                  <span className="bg-[#5271ff] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-4">2</span>
                   Eligibility
                 </h2>
                 <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
@@ -170,7 +170,7 @@ const Page = memo(() => {
               {/* Section 3 */}
               <div className="mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
-                  <span className="bg-amber-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-4">3</span>
+                  <span className="bg-[#5271ff] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-4">3</span>
                   Accounts and Security
                 </h2>
                 <div className="bg-green-50 border border-green-200 rounded-xl p-6">
@@ -195,7 +195,7 @@ const Page = memo(() => {
                   <div className="bg-green-100 p-3 rounded-lg">
                     <p className="text-green-800 text-sm flex items-start">
                       <FiZap className="mr-2 mt-1 flex-shrink-0" />
-                      Notify us immediately of any unauthorized use of your account. Founderscrowd is not liable for losses resulting from unauthorized use.
+                      Notify us immediately of any unauthorized use of your account. Space Funding is not liable for losses resulting from unauthorized use.
                     </p>
                   </div>
                 </div>
@@ -204,7 +204,7 @@ const Page = memo(() => {
               {/* Section 4 */}
               <div className="mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
-                  <span className="bg-amber-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-4">4</span>
+                  <span className="bg-[#5271ff] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-4">4</span>
                   Use of Services
                 </h2>
                 <div className="bg-red-50 border border-red-200 rounded-xl p-6">
@@ -263,7 +263,7 @@ const Page = memo(() => {
               {/* Disclaimers - Special formatting */}
               <div className="mb-12 mt-16">
                 <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
-                  <span className="bg-amber-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-4">9</span>
+                  <span className="bg-[#5271ff] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-4">9</span>
                   Disclaimers
                 </h2>
                 <div className="bg-yellow-50 border-2 border-yellow-300 rounded-xl p-6">
@@ -272,7 +272,7 @@ const Page = memo(() => {
                     <h3 className="text-xl font-bold text-yellow-800 mt-2">IMPORTANT DISCLAIMERS</h3>
                   </div>
                   <p className="text-yellow-800 mb-4 text-center font-medium">
-                    The Services are provided "as is" and "as available." Founderscrowd makes no warranties or guarantees, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.
+                    The Services are provided "as is" and "as available." Space Funding makes no warranties or guarantees, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.
                   </p>
                   <div className="bg-yellow-100 p-4 rounded-lg">
                     <h4 className="font-semibold text-yellow-800 mb-2">We do not guarantee that:</h4>
@@ -301,14 +301,14 @@ const Page = memo(() => {
 
               {/* Contact Section */}
               <div className="mt-16 bg-[#2B2B2B] text-white rounded-2xl p-8 text-center">
-                <h2 className="text-2xl font-bold mb-4 text-amber-500">Contact Us</h2>
+                <h2 className="text-2xl font-bold mb-4 text-[#5271ff]">Contact Us</h2>
                 <p className="mb-4">For questions about these Terms, please contact:</p>
                 <div className="bg-white/10 rounded-lg p-4 inline-block">
-                  <p className="font-medium">Founderscrowd, Inc.</p>
+                  <p className="font-medium">Space Funding, Inc.</p>
                   <p>1 Beacon St, Boston, MA 02108, United States</p>
-                  <a href="mailto:hello@founderscrowds.com" className="text-amber-400 hover:text-amber-300 transition-colors flex items-center justify-center mt-2">
+                  <a href="mailto:hello@Space Fundings.com" className="text-[#5271ff] hover:text-[#5271ff] transition-colors flex items-center justify-center mt-2">
                     <FiMail className="mr-2" />
-                    hello@founderscrowds.com
+                    hello@Space Fundings.com
                   </a>
                 </div>
               </div>

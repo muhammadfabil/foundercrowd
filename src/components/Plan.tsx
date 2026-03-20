@@ -39,7 +39,7 @@ const Plan = ({ calendlyUrl }: { calendlyUrl?: string }) => {
         <div className="text-center mb-20">
           <h2 className="text-5xl lg:text-6xl font-medium text-gray-900 mb-6 leading-tight">
             Capital Raising,<br />
-            <span className="text-amber-600">Revolutionized</span>
+            <span className="text-[#5271ff]">Revolutionized</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Craft the perfect offering with control over raise amount, valuation, voting 
@@ -53,10 +53,10 @@ const Plan = ({ calendlyUrl }: { calendlyUrl?: string }) => {
             const IconComponent = plan.icon;
             return (
               <div key={plan.id} className="group">
-                <div className="bg-white border rounded-3xl p-8 hover:border-amber-500 hover:shadow-lg transition-all duration-300 h-full border-black hover:cursor-pointer">
+                <div className="bg-white border rounded-3xl p-8 hover:border-[#5271ff] hover:shadow-lg transition-all duration-300 h-full border-black hover:cursor-pointer">
                   {/* Icon */}
                   <div className="mb-6">
-                    <div className="w-14 h-14 rounded-2xl bg-gray-100 flex items-center justify-center group-hover:bg-orange-500 transition-colors duration-300">
+                    <div className="w-14 h-14 rounded-2xl bg-gray-100 flex items-center justify-center group-hover:bg-[#5271ff] transition-colors duration-300">
                       <IconComponent className="w-7 h-7 text-gray-600 group-hover:text-white transition-colors duration-300" />
                     </div>
                   </div>

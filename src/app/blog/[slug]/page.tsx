@@ -197,14 +197,14 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const post = await fetchPost(slug);
-  if (!post) return { title: "Post Not Found | FoundersCrowd" };
+  if (!post) return { title: "Post Not Found | Space Funding" };
 
   const title = decodeHtmlEntities(stripHtml(post.title.rendered));
   const desc = stripHtml(post.excerpt.rendered).slice(0, 160);
   const ogImg = getFeaturedImage(post).src;
 
   return {
-    title: `${title} | FoundersCrowd Blog`,
+    title: `${title} | Space Funding Blog`,
     description: desc,
     openGraph: {
       title,
@@ -240,7 +240,7 @@ export default async function BlogPostPage({
   const readingTime = calcReadingTime(post.content.rendered);
   const related = await fetchRelatedPosts(post.id);
 
-  const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.founderscrowd.com"}/blog/${post.slug}`;
+  const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.Space Funding.com"}/blog/${post.slug}`;
   const cleanTitle = decodeHtmlEntities(stripHtml(post.title.rendered));
 
   return (

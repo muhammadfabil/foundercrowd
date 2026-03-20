@@ -29,17 +29,17 @@ const OurTechPage = memo(() => {
               {/* Hero video - improved mobile spacing and sizing */}
               <div className="mt-4 md:mt-6 lg:mt-8 xl:mt-10 mb-6 md:mb-8 relative mx-auto max-w-xs sm:max-w-2xl md:max-w-3xl lg:max-w-4xl">
                 <div className="aspect-[16/9] overflow-hidden rounded-lg md:rounded-xl shadow-lg border border-gray-100">
-                  <iframe 
-                    src="https://player.vimeo.com/video/1120665006?h=0&autoplay=1&loop=1&muted=1"
+                  <iframe
+                    src="https://player.vimeo.com/video/1032029906?h=0&autoplay=1&loop=1&muted=1"
                     className="h-full w-full"
-                    frameBorder="0" 
-                    allow="autoplay; fullscreen; picture-in-picture" 
+                    frameBorder="0"
+                    allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
                     title="Platform demo video"
                   />
                 </div>
               </div>
-              
+
               {/* Hero CTA Button - Updated */}
               <CTAButton size="md">Book a Call</CTAButton>
             </div>
@@ -72,7 +72,7 @@ const OurTechPage = memo(() => {
               <p className="text-lg text-amber-600 mb-8">
                 Let us show you how our platform can transform your capital raising experience.
               </p>
-              
+
               {/* Final CTA Button - Updated */}
               <CTAButton size="md">Book a Call</CTAButton>
             </div>

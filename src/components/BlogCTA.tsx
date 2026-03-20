@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 // Default Calendly URL
-const DEFAULT_CALENDLY_URL = "https://calendly.com/founderscrowds/30min";
+const DEFAULT_CALENDLY_URL = "https://calendly.com/Space Fundings/30min";
 
 // Calendly Modal
 function CalendlyModal({
@@ -48,7 +48,7 @@ export default function BlogCTA({ calendlyUrl = DEFAULT_CALENDLY_URL }: { calend
       <section className="py-16 px-4 md:px-8 mb-16">
         <div className="max-w-6xl mx-auto">
           {/* Card Container */}
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-400 shadow-xl">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#5271ff] via-[#6a84ff] to-[#8c9eff] shadow-xl">
             {/* Content Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
               {/* Left Content */}
@@ -58,7 +58,7 @@ export default function BlogCTA({ calendlyUrl = DEFAULT_CALENDLY_URL }: { calend
                   <div className="bg-white rounded-full p-2 w-12 h-12 flex items-center justify-center shadow-md">
                     <Image
                       src="/logo.png"
-                      alt="FoundersCrowd"
+                      alt="Space Funding"
                       width={32}
                       height={32}
                       className="object-contain"
@@ -75,7 +75,7 @@ export default function BlogCTA({ calendlyUrl = DEFAULT_CALENDLY_URL }: { calend
                 {/* CTA Button */}
                 <button
                   onClick={() => setOpenCalendly(true)}
-                  className="bg-gray-900 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white cursor-pointer"
+                  className="bg-gray-900 hover:bg-[#5271ff] text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white cursor-pointer"
                 >
                   Talk to the experts
                 </button>

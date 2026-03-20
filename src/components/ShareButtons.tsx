@@ -24,7 +24,7 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ url, title }) => {
         }).toString()}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-14 h-14 rounded-full bg-gray-900 hover:bg-orange-600 text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110"
+        className="w-14 h-14 rounded-full bg-gray-900 hover:bg-[#5271ff] text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110"
         aria-label="Share on X"
       >
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -38,7 +38,7 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ url, title }) => {
         }).toString()}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-14 h-14 rounded-full bg-blue-600 hover:bg-orange-600 text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110"
+        className="w-14 h-14 rounded-full bg-blue-600 hover:bg-[#5271ff] text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110"
         aria-label="Share on LinkedIn"
       >
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -48,7 +48,7 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ url, title }) => {
       
       <button
         onClick={handleCopyLink}
-        className="w-14 h-14 rounded-full bg-gray-600 hover:bg-orange-600 text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110"
+        className="w-14 h-14 rounded-full bg-gray-600 hover:bg-[#5271ff] text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110"
         aria-label="Copy link"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">

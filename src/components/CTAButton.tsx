@@ -92,7 +92,7 @@ export default function CTAButton({
 
   // Base styling dari CTAP (yang Anda suka)
   const baseClasses = `
-    bg-amber-600 text-white font-semibold rounded-full shadow-lg 
+    bg-[#5271ff] text-white font-semibold rounded-full shadow-lg 
     hover:scale-105 transition duration-300 ease-in-out
   `.trim();
 

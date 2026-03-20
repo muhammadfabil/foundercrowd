@@ -45,7 +45,7 @@ export default function CTAP() {
         {/* Logo + Brand */}
         <div className="flex flex-col items-center space-y-4">
           <div
-            className="bg-white rounded-full p-3 shadow-lg relative"
+            className="relative"
             data-aos="fade-up"
             data-aos-offset="200"
             data-aos-delay="50"
@@ -57,10 +57,7 @@ export default function CTAP() {
               alt="Logo"
               width={100}
               height={100}
-              className="object-contain"
-              style={{
-                filter: "drop-shadow(0 0 10px rgba(255, 165, 0, 0.5))",
-              }}
+              className="object-contain rounded-2xl"
             />
           </div>
           <h2
@@ -68,7 +65,7 @@ export default function CTAP() {
             data-aos="fade-up"
             data-aos-delay="300"
           >
-            FOUNDERSCROWD
+            Space Funding
           </h2>
         </div>
 

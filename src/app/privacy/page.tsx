@@ -82,7 +82,7 @@ const Page = memo(() => {
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                <span className="text-amber-500">Founderscrowd</span><br />
+                <span className="text-amber-500">Space Funding</span><br />
                 Privacy Policy
               </h1>
               <div className="text-white/80 text-lg mb-8">
@@ -90,7 +90,7 @@ const Page = memo(() => {
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 max-w-3xl mx-auto">
                 <p className="text-white/90 leading-relaxed">
-                  This Privacy Policy describes how Founderscrowd, Inc. ("Founderscrowd," "we," "us," or "our"), headquartered at 1 Beacon St, Boston, MA 02108, United States, collects, uses, shares, and protects personal information through our website, software, and services (the "Services").
+                  This Privacy Policy describes how Space Funding, Inc. ("Space Funding," "we," "us," or "our"), headquartered at 1 Beacon St, Boston, MA 02108, United States, collects, uses, shares, and protects personal information through our website, software, and services (the "Services").
                 </p>
               </div>
             </div>
@@ -215,11 +215,11 @@ const Page = memo(() => {
                     <h3 className="text-xl font-bold text-purple-800 mt-2">JOINT OWNERSHIP NOTICE</h3>
                   </div>
                   <div className="space-y-4 text-purple-700">
-                    <p>All leads, contact information, and related data collected through the Services in connection with a client's campaign or offering are jointly owned by Founderscrowd and the client issuer.</p>
+                    <p>All leads, contact information, and related data collected through the Services in connection with a client's campaign or offering are jointly owned by Space Funding and the client issuer.</p>
                     <p>Each party may use such data for its own lawful business purposes, including remarketing, analytics, and future communications, subject to applicable data privacy laws.</p>
                     <div className="bg-yellow-100 border border-yellow-300 p-4 rounded-lg">
                       <p className="text-yellow-800 font-medium">
-                        <strong>Disclaimer:</strong> Founderscrowd is not responsible for how clients use or process such data once shared with them. Clients are independently responsible for complying with all privacy and marketing laws when using lead data.
+                        <strong>Disclaimer:</strong> Space Funding is not responsible for how clients use or process such data once shared with them. Clients are independently responsible for complying with all privacy and marketing laws when using lead data.
                       </p>
                     </div>
                   </div>
@@ -315,7 +315,7 @@ const Page = memo(() => {
                     </div>
                     <div className="mt-4 p-3 bg-indigo-200 rounded-lg text-center">
                       <p className="text-indigo-800 font-bold">
-                        To exercise your rights, contact us at hello@founderscrowds.com
+                        To exercise your rights, contact us at hello@Space Fundings.com
                       </p>
                     </div>
                   </div>
@@ -340,10 +340,10 @@ const Page = memo(() => {
                 <h2 className="text-2xl font-bold mb-4 text-amber-500">Contact Us</h2>
                 <p className="mb-4">For questions or privacy requests, please contact:</p>
                 <div className="bg-white/10 rounded-lg p-4 inline-block">
-                  <p className="font-medium">Founderscrowd, Inc.</p>
+                  <p className="font-medium">Space Funding, Inc.</p>
                   <p>1 Beacon St, Boston, MA 02108, United States</p>
-                  <a href="mailto:hello@founderscrowds.com" className="text-amber-400 hover:text-amber-300 transition-colors">
-                    hello@founderscrowds.com
+                  <a href="mailto:hello@Space Fundings.com" className="text-amber-400 hover:text-amber-300 transition-colors">
+                    hello@Space Fundings.com
                   </a>
                 </div>
               </div>

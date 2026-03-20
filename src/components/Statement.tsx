@@ -1,6 +1,6 @@
 "use client";
 
-import React, { memo, useMemo } from "react";
+import React, { memo, useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import { World, GlobeConfig } from "../components/ui/globe";
 
@@ -23,7 +23,7 @@ const data = [
     endLat: -22.9068,
     endLng: -43.1729,
     arcAlt: 0.1,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 1,
@@ -32,7 +32,7 @@ const data = [
     endLat: 3.139,
     endLng: 101.6869,
     arcAlt: 0.2,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 1,
@@ -41,7 +41,7 @@ const data = [
     endLat: -1.303396,
     endLng: 36.852443,
     arcAlt: 0.5,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 2,
@@ -50,7 +50,7 @@ const data = [
     endLat: 35.6762,
     endLng: 139.6503,
     arcAlt: 0.2,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 2,
@@ -59,7 +59,7 @@ const data = [
     endLat: 3.139,
     endLng: 101.6869,
     arcAlt: 0.3,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 2,
@@ -68,7 +68,7 @@ const data = [
     endLat: 36.162809,
     endLng: -115.119411,
     arcAlt: 0.3,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 3,
@@ -77,7 +77,7 @@ const data = [
     endLat: 22.3193,
     endLng: 114.1694,
     arcAlt: 0.3,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 3,
@@ -86,7 +86,7 @@ const data = [
     endLat: 40.7128,
     endLng: -74.006,
     arcAlt: 0.3,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 3,
@@ -95,7 +95,7 @@ const data = [
     endLat: 51.5072,
     endLng: -0.1276,
     arcAlt: 0.3,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 4,
@@ -104,7 +104,7 @@ const data = [
     endLat: -15.595412,
     endLng: -56.05918,
     arcAlt: 0.5,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 4,
@@ -113,7 +113,7 @@ const data = [
     endLat: 22.3193,
     endLng: 114.1694,
     arcAlt: 0.7,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 4,
@@ -122,7 +122,7 @@ const data = [
     endLat: 48.8566,
     endLng: -2.3522,
     arcAlt: 0.1,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 5,
@@ -131,7 +131,7 @@ const data = [
     endLat: 51.5072,
     endLng: -0.1276,
     arcAlt: 0.3,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 5,
@@ -140,7 +140,7 @@ const data = [
     endLat: -33.8688,
     endLng: 151.2093,
     arcAlt: 0.2,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 5,
@@ -149,7 +149,7 @@ const data = [
     endLat: 48.8566,
     endLng: -2.3522,
     arcAlt: 0.2,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 6,
@@ -158,7 +158,7 @@ const data = [
     endLat: 1.094136,
     endLng: -63.34546,
     arcAlt: 0.7,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 6,
@@ -167,7 +167,7 @@ const data = [
     endLat: 35.6762,
     endLng: 139.6503,
     arcAlt: 0.1,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 6,
@@ -176,7 +176,7 @@ const data = [
     endLat: 51.5072,
     endLng: -0.1276,
     arcAlt: 0.3,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 7,
@@ -185,7 +185,7 @@ const data = [
     endLat: -15.595412,
     endLng: -56.05918,
     arcAlt: 0.1,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 7,
@@ -194,7 +194,7 @@ const data = [
     endLat: 52.52,
     endLng: 13.405,
     arcAlt: 0.1,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 7,
@@ -203,7 +203,7 @@ const data = [
     endLat: 34.0522,
     endLng: -118.2437,
     arcAlt: 0.2,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 8,
@@ -212,7 +212,7 @@ const data = [
     endLat: -33.936138,
     endLng: 18.436529,
     arcAlt: 0.2,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 8,
@@ -221,7 +221,7 @@ const data = [
     endLat: 52.3676,
     endLng: 4.9041,
     arcAlt: 0.2,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 8,
@@ -230,7 +230,7 @@ const data = [
     endLat: 40.7128,
     endLng: -74.006,
     arcAlt: 0.5,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 9,
@@ -239,7 +239,7 @@ const data = [
     endLat: 34.0522,
     endLng: -118.2437,
     arcAlt: 0.2,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 9,
@@ -248,7 +248,7 @@ const data = [
     endLat: -22.9068,
     endLng: -43.1729,
     arcAlt: 0.7,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 9,
@@ -257,7 +257,7 @@ const data = [
     endLat: -34.6037,
     endLng: -58.3816,
     arcAlt: 0.5,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 10,
@@ -266,7 +266,7 @@ const data = [
     endLat: 28.6139,
     endLng: 77.209,
     arcAlt: 0.7,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 10,
@@ -275,7 +275,7 @@ const data = [
     endLat: 31.2304,
     endLng: 121.4737,
     arcAlt: 0.3,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 10,
@@ -284,7 +284,7 @@ const data = [
     endLat: 52.3676,
     endLng: 4.9041,
     arcAlt: 0.3,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 11,
@@ -293,7 +293,7 @@ const data = [
     endLat: 34.0522,
     endLng: -118.2437,
     arcAlt: 0.2,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 11,
@@ -302,7 +302,7 @@ const data = [
     endLat: 31.2304,
     endLng: 121.4737,
     arcAlt: 0.2,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 11,
@@ -311,7 +311,7 @@ const data = [
     endLat: 1.3521,
     endLng: 103.8198,
     arcAlt: 0.2,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 12,
@@ -320,7 +320,7 @@ const data = [
     endLat: 37.7749,
     endLng: -122.4194,
     arcAlt: 0.1,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 12,
@@ -329,7 +329,7 @@ const data = [
     endLat: 22.3193,
     endLng: 114.1694,
     arcAlt: 0.2,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 12,
@@ -338,7 +338,7 @@ const data = [
     endLat: 34.0522,
     endLng: -118.2437,
     arcAlt: 0.3,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 13,
@@ -347,7 +347,7 @@ const data = [
     endLat: 22.3193,
     endLng: 114.1694,
     arcAlt: 0.3,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 13,
@@ -356,7 +356,7 @@ const data = [
     endLat: 35.6762,
     endLng: 139.6503,
     arcAlt: 0.3,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 13,
@@ -365,7 +365,7 @@ const data = [
     endLat: -34.6037,
     endLng: -58.3816,
     arcAlt: 0.1,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
   {
     order: 14,
@@ -374,7 +374,7 @@ const data = [
     endLat: 21.395643,
     endLng: 39.883798,
     arcAlt: 0.3,
-    color: "#F59E0B",
+    color: "#5271ff",
   },
 ];
 
@@ -382,61 +382,72 @@ const Statement = memo(() => {
   // Memoize data if needed, but since it's static, extraction is sufficient
   const memoizedData = useMemo(() => data, []);
 
+  // Generate random values only on client-side to prevent hydration mismatch
+  const [stars, setStars] = useState<{primary: any[], large: any[], soft: any[]}>({ primary: [], large: [], soft: [] });
+
+  useEffect(() => {
+    setStars({
+      primary: Array.from({ length: 40 }).map(() => ({
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        animationDelay: `${Math.random() * 3}s`,
+        animationDuration: `${2 + Math.random() * 3}s`,
+      })),
+      large: Array.from({ length: 15 }).map(() => ({
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        animationDelay: `${Math.random() * 4}s`,
+        animationDuration: `${3 + Math.random() * 2}s`,
+      })),
+      soft: Array.from({ length: 25 }).map(() => ({
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        animationDelay: `${Math.random() * 5}s`,
+        animationDuration: `${4 + Math.random() * 2}s`,
+      }))
+    });
+  }, []);
+
   return (
     <section className="bg-[#2B2B2B]  text-white overflow-hidden relative py-12 md:py-24">
       {/* Enhanced star particles with amber glow */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Primary amber stars */}
-        {Array.from({ length: 40 }).map((_, i) => (
+        {stars.primary.map((style, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-[#F59E0B] rounded-full opacity-80 animate-pulse shadow-lg shadow-[#F59E0B]/50"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`,
-            }}
+            className="absolute w-1 h-1 bg-[#5271ff] rounded-full opacity-80 animate-pulse shadow-lg shadow-[#5271ff]/50"
+            style={style}
           />
         ))}
         
         {/* Larger amber stars */}
-        {Array.from({ length: 15 }).map((_, i) => (
+        {stars.large.map((style, i) => (
           <div
             key={`large-${i}`}
-            className="absolute w-2 h-2 bg-[#F59E0B] rounded-full opacity-60 animate-pulse shadow-lg shadow-[#F59E0B]/60"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 4}s`,
-              animationDuration: `${3 + Math.random() * 2}s`,
-            }}
+            className="absolute w-2 h-2 bg-[#5271ff] rounded-full opacity-60 animate-pulse shadow-lg shadow-[#5271ff]/60"
+            style={style}
           />
         ))}
 
         {/* Softer ambient light points */}
-        {Array.from({ length: 25 }).map((_, i) => (
+        {stars.soft.map((style, i) => (
           <div
             key={`soft-${i}`}
-            className="absolute w-0.5 h-0.5 bg-[#F59E0B] rounded-full opacity-30 animate-pulse"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${4 + Math.random() * 2}s`,
-            }}
+            className="absolute w-0.5 h-0.5 bg-[#5271ff] rounded-full opacity-30 animate-pulse"
+            style={style}
           />
         ))}
 
         {/* Static decorative particles */}
-        <div className="absolute top-[5%] right-[10%] w-2 h-2 rounded-full bg-[#F59E0B]/40 shadow-lg shadow-[#F59E0B]/30"></div>
-        <div className="absolute top-[15%] right-[20%] w-2 h-2 rounded-full bg-[#F59E0B]/40 shadow-lg shadow-[#F59E0B]/30"></div>
-        <div className="absolute top-[25%] right-[15%] w-1 h-1 rounded-full bg-[#F59E0B]/50"></div>
-        <div className="absolute top-[20%] left-[10%] w-2 h-2 rounded-full bg-[#F59E0B]/40 shadow-lg shadow-[#F59E0B]/30"></div>
-        <div className="absolute bottom-[15%] right-[30%] w-1 h-1 rounded-full bg-[#F59E0B]/50"></div>
-        <div className="absolute bottom-[25%] right-[40%] w-2 h-2 rounded-full bg-[#F59E0B]/40 shadow-lg shadow-[#F59E0B]/30"></div>
-        <div className="absolute bottom-[45%] left-[5%] w-1 h-1 rounded-full bg-[#F59E0B]/50"></div>
-        <div className="absolute bottom-[35%] left-[15%] w-2 h-2 rounded-full bg-[#F59E0B]/40 shadow-lg shadow-[#F59E0B]/30"></div>
+        <div className="absolute top-[5%] right-[10%] w-2 h-2 rounded-full bg-[#5271ff]/40 shadow-lg shadow-[#5271ff]/30"></div>
+        <div className="absolute top-[15%] right-[20%] w-2 h-2 rounded-full bg-[#5271ff]/40 shadow-lg shadow-[#5271ff]/30"></div>
+        <div className="absolute top-[25%] right-[15%] w-1 h-1 rounded-full bg-[#5271ff]/50"></div>
+        <div className="absolute top-[20%] left-[10%] w-2 h-2 rounded-full bg-[#5271ff]/40 shadow-lg shadow-[#5271ff]/30"></div>
+        <div className="absolute bottom-[15%] right-[30%] w-1 h-1 rounded-full bg-[#5271ff]/50"></div>
+        <div className="absolute bottom-[25%] right-[40%] w-2 h-2 rounded-full bg-[#5271ff]/40 shadow-lg shadow-[#5271ff]/30"></div>
+        <div className="absolute bottom-[45%] left-[5%] w-1 h-1 rounded-full bg-[#5271ff]/50"></div>
+        <div className="absolute bottom-[35%] left-[15%] w-2 h-2 rounded-full bg-[#5271ff]/40 shadow-lg shadow-[#5271ff]/30"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -445,7 +456,7 @@ const Statement = memo(() => {
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium leading-tight mb-4 text-white">
             There's no better place
             <br />
-            for you to <span className="text-[#F59E0B]">raise</span>
+            for you to <span className="text-[#5271ff]">raise</span>
           </h2>
         </div>
 
@@ -455,13 +466,13 @@ const Statement = memo(() => {
             <div>
               <h3 className="text-2xl md:text-3xl lg:text-4xl font-medium leading-tight mb-4 md:mb-6 text-white">
                 Convert capital raising into 
-                <span className="text-[#F59E0B]"> simple ecommerce</span>
+                <span className="text-[#5271ff]"> simple ecommerce</span>
               </h3>
             </div>
 
-            <div className="border-l-4 border-[#F59E0B] pl-4 py-1 text-lg max-w-md text-white/90">
+            <div className="border-l-4 border-[#5271ff] pl-4 py-1 text-lg max-w-md text-white/90">
               <p>
-                FoundersCrowd converts <span className="text-[#F59E0B] font-semibold">20% higher</span> on average than other fundraising platforms, with the <span className="text-[#F59E0B] font-semibold">lowest fees</span> in the industry — giving your brand exposure to anyone in the world with an internet connection.
+                Space Funding converts <span className="text-[#5271ff] font-semibold">20% higher</span> on average than other fundraising platforms, with the <span className="text-[#5271ff] font-semibold">lowest fees</span> in the industry — giving your brand exposure to anyone in the world with an internet connection.
               </p>
             </div>
           </div>
@@ -469,7 +480,7 @@ const Statement = memo(() => {
           <div className="relative flex justify-center items-center mt-8 md:mt-0">
             <div className="relative">
               <Image
-                src="/rightstatement.jpg"
+                src="/rightstatement.png"
                 alt="Checkout Interface"
                 width={300}
                 height={300}
@@ -478,7 +489,7 @@ const Statement = memo(() => {
               />
              
               {/* Subtle glow effect */}
-              <div className="absolute inset-0 bg-[#F59E0B]/5 rounded-lg blur-xl -z-10"></div>
+              <div className="absolute inset-0 bg-[#5271ff]/5 rounded-lg blur-xl -z-10"></div>
             </div>
           </div>
         </div>
@@ -493,10 +504,10 @@ const Statement = memo(() => {
           <div className="order-1 md:order-2 space-y-4 md:space-y-6">
             <h3 className="text-2xl md:text-4xl lg:text-5xl font-medium leading-tight text-white">
               Raise capital while building a 
-              <span className="text-[#F59E0B]"> global community</span> of supporters
+              <span className="text-[#5271ff]"> global community</span> of supporters
             </h3>
             <p className="text-base md:text-lg text-white/90 leading-relaxed max-w-md">
-              FoundersCrowd puts your raise within <span className="text-[#F59E0B] font-semibold">60 milliseconds</span> of every potential investor worldwide, with the capacity to handle even the biggest funding launches.
+              Space Funding puts your raise within <span className="text-[#5271ff] font-semibold">60 milliseconds</span> of every potential investor worldwide, with the capacity to handle even the biggest funding launches.
             </p>
           </div>
         </div>

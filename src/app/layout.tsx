@@ -1,10 +1,10 @@
 'use client';
-import { useState } from "react";
+// removed useState
 import type { Metadata } from "next";
 import { Figtree, Roboto, Wix_Madefor_Text } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
-import PreLoader from "@/components/PreLoader";
+
 import Script from "next/script";
 
 // Update the font configuration to ensure it loads correctly
@@ -33,13 +33,12 @@ const wixMadeforText = Wix_Madefor_Text({
 // Create src/app/metadata.ts for metadata export
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // Preloader diaktifkan dengan mengatur nilai default state menjadi true
-  const [showPreloader, setShowPreloader] = useState(true);
+
 
   return (
     <html lang="en" className={`${figtree.variable} ${roboto.variable} ${wixMadeforText.variable}`}>
       <head>
-        <title>Founderscrowd</title>
+        <title>Space Funding</title>
         <meta name="description" content="On a mission to transform how startups raise capital by making the process as easy as buying your favorite product online." />
         <meta name="google-site-verification" content="OJg5TBwEzS6H1CaNpmpE_8rSFuKMcLJNsPr7CAJgce8" />
         <link rel="icon" href="/logo.png" type="image/png" sizes="128x128" />
@@ -70,10 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
 
-        {showPreloader && (
-          <PreLoader onComplete={() => setShowPreloader(false)} />
-        )}
-        {!showPreloader && children}
+        {children}
         <Analytics />
       </body>
     </html>

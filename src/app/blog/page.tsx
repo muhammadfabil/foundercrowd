@@ -170,10 +170,10 @@ const BlogPage = memo(() => {
       <Navbar />
       <div className="bg-white text-[#2B2B2B] font-figtree">
         {/* Hero Section */}
-        <div className="pt-24 bg-gradient-to-b from-[#F3EFE7] to-white">
+        <div className="pt-24 bg-gradient-to-b from-[#f2f5ff] to-white">
           <div className="max-w-6xl mx-auto px-4 py-16 md:py-24">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-              FoundersCrowd <span className="text-orange-500">Journal</span>
+              Space Funding <span className="text-orange-500">Journal</span>
             </h1>
             <p className="text-gray-600 text-xl max-w-2xl">
               Insights, strategies, and stories to help founders build remarkable companies.
@@ -185,7 +185,7 @@ const BlogPage = memo(() => {
           {/* Featured Post (First Page Only) */}
           {page === 1 && featuredPost && (
             <div className="mb-16">
-              <div className="group grid md:grid-cols-5 gap-8 bg-[#F3EFE7] rounded-3xl p-4 md:p-8 hover:bg-gray-100 transition-all duration-300">
+              <div className="group grid md:grid-cols-5 gap-8 bg-[#f2f5ff] rounded-3xl p-4 md:p-8 hover:bg-gray-100 transition-all duration-300">
                 <div className="md:col-span-3 relative aspect-[16/9] md:aspect-auto w-full overflow-hidden rounded-xl">
                   {getFeaturedImage(featuredPost).src ? (
                     <Image
@@ -260,7 +260,7 @@ const BlogPage = memo(() => {
                     <Link
                       key={p.id}
                       href={`/blog/${p.slug}`}
-                      className="group block bg-[#F3EFE7] rounded-3xl overflow-hidden hover:bg-gray-100 transition-all duration-300"
+                      className="group block bg-[#f2f5ff] rounded-3xl overflow-hidden hover:bg-gray-100 transition-all duration-300"
                     >
                       {/* Featured Image */}
                       <div className="relative aspect-[16/9] w-full overflow-hidden">
@@ -328,7 +328,7 @@ const BlogPage = memo(() => {
           )}
 
           {/* Newsletter Subscription */}
-          <div className="mt-24 bg-gradient-to-r from-[#F3EFE7] to-gray-100 rounded-3xl p-8 md:p-12">
+          <div className="mt-24 bg-gradient-to-r from-[#f2f5ff] to-gray-100 rounded-3xl p-8 md:p-12">
             <div className="max-w-3xl mx-auto text-center">
               <h3 className="text-2xl md:text-3xl font-bold mb-4 text-[#2B2B2B]">
                 Subscribe to our <span className="text-orange-500">newsletter</span>
