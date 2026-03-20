@@ -13,18 +13,15 @@ const BookingModal = memo(function BookingModal({
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onEsc);
-    
-    // Add the booking script
+
     const script = document.createElement('script');
-    script.src = 'https://link.space-funding.us/js/form_embed.js';
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
     script.type = 'text/javascript';
     script.async = true;
-    
     document.body.appendChild(script);
-    
+
     return () => {
       document.removeEventListener("keydown", onEsc);
-      // Clean up script if needed
       if (document.body.contains(script)) {
         document.body.removeChild(script);
       }
@@ -36,9 +33,8 @@ const BookingModal = memo(function BookingModal({
       className="fixed inset-0 z-[9999] bg-black/50 flex items-center justify-center p-4"
       role="dialog"
       aria-modal="true"
-      onClick={onClose} // Close when clicking backdrop
+      onClick={onClose}
     >
-      {/* Close button */}
       <button
         onClick={onClose}
         className="absolute top-4 right-4 z-[10000] bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors"
@@ -48,18 +44,14 @@ const BookingModal = memo(function BookingModal({
         </svg>
       </button>
 
-      {/* Booking widget container */}
-      <div 
+      <div
         className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on widget
+        onClick={(e) => e.stopPropagation()}
       >
-        <iframe 
-          src="https://link.space-funding.us/widget/booking/rjTqfMgDh3uzLlGVvco6" 
-          style={{ width: '100%', border: 'none', overflow: 'hidden' }} 
-          scrolling="no" 
-          id="rjTqfMgDh3uzLlGVvco6_1758180452451"
-          className="w-full h-[600px] md:h-[700px]" // Adjust height as needed for scrolling
-        ></iframe>
+        <div
+          className="calendly-inline-widget w-full h-[600px] md:h-[700px]"
+          data-url="https://calendly.com/spacefunding/raise-capital-online"
+        />
       </div>
     </div>
   );

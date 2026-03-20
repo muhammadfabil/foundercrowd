@@ -363,7 +363,7 @@ const Features = () => {
           </h2>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-12 items-start">
+        <div className="flex flex-col lg:flex-row gap-12 items-stretch">
           {/* Left Side - Feature List */}
           <div className="w-full lg:w-1/2">
             <FeatureList
@@ -373,10 +373,10 @@ const Features = () => {
             />
           </div>
 
-          {/* ✅ FIXED: Right Side - Feature Image dengan proper constraints */}
-          <div className="w-full lg:w-1/2 flex justify-center">
-            <div className="relative w-full max-w-lg">
-              <div className="bg-[#1a1a1a] rounded-3xl p-6 shadow-2xl overflow-hidden">
+          {/* Right Side - Feature Image stretches to match feature list height */}
+          <div className="w-full lg:w-1/2 flex">
+            <div className="relative w-full">
+              <div className="bg-[#1a1a1a] rounded-3xl p-6 shadow-2xl overflow-hidden h-full flex items-center justify-center">
                 <FeatureImage feature={active} />
               </div>
             </div>

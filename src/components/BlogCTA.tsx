@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 // Default Calendly URL
-const DEFAULT_CALENDLY_URL = "https://calendly.com/Space Fundings/30min";
+const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
 
 // Calendly Modal
 function CalendlyModal({

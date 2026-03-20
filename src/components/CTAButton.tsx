@@ -3,8 +3,8 @@
 
 import { useState, memo, useEffect } from "react";
 
-// Space Funding Modal
-const SpaceFundingModal = memo(function SpaceFundingModal({
+// Calendly Modal
+const CalendlyModal = memo(function CalendlyModal({
   onClose,
 }: {
   onClose: () => void;
@@ -12,20 +12,16 @@ const SpaceFundingModal = memo(function SpaceFundingModal({
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onEsc);
-
-    // Prevent body scroll when modal is open
     document.body.style.overflow = "hidden";
 
-    // Add the Space Funding script
     const script = document.createElement("script");
     script.type = "text/javascript";
-    script.src = "https://link.space-funding.us/js/form_embed.js";
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
     script.async = true;
     document.body.appendChild(script);
 
     return () => {
       document.removeEventListener("keydown", onEsc);
-      // Restore body scroll
       document.body.style.overflow = "unset";
       if (document.body.contains(script)) {
         document.body.removeChild(script);
@@ -49,22 +45,14 @@ const SpaceFundingModal = memo(function SpaceFundingModal({
         </svg>
       </button>
 
-      <div 
+      <div
         className="bg-white rounded-lg w-full max-w-4xl h-[85vh] max-h-[800px] overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex-1 overflow-auto">
-          <iframe 
-            src="https://link.space-funding.us/widget/booking/rjTqfMgDh3uzLlGVvco6" 
-            style={{ 
-              width: "100%", 
-              minHeight: "100%",
-              border: "none"
-            }} 
-            scrolling="yes"
-            id="rjTqfMgDh3uzLlGVvco6_1758180452451"
-          />
-        </div>
+        <div
+          className="calendly-inline-widget w-full h-full"
+          data-url="https://calendly.com/spacefunding/raise-capital-online"
+        />
       </div>
     </div>
   );
@@ -105,9 +93,9 @@ export default function CTAButton({
         {children}
       </button>
 
-      {/* Space Funding Modal */}
+      {/* Calendly Modal */}
       {openModal && (
-        <SpaceFundingModal
+        <CalendlyModal
           onClose={() => setOpenModal(false)}
         />
       )}
