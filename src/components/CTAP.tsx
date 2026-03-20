@@ -16,7 +16,7 @@ export default function CTAP() {
   }, []);
 
   return (
-    <section className="relative h-[100dvh] overflow-hidden flex flex-col items-center justify-center isolate">
+    <section className="relative h-[100dvh] overflow-hidden flex flex-col items-center justify-center isolate bg-black">
       {/* BG video */}
       <video
         autoPlay
