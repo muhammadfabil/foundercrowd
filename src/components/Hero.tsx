@@ -27,7 +27,7 @@ export function Hero({ calendlyUrl }: { calendlyUrl?: string }) {
   }, []);
 
   return (
-    <section className="hero-noise relative pb-8 md:pb-8 lg:pb-8 pt-24 md:pt-40 flex flex-col items-center min-h-[100svh] md:min-h-[90svh] overflow-hidden bg-black font-figtree">
+    <section className="hero-noise relative pb-8 md:pb-8 lg:pb-8 pt-24 md:pt-40 flex flex-col items-center min-h-[100dvh] md:min-h-[90svh] overflow-hidden bg-black font-figtree">
       {/* Video Background */}
       <video
         autoPlay
