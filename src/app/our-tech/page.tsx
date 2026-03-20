@@ -14,7 +14,7 @@ const OurTechPage = memo(() => {
   return (
     <>
       <Navbar />
-      <main className="bg-black">
+      <main className="bg-white">
         {/* Hero Section */}
         <section className="relative pt-24 md:pt-32 lg:pt-40 bg-black text-white overflow-hidden pb-24">
           {/* Video Background */}
@@ -70,11 +70,11 @@ const OurTechPage = memo(() => {
         <Integration />
 
         {/* CTA Section - Updated */}
-        <section className="py-20 bg-black">
+        <section className="py-20 bg-white">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-6xl font-bold mb-6 text-white">Ready to leverage our technology?</h2>
-              <p className="text-lg text-white/60 mb-8">
+              <h2 className="text-3xl md:text-6xl font-bold mb-6 text-[#2B2B2B]">Ready to leverage our technology?</h2>
+              <p className="text-lg text-gray-500 mb-8">
                 Let us show you how our platform can transform your capital raising experience.
               </p>
 

@@ -45,14 +45,14 @@ const Integration = ({ calendlyUrl }: { calendlyUrl?: string }) => {
   let currentIndex = 0;
 
   return (
-    <section className="py-12 md:py-20 bg-black font-figtree">
+    <section className="py-12 md:py-20 bg-white font-figtree">
       <div className="max-w-5xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8 md:mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium text-white mb-4 md:mb-6 leading-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium text-[#2B2B2B] mb-4 md:mb-6 leading-tight">
             100+ Integrations
           </h2>
-            <p className="text-base md:text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-base md:text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
             Connect with the tools you already use. Build a seamless fundraising 
             experience with enterprise-grade integrations.
           </p>

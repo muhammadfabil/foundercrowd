@@ -8,7 +8,7 @@ const FaqPage = memo(() => {
   return (
     <>
       <Navbar />
-      <main className="bg-black min-h-screen pt-24">
+      <main className="bg-white min-h-screen pt-24">
         <FAQ />
       </main>
       <Footer />

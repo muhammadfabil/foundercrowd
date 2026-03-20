@@ -100,9 +100,9 @@ export function Globe({ globeConfig = {}, data = [] }: WorldProps) {
     atmosphereColor: "#5271ff",
     showAtmosphere: false,
     atmosphereAltitude: 0.06,
-    polygonColor: "#5271ff", // Continents amber
-    globeColor: "#2B2B2B", // Base globe dark gray
-    emissive: "#1f1f1f",
+    polygonColor: "#9ca3af", // Continents gray
+    globeColor: "#e2e8f0", // Base globe light gray
+    emissive: "#e2e8f0",
     emissiveIntensity: 0.35,
     shininess: 0.6,
     arcTime: 1800,
@@ -248,7 +248,7 @@ export function Globe({ globeConfig = {}, data = [] }: WorldProps) {
       <group ref={groupRef}>
         <mesh>
           <sphereGeometry args={[100, 32, 32]} />
-          <meshBasicMaterial color="#2B2B2B" opacity={1} transparent={false} />
+          <meshBasicMaterial color="#e2e8f0" opacity={1} transparent={false} />
         </mesh>
       </group>
     );
@@ -281,8 +281,8 @@ export function World(props: WorldProps) {
         <ambientLight color="#ffffff" intensity={0.6} />
         <directionalLight color="#ffffff" position={new Vector3(-400, 100, 400)} intensity={1.1} />
         <directionalLight color="#ffffff" position={new Vector3(400, 100, -400)} intensity={0.9} />
-        <pointLight color="#5271ff" position={new Vector3(-200, 500, 200)} intensity={0.7} />
-        <pointLight color="#5271ff" position={new Vector3(200, -500, -200)} intensity={0.5} />
+        <pointLight color="#aaaaaa" position={new Vector3(-200, 500, 200)} intensity={0.7} />
+        <pointLight color="#aaaaaa" position={new Vector3(200, -500, -200)} intensity={0.5} />
 
         <Globe {...props} />
 
@@ -299,19 +299,15 @@ export function World(props: WorldProps) {
       </Canvas>
 
       {/* Optional UI overlay examples (can be removed) */}
-      <div className="absolute bottom-8 left-8 text-[#5271ff] text-xs sm:text-sm font-mono">
+      <div className="absolute bottom-8 left-8 text-gray-400 text-xs sm:text-sm font-mono">
         <div className="flex items-center mb-1">
-          <div className="w-2 h-2 rounded-full bg-[#5271ff] mr-2 animate-pulse shadow-lg shadow-[#5271ff]/50"></div>
-          <span className="text-shadow-glow">300 POINTS OF PRESENCE</span>
+          <div className="w-2 h-2 rounded-full bg-gray-400 mr-2 animate-pulse"></div>
+          <span>300 POINTS OF PRESENCE</span>
         </div>
-        <div className="pl-4 text-white/90 font-medium">
+        <div className="pl-4 text-gray-600 font-medium">
           SO YOUR RAISE LOADS INSTANTLY<br />EVERYWHERE
         </div>
       </div>
-
-      <style jsx>{`
-        .text-shadow-glow { text-shadow: 0 0 10px rgba(245, 158, 11, 0.5); }
-      `}</style>
     </div>
   );
 }

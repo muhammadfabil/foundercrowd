@@ -33,15 +33,15 @@ const planData = [
 
 const Plan = ({ calendlyUrl }: { calendlyUrl?: string }) => {
   return (
-    <section className="py-24 bg-black font-figtree">
+    <section className="py-24 bg-white font-figtree">
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-20">
-          <h2 className="text-5xl lg:text-6xl font-medium text-white mb-6 leading-tight">
+          <h2 className="text-5xl lg:text-6xl font-medium text-[#2B2B2B] mb-6 leading-tight">
             Capital Raising,<br />
             <span className="text-[#5271ff]">Revolutionized</span>
           </h2>
-            <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-500 max-w-3xl mx-auto leading-relaxed">
             Craft the perfect offering with control over raise amount, valuation, voting 
             rights, and beyond.
           </p>
@@ -53,38 +53,38 @@ const Plan = ({ calendlyUrl }: { calendlyUrl?: string }) => {
             const IconComponent = plan.icon;
             return (
               <div key={plan.id} className="group">
-                <div className="bg-[#1a1a1a] border border-white/10 rounded-3xl p-8 hover:border-[#5271ff] hover:shadow-lg transition-all duration-300 h-full hover:cursor-pointer">
+                <div className="bg-gray-100 border border-gray-200 rounded-3xl p-8 hover:border-[#5271ff] hover:shadow-lg transition-all duration-300 h-full hover:cursor-pointer">
                   {/* Icon */}
                   <div className="mb-6">
-                    <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center group-hover:bg-[#5271ff] transition-colors duration-300">
-                      <IconComponent className="w-7 h-7 text-white/60 group-hover:text-white transition-colors duration-300" />
+                    <div className="w-14 h-14 rounded-2xl bg-gray-100 flex items-center justify-center group-hover:bg-[#5271ff] transition-colors duration-300">
+                      <IconComponent className="w-7 h-7 text-gray-500 group-hover:text-[#2B2B2B] transition-colors duration-300" />
                     </div>
                   </div>
 
                   {/* Plan Type */}
-                  <h3 className="text-2xl font-semibold text-white mb-2">
+                  <h3 className="text-2xl font-semibold text-[#2B2B2B] mb-2">
                     {plan.type}
                   </h3>
                   
                   {/* Subtitle & Amount */}
                   <div className="mb-6">
-                    <p className="text-sm text-white/50 mb-1">
+                    <p className="text-sm text-gray-500 mb-1">
                       {plan.subtitle}
                     </p>
-                    <div className="text-4xl font-bold text-white">
+                    <div className="text-4xl font-bold text-[#2B2B2B]">
                       {plan.amount}
                     </div>
                   </div>
 
                   {/* Description */}
-                  <p className="text-white/60 mb-8">
+                  <p className="text-gray-500 mb-8">
                     {plan.description}
                   </p>
 
                   {/* CTA Button - Updated to use CTAButton with custom styling */}
                   <CTAButton 
                     
-                    className="w-full bg-black hover:bg-gray-800 text-white rounded-full font-medium transition-colors duration-300 flex items-center justify-center gap-2 hover:scale-100"
+                    className="w-full bg-[#5271ff] text-white rounded-full font-medium transition-colors duration-300 flex items-center justify-center gap-2 hover:scale-100 hover:bg-[#4361ee]"
                     size="md"
                   >
                     Get Started
@@ -111,10 +111,10 @@ const Plan = ({ calendlyUrl }: { calendlyUrl?: string }) => {
         {/* Bottom CTA */}
         <div className="text-center">
           <div className="mb-6">
-            <h3 className="text-2xl font-semibold text-white mb-4">
+            <h3 className="text-2xl font-semibold text-[#2B2B2B] mb-4">
               Ready to revolutionize your fundraising?
             </h3>
-            <p className="text-white/60 max-w-xl mx-auto">
+            <p className="text-gray-500 max-w-xl mx-auto">
               Join thousands of companies who have successfully raised capital with our platform.
             </p>
           </div>

@@ -30,7 +30,7 @@ const testimonials = [
 ];
 
 const PlatformIcon = memo(({ platform }: { platform: string }) => {
-  const iconClass = "w-4 h-4 text-white/30";
+  const iconClass = "w-4 h-4 text-gray-400";
   switch (platform) {
     case "twitter":
       return (
@@ -47,7 +47,7 @@ const PlatformIcon = memo(({ platform }: { platform: string }) => {
     case "producthunt":
       return (
         <div className="w-4 h-4 bg-[#5271ff] rounded-full flex items-center justify-center">
-          <span className="text-white text-xs font-bold">P</span>
+          <span className="text-[#2B2B2B] text-xs font-bold">P</span>
         </div>
       );
     default:
@@ -64,17 +64,17 @@ const TestimonialCard = memo(({ testimonial }: { testimonial: (typeof testimonia
     href={testimonial.link}
     target="_blank"
     rel="noopener noreferrer"
-    className="bg-[#111111] rounded-2xl p-6 shadow-sm border border-white/10 w-80 flex-shrink-0 mx-3 hover:shadow-lg hover:border-white/20 transition-all duration-300 cursor-pointer block group"
+    className="bg-gray-50 rounded-2xl p-6 shadow-sm border border-gray-200 w-80 flex-shrink-0 mx-3 hover:shadow-lg hover:border-gray-300 transition-all duration-300 cursor-pointer block group"
   >
-    <p className="text-white/70 mb-4 leading-relaxed text-sm">{testimonial.text}</p>
+    <p className="text-gray-600 mb-4 leading-relaxed text-sm">{testimonial.text}</p>
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 bg-[#2a2a2a] rounded-full flex items-center justify-center">
-          <span className="text-white font-semibold text-sm">{testimonial.avatar}</span>
+        <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+          <span className="text-[#2B2B2B] font-semibold text-sm">{testimonial.avatar}</span>
         </div>
         <div>
-          <p className="font-semibold text-white text-sm">{testimonial.name}</p>
-          <p className="text-white/50 text-xs">{testimonial.username}</p>
+          <p className="font-semibold text-[#2B2B2B] text-sm">{testimonial.name}</p>
+          <p className="text-gray-500 text-xs">{testimonial.username}</p>
         </div>
       </div>
       <div className="opacity-50 group-hover:opacity-100 transition-opacity">
@@ -92,20 +92,20 @@ const Testimony = memo(({ calendlyUrl }: TestimonyProps) => {
   const duplicatedTestimonials = useMemo(() => [...testimonials, ...testimonials], []);
 
   return (
-    <section className="py-24 bg-black font-figtree overflow-hidden relative">
+    <section className="py-24 bg-white font-figtree overflow-hidden relative">
       <div className="max-w-6xl mx-auto px-4 text-center mb-20">
-        <h2 className="text-4xl lg:text-5xl font-medium text-white mb-6 leading-tight">
+        <h2 className="text-4xl lg:text-5xl font-medium text-[#2B2B2B] mb-6 leading-tight">
           "Okay, <span className="text-[#5271ff]">Space Funding</span>{" "}
           <span className="text-[#5271ff]">blown my mind.</span>"
         </h2>
-        <p className="text-lg text-white/60 mb-10 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-500 mb-10 max-w-2xl mx-auto">
           And other great things our users say about us.
         </p>
         
         {/* Updated CTA Button - Keep black styling to match section */}
         <CTAButton 
          
-          className="bg-[#5271ff] text-white hover:bg-[#5271ff]/90 hover:scale-100"
+          className="bg-[#5271ff] text-[#2B2B2B] hover:bg-[#5271ff]/90 hover:scale-100"
           size="md"
         >
           Start Raising
@@ -131,8 +131,8 @@ const Testimony = memo(({ calendlyUrl }: TestimonyProps) => {
       </div>
 
       {/* Gradient overlays for infinite scroll effect - Hidden on mobile */}
-      <div className="hidden md:block absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-black to-transparent pointer-events-none z-10"></div>
-      <div className="hidden md:block absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-black to-transparent pointer-events-none z-10"></div>
+      <div className="hidden md:block absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
+      <div className="hidden md:block absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
 
       <style jsx>{`
         @keyframes scroll-right {

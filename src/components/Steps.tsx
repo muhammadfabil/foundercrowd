@@ -70,7 +70,7 @@ const CalendlyModal = memo(function CalendlyModal({
       {/* Close button */}
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 z-[10000] bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors"
+        className="absolute top-4 right-4 z-[10000] bg-gray-100 hover:bg-gray-100 text-[#2B2B2B] rounded-full p-2 transition-colors"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -145,23 +145,23 @@ const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
   }, [observers]);
   
   return (
-    <section className="py-20 bg-black font-figtree">
+    <section className="py-20 bg-white font-figtree">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
           {/* Left Side - Fixed Content */}
           <div className="w-full lg:w-2/5 lg:sticky lg:top-24 lg:self-start">
             <div className="mb-6">
-              <span className="text-sm text-white/50 font-medium">Investor Checkout</span>
+              <span className="text-sm text-gray-500 font-medium">Investor Checkout</span>
             </div>
-            <h2 className="text-4xl lg:text-5xl font-medium text-white mb-6 leading-tight">
+            <h2 className="text-4xl lg:text-5xl font-medium text-[#2B2B2B] mb-6 leading-tight">
               Simple, e-commerce style investor  experience.
             </h2>
-            <p className="text-lg text-white/60 mb-10 leading-relaxed">
+            <p className="text-lg text-gray-500 mb-10 leading-relaxed">
               Investors are guided through a linear investment creation process – no side quests, no ambiguity.
             </p>
             <button 
               onClick={handleOpenCalendly}
-              className="bg-black text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors"
+              className="bg-[#2B2B2B] text-white px-8 py-3 rounded-full font-medium hover:bg-[#1a1a1a] transition-colors"
             >
               Try it yourself
             </button>
@@ -180,7 +180,7 @@ const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
                     {index < stepsData.length - 1 && (
                       <div 
                         className={`absolute left-4 top-9 w-px h-full transition-colors duration-500 ${
-                          isCompleted ? 'bg-[#5271ff]' : 'bg-white/20'
+                          isCompleted ? 'bg-[#5271ff]' : 'bg-gray-100'
                         }`}
                       ></div>
                     )}
@@ -191,7 +191,7 @@ const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
                         className={`relative z-10 flex items-center justify-center w-8 h-8 rounded-full flex-shrink-0 mt-1 transition-all duration-500 ${
                           isCompleted 
                             ? 'bg-[#5271ff] scale-110' 
-                            : 'bg-white/20'
+                            : 'bg-gray-100'
                         }`}
                       >
                         {isCompleted ? (
@@ -200,7 +200,7 @@ const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
                             height="10" 
                             viewBox="0 0 14 10" 
                             fill="none" 
-                            className="text-white"
+                            className="text-[#2B2B2B]"
                           >
                             <path 
                               d="M1 5L5 9L13 1" 
@@ -211,7 +211,7 @@ const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
                             />
                           </svg>
                         ) : (
-                          <div className="w-3 h-3 rounded-full bg-white"></div>
+                          <div className="w-3 h-3 rounded-full bg-gray-500"></div>
                         )}
                       </div>
 
@@ -221,7 +221,7 @@ const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
                           <div className="mb-2">
                             <span 
                               className={`text-sm font-medium transition-colors duration-300 ${
-                                isCompleted ? 'text-white' : 'text-white/50'
+                                isCompleted ? 'text-[#2B2B2B]' : 'text-gray-500'
                               }`}
                             >
                               Step {step.id}
@@ -230,13 +230,13 @@ const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
                         )}
                         <h3 
                           className={`text-xl font-semibold mb-3 transition-colors duration-300 ${
-                            isCompleted ? 'text-white' : 'text-white/40'
+                            isCompleted ? 'text-[#2B2B2B]' : 'text-gray-400'
                           }`}
                         >
                           {step.title}
                         </h3>
                         {step.description && (
-                          <p className="text-white/60 leading-relaxed">
+                          <p className="text-gray-500 leading-relaxed">
                             {step.description}
                           </p>
                         )}

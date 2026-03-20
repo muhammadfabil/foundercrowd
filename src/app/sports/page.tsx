@@ -39,7 +39,7 @@ const SportsPage = memo(() => {
   return (
     <>
       <Navbar />
-      <main className="bg-black text-white font-figtree">
+      <main className="bg-white text-[#2B2B2B] font-figtree">
         {/* Hero Section */}
         <section className="relative pt-16 md:pt-20 lg:pt-30 lg:pb-5 bg-black text-white overflow-hidden">
           {/* Video Background */}
@@ -54,31 +54,9 @@ const SportsPage = memo(() => {
                 Space Funding <span className="text-[#5271ff]">Sports</span>
               </h1>
 
-              {/* Sparkles Particle Effect */}
-              <div className="w-full h-32 relative mb-1">
-                {/* Gradients */}
-                <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-[#5271ff] to-transparent h-[2px] blur-sm" />
-                <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-[#5271ff] to-transparent h-px w-3/4" />
-                <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-[#5271ff] to-transparent h-[5px] w-1/4 blur-sm" />
-                <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-[#5271ff] to-transparent h-px w-1/4" />
-
-                {/* Core component */}
-                <SparklesCore
-                  background="transparent"
-                  minSize={0.4}
-                  maxSize={1}
-                  particleDensity={800}
-                  className="w-full h-full"
-                  particleColor="#FFFFFF"
-                />
-
-                {/* Radial Gradient to prevent sharp edges */}
-                <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_100px_at_top,transparent_20%,white)]"></div>
-              </div>
-
               <div className="h-20 md:h-34 overflow-hidden relative mb-2">
                 <div className="text-center">
-                  <p className="text-2xl md:text-3xl font-medium text-white mb-2">
+                  <p className="text-2xl md:text-3xl font-medium text-white/90 mb-2">
                     Be the next
                   </p>
                   <div className="relative overflow-hidden h-12 md:h-16">
@@ -124,7 +102,7 @@ const SportsPage = memo(() => {
 
               {/* Video Section - Moved Between Headlines and Badges */}
               <div className="mx-auto max-w-4xl relative mb-4">
-                <div className="aspect-[16/9] overflow-hidden rounded-lg md:rounded-xl shadow-xl border border-white/10">
+                <div className="aspect-[16/9] overflow-hidden rounded-lg md:rounded-xl shadow-xl border border-gray-200">
                   <iframe
                     src="https://player.vimeo.com/video/1032029906?h=0&autoplay=1&loop=1&muted=1"
                     className="h-full w-full"
@@ -138,13 +116,13 @@ const SportsPage = memo(() => {
 
               {/* Three Badges Together */}
               <div className="flex justify-center space-x-4 mb-6">
-                <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                <div className="bg-gray-100 backdrop-blur-sm px-4 py-2 rounded-full">
                   <p className="text-[#5271ff] font-medium">Raise Capital</p>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                <div className="bg-gray-100 backdrop-blur-sm px-4 py-2 rounded-full">
                   <p className="text-[#5271ff] font-medium">Build Fans</p>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                <div className="bg-gray-100 backdrop-blur-sm px-4 py-2 rounded-full">
                   <p className="text-[#5271ff] font-medium">Create Legacy</p>
                 </div>
               </div>
@@ -162,18 +140,18 @@ const SportsPage = memo(() => {
         </section>
 
         {/* Success Stories Section */}
-        <section className="py-16 md:py-24 bg-[#0d0d0d]">
+        <section className="py-16 md:py-24 bg-gray-50">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Success Stories</h2>
-              <p className="text-lg text-white/60 max-w-2xl mx-auto">
+              <p className="text-lg text-gray-500 max-w-2xl mx-auto">
                 Teams and clubs that we have been involved with.
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* Caledonian Braves */}
-              <div className="bg-[#111111] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
+              <div className="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
                 <div className="h-40 mb-4 relative rounded-lg overflow-hidden flex items-center justify-center">
                   <Image
                     src="/caledonian.png"
@@ -189,16 +167,16 @@ const SportsPage = memo(() => {
                 <h3 className="text-xl font-bold mb-2">Caledonian Braves</h3>
                 <div className="mb-2 flex items-center">
                   <span className="text-[#5271ff] font-bold text-xl">$3M+</span>
-                  <span className="ml-2 text-sm text-white/60">Raised</span>
+                  <span className="ml-2 text-sm text-gray-500">Raised</span>
                 </div>
                 <div className="flex items-center">
                   <span className="text-[#5271ff] font-bold text-xl">10k+</span>
-                  <span className="ml-2 text-sm text-white/60">Investors</span>
+                  <span className="ml-2 text-sm text-gray-500">Investors</span>
                 </div>
               </div>
 
               {/* Watford */}
-              <div className="bg-[#111111] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
+              <div className="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
                 <div className="h-40 mb-4 relative rounded-lg overflow-hidden flex items-center justify-center">
                   <Image
                     src="/watford.png"
@@ -214,16 +192,16 @@ const SportsPage = memo(() => {
                 <h3 className="text-xl font-bold mb-2">Watford</h3>
                 <div className="mb-2 flex items-center">
                   <span className="text-[#5271ff] font-bold text-xl">$9M+</span>
-                  <span className="ml-2 text-sm text-white/60">Raised</span>
+                  <span className="ml-2 text-sm text-gray-500">Raised</span>
                 </div>
                 <div className="flex items-center">
                   <span className="text-[#5271ff] font-bold text-xl">9k+</span>
-                  <span className="ml-2 text-sm text-white/60">Investors</span>
+                  <span className="ml-2 text-sm text-gray-500">Investors</span>
                 </div>
               </div>
 
               {/* NK Tabor */}
-              <div className="bg-[#111111] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
+              <div className="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
                 <div className="h-40 mb-4 relative rounded-lg overflow-hidden flex items-center justify-center">
                   <Image
                     src="/nktabor.png"
@@ -239,16 +217,16 @@ const SportsPage = memo(() => {
                 <h3 className="text-xl font-bold mb-2">NK Tabor</h3>
                 <div className="mb-2 flex items-center">
                   <span className="text-[#5271ff] font-bold text-xl">$650k+</span>
-                  <span className="ml-2 text-sm text-white/60">Raised</span>
+                  <span className="ml-2 text-sm text-gray-500">Raised</span>
                 </div>
                 <div className="flex items-center">
                   <span className="text-[#5271ff] font-bold text-xl">1.3k+</span>
-                  <span className="ml-2 text-sm text-white/60">Investors</span>
+                  <span className="ml-2 text-sm text-gray-500">Investors</span>
                 </div>
               </div>
 
               {/* Carrick Rangers */}
-              <div className="bg-[#111111] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
+              <div className="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
                 <div className="h-40 mb-4 relative rounded-lg overflow-hidden flex items-center justify-center">
                   <Image
                     src="/carrick.png"
@@ -264,11 +242,11 @@ const SportsPage = memo(() => {
                 <h3 className="text-xl font-bold mb-2">Carrick Rangers</h3>
                 <div className="mb-2 flex items-center">
                   <span className="text-[#5271ff] font-bold text-xl">$700k+</span>
-                  <span className="ml-2 text-sm text-white/60">Raised</span>
+                  <span className="ml-2 text-sm text-gray-500">Raised</span>
                 </div>
                 <div className="flex items-center">
                   <span className="text-[#5271ff] font-bold text-xl">1.5k+</span>
-                  <span className="ml-2 text-sm text-white/60">Investors</span>
+                  <span className="ml-2 text-sm text-gray-500">Investors</span>
                 </div>
               </div>
             </div>
@@ -276,10 +254,10 @@ const SportsPage = memo(() => {
         </section>
 
         {/* Why Space Funding Sports Section - New Style */}
-        <section className="py-16 md:py-24 bg-[#111111]">
+        <section className="py-16 md:py-24 bg-gray-50">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Why Space Funding Sports?</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#2B2B2B]">Why Space Funding Sports?</h2>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -295,7 +273,7 @@ const SportsPage = memo(() => {
                 </div>
                 <div className="mb-6">
                   <h3 className="text-xl font-bold mb-4 text-white">Turn Fans into Shareholders</h3>
-                  <p className="text-white/80 text-sm leading-relaxed">
+                  <p className="text-gray-300 text-sm leading-relaxed">
                     Give supporters the chance to invest directly in their favorite team or sports startup.
                   </p>
                 </div>
@@ -312,7 +290,7 @@ const SportsPage = memo(() => {
                 </div>
                 <div className="mb-6">
                   <h3 className="text-xl font-bold mb-4 text-white">AI-Powered Investor Funnels</h3>
-                  <p className="text-white/80 text-sm leading-relaxed">
+                  <p className="text-gray-300 text-sm leading-relaxed">
                     Find the right mix of fans, sponsors, and institutional investors.
                   </p>
                 </div>
@@ -330,7 +308,7 @@ const SportsPage = memo(() => {
                 </div>
                 <div className="mb-6">
                   <h3 className="text-xl font-bold mb-4 text-white">Global Reach</h3>
-                  <p className="text-white/80 text-sm leading-relaxed">
+                  <p className="text-gray-300 text-sm leading-relaxed">
                     Raise money locally and internationally — from the stadium to the world stage.
                   </p>
                 </div>
@@ -347,7 +325,7 @@ const SportsPage = memo(() => {
                 </div>
                 <div className="mb-6">
                   <h3 className="text-xl font-bold mb-4 text-white">Low-Cost, High-Impact Model</h3>
-                  <p className="text-white/80 text-sm leading-relaxed">
+                  <p className="text-gray-300 text-sm leading-relaxed">
                     Transparent fees. You only pay when you raise.
                   </p>
                 </div>
@@ -357,11 +335,11 @@ const SportsPage = memo(() => {
         </section>
 
         {/* Who It's For Section */}
-        <section className="py-16 md:py-24 bg-[#0d0d0d]">
+        <section className="py-16 md:py-24 bg-gray-50">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Who It's For</h2>
-              <p className="text-lg text-white/60 max-w-2xl mx-auto">
+              <p className="text-lg text-gray-500 max-w-2xl mx-auto">
                 Space Funding Sports serves diverse organizations across the sports ecosystem.
               </p>
             </div>
@@ -370,14 +348,14 @@ const SportsPage = memo(() => {
               {/* Target 1 */}
               <div className="bg-[#eef1ff] p-8 rounded-xl shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
                 <div className="w-16 h-16 bg-[#5271ff] rounded-full mb-6 flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-[#2B2B2B]">
                     <path d="M11.644 1.59a.75.75 0 01.712 0l9.75 5.25a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.712 0l-9.75-5.25a.75.75 0 010-1.32l9.75-5.25z" />
                     <path d="M3.265 10.602l7.668 4.129a2.25 2.25 0 002.134 0l7.668-4.13 1.37.739a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.71 0l-9.75-5.25a.75.75 0 010-1.32l1.37-.738z" />
                     <path d="M10.933 19.231l-7.668-4.13-1.37.739a.75.75 0 000 1.32l9.75 5.25c.221.12.489.12.71 0l9.75-5.25a.75.75 0 000-1.32l-1.37-.738-7.668 4.13a2.25 2.25 0 01-2.134-.001z" />
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold mb-4">Football & Sports Clubs</h3>
-                <p className="text-white/60">
+                <p className="text-gray-500">
                   Looking to expand, modernize, or compete at higher levels.
                 </p>
               </div>
@@ -385,13 +363,13 @@ const SportsPage = memo(() => {
               {/* Target 2 */}
               <div className="bg-[#eef1ff] p-8 rounded-xl shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
                 <div className="w-16 h-16 bg-[#5271ff] rounded-full mb-6 flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-[#2B2B2B]">
                     <path fillRule="evenodd" d="M9.315 7.584C12.195 3.883 16.695 1.5 21.75 1.5a.75.75 0 01.75.75c0 5.056-2.383 9.555-6.084 12.436A6.75 6.75 0 019.75 22.5a.75.75 0 01-.75-.75v-4.131A15.838 15.838 0 016.382 15H2.25a.75.75 0 01-.75-.75 6.75 6.75 0 017.815-6.666ZM15 6.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5Z" clipRule="evenodd" />
                     <path d="M5.26 17.242a.75.75 0 10-.897-1.203 5.243 5.243 0 00-2.05 5.022.75.75 0 00.625.627 5.243 5.243 0 005.022-2.051.75.75 0 10-1.202-.897 3.744 3.744 0 01-3.008 1.51c0-1.23.592-2.323 1.51-3.008Z" />
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold mb-4">Sports Startups</h3>
-                <p className="text-white/60">
+                <p className="text-gray-500">
                   Building new technologies, fan experiences, or performance platforms.
                 </p>
               </div>
@@ -399,13 +377,13 @@ const SportsPage = memo(() => {
               {/* Target 3 */}
               <div className="bg-[#eef1ff] p-8 rounded-xl shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
                 <div className="w-16 h-16 bg-[#5271ff] rounded-full mb-6 flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-[#2B2B2B]">
                     <path fillRule="evenodd" d="M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0ZM15.75 9.75a3 3 0 116 0 3 3 0 01-6 0ZM2.25 9.75a3 3 0 116 0 3 3 0 01-6 0ZM6.31 15.117A6.745 6.745 0 0112 12a6.745 6.745 0 016.709 7.498.75.75 0 01-.372.568A12.696 12.696 0 0112 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 01-.372-.568 6.787 6.787 0 011.019-4.38Z" clipRule="evenodd" />
                     <path d="M5.082 14.254a8.287 8.287 0 00-1.308 5.135 9.687 9.687 0 01-1.764-.44l-.115-.04a.563.563 0 01-.373-.487l-.01-.121a3.75 3.75 0 013.57-4.047ZM20.226 19.389a8.287 8.287 0 00-1.308-5.135 3.75 3.75 0 013.57 4.047l-.01.121a.563.563 0 01-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold mb-4">Leagues & Associations</h3>
-                <p className="text-white/60">
+                <p className="text-gray-500">
                   Aiming to engage fans and secure long-term financial growth.
                 </p>
               </div>

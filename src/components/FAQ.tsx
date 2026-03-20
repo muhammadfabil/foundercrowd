@@ -77,27 +77,27 @@ const FAQItem = memo(function FAQItem({
 }) {
     return (
         <div
-            className="border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-colors duration-300"
+            className="border border-gray-200 rounded-2xl overflow-hidden hover:border-gray-300 transition-colors duration-300"
         >
             <button
                 onClick={() => toggleFAQ(faq.id)}
-                className="hover:cursor-pointer w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors duration-300 group"
+                className="hover:cursor-pointer w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-300 group"
             >
-                <h3 className="text-lg font-medium text-white pr-4 group-hover:text-[#5271ff] transition-colors duration-300">
+                <h3 className="text-lg font-medium text-[#2B2B2B] pr-4 group-hover:text-[#5271ff] transition-colors duration-300">
                     {faq.question}
                 </h3>
                 <div className="flex-shrink-0">
                     <div
                         className={`
-                            w-8 h-8 rounded-full bg-white/10 flex items-center justify-center transition-all duration-300
-                            ${openFAQ === faq.id ? 'rotate-45 bg-[#5271ff]' : 'rotate-0 group-hover:bg-white/20'}
+                            w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center transition-all duration-300
+                            ${openFAQ === faq.id ? 'rotate-45 bg-[#5271ff]' : 'rotate-0 group-hover:bg-gray-100'}
                         `}
                     >
                         <svg
                             className={`w-4 h-4 transition-colors duration-300 ${
                                 openFAQ === faq.id
-                                    ? 'text-white'
-                                    : 'text-white/60'
+                                    ? 'text-[#2B2B2B]'
+                                    : 'text-gray-500'
                             }`}
                             fill="none"
                             stroke="currentColor"
@@ -122,7 +122,7 @@ const FAQItem = memo(function FAQItem({
                 `}
             >
                 <div className="px-6 pb-6">
-                    <p className="text-white/60 leading-relaxed">
+                    <p className="text-gray-500 leading-relaxed">
                         {faq.answer}
                     </p>
                 </div>
@@ -139,14 +139,14 @@ const FAQ = () => {
     };
 
     return (
-        <section className="py-24 bg-black font-figtree">
+        <section className="py-24 bg-white font-figtree">
             <div className="max-w-4xl mx-auto px-4">
                 {/* Header */}
                 <div className="text-center mb-20">
-                    <h2 className="text-4xl lg:text-5xl font-medium text-white mb-6 leading-tight">
+                    <h2 className="text-4xl lg:text-5xl font-medium text-[#2B2B2B] mb-6 leading-tight">
                         Frequently Asked Questions
                     </h2>
-                    <p className="text-lg text-white/60 max-w-2xl mx-auto">
+                    <p className="text-lg text-gray-500 max-w-2xl mx-auto">
                         Everything you need to know about Space Funding and how it works.
                     </p>
                 </div>
@@ -165,7 +165,7 @@ const FAQ = () => {
 
                 {/* Bottom CTA - Updated to use CTAButton */}
                 <div className="text-center mt-20">
-                    <p className="text-white/60 mb-6">
+                    <p className="text-gray-500 mb-6">
                         Still have questions? We're here to help.
                     </p>
                     

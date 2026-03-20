@@ -409,7 +409,7 @@ const Statement = memo(() => {
   }, []);
 
   return (
-    <section className="bg-black  text-white overflow-hidden relative py-12 md:py-24">
+    <section className="bg-white  text-[#2B2B2B] overflow-hidden relative py-12 md:py-24">
       {/* Enhanced star particles with amber glow */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Primary amber stars */}
@@ -453,7 +453,7 @@ const Statement = memo(() => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12 md:mb-20 max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium leading-tight mb-4 text-white">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium leading-tight mb-4 text-[#2B2B2B]">
             There's no better place
             <br />
             for you to <span className="text-[#5271ff]">raise</span>
@@ -464,13 +464,13 @@ const Statement = memo(() => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center mb-16 md:mb-32">
           <div className="space-y-4 md:space-y-6">
             <div>
-              <h3 className="text-2xl md:text-3xl lg:text-4xl font-medium leading-tight mb-4 md:mb-6 text-white">
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-medium leading-tight mb-4 md:mb-6 text-[#2B2B2B]">
                 Convert capital raising into 
                 <span className="text-[#5271ff]"> simple ecommerce</span>
               </h3>
             </div>
 
-            <div className="border-l-4 border-[#5271ff] pl-4 py-1 text-lg max-w-md text-white/90">
+            <div className="border-l-4 border-[#5271ff] pl-4 py-1 text-lg max-w-md text-gray-700">
               <p>
                 Space Funding converts <span className="text-[#5271ff] font-semibold">20% higher</span> on average than other fundraising platforms, with the <span className="text-[#5271ff] font-semibold">lowest fees</span> in the industry — giving your brand exposure to anyone in the world with an internet connection.
               </p>
@@ -502,11 +502,11 @@ const Statement = memo(() => {
           </div>
 
           <div className="order-1 md:order-2 space-y-4 md:space-y-6">
-            <h3 className="text-2xl md:text-4xl lg:text-5xl font-medium leading-tight text-white">
+            <h3 className="text-2xl md:text-4xl lg:text-5xl font-medium leading-tight text-[#2B2B2B]">
               Raise capital while building a 
               <span className="text-[#5271ff]"> global community</span> of supporters
             </h3>
-            <p className="text-base md:text-lg text-white/90 leading-relaxed max-w-md">
+            <p className="text-base md:text-lg text-gray-700 leading-relaxed max-w-md">
               Space Funding puts your raise within <span className="text-[#5271ff] font-semibold">60 milliseconds</span> of every potential investor worldwide, with the capacity to handle even the biggest funding launches.
             </p>
           </div>

@@ -58,17 +58,18 @@ const BookingModal = memo(function BookingModal({
 });
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const hasNoHero = ['/faq', '/privacy', '/terms'].includes(pathname || '');
+  const [scrolled, setScrolled] = useState(hasNoHero);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openBooking, setOpenBooking] = useState(false); // Renamed from openCalendly
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const pathname = usePathname();
   
   // Check if current page is blog related (blog index or blog post)
   const isBlogPage = pathname?.startsWith('/blog');
 
   // Memoized scroll handler
-  const onScroll = useCallback(() => setScrolled(window.scrollY > 16), []);
+  const onScroll = useCallback(() => setScrolled(window.scrollY > 16 || hasNoHero), [hasNoHero]);
 
   useEffect(() => {
     onScroll();
@@ -116,18 +117,13 @@ export default function Navbar() {
           {/* LEFT: Logo with Home Link */}
           <Link href="/" className="flex items-center gap-4 z-[110] relative p-1">
             <Image
-              src="/logo.png"
+              src="/LOGO_NAVBAR.avif"
               alt="Space Funding Logo"
-              width={40}
+              width={160}
               height={40}
-              className={`h-6 md:h-10 w-auto transition-all duration-300`}
+              className={`h-8 md:h-10 w-auto transition-all duration-300 ${scrolled ? 'invert' : ''}`}
               priority={true}
             />
-            <span className={`font-medium text-base md:text-lg transition-all duration-300 ${
-              scrolled ? 'text-black' : 'text-white'
-            }`}>
-              Space Funding
-            </span>
           </Link>
 
           {/* CENTER: Navigation Menu (Desktop only) */}

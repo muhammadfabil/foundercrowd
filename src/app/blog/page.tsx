@@ -129,8 +129,8 @@ const BlogPage = memo(() => {
           onClick={() => handlePageChange(i)}
           className={`w-10 h-10 rounded-md flex items-center justify-center ${
             page === i 
-              ? "bg-[#5271ff] text-white" 
-              : "bg-[#1a1a1a] text-white hover:bg-[#2a2a2a]"
+              ? "bg-[#5271ff] text-[#2B2B2B]" 
+              : "bg-gray-100 text-[#2B2B2B] hover:bg-gray-200"
           } transition-all duration-300`}
         >
           {i}
@@ -143,7 +143,7 @@ const BlogPage = memo(() => {
         <button
           onClick={() => handlePageChange(Math.max(1, page - 1))}
           disabled={page === 1}
-          className="w-10 h-10 rounded-md flex items-center justify-center bg-[#1a1a1a] text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#2a2a2a] transition-all duration-300"
+          className="w-10 h-10 rounded-md flex items-center justify-center bg-gray-100 text-[#2B2B2B] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200 transition-all duration-300"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
@@ -155,7 +155,7 @@ const BlogPage = memo(() => {
         <button
           onClick={() => handlePageChange(Math.min(totalPages, page + 1))}
           disabled={page === totalPages}
-          className="w-10 h-10 rounded-md flex items-center justify-center bg-[#1a1a1a] text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#2a2a2a] transition-all duration-300"
+          className="w-10 h-10 rounded-md flex items-center justify-center bg-gray-100 text-[#2B2B2B] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200 transition-all duration-300"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
@@ -168,18 +168,18 @@ const BlogPage = memo(() => {
   return (
     <>
       <Navbar />
-      <div className="bg-black text-white font-figtree">
+      <div className="bg-white text-[#2B2B2B] font-figtree">
         {/* Hero Section */}
         <section className="relative pt-24 bg-black min-h-[40vh] flex items-end">
           <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0">
             <source src="/EarthVideo.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-black/70 z-[1]" />
-          <div className="relative z-[2] max-w-6xl mx-auto px-4 py-16 md:py-24 w-full">
+          <div className="relative z-[2] max-w-6xl mx-auto px-4 py-16 md:py-24 w-full text-white">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
               Space Funding <span className="text-[#5271ff]">Journal</span>
             </h1>
-            <p className="text-white/60 text-xl max-w-2xl">
+            <p className="text-white/70 text-xl max-w-2xl">
               Insights, strategies, and stories to help founders build remarkable companies.
             </p>
           </div>
@@ -189,7 +189,7 @@ const BlogPage = memo(() => {
           {/* Featured Post (First Page Only) */}
           {page === 1 && featuredPost && (
             <div className="mb-16">
-              <div className="group grid md:grid-cols-5 gap-8 bg-[#111111] rounded-3xl p-4 md:p-8 hover:bg-[#1a1a1a] transition-all duration-300">
+              <div className="group grid md:grid-cols-5 gap-8 bg-gray-50 rounded-3xl p-4 md:p-8 hover:bg-gray-100 transition-all duration-300">
                 <div className="md:col-span-3 relative aspect-[16/9] md:aspect-auto w-full overflow-hidden rounded-xl">
                   {getFeaturedImage(featuredPost).src ? (
                     <Image
@@ -212,10 +212,10 @@ const BlogPage = memo(() => {
                 <div className="md:col-span-2 flex flex-col justify-center">
                   <span className="text-orange-500 text-sm mb-2">Featured</span>
                   <h2
-                    className="text-2xl md:text-3xl font-semibold mb-4 leading-tight text-white"
+                    className="text-2xl md:text-3xl font-semibold mb-4 leading-tight text-[#2B2B2B]"
                     dangerouslySetInnerHTML={{ __html: featuredPost.title.rendered }}
                   />
-                  <p className="text-white/60 mb-6 line-clamp-3">
+                  <p className="text-gray-500 mb-6 line-clamp-3">
                     {stripHtml(featuredPost.excerpt.rendered).slice(0, 180) + "…"}
                   </p>
                   <Link
@@ -264,7 +264,7 @@ const BlogPage = memo(() => {
                     <Link
                       key={p.id}
                       href={`/blog/${p.slug}`}
-                      className="group block bg-[#111111] rounded-3xl overflow-hidden hover:bg-[#1a1a1a] transition-all duration-300"
+                      className="group block bg-gray-50 rounded-3xl overflow-hidden hover:bg-gray-100 transition-all duration-300"
                     >
                       {/* Featured Image */}
                       <div className="relative aspect-[16/9] w-full overflow-hidden">
@@ -289,18 +289,18 @@ const BlogPage = memo(() => {
                       {/* Content */}
                       <div className="p-6">
                         {/* Date */}
-                        <div className="text-sm text-white/40 mb-3">
+                        <div className="text-sm text-gray-400 mb-3">
                           {date}
                         </div>
 
                         {/* Title */}
                         <h3
-                          className="text-xl font-semibold text-white mb-3 leading-tight line-clamp-2"
+                          className="text-xl font-semibold text-[#2B2B2B] mb-3 leading-tight line-clamp-2"
                           dangerouslySetInnerHTML={{ __html: p.title.rendered }}
                         />
 
                         {/* Excerpt */}
-                        <p className="text-white/60 mb-4 leading-relaxed line-clamp-3">
+                        <p className="text-gray-500 mb-4 leading-relaxed line-clamp-3">
                           {excerpt}
                         </p>
 
@@ -332,24 +332,24 @@ const BlogPage = memo(() => {
           )}
 
           {/* Newsletter Subscription */}
-          <div className="mt-24 bg-[#111111] rounded-3xl p-8 md:p-12 border border-white/10">
+          <div className="mt-24 bg-gray-50 rounded-3xl p-8 md:p-12 border border-gray-200">
             <div className="max-w-3xl mx-auto text-center">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-[#2B2B2B]">
                 Subscribe to our <span className="text-orange-500">newsletter</span>
               </h3>
-              <p className="text-white/60 mb-8 max-w-lg mx-auto">
+              <p className="text-gray-500 mb-8 max-w-lg mx-auto">
                 Get the latest insights on fundraising, growth strategies, and startup resources delivered straight to your inbox.
               </p>
               <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
                 <input
                   type="email"
                   placeholder="Your email address"
-                  className="flex-1 bg-[#1a1a1a] border border-white/20 rounded-full text-white placeholder-white/30 px-6 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="flex-1 bg-gray-100 border border-gray-300 rounded-full text-[#2B2B2B] placeholder-gray-400 px-6 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500"
                   required
                 />
                 <button
                   type="submit"
-                  className="bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-full px-8 py-3 transition-colors duration-300"
+                  className="bg-orange-500 hover:bg-orange-600 text-[#2B2B2B] font-medium rounded-full px-8 py-3 transition-colors duration-300"
                 >
                   Subscribe
                 </button>

@@ -42,7 +42,7 @@ const WhySpaceFundingPage = memo(() => {
   return (
     <>
       <Navbar />
-      <main className="bg-black text-white font-figtree">
+      <main className="bg-white text-[#2B2B2B] font-figtree">
         {/* Header Section - Centered Text with Video */}
         <section className="relative py-16 md:py-20 lg:py-24 bg-black text-white overflow-hidden">
           {/* Video Background */}
@@ -82,7 +82,7 @@ const WhySpaceFundingPage = memo(() => {
 
             {/* Video in Header Section */}
             <div className="mx-auto max-w-4xl relative">
-              <div className="aspect-[16/9] overflow-hidden rounded-lg md:rounded-xl shadow-xl border border-white/10">
+              <div className="aspect-[16/9] overflow-hidden rounded-lg md:rounded-xl shadow-xl border border-gray-200">
                 <iframe
                   src="https://player.vimeo.com/video/1032029906?h=0&autoplay=1&loop=1&muted=1"
                   className="h-full w-full"
@@ -97,16 +97,16 @@ const WhySpaceFundingPage = memo(() => {
         </section>
 
         {/* Trusted By Section */}
-        <section className="py-12 md:py-16 bg-[#111111]">
+        <section className="py-12 md:py-16 bg-gray-50">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
-              <p className="text-lg font-bold text-white">Trusted by</p>
+              <p className="text-lg font-bold text-[#2B2B2B]">Trusted by</p>
             </div>
 
             <div className="relative overflow-hidden">
               {/* Gradient fade effects */}
-              <div className="absolute left-0 top-0 w-16 h-full bg-gradient-to-r from-[#111111] to-transparent z-10"></div>
-              <div className="absolute right-0 top-0 w-16 h-full bg-gradient-to-l from-[#111111] to-transparent z-10"></div>
+              <div className="absolute left-0 top-0 w-16 h-full bg-gradient-to-r from-gray-50 to-transparent z-10"></div>
+              <div className="absolute right-0 top-0 w-16 h-full bg-gradient-to-l from-gray-50 to-transparent z-10"></div>
 
               {/* Scrolling logos */}
               <div className="flex animate-scroll-horizontal items-center space-x-12">
@@ -151,7 +151,7 @@ const WhySpaceFundingPage = memo(() => {
         {/* Zig-Zag Content Sections */}
 
         {/* Section 1: Our Story (Image Left, Content Right) */}
-        <section className="py-16 md:py-20 bg-[#0d0d0d]">
+        <section className="py-16 md:py-20 bg-gray-50">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Image - Left */}
@@ -171,12 +171,12 @@ const WhySpaceFundingPage = memo(() => {
               {/* Content - Right */}
               <div className="space-y-6 order-2">
                 <div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                  <h2 className="text-3xl md:text-4xl font-bold text-[#2B2B2B] mb-4">
                     Our Story
                   </h2>
                 </div>
 
-                <div className="space-y-4 text-white/70">
+                <div className="space-y-4 text-gray-600">
                   <p className="text-base md:text-lg leading-relaxed">
                     Space Funding was created to solve one of the biggest problems in the startup world: raising capital is still outdated, expensive, and stacked against the founder.
                   </p>
@@ -193,7 +193,7 @@ const WhySpaceFundingPage = memo(() => {
         </section>
 
         {/* Section 2: The First Breakthrough (Content Left, Image Right) */}
-        <section className="py-16 md:py-20 bg-[#111111]">
+        <section className="py-16 md:py-20 bg-gray-50">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Content - Left */}
@@ -202,12 +202,12 @@ const WhySpaceFundingPage = memo(() => {
                   <p className="text-sm font-semibold text-red-600 uppercase tracking-wider mb-2">
                     THE PROBLEM
                   </p>
-                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                  <h2 className="text-3xl md:text-4xl font-bold text-[#2B2B2B] mb-4">
                     The First Breakthrough
                   </h2>
                 </div>
 
-                <div className="space-y-4 text-white/70">
+                <div className="space-y-4 text-gray-600">
                   <p className="text-base md:text-lg leading-relaxed">
                     To fix this, José launched Space Funding, a leading capital raising firm. Through Space Funding, he partnered with top platforms and helped startups raise millions of dollars from thousands of investors worldwide.
                   </p>
@@ -219,15 +219,15 @@ const WhySpaceFundingPage = memo(() => {
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                    <span className="text-white/80 font-medium">Too costly - passing mistakes back to startups</span>
+                    <span className="text-gray-700 font-medium">Too costly - passing mistakes back to startups</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                    <span className="text-white/80 font-medium">Outdated models - large upfront fees</span>
+                    <span className="text-gray-700 font-medium">Outdated models - large upfront fees</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                    <span className="text-white/80 font-medium">No true win-win alignment</span>
+                    <span className="text-gray-700 font-medium">No true win-win alignment</span>
                   </div>
                 </div>
               </div>
@@ -250,14 +250,14 @@ const WhySpaceFundingPage = memo(() => {
         </section>
 
         {/* Section 3: Why Space Funding (Image Left, Content Right) */}
-        <section className="py-16 md:py-20 bg-[#0d0d0d]">
+        <section className="py-16 md:py-20 bg-gray-50">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Image - Left */}
               <div className="relative order-1">
                 <div className="overflow-hidden rounded-2xl shadow-xl">
                   <Image
-                    src="/why3.jpg"
+                    src="/why3.png"
                     alt="Why Space Funding - Solution illustration"
                     width={600}
                     height={400}
@@ -273,12 +273,12 @@ const WhySpaceFundingPage = memo(() => {
                   <p className="text-sm font-semibold text-green-600 uppercase tracking-wider mb-2">
                     THE SOLUTION
                   </p>
-                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                  <h2 className="text-3xl md:text-4xl font-bold text-[#2B2B2B] mb-4">
                     Why Space Funding
                   </h2>
                 </div>
 
-                <div className="space-y-4 text-white/70">
+                <div className="space-y-4 text-gray-600">
                   <p className="text-base md:text-lg leading-relaxed">
                     José founded Space Funding to change that.
                   </p>
@@ -288,31 +288,31 @@ const WhySpaceFundingPage = memo(() => {
                 </div>
 
                 <div className="space-y-4">
-                  <div className="flex items-start gap-4 p-4 bg-[#1a1a1a] rounded-lg border border-green-500/20">
+                  <div className="flex items-start gap-4 p-4 bg-gray-100 rounded-lg border border-green-500/20">
                     <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-3 h-3 text-[#2B2B2B]" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <span className="text-white/80 font-medium">AI-powered investor funnels to match founders with the right backers</span>
+                    <span className="text-gray-700 font-medium">AI-powered investor funnels to match founders with the right backers</span>
                   </div>
 
-                  <div className="flex items-start gap-4 p-4 bg-[#1a1a1a] rounded-lg border border-green-500/20">
+                  <div className="flex items-start gap-4 p-4 bg-gray-100 rounded-lg border border-green-500/20">
                     <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-3 h-3 text-[#2B2B2B]" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <span className="text-white/80 font-medium">Global marketing tools to take your raise anywhere</span>
+                    <span className="text-gray-700 font-medium">Global marketing tools to take your raise anywhere</span>
                   </div>
 
-                  <div className="flex items-start gap-4 p-4 bg-[#1a1a1a] rounded-lg border border-green-500/20">
+                  <div className="flex items-start gap-4 p-4 bg-gray-100 rounded-lg border border-green-500/20">
                     <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-3 h-3 text-[#2B2B2B]" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <span className="text-white/80 font-medium">Transparent, founder-first pricing aligned with your success</span>
+                    <span className="text-gray-700 font-medium">Transparent, founder-first pricing aligned with your success</span>
                   </div>
                 </div>
               </div>
@@ -321,7 +321,7 @@ const WhySpaceFundingPage = memo(() => {
         </section>
 
         {/* Section 4: Best Price Guaranteed (Content Left, Image Right) */}
-        <section className="py-16 md:py-20 bg-[#111111]">
+        <section className="py-16 md:py-20 bg-gray-50">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Content - Left */}
@@ -330,12 +330,12 @@ const WhySpaceFundingPage = memo(() => {
                   <p className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">
                     PRICING
                   </p>
-                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                  <h2 className="text-3xl md:text-4xl font-bold text-[#2B2B2B] mb-4">
                     Best Price. Guaranteed.
                   </h2>
                 </div>
 
-                <div className="space-y-4 text-white/70">
+                <div className="space-y-4 text-gray-600">
                   <p className="text-base md:text-lg leading-relaxed">
                     Raising capital is already hard enough — paying high upfront fees shouldn't make it harder. That's why Space Funding is built on a founder-first pricing model:
                   </p>
@@ -344,27 +344,27 @@ const WhySpaceFundingPage = memo(() => {
                 <div className="space-y-4">
                   <div className="flex items-start gap-4 p-4 bg-blue-900/20 rounded-lg border border-blue-500/20">
                     <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-white font-bold text-xs">$</span>
+                      <span className="text-[#2B2B2B] font-bold text-xs">$</span>
                     </div>
-                    <span className="text-white/80 font-medium">Lowest fees in the market — more capital goes to your business</span>
+                    <span className="text-gray-700 font-medium">Lowest fees in the market — more capital goes to your business</span>
                   </div>
 
                   <div className="flex items-start gap-4 p-4 bg-blue-900/20 rounded-lg border border-blue-500/20">
                     <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-white font-bold text-xs">✓</span>
+                      <span className="text-[#2B2B2B] font-bold text-xs">✓</span>
                     </div>
-                    <span className="text-white/80 font-medium">Pay only when you raise — we win when you win</span>
+                    <span className="text-gray-700 font-medium">Pay only when you raise — we win when you win</span>
                   </div>
 
                   <div className="flex items-start gap-4 p-4 bg-blue-900/20 rounded-lg border border-blue-500/20">
                     <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-white font-bold text-xs">🏆</span>
+                      <span className="text-[#2B2B2B] font-bold text-xs">🏆</span>
                     </div>
-                    <span className="text-white/80 font-medium">Best price guarantee — we'll match or beat any competitor</span>
+                    <span className="text-gray-700 font-medium">Best price guarantee — we'll match or beat any competitor</span>
                   </div>
                 </div>
 
-                <p className="text-white/60 italic">
+                <p className="text-gray-500 italic">
                   Because no founder should be held back by costs.
                 </p>
               </div>
@@ -387,19 +387,19 @@ const WhySpaceFundingPage = memo(() => {
         </section>
 
         {/* Section 5: What We've Achieved (Centered Content) */}
-        <section className="py-16 md:py-20 bg-[#0d0d0d]">
+        <section className="py-16 md:py-20 bg-gray-50">
           <div className="mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <div>
                 <p className="text-sm font-semibold text-[#5271ff] uppercase tracking-wider mb-2">
                   OUR IMPACT
                 </p>
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                <h2 className="text-3xl md:text-4xl font-bold text-[#2B2B2B] mb-6">
                   What We've Achieved
                 </h2>
               </div>
 
-              <div className="space-y-4 text-white/70 mb-8">
+              <div className="space-y-4 text-gray-600 mb-8">
                 <p className="text-base md:text-lg leading-relaxed">
                   Since then, we've helped companies at every stage raise over $210 million. And we're just getting started.
                 </p>
@@ -408,7 +408,7 @@ const WhySpaceFundingPage = memo(() => {
                 </p>
               </div>
 
-              <div className="bg-gradient-to-r from-[#5271ff] to-[#5271ff] p-8 rounded-2xl text-white shadow-lg mb-10">
+              <div className="bg-gradient-to-r from-[#5271ff] to-[#5271ff] p-8 rounded-2xl text-[#2B2B2B] shadow-lg mb-10">
                 <h3 className="text-2xl md:text-3xl font-bold mb-4 text-center">
                   Help founders raise $1 billion by 2030
                 </h3>
@@ -418,13 +418,13 @@ const WhySpaceFundingPage = memo(() => {
               </div>
 
               <div className="grid grid-cols-2 gap-8 mt-8 max-w-md mx-auto">
-                <div className="text-center p-6 bg-[#1a1a1a] rounded-lg border border-white/10">
+                <div className="text-center p-6 bg-gray-100 rounded-lg border border-gray-200">
                   <h4 className="text-3xl font-bold text-[#5271ff]">$210M+</h4>
-                  <p className="text-sm text-white/60">Capital Raised</p>
+                  <p className="text-sm text-gray-500">Capital Raised</p>
                 </div>
-                <div className="text-center p-6 bg-[#1a1a1a] rounded-lg border border-white/10">
+                <div className="text-center p-6 bg-gray-100 rounded-lg border border-gray-200">
                   <h4 className="text-3xl font-bold text-[#5271ff]">1000+</h4>
-                  <p className="text-sm text-white/60">Founders Helped</p>
+                  <p className="text-sm text-gray-500">Founders Helped</p>
                 </div>
               </div>
             </div>
@@ -432,11 +432,11 @@ const WhySpaceFundingPage = memo(() => {
         </section>
 
         {/* CTA Section - Updated to use CTAButton */}
-        <section className="py-20 bg-[#0d0d0d]">
+        <section className="py-20 bg-gray-50">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-3xl md:text-6xl font-bold mb-6 text-[#5271ff]">Ready to Get Started?</h2>
-              <p className="text-lg text-white/60 mb-8">
+              <p className="text-lg text-gray-500 mb-8">
                 Join thousands of founders who are transforming how they raise capital.
               </p>
 
