@@ -8,7 +8,6 @@ import CTAButton from "./CTAButton";
 
 export default function CTAP() {
   useEffect(() => {
-    // Initialize AOS
     AOS.init({
       duration: 1500,
       once: false,
@@ -18,26 +17,18 @@ export default function CTAP() {
 
   return (
     <section className="relative h-screen overflow-hidden flex flex-col items-center justify-center isolate">
-      {/* BG image dengan positioning yang lebih kuat */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/paralax.jpg"
-          alt="City"
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-          }}
-        />
-      </div>
+      {/* BG video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src="/EarthVideo.mp4" type="video/mp4" />
+      </video>
 
-      {/* Overlay kontras dengan z-index yang jelas */}
+      {/* Overlay */}
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/30 via-black/40 to-black/60" />
 
       {/* Content dengan z-index tertinggi */}

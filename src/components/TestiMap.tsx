@@ -189,7 +189,7 @@ const TestimonialMap = memo(() => {
                 rounded-xl flex items-center justify-center border-2 transition-all duration-300
                 ${isActive 
                   ? "bg-[#5271ff] border-[#5271ff] shadow-lg transform scale-105" 
-                  : "bg-white border-[#2B2B2B]/20 hover:border-[#5271ff] hover:shadow-md"
+                  : "bg-[#1a1a1a] border-white/20 hover:border-[#5271ff] hover:shadow-md"
                 }
               `}
               whileHover={{ scale: isActive ? 1.05 : 1.1 }}
@@ -221,7 +221,7 @@ const TestimonialMap = memo(() => {
     return (
       <div
         className={`
-          absolute rounded-xl shadow-lg overflow-hidden bg-white border border-[#2B2B2B]/10
+          absolute rounded-xl shadow-lg overflow-hidden bg-[#1a1a1a] border border-white/10
           transition-all duration-500 ease-out
           ${isCenter ? 'z-30' : 'z-20 cursor-pointer'}
         `}
@@ -256,12 +256,12 @@ const TestimonialMap = memo(() => {
   });
 
   return (
-    <section className="py-8 md:py-12 lg:py-20 bg-white">
+    <section className="py-8 md:py-12 lg:py-20 bg-black">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8 md:mb-12">
           <motion.h2 
-            className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#2B2B2B] mb-4"
+            className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -270,7 +270,7 @@ const TestimonialMap = memo(() => {
             <span className="text-[#5271ff]"> Invest and raise everywhere</span>
           </motion.h2>
           <motion.p 
-            className="text-[#2B2B2B]/70 text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-2"
+            className="text-white/60 text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -281,7 +281,7 @@ const TestimonialMap = memo(() => {
 
         {/* Main Container */}
         <motion.div 
-          className="bg-[#f2f5ff] rounded-2xl md:rounded-3xl p-4 md:p-6 lg:p-8 shadow-xl border border-[#2B2B2B]/10 backdrop-blur-sm"
+          className="bg-[#111111] rounded-2xl md:rounded-3xl p-4 md:p-6 lg:p-8 shadow-xl border border-white/10 backdrop-blur-sm"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -368,7 +368,7 @@ const TestimonialMap = memo(() => {
             </div>
 
             {/* Mobile: Map + Overmap */}
-            <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-[#2B2B2B]/5">
+            <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-white/5">
               {/* World Map Background */}
               <Image
                 src="/TestiMap.png"
@@ -381,7 +381,7 @@ const TestimonialMap = memo(() => {
               
               {/* Overlay Image - positioned at right center */}
               <Image
-                src="/overmap.jpg"
+                src="/overmap.png"
                 alt="Overlay"
                 width={320}
                 height={320}
@@ -393,8 +393,8 @@ const TestimonialMap = memo(() => {
             {/* Mobile: Text */}
             <div className="text-center">
               <div className="inline-block p-4 bg-[#5271ff]/10 border border-[#5271ff]/20 rounded-2xl">
-                <p className="text-[#2B2B2B] font-bold text-sm mb-1">From Funnel to Funding</p>
-                <p className="text-[#2B2B2B]/70 text-xs leading-relaxed">
+                <p className="text-white font-bold text-sm mb-1">From Funnel to Funding</p>
+                <p className="text-white/70 text-xs leading-relaxed">
                   Space Funding AI builds the path. Space Funding Marketing gets you seen.
                 </p>
               </div>
@@ -414,8 +414,8 @@ const TestimonialMap = memo(() => {
                 />
                 <div className="mt-8 text-center">
                   <div className="inline-block p-4 bg-[#5271ff]/10 border border-[#5271ff]/20 rounded-2xl">
-                    <p className="text-[#2B2B2B] font-bold text-sm mb-1">From Funnel to Funding</p>
-                    <p className="text-[#2B2B2B]/70 text-xs leading-relaxed">
+                    <p className="text-white font-bold text-sm mb-1">From Funnel to Funding</p>
+                    <p className="text-white/70 text-xs leading-relaxed">
                       Space Funding AI builds the path.<br />
                       Space Funding Marketing gets you seen.
                     </p>
@@ -426,7 +426,7 @@ const TestimonialMap = memo(() => {
 
             {/* Desktop: Map + Testimonial Carousel */}
             <div className="lg:flex-1">
-              <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden bg-[#2B2B2B]/5">
+              <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden bg-white/5">
                 {/* World Map Background */}
                 <Image
                   src="/TestiMap.png"
@@ -439,7 +439,7 @@ const TestimonialMap = memo(() => {
                 
                 {/* Overlay Image - positioned at right center */}
                 <Image
-                  src="/overmap.jpg"
+                  src="/overmap.png"
                   alt="Overlay"
                   width={360}
                   height={360}
@@ -513,7 +513,7 @@ const TestimonialMap = memo(() => {
                       className={`w-2 h-2 rounded-full transition-all duration-300 ${
                         index === activeIndex 
                           ? 'bg-[#5271ff] w-6' 
-                          : 'bg-[#2B2B2B]/30 hover:bg-[#2B2B2B]/60'
+                          : 'bg-white/20 hover:bg-white/40'
                       }`}
                     />
                   ))}

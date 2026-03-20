@@ -63,7 +63,7 @@ const FeatureList = React.memo(({ features, activeFeature, setActiveFeature }: {
   activeFeature: number;
   setActiveFeature: (id: number) => void;
 }) => (
-  <div className="bg-gray-50 rounded-2xl p-2 space-y-2">
+  <div className="bg-[#111111] rounded-2xl p-2 space-y-2">
     {Object.values(features).map((feature: Feature) => {
       const Icon = feature.icon;
       return (
@@ -72,16 +72,16 @@ const FeatureList = React.memo(({ features, activeFeature, setActiveFeature }: {
           className={`
             cursor-pointer transition-all duration-300 rounded-xl p-6
             ${activeFeature === feature.id
-              ? 'bg-white shadow-lg border-l-4 border-[#5271ff]'
-              : 'hover:bg-white/50'}
+              ? 'bg-[#1e1e1e] shadow-lg border-l-4 border-[#5271ff]'
+              : 'hover:bg-white/5'}
           `}
           onClick={() => setActiveFeature(feature.id)}
         >
           <div className="flex items-start gap-4">
-            <div className="text-gray-700 text-xl mt-1"><Icon /></div>
+            <div className="text-white/70 text-xl mt-1"><Icon /></div>
             <div className="flex-1">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-black">
+                <h3 className="text-lg font-semibold text-white">
                   {feature.title}
                 </h3>
                 <svg
@@ -89,7 +89,7 @@ const FeatureList = React.memo(({ features, activeFeature, setActiveFeature }: {
                   height="20"
                   viewBox="0 0 24 24"
                   fill="none"
-                  className="text-gray-400 flex-shrink-0"
+                  className="text-white/30 flex-shrink-0"
                 >
                   <path
                     d="M9 18L15 12L9 6"
@@ -100,7 +100,7 @@ const FeatureList = React.memo(({ features, activeFeature, setActiveFeature }: {
                   />
                 </svg>
               </div>
-              <p className="text-gray-600 mt-2 text-sm leading-relaxed">
+              <p className="text-white/60 mt-2 text-sm leading-relaxed">
                 {feature.description}
               </p>
             </div>
@@ -153,8 +153,8 @@ const ImageCarousel = React.memo(() => {
             {/* Logo scrolling container */}
             <div className="flex-1 relative overflow-hidden">
               {/* Gradient fade effects */}
-              <div className="absolute left-0 top-0 w-8 lg:w-16 h-full bg-gradient-to-r from-white to-transparent z-10"></div>
-              <div className="absolute right-0 top-0 w-8 lg:w-16 h-full bg-gradient-to-l from-white to-transparent z-10"></div>
+              <div className="absolute left-0 top-0 w-8 lg:w-16 h-full bg-gradient-to-r from-black to-transparent z-10"></div>
+              <div className="absolute right-0 top-0 w-8 lg:w-16 h-full bg-gradient-to-l from-black to-transparent z-10"></div>
               
               {/* Scrolling logos horizontal */}
               <div className="flex animate-scroll-horizontal items-center space-x-6 lg:space-x-12">
@@ -214,13 +214,13 @@ const ImageCarousel = React.memo(() => {
           {/* Mobile version - improved layout */}
           <div className="md:hidden">
             <div className="text-center mb-4">
-              <p className="text-sm text-black font-bold">As Seen On</p>
+              <p className="text-sm text-white font-bold">As Seen On</p>
             </div>
             
             <div className="relative overflow-hidden">
               {/* Gradient fade effects for horizontal */}
-              <div className="absolute left-0 top-0 w-6 h-full bg-gradient-to-r from-white to-transparent z-10"></div>
-              <div className="absolute right-0 top-0 w-6 h-full bg-gradient-to-l from-white to-transparent z-10"></div>
+              <div className="absolute left-0 top-0 w-6 h-full bg-gradient-to-r from-black to-transparent z-10"></div>
+              <div className="absolute right-0 top-0 w-6 h-full bg-gradient-to-l from-black to-transparent z-10"></div>
               
               {/* Horizontal scrolling logos */}
               <div className="flex animate-scroll-horizontal items-center space-x-4">
@@ -279,18 +279,18 @@ const ImageCarousel = React.memo(() => {
         </div>
       </div>
 
-      <h2 className="text-4xl md:text-5xl font-medium text-black mb-4">
+      <h2 className="text-4xl md:text-5xl font-medium text-white mb-4">
         The one platform behind the next generation of startups
       </h2>
 
-      <p className="text-black text-xl md:text-2xl mt-6 mb-12 max-w-5xl">
+      <p className="text-white text-xl md:text-2xl mt-6 mb-12 max-w-5xl">
         {phrases.map((phrase, index) => (
           <span 
             key={index}
             className={`
               inline-block px-1 py-0.5
               transition-all duration-300
-              ${activeTextIndex === index ? 'text-[#5271ff]' : 'text-black'}
+              ${activeTextIndex === index ? 'text-[#5271ff]' : 'text-white/60'}
               hover:text-[#00c28a] cursor-pointer
             `}
           >
@@ -303,7 +303,7 @@ const ImageCarousel = React.memo(() => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 max-w-6xl mx-auto">
         {/* Image 1 Container */}
         <div className="w-full flex justify-center">
-          <div className="relative w-full max-w-md h-80 bg-gray-50 rounded-2xl overflow-hidden
+          <div className="relative w-full max-w-md h-80 bg-[#111111] rounded-2xl overflow-hidden
                           cursor-pointer transition-all duration-300 ease-in-out 
                           hover:scale-[1.02] hover:shadow-lg
                           focus:scale-[1.02] focus:outline-none 
@@ -323,7 +323,7 @@ const ImageCarousel = React.memo(() => {
 
         {/* Image 2 Container */}
         <div className="w-full flex justify-center">
-          <div className="relative w-full max-w-md h-80 bg-gray-50 rounded-2xl overflow-hidden
+          <div className="relative w-full max-w-md h-80 bg-[#111111] rounded-2xl overflow-hidden
                           cursor-pointer transition-all duration-300 ease-in-out 
                           hover:scale-[1.02] hover:shadow-lg
                           focus:scale-[1.02] focus:outline-none 
@@ -351,14 +351,14 @@ const Features = () => {
   const active = featuresData[activeFeature];
 
   return (
-    <section className="py-20 bg-[white] font-figtree">
+    <section className="py-20 bg-black font-figtree">
       <div className="max-w-7xl mx-auto px-4">
         {/* New Carousel Section */}
         <ImageCarousel />
 
         {/* Original Features Section */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-medium text-black mb-4">
+          <h2 className="text-4xl md:text-5xl font-medium text-white mb-4">
             Space Funding makes investing in startups as simple as buying a product online.
           </h2>
         </div>
@@ -376,7 +376,7 @@ const Features = () => {
           {/* ✅ FIXED: Right Side - Feature Image dengan proper constraints */}
           <div className="w-full lg:w-1/2 flex justify-center">
             <div className="relative w-full max-w-lg">
-              <div className="bg-white rounded-3xl p-6 shadow-2xl overflow-hidden">
+              <div className="bg-[#1a1a1a] rounded-3xl p-6 shadow-2xl overflow-hidden">
                 <FeatureImage feature={active} />
               </div>
             </div>

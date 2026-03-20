@@ -39,11 +39,16 @@ const SportsPage = memo(() => {
   return (
     <>
       <Navbar />
-      <main className="bg-[#f2f5ff] text-[#2B2B2B] font-figtree">
+      <main className="bg-black text-white font-figtree">
         {/* Hero Section */}
-        <section className="relative pt-16 md:pt-20 lg:pt-30 lg:pb-5 bg-[#2B2B2B] text-white overflow-hidden">
-          <div className="absolute inset-0 opacity-20 hero-noise"></div>
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        <section className="relative pt-16 md:pt-20 lg:pt-30 lg:pb-5 bg-black text-white overflow-hidden">
+          {/* Video Background */}
+          <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0" aria-hidden="true">
+            <source src="/EarthVideo.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-black/70 z-[1]" aria-hidden="true" />
+          <div className="absolute inset-0 opacity-20 hero-noise z-[2]"></div>
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative z-[3]">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-1 text-balance">
                 Space Funding <span className="text-[#5271ff]">Sports</span>
@@ -68,7 +73,7 @@ const SportsPage = memo(() => {
                 />
 
                 {/* Radial Gradient to prevent sharp edges */}
-                <div className="absolute inset-0 w-full h-full bg-[#2B2B2B] [mask-image:radial-gradient(350px_100px_at_top,transparent_20%,white)]"></div>
+                <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_100px_at_top,transparent_20%,white)]"></div>
               </div>
 
               <div className="h-20 md:h-34 overflow-hidden relative mb-2">
@@ -157,18 +162,18 @@ const SportsPage = memo(() => {
         </section>
 
         {/* Success Stories Section */}
-        <section className="py-16 md:py-24 bg-white">
+        <section className="py-16 md:py-24 bg-[#0d0d0d]">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Success Stories</h2>
-              <p className="text-lg text-[#2B2B2B]/70 max-w-2xl mx-auto">
+              <p className="text-lg text-white/60 max-w-2xl mx-auto">
                 Teams and clubs that we have been involved with.
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* Caledonian Braves */}
-              <div className="bg-[#f2f5ff] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
+              <div className="bg-[#111111] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
                 <div className="h-40 mb-4 relative rounded-lg overflow-hidden flex items-center justify-center">
                   <Image
                     src="/caledonian.png"
@@ -184,16 +189,16 @@ const SportsPage = memo(() => {
                 <h3 className="text-xl font-bold mb-2">Caledonian Braves</h3>
                 <div className="mb-2 flex items-center">
                   <span className="text-[#5271ff] font-bold text-xl">$3M+</span>
-                  <span className="ml-2 text-sm text-gray-600">Raised</span>
+                  <span className="ml-2 text-sm text-white/60">Raised</span>
                 </div>
                 <div className="flex items-center">
                   <span className="text-[#5271ff] font-bold text-xl">10k+</span>
-                  <span className="ml-2 text-sm text-gray-600">Investors</span>
+                  <span className="ml-2 text-sm text-white/60">Investors</span>
                 </div>
               </div>
 
               {/* Watford */}
-              <div className="bg-[#f2f5ff] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
+              <div className="bg-[#111111] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
                 <div className="h-40 mb-4 relative rounded-lg overflow-hidden flex items-center justify-center">
                   <Image
                     src="/watford.png"
@@ -209,16 +214,16 @@ const SportsPage = memo(() => {
                 <h3 className="text-xl font-bold mb-2">Watford</h3>
                 <div className="mb-2 flex items-center">
                   <span className="text-[#5271ff] font-bold text-xl">$9M+</span>
-                  <span className="ml-2 text-sm text-gray-600">Raised</span>
+                  <span className="ml-2 text-sm text-white/60">Raised</span>
                 </div>
                 <div className="flex items-center">
                   <span className="text-[#5271ff] font-bold text-xl">9k+</span>
-                  <span className="ml-2 text-sm text-gray-600">Investors</span>
+                  <span className="ml-2 text-sm text-white/60">Investors</span>
                 </div>
               </div>
 
               {/* NK Tabor */}
-              <div className="bg-[#f2f5ff] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
+              <div className="bg-[#111111] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
                 <div className="h-40 mb-4 relative rounded-lg overflow-hidden flex items-center justify-center">
                   <Image
                     src="/nktabor.png"
@@ -234,16 +239,16 @@ const SportsPage = memo(() => {
                 <h3 className="text-xl font-bold mb-2">NK Tabor</h3>
                 <div className="mb-2 flex items-center">
                   <span className="text-[#5271ff] font-bold text-xl">$650k+</span>
-                  <span className="ml-2 text-sm text-gray-600">Raised</span>
+                  <span className="ml-2 text-sm text-white/60">Raised</span>
                 </div>
                 <div className="flex items-center">
                   <span className="text-[#5271ff] font-bold text-xl">1.3k+</span>
-                  <span className="ml-2 text-sm text-gray-600">Investors</span>
+                  <span className="ml-2 text-sm text-white/60">Investors</span>
                 </div>
               </div>
 
               {/* Carrick Rangers */}
-              <div className="bg-[#f2f5ff] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
+              <div className="bg-[#111111] rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
                 <div className="h-40 mb-4 relative rounded-lg overflow-hidden flex items-center justify-center">
                   <Image
                     src="/carrick.png"
@@ -259,11 +264,11 @@ const SportsPage = memo(() => {
                 <h3 className="text-xl font-bold mb-2">Carrick Rangers</h3>
                 <div className="mb-2 flex items-center">
                   <span className="text-[#5271ff] font-bold text-xl">$700k+</span>
-                  <span className="ml-2 text-sm text-gray-600">Raised</span>
+                  <span className="ml-2 text-sm text-white/60">Raised</span>
                 </div>
                 <div className="flex items-center">
                   <span className="text-[#5271ff] font-bold text-xl">1.5k+</span>
-                  <span className="ml-2 text-sm text-gray-600">Investors</span>
+                  <span className="ml-2 text-sm text-white/60">Investors</span>
                 </div>
               </div>
             </div>
@@ -271,10 +276,10 @@ const SportsPage = memo(() => {
         </section>
 
         {/* Why Space Funding Sports Section - New Style */}
-        <section className="py-16 md:py-24 bg-[#f2f5ff]">
+        <section className="py-16 md:py-24 bg-[#111111]">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#2B2B2B]">Why Space Funding Sports?</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Why Space Funding Sports?</h2>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -352,18 +357,18 @@ const SportsPage = memo(() => {
         </section>
 
         {/* Who It's For Section */}
-        <section className="py-16 md:py-24 bg-white">
+        <section className="py-16 md:py-24 bg-[#0d0d0d]">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Who It's For</h2>
-              <p className="text-lg text-[#2B2B2B]/70 max-w-2xl mx-auto">
+              <p className="text-lg text-white/60 max-w-2xl mx-auto">
                 Space Funding Sports serves diverse organizations across the sports ecosystem.
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
               {/* Target 1 */}
-              <div className="bg-[#f2f5ff] p-8 rounded-xl shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
+              <div className="bg-[#eef1ff] p-8 rounded-xl shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
                 <div className="w-16 h-16 bg-[#5271ff] rounded-full mb-6 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-white">
                     <path d="M11.644 1.59a.75.75 0 01.712 0l9.75 5.25a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.712 0l-9.75-5.25a.75.75 0 010-1.32l9.75-5.25z" />
@@ -372,13 +377,13 @@ const SportsPage = memo(() => {
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold mb-4">Football & Sports Clubs</h3>
-                <p className="text-[#2B2B2B]/70">
+                <p className="text-white/60">
                   Looking to expand, modernize, or compete at higher levels.
                 </p>
               </div>
 
               {/* Target 2 */}
-              <div className="bg-[#f2f5ff] p-8 rounded-xl shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
+              <div className="bg-[#eef1ff] p-8 rounded-xl shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
                 <div className="w-16 h-16 bg-[#5271ff] rounded-full mb-6 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-white">
                     <path fillRule="evenodd" d="M9.315 7.584C12.195 3.883 16.695 1.5 21.75 1.5a.75.75 0 01.75.75c0 5.056-2.383 9.555-6.084 12.436A6.75 6.75 0 019.75 22.5a.75.75 0 01-.75-.75v-4.131A15.838 15.838 0 016.382 15H2.25a.75.75 0 01-.75-.75 6.75 6.75 0 017.815-6.666ZM15 6.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5Z" clipRule="evenodd" />
@@ -386,13 +391,13 @@ const SportsPage = memo(() => {
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold mb-4">Sports Startups</h3>
-                <p className="text-[#2B2B2B]/70">
+                <p className="text-white/60">
                   Building new technologies, fan experiences, or performance platforms.
                 </p>
               </div>
 
               {/* Target 3 */}
-              <div className="bg-[#f2f5ff] p-8 rounded-xl shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
+              <div className="bg-[#eef1ff] p-8 rounded-xl shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
                 <div className="w-16 h-16 bg-[#5271ff] rounded-full mb-6 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-white">
                     <path fillRule="evenodd" d="M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0ZM15.75 9.75a3 3 0 116 0 3 3 0 01-6 0ZM2.25 9.75a3 3 0 116 0 3 3 0 01-6 0ZM6.31 15.117A6.745 6.745 0 0112 12a6.745 6.745 0 016.709 7.498.75.75 0 01-.372.568A12.696 12.696 0 0112 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 01-.372-.568 6.787 6.787 0 011.019-4.38Z" clipRule="evenodd" />
@@ -400,7 +405,7 @@ const SportsPage = memo(() => {
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold mb-4">Leagues & Associations</h3>
-                <p className="text-[#2B2B2B]/70">
+                <p className="text-white/60">
                   Aiming to engage fans and secure long-term financial growth.
                 </p>
               </div>

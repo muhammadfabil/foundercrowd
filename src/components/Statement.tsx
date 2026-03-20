@@ -409,7 +409,7 @@ const Statement = memo(() => {
   }, []);
 
   return (
-    <section className="bg-[#2B2B2B]  text-white overflow-hidden relative py-12 md:py-24">
+    <section className="bg-black  text-white overflow-hidden relative py-12 md:py-24">
       {/* Enhanced star particles with amber glow */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Primary amber stars */}

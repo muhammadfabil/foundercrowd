@@ -8,9 +8,10 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        figtree: ['var(--font-figtree)'],
-        roboto: ['var(--font-roboto)'],
-        'wix-madefor': ['var(--font-wix-madefor)'],
+        manrope: ['var(--font-manrope)'],
+        figtree: ['var(--font-manrope)'],
+        roboto: ['var(--font-manrope)'],
+        'wix-madefor': ['var(--font-manrope)'],
       },
       colors: {
         emerald: {

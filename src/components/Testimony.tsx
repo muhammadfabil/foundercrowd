@@ -30,7 +30,7 @@ const testimonials = [
 ];
 
 const PlatformIcon = memo(({ platform }: { platform: string }) => {
-  const iconClass = "w-4 h-4 text-gray-400";
+  const iconClass = "w-4 h-4 text-white/30";
   switch (platform) {
     case "twitter":
       return (
@@ -64,17 +64,17 @@ const TestimonialCard = memo(({ testimonial }: { testimonial: (typeof testimonia
     href={testimonial.link}
     target="_blank"
     rel="noopener noreferrer"
-    className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 w-80 flex-shrink-0 mx-3 hover:shadow-lg hover:border-gray-200 transition-all duration-300 cursor-pointer block group"
+    className="bg-[#111111] rounded-2xl p-6 shadow-sm border border-white/10 w-80 flex-shrink-0 mx-3 hover:shadow-lg hover:border-white/20 transition-all duration-300 cursor-pointer block group"
   >
-    <p className="text-gray-700 mb-4 leading-relaxed text-sm">{testimonial.text}</p>
+    <p className="text-white/70 mb-4 leading-relaxed text-sm">{testimonial.text}</p>
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 bg-gray-900 rounded-full flex items-center justify-center">
+        <div className="w-10 h-10 bg-[#2a2a2a] rounded-full flex items-center justify-center">
           <span className="text-white font-semibold text-sm">{testimonial.avatar}</span>
         </div>
         <div>
-          <p className="font-semibold text-gray-900 text-sm">{testimonial.name}</p>
-          <p className="text-gray-500 text-xs">{testimonial.username}</p>
+          <p className="font-semibold text-white text-sm">{testimonial.name}</p>
+          <p className="text-white/50 text-xs">{testimonial.username}</p>
         </div>
       </div>
       <div className="opacity-50 group-hover:opacity-100 transition-opacity">
@@ -92,13 +92,13 @@ const Testimony = memo(({ calendlyUrl }: TestimonyProps) => {
   const duplicatedTestimonials = useMemo(() => [...testimonials, ...testimonials], []);
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#F8FAFC] to-[#dce4ff] font-figtree overflow-hidden relative">
+    <section className="py-24 bg-black font-figtree overflow-hidden relative">
       <div className="max-w-6xl mx-auto px-4 text-center mb-20">
-        <h2 className="text-4xl lg:text-5xl font-medium text-gray-900 mb-6 leading-tight">
+        <h2 className="text-4xl lg:text-5xl font-medium text-white mb-6 leading-tight">
           "Okay, <span className="text-[#5271ff]">Space Funding</span>{" "}
           <span className="text-[#5271ff]">blown my mind.</span>"
         </h2>
-        <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
+        <p className="text-lg text-white/60 mb-10 max-w-2xl mx-auto">
           And other great things our users say about us.
         </p>
         
@@ -131,8 +131,8 @@ const Testimony = memo(({ calendlyUrl }: TestimonyProps) => {
       </div>
 
       {/* Gradient overlays for infinite scroll effect - Hidden on mobile */}
-      <div className="hidden md:block absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none z-10"></div>
-      <div className="hidden md:block absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-[#dce4ff] to-transparent pointer-events-none z-10"></div>
+      <div className="hidden md:block absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-black to-transparent pointer-events-none z-10"></div>
+      <div className="hidden md:block absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-black to-transparent pointer-events-none z-10"></div>
 
       <style jsx>{`
         @keyframes scroll-right {

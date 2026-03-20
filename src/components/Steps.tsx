@@ -145,18 +145,18 @@ const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
   }, [observers]);
   
   return (
-    <section className="py-20 bg-white font-figtree">
+    <section className="py-20 bg-black font-figtree">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
           {/* Left Side - Fixed Content */}
           <div className="w-full lg:w-2/5 lg:sticky lg:top-24 lg:self-start">
             <div className="mb-6">
-              <span className="text-sm text-gray-500 font-medium">Investor Checkout</span>
+              <span className="text-sm text-white/50 font-medium">Investor Checkout</span>
             </div>
-            <h2 className="text-4xl lg:text-5xl font-medium text-gray-900 mb-6 leading-tight">
+            <h2 className="text-4xl lg:text-5xl font-medium text-white mb-6 leading-tight">
               Simple, e-commerce style investor  experience.
             </h2>
-            <p className="text-lg text-gray-600 mb-10 leading-relaxed">
+            <p className="text-lg text-white/60 mb-10 leading-relaxed">
               Investors are guided through a linear investment creation process – no side quests, no ambiguity.
             </p>
             <button 
@@ -180,7 +180,7 @@ const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
                     {index < stepsData.length - 1 && (
                       <div 
                         className={`absolute left-4 top-9 w-px h-full transition-colors duration-500 ${
-                          isCompleted ? 'bg-gray-900' : 'bg-gray-300'
+                          isCompleted ? 'bg-[#5271ff]' : 'bg-white/20'
                         }`}
                       ></div>
                     )}
@@ -190,8 +190,8 @@ const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
                       <div 
                         className={`relative z-10 flex items-center justify-center w-8 h-8 rounded-full flex-shrink-0 mt-1 transition-all duration-500 ${
                           isCompleted 
-                            ? 'bg-gray-900 scale-110' 
-                            : 'bg-gray-300'
+                            ? 'bg-[#5271ff] scale-110' 
+                            : 'bg-white/20'
                         }`}
                       >
                         {isCompleted ? (
@@ -200,7 +200,7 @@ const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
                             height="10" 
                             viewBox="0 0 14 10" 
                             fill="none" 
-                            className="text-[#5271ff]"
+                            className="text-white"
                           >
                             <path 
                               d="M1 5L5 9L13 1" 
@@ -221,7 +221,7 @@ const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
                           <div className="mb-2">
                             <span 
                               className={`text-sm font-medium transition-colors duration-300 ${
-                                isCompleted ? 'text-gray-900' : 'text-gray-500'
+                                isCompleted ? 'text-white' : 'text-white/50'
                               }`}
                             >
                               Step {step.id}
@@ -230,13 +230,13 @@ const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
                         )}
                         <h3 
                           className={`text-xl font-semibold mb-3 transition-colors duration-300 ${
-                            isCompleted ? 'text-gray-900' : 'text-gray-600'
+                            isCompleted ? 'text-white' : 'text-white/40'
                           }`}
                         >
                           {step.title}
                         </h3>
                         {step.description && (
-                          <p className="text-gray-600 leading-relaxed">
+                          <p className="text-white/60 leading-relaxed">
                             {step.description}
                           </p>
                         )}

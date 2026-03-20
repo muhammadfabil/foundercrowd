@@ -30,9 +30,10 @@
 :root {
   --page-bg: #ffffff;
   --text: #000000;
-  --font-figtree: "Figtree", system-ui, sans-serif;
-  --font-roboto: "Roboto", system-ui, sans-serif;
-  --font-wix-madefor: "Wix Madefor Text", system-ui, sans-serif;
+  --font-manrope: "Manrope", system-ui, sans-serif;
+  --font-figtree: var(--font-manrope);
+  --font-roboto: var(--font-manrope);
+  --font-wix-madefor: var(--font-manrope);
 }
 
 html,
@@ -79,16 +80,11 @@ a {
   text-underline-offset: 4px;
 }
 
-.font-figtree {
-  font-family: var(--font-figtree);
-}
-
-.font-roboto {
-  font-family: var(--font-roboto);
-}
-
+.font-manrope,
+.font-figtree,
+.font-roboto,
 .font-wix-madefor {
-  font-family: var(--font-wix-madefor);
+  font-family: var(--font-manrope);
 }
 
 /* Horizontal scrolling animation for logos */

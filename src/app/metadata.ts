@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   other: {
-    "theme-color": "#f2f5ff",
+    "theme-color": "#5271ff",
     "color-scheme": "light",
   },
 };

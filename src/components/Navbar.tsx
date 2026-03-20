@@ -118,7 +118,7 @@ export default function Navbar() {
             'mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 transition-all duration-300',
             scrolled
               ? 'pointer-events-auto rounded-full bg-white text-black shadow-lg mt-2 py-1 md:py-2'
-              : `pointer-events-auto ${isBlogPage ? 'text-black' : 'text-white'} mt-6 py-1 md:py-2`,
+              : `pointer-events-auto text-white mt-6 py-1 md:py-2`,
           ].join(' ')}
         >
           {/* LEFT: Logo with Home Link */}
@@ -132,7 +132,7 @@ export default function Navbar() {
               priority={true}
             />
             <span className={`font-medium text-base md:text-lg transition-all duration-300 ${
-              scrolled || isBlogPage ? 'text-black' : 'text-white'
+              scrolled ? 'text-black' : 'text-white'
             }`}>
               Space Funding
             </span>
@@ -140,7 +140,7 @@ export default function Navbar() {
 
           {/* CENTER: Navigation Menu (Desktop only) */}
           <div className={`hidden lg:flex items-center gap-8 text-sm font-medium transition-all duration-300 ${
-            scrolled || isBlogPage ? 'text-black' : 'text-white'
+            scrolled ? 'text-black' : 'text-white'
           }`}>
             {/* Home */}
             <Link href="/" className="hover:opacity-80 transition-opacity">
@@ -204,13 +204,13 @@ export default function Navbar() {
 
           {/* RIGHT: Actions */}
           <div className={`flex items-center gap-2 md:gap-3 z-[110] relative transition-all duration-300 ${
-            scrolled || isBlogPage ? 'text-black' : 'text-white'
+            scrolled ? 'text-black' : 'text-white'
           }`}>
             {/* CTA Button (Desktop only) */}
             <button
               onClick={handleOpenBooking} // Updated handler
               className={`hover:bg-white hover:text-black hidden md:block rounded-full px-4 md:px-6 py-2 md:py-2.5 text-xs md:text-sm font-medium transition-all duration-300 ${
-                scrolled || isBlogPage
+                scrolled
                   ? 'bg-black text-white hover:bg-gray-800' 
                   : 'bg-[#5271ff] text-white hover:bg-[#5271ff]/90'
               }`}

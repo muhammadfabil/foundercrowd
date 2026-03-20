@@ -8,11 +8,16 @@ const MergerAcquisitionPage = memo(() => {
   return (
     <>
       <Navbar />
-      <main className="bg-[#f2f5ff] text-[#2B2B2B] font-figtree">
+      <main className="bg-black text-white font-figtree">
         {/* Header Section */}
-        <section className="relative py-24 md:py-32 lg:py-40 bg-[#2B2B2B] text-white overflow-hidden">
-          <div className="absolute inset-0 opacity-20 hero-noise"></div>
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        <section className="relative py-24 md:py-32 lg:py-40 bg-black text-white overflow-hidden">
+          {/* Video Background */}
+          <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0" aria-hidden="true">
+            <source src="/EarthVideo.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-black/70 z-[1]" aria-hidden="true" />
+          <div className="absolute inset-0 opacity-20 hero-noise z-[2]"></div>
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative z-[3]">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-balance">
                 Space Funding <span className="text-[#5271ff]">Mergers & Acquisitions</span>
@@ -48,18 +53,18 @@ const MergerAcquisitionPage = memo(() => {
         </section>
 
         {/* Why Space Funding M&A Section */}
-        <section className="py-16 md:py-24 bg-white">
+        <section className="py-16 md:py-24 bg-black">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Space Funding M&A</h2>
-              <p className="text-lg text-[#2B2B2B]/70 max-w-2xl mx-auto">
+              <p className="text-lg text-white/60 max-w-2xl mx-auto">
                 Our founder-first approach delivers the best exit outcomes.
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
               {/* Feature 1 */}
-              <div className="bg-[#f2f5ff] p-6 rounded-xl shadow-md transform transition-all duration-500 hover:shadow-lg">
+              <div className="bg-[#111111] p-6 rounded-xl shadow-md transform transition-all duration-500 hover:shadow-lg">
                 <div className="w-12 h-12 bg-[#5271ff] rounded-lg mb-6 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-white">
                     <path fillRule="evenodd" d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z" clipRule="evenodd" />
@@ -67,39 +72,39 @@ const MergerAcquisitionPage = memo(() => {
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold mb-3">Acquirer Profiling</h3>
-                <p className="text-[#2B2B2B]/70">
+                <p className="text-white/60">
                   We help you define and connect with your ideal buyer profile — whether it's a strategic acquirer, private equity group, or growth-stage company.
                 </p>
               </div>
 
               {/* Feature 2 */}
-              <div className="bg-[#f2f5ff] p-6 rounded-xl shadow-md transform transition-all duration-500 hover:shadow-lg">
+              <div className="bg-[#111111] p-6 rounded-xl shadow-md transform transition-all duration-500 hover:shadow-lg">
                 <div className="w-12 h-12 bg-[#5271ff] rounded-lg mb-6 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-white">
                     <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clipRule="evenodd" />
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold mb-3">End-to-End Guidance</h3>
-                <p className="text-[#2B2B2B]/70">
+                <p className="text-white/60">
                   From first conversations to final closing, we guide you through every step of the process.
                 </p>
               </div>
 
               {/* Feature 3 */}
-              <div className="bg-[#f2f5ff] p-6 rounded-xl shadow-md transform transition-all duration-500 hover:shadow-lg">
+              <div className="bg-[#111111] p-6 rounded-xl shadow-md transform transition-all duration-500 hover:shadow-lg">
                 <div className="w-12 h-12 bg-[#5271ff] rounded-lg mb-6 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-white">
                     <path fillRule="evenodd" d="M12 6.75a5.25 5.25 0 0 1 6.775-5.025.75.75 0 0 1 .313 1.248l-3.32 3.319c.063.475.276.934.641 1.299.365.365.824.578 1.3.64l3.318-3.319a.75.75 0 0 1 1.248.313 5.25 5.25 0 0 1-5.472 6.756c-1.018-.086-1.87.1-2.309.634L7.344 21.3A3.298 3.298 0 1 1 2.7 16.657l8.684-7.151c.533-.44.72-1.291.634-2.309A5.342 5.342 0 0 1 12 6.75ZM4.117 19.125a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Z" clipRule="evenodd" />
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold mb-3">Technology-Driven</h3>
-                <p className="text-[#2B2B2B]/70">
+                <p className="text-white/60">
                   Our proprietary tools streamline outreach, negotiation prep, and due diligence — cutting out wasted time and costly inefficiencies.
                 </p>
               </div>
 
               {/* Feature 4 */}
-              <div className="bg-[#f2f5ff] p-6 rounded-xl shadow-md transform transition-all duration-500 hover:shadow-lg">
+              <div className="bg-[#111111] p-6 rounded-xl shadow-md transform transition-all duration-500 hover:shadow-lg">
                 <div className="w-12 h-12 bg-[#5271ff] rounded-lg mb-6 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-white">
                     <path d="M10.464 8.746c.227-.18.497-.311.786-.394v2.795a2.252 2.252 0 0 1-.786-.393c-.394-.313-.546-.681-.546-1.004 0-.323.152-.691.546-1.004ZM12.75 15.662v-2.824c.347.085.664.228.921.421.427.32.579.686.579.991 0 .305-.152.671-.579.991a2.534 2.534 0 0 1-.921.42Z" />
@@ -107,20 +112,20 @@ const MergerAcquisitionPage = memo(() => {
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold mb-3">Best Rates in the Market</h3>
-                <p className="text-[#2B2B2B]/70">
+                <p className="text-white/60">
                   No inflated investment banking fees. No unnecessary processes. Just transparent, founder-first pricing that saves you money.
                 </p>
               </div>
 
               {/* Feature 5 */}
-              <div className="bg-[#f2f5ff] p-6 rounded-xl shadow-md transform transition-all duration-500 hover:shadow-lg">
+              <div className="bg-[#111111] p-6 rounded-xl shadow-md transform transition-all duration-500 hover:shadow-lg">
                 <div className="w-12 h-12 bg-[#5271ff] rounded-lg mb-6 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-white">
                     <path fillRule="evenodd" d="M19.902 4.098a3.75 3.75 0 0 0-5.304 0l-4.5 4.5a3.75 3.75 0 0 0 1.035 6.037.75.75 0 0 1-.646 1.353 5.25 5.25 0 0 1-1.449-8.45l4.5-4.5a5.25 5.25 0 1 1 7.424 7.424l-1.757 1.757a.75.75 0 1 1-1.06-1.06l1.757-1.757a3.75 3.75 0 0 0 0-5.304Zm-7.389 4.267a.75.75 0 0 1 1-.03l5.25 4.5a.75.75 0 0 1-.97 1.133L12.75 9.903v5.347a.75.75 0 0 1-1.5 0V9.236l-4.158 3.251a.75.75 0 0 1-.928-1.177l4.5-3.375a.75.75 0 0 1 .858-.111Z" clipRule="evenodd" />
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold mb-3">No Middlemen</h3>
-                <p className="text-[#2B2B2B]/70">
+                <p className="text-white/60">
                   We eliminate expensive intermediaries and outdated structures that do more harm than good.
                 </p>
               </div>
@@ -129,7 +134,7 @@ const MergerAcquisitionPage = memo(() => {
         </section>
 
         {/* What Makes Us Different Section */}
-        <section className="py-16 md:py-24 bg-[#2B2B2B] text-white">
+        <section className="py-16 md:py-24 bg-[#0d0d0d] text-white">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">What Makes Us Different</h2>
@@ -176,32 +181,32 @@ const MergerAcquisitionPage = memo(() => {
         </section>
 
         {/* Our Mission Section - Updated with Icons */}
-        <section className="py-16 md:py-24 bg-[#f2f5ff]">
+        <section className="py-16 md:py-24 bg-[#111111]">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Mission</h2>
-              <p className="text-lg text-[#2B2B2B]/70 max-w-2xl mx-auto">
+              <p className="text-lg text-white/60 max-w-2xl mx-auto">
                 Empowering founders through every stage of their journey.
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {/* Mission 1 */}
-              <div className="bg-white p-8 rounded-xl shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
+              <div className="bg-[#1a1a1a] p-8 rounded-xl border border-white/10 transform transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
                 <div className="w-16 h-16 bg-[#5271ff] rounded-xl mb-6 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-white">
                     <path fillRule="evenodd" d="M3 2.25a.75.75 0 0 0 0 1.5v16.5h-.75a.75.75 0 0 0 0 1.5H15v-18a.75.75 0 0 0 0-1.5H3ZM6.75 19.5v-2.25a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-.75.75h-3a.75.75 0 0 1-.75-.75ZM6 6.75A.75.75 0 0 1 6.75 6h.75a.75.75 0 0 1 0 1.5h-.75A.75.75 0 0 1 6 6.75ZM6.75 9a.75.75 0 0 0 0 1.5h.75a.75.75 0 0 0 0-1.5h-.75ZM6 12.75a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 0 1.5h-.75a.75.75 0 0 1-.75-.75ZM10.5 6a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Zm-.75 4.5a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Zm0 4.5a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z" clipRule="evenodd" />
                   </svg>
                 </div>
                 <h3 className="text-2xl font-bold mb-4">Make exits as empowering as raises</h3>
-                <p className="text-[#2B2B2B]/70 leading-relaxed">
+                <p className="text-white/60 leading-relaxed">
                   We believe that exiting your company should be just as rewarding and empowering as raising capital.
                   Our platform ensures founders get the recognition and value they deserve.
                 </p>
               </div>
 
               {/* Mission 2 */}
-              <div className="bg-white p-8 rounded-xl shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
+              <div className="bg-[#1a1a1a] p-8 rounded-xl border border-white/10 transform transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
                 <div className="w-16 h-16 bg-[#5271ff] rounded-xl mb-6 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-white">
                     <path d="M10.464 8.746c.227-.18.497-.311.786-.394v2.795a2.252 2.252 0 0 1-.786-.393c-.394-.313-.546-.681-.546-1.004 0-.323.152-.691.546-1.004ZM12.75 15.662v-2.824c.347.085.664.228.921.421.427.32.579.686.579.991 0 .305-.152.671-.579.991a2.534 2.534 0 0 1-.921.42Z" />
@@ -209,7 +214,7 @@ const MergerAcquisitionPage = memo(() => {
                   </svg>
                 </div>
                 <h3 className="text-2xl font-bold mb-4">Unlock maximum value without intermediaries</h3>
-                <p className="text-[#2B2B2B]/70 leading-relaxed">
+                <p className="text-white/60 leading-relaxed">
                   Help founders unlock the maximum value from their companies without sacrificing time, equity,
                   or money to expensive intermediaries and outdated processes.
                 </p>
@@ -219,7 +224,7 @@ const MergerAcquisitionPage = memo(() => {
         </section>
 
         {/* CTA Section - Updated to use CTAButton */}
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-[#0d0d0d]">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-3xl md:text-6xl font-bold mb-6 text-[#5271ff]">Ready to explore an exit?</h2>
