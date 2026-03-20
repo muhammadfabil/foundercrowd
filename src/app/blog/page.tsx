@@ -171,7 +171,7 @@ const BlogPage = memo(() => {
       <div className="bg-white text-[#2B2B2B] font-figtree">
         {/* Hero Section */}
         <section className="relative pt-24 bg-black min-h-[40vh] flex items-end">
-          <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0">
+          <video autoPlay loop muted playsInline className="earth-video-bg absolute inset-0 w-full h-full object-cover z-0">
             <source src="/EarthVideo.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-black/70 z-[1]" />

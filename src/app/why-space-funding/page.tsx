@@ -46,7 +46,7 @@ const WhySpaceFundingPage = memo(() => {
         {/* Header Section - Centered Text with Video */}
         <section className="relative py-16 md:py-20 lg:py-24 bg-black text-white overflow-hidden">
           {/* Video Background */}
-          <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0" aria-hidden="true">
+          <video autoPlay loop muted playsInline className="earth-video-bg absolute inset-0 w-full h-full object-cover z-0" aria-hidden="true">
             <source src="/EarthVideo.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-black/70 z-[1]" aria-hidden="true" />

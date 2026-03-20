@@ -23,7 +23,7 @@ export default function CTAP() {
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0"
+        className="earth-video-bg absolute inset-0 w-full h-full object-cover z-0"
       >
         <source src="/EarthVideo.mp4" type="video/mp4" />
       </video>

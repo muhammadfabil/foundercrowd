@@ -34,7 +34,7 @@ export function Hero({ calendlyUrl }: { calendlyUrl?: string }) {
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0"
+        className="earth-video-bg absolute inset-0 w-full h-full object-cover z-0"
         aria-hidden="true"
       >
         <source src="/EarthVideo.mp4" type="video/mp4" />

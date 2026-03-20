@@ -112,3 +112,13 @@ a {
     animation: scroll-horizontal 30s linear infinite;
   }
 }
+
+/* ===== Earth Video Background - Mobile Portrait Fix ===== */
+/* On mobile: video stays as background but shows full 16:9 (contain + top)  */
+/* On desktop: video covers the entire section as background (no change) */
+@media (max-width: 767px) {
+  .earth-video-bg {
+    object-fit: contain !important;
+    object-position: top !important;
+  }
+}

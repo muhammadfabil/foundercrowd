@@ -12,7 +12,7 @@ const MergerAcquisitionPage = memo(() => {
         {/* Header Section */}
         <section className="relative py-24 md:py-32 lg:py-40 bg-black text-white overflow-hidden">
           {/* Video Background */}
-          <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0" aria-hidden="true">
+          <video autoPlay loop muted playsInline className="earth-video-bg absolute inset-0 w-full h-full object-cover z-0" aria-hidden="true">
             <source src="/EarthVideo.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-black/70 z-[1]" aria-hidden="true" />
