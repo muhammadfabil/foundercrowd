@@ -85,9 +85,19 @@ function pageHref(page: number) {
 
 function BlogNewsletterHero() {
   return (
-    <section className="relative overflow-hidden bg-[#151515] px-4 pb-20 pt-32 text-white md:pb-24 md:pt-36">
-      <div className="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:56px_56px]" />
-      <div className="relative mx-auto flex max-w-4xl flex-col items-center text-center">
+    <section className="hero-noise relative overflow-hidden bg-black px-4 pb-20 pt-32 text-white md:pb-24 md:pt-36">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="earth-video-bg absolute inset-0 z-0 h-full w-full object-cover"
+        aria-hidden="true"
+      >
+        <source src="/EarthVideo.mp4" type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 z-[1] bg-black/60" aria-hidden="true" />
+      <div className="relative z-[2] mx-auto flex max-w-4xl flex-col items-center text-center">
         <p className="mb-5 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-white/60">
           Space Funding Journal
         </p>
