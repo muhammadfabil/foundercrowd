@@ -1,6 +1,17 @@
 "use client";
-import React, { memo, useMemo } from "react";
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import CTAButton from './CTAButton'; // Replace CalendlyModal import
+import {
+  VIMEO_TESTIMONIALS,
+  type VimeoTestimonial,
+} from "@/data/vimeoTestimonials";
 
 const testimonials = [
   { id: 1, name: "Sarah Johnson", username: "@sarahj_founder", avatar: "SJ", text: "Space Funding made raising capital so much easier. The process was streamlined and professional.", platform: "twitter", link: "https://twitter.com/sarahj_founder/status/1234567890" },
@@ -84,16 +95,214 @@ const TestimonialCard = memo(({ testimonial }: { testimonial: (typeof testimonia
   </a>
 ));
 
+type VideoLayoutMode = "vertical" | "horizontal";
+
+const videoLayoutOptions: VideoLayoutMode[] = ["vertical", "horizontal"];
+
+function splitVideosIntoRows(items: VimeoTestimonial[]) {
+  const midpoint = Math.ceil(items.length / 2);
+  return [items.slice(0, midpoint), items.slice(midpoint)].filter((row) => row.length);
+}
+
+const VimeoEmbed = memo(function VimeoEmbed({
+  testimonial,
+  onPlaybackChange,
+}: {
+  testimonial: VimeoTestimonial;
+  onPlaybackChange?: (isPlaying: boolean) => void;
+}) {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const embedUrl = `https://player.vimeo.com/video/${testimonial.videoId}?badge=0&autopause=0&api=1&player_id=${testimonial.id}`;
+
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+
+    const registerVimeoEvent = (eventName: string) => {
+      iframe.contentWindow?.postMessage(
+        JSON.stringify({ method: "addEventListener", value: eventName }),
+        "https://player.vimeo.com"
+      );
+    };
+
+    const handleMessage = (event: MessageEvent) => {
+      if (event.origin !== "https://player.vimeo.com" || event.source !== iframe.contentWindow) {
+        return;
+      }
+
+      const payload =
+        typeof event.data === "string"
+          ? (() => {
+              try {
+                return JSON.parse(event.data) as { event?: string };
+              } catch {
+                return null;
+              }
+            })()
+          : (event.data as { event?: string } | null);
+
+      if (payload?.event === "play") {
+        onPlaybackChange?.(true);
+      }
+
+      if (payload?.event === "pause" || payload?.event === "ended") {
+        onPlaybackChange?.(false);
+      }
+    };
+
+    const registerEvents = () => {
+      registerVimeoEvent("play");
+      registerVimeoEvent("pause");
+      registerVimeoEvent("ended");
+    };
+
+    window.addEventListener("message", handleMessage);
+    iframe.addEventListener("load", registerEvents);
+    registerEvents();
+
+    return () => {
+      window.removeEventListener("message", handleMessage);
+      iframe.removeEventListener("load", registerEvents);
+    };
+  }, [onPlaybackChange]);
+
+  return (
+    <div className="relative aspect-video overflow-hidden rounded-md bg-black shadow-sm">
+      <iframe
+        ref={iframeRef}
+        src={embedUrl}
+        title={testimonial.title}
+        loading="lazy"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+        referrerPolicy="strict-origin-when-cross-origin"
+        allowFullScreen
+        className="absolute inset-0 h-full w-full"
+      />
+    </div>
+  );
+});
+
+const VimeoVideoCard = memo(function VimeoVideoCard({
+  testimonial,
+  orientation = "horizontal",
+  onPlaybackChange,
+}: {
+  testimonial: VimeoTestimonial;
+  orientation?: "vertical" | "horizontal";
+  onPlaybackChange?: (isPlaying: boolean) => void;
+}) {
+  const [name, company] = testimonial.title.split("|").map((part) => part.trim());
+  const isVertical = orientation === "vertical";
+
+  return (
+    <article
+      className={`overflow-hidden bg-white text-center ${
+        isVertical
+          ? "mx-3 w-[252px] flex-shrink-0 rounded-[22px] border border-[#5271ff]/30 shadow-lg md:w-[276px]"
+          : "video-card-horizontal flex-none"
+      }`}
+    >
+      <div className={isVertical ? "p-3 pb-0" : ""}>
+        <VimeoEmbed testimonial={testimonial} onPlaybackChange={onPlaybackChange} />
+      </div>
+      <div className={isVertical ? "px-5 pb-0 pt-5" : "pt-3"}>
+        <p className={isVertical ? "mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#5271ff]" : "sr-only"}>
+          Video Testimonial
+        </p>
+        <h3 className={isVertical ? "text-[22px] font-bold leading-tight text-[#2B2B2B]" : "text-lg font-semibold leading-tight text-[#2B2B2B]"}>
+          {name || testimonial.title}
+        </h3>
+        {company && (
+          <p className={isVertical ? "mt-2 text-base font-medium leading-snug text-gray-500" : "mt-1 text-base font-semibold leading-tight text-gray-500"}>
+            {company}
+          </p>
+        )}
+        {isVertical && (
+          <a
+            href={testimonial.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 -mx-5 block bg-gray-100 px-5 py-4 text-sm font-bold text-[#2B2B2B] transition-colors hover:bg-[#5271ff] hover:text-white"
+          >
+            Watch on Vimeo
+          </a>
+        )}
+      </div>
+    </article>
+  );
+});
+
+const VimeoMovingStrip = memo(function VimeoMovingStrip({
+  videos,
+}: {
+  videos: VimeoTestimonial[];
+}) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const handlePlaybackChange = useCallback((playing: boolean) => {
+    setIsPlaying(playing);
+  }, []);
+
+  return (
+    <div className="relative mb-16 overflow-hidden">
+      <div className={`video-strip-motion flex w-max ${isPlaying ? "is-paused" : ""}`}>
+        {videos.map((video) => (
+          <VimeoVideoCard
+            key={`video-vertical-${video.id}`}
+            testimonial={video}
+            orientation="vertical"
+            onPlaybackChange={handlePlaybackChange}
+          />
+        ))}
+      </div>
+    </div>
+  );
+});
+
+const VimeoGridRow = memo(function VimeoGridRow({
+  videos,
+  direction,
+}: {
+  videos: VimeoTestimonial[];
+  direction: "left" | "right";
+}) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const handlePlaybackChange = useCallback((playing: boolean) => {
+    setIsPlaying(playing);
+  }, []);
+
+  return (
+    <div className="video-horizontal-viewport">
+      <div
+        className={`video-row-motion video-row-motion-${direction} video-horizontal-track flex w-max ${
+          isPlaying ? "is-paused" : ""
+        }`}
+      >
+        {videos.map((video) => (
+          <VimeoVideoCard
+            key={`video-horizontal-${video.id}`}
+            testimonial={video}
+            onPlaybackChange={handlePlaybackChange}
+          />
+        ))}
+      </div>
+    </div>
+  );
+});
+
 type TestimonyProps = {
   calendlyUrl?: string;
+  vimeoTestimonials?: VimeoTestimonial[];
 };
 
-const Testimony = memo(({ calendlyUrl }: TestimonyProps) => {
+const Testimony = memo(({ calendlyUrl, vimeoTestimonials }: TestimonyProps) => {
   const duplicatedTestimonials = useMemo(() => [...testimonials, ...testimonials], []);
+  const videos = vimeoTestimonials?.length ? vimeoTestimonials : VIMEO_TESTIMONIALS;
+  const horizontalVideoRows = useMemo(() => splitVideosIntoRows(videos), [videos]);
+  const [videoLayout, setVideoLayout] = useState<VideoLayoutMode>("vertical");
 
   return (
     <section className="py-24 bg-white font-figtree overflow-hidden relative">
-      <div className="max-w-6xl mx-auto px-4 text-center mb-20">
+      <div className="max-w-6xl mx-auto px-4 text-center mb-16">
         <h2 className="text-4xl lg:text-5xl font-medium text-[#2B2B2B] mb-6 leading-tight">
           "Okay, <span className="text-[#5271ff]">Space Funding</span>{" "}
           <span className="text-[#5271ff]">blown my mind.</span>"
@@ -110,7 +319,48 @@ const Testimony = memo(({ calendlyUrl }: TestimonyProps) => {
         >
           Start Raising
         </CTAButton>
+
+        <div
+          className="mt-8 inline-flex rounded-full border border-gray-200 bg-gray-50 p-1 shadow-sm"
+          aria-label="Video testimonial layout"
+        >
+          {videoLayoutOptions.map((option) => {
+            const active = videoLayout === option;
+
+            return (
+              <button
+                key={option}
+                type="button"
+                onClick={() => setVideoLayout(option)}
+                className={`rounded-full px-5 py-2 text-sm font-semibold capitalize transition-colors ${
+                  active
+                    ? "bg-[#5271ff] text-white shadow-sm"
+                    : "text-gray-500 hover:text-[#2B2B2B]"
+                }`}
+                aria-pressed={active}
+              >
+                {option}
+              </button>
+            );
+          })}
+        </div>
       </div>
+
+      {videoLayout === "vertical" ? (
+        <VimeoMovingStrip videos={videos} />
+      ) : (
+        <div className="relative mb-14 overflow-hidden px-4">
+          <div className="mx-auto space-y-12">
+            {horizontalVideoRows.map((row, index) => (
+              <VimeoGridRow
+                key={`video-horizontal-row-${index}`}
+                videos={row}
+                direction={index % 2 === 0 ? "left" : "right"}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Row 1: Left → Right */}
       <div className="relative mb-8">
@@ -134,7 +384,19 @@ const Testimony = memo(({ calendlyUrl }: TestimonyProps) => {
       <div className="hidden md:block absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
       <div className="hidden md:block absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
 
-      <style jsx>{`
+      <style jsx global>{`
+        @keyframes video-strip-left {
+          0% { transform: translateX(24px); }
+          100% { transform: translateX(calc(100vw - 100% - 24px)); }
+        }
+        @keyframes video-row-left {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-1 * var(--video-row-shift))); }
+        }
+        @keyframes video-row-right {
+          0% { transform: translateX(calc(-1 * var(--video-row-shift))); }
+          100% { transform: translateX(0); }
+        }
         @keyframes scroll-right {
           0% { transform: translateX(-50%); }
           100% { transform: translateX(0%); }
@@ -149,13 +411,72 @@ const Testimony = memo(({ calendlyUrl }: TestimonyProps) => {
         .animate-scroll-left {
           animation: scroll-left 40s linear infinite;
         }
+        .video-strip-motion {
+          animation: video-strip-left 34s linear infinite alternate;
+          will-change: transform;
+        }
+        .video-horizontal-viewport {
+          --video-card-width: 350px;
+          --video-row-gap: 36px;
+          --video-row-shift: 386px;
+          --video-window-width: 1122px;
+          margin-inline: auto;
+          max-width: min(100%, var(--video-window-width));
+          overflow: hidden;
+        }
+        .video-horizontal-track {
+          gap: var(--video-row-gap);
+        }
+        .video-card-horizontal {
+          width: var(--video-card-width);
+          flex-basis: var(--video-card-width);
+        }
+        .video-row-motion {
+          animation-duration: 18s;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+          will-change: transform;
+        }
+        .video-row-motion-left {
+          animation-name: video-row-left;
+        }
+        .video-row-motion-right {
+          animation-name: video-row-right;
+        }
         .hover-parent:hover {
           animation-play-state: paused;
+        }
+        .video-strip-motion:hover,
+        .video-row-motion:hover,
+        .video-strip-motion.is-paused,
+        .video-row-motion.is-paused {
+          animation-play-state: paused;
+        }
+
+        @media (max-width: 1180px) {
+          .video-horizontal-viewport {
+            --video-card-width: 330px;
+            --video-row-gap: 28px;
+            --video-row-shift: 358px;
+            --video-window-width: 1046px;
+          }
+        }
+
+        @media (max-width: 767px) {
+          .video-horizontal-viewport {
+            --video-card-width: min(86vw, 340px);
+            --video-row-gap: 20px;
+            --video-row-shift: calc(var(--video-card-width) + var(--video-row-gap));
+            --video-window-width: var(--video-card-width);
+          }
         }
 
         @media (prefers-reduced-motion: reduce) {
           .animate-scroll-right,
-          .animate-scroll-left {
+          .animate-scroll-left,
+          .video-strip-motion,
+          .video-row-motion {
             animation-duration: 0.01ms;
             animation-iteration-count: 1;
           }

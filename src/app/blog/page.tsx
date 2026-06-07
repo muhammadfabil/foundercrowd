@@ -1,175 +1,210 @@
-"use client";
-import { useState, useEffect, memo, useCallback, useMemo } from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import NewsletterSignup from "@/components/NewsletterSignup";
+import { getBlogPosts, type BlogPost } from "@/lib/beehiiv";
 
-type WPPost = {
-  id: number;
-  slug: string;
-  date_gmt: string;
-  link: string;
-  title: { rendered: string };
-  excerpt: { rendered: string };
-  _embedded?: {
-    ["wp:featuredmedia"]?: Array<{
-      source_url?: string;
-      alt_text?: string;
-      media_details?: {
-        sizes?: Record<string, { source_url: string; width: number; height: number }>;
-      };
-    }>;
-  };
+export const metadata: Metadata = {
+  title: "Space Funding Journal | Startup Funding Insights",
+  description:
+    "Insights, strategies, and stories from Space Funding to help founders raise capital and build remarkable companies.",
 };
 
-// Extract constants for better performance
-const SITE = "fcblog5.wordpress.com";
-const API = `https://public-api.wordpress.com/wp/v2/sites/${SITE}`;
-const categories = [
-  "All", "Fundraising", "Growth", "Investing", "Tech"
-];
+const POSTS_PER_PAGE = 6;
 
-function stripHtml(html: string) {
-  return html.replace(/<[^>]*>/g, "").trim();
+type BlogPageProps = {
+  searchParams?: Promise<{
+    page?: string;
+  }>;
+};
+
+function parsePage(page?: string) {
+  const parsed = Number(page);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : 1;
 }
 
-function getFeaturedImage(p: WPPost) {
-  const media = p._embedded?.["wp:featuredmedia"]?.[0];
-  const sizes = media?.media_details?.sizes;
-  
-  // Prioritize sizes: medium_large > large > medium > full
-  const pick =
-    (sizes?.medium_large ?? sizes?.large ?? sizes?.medium ?? sizes?.full) as
-      | { source_url: string; width: number; height: number }
-      | undefined;
+function formatDate(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
 
-  const src = pick?.source_url ?? media?.source_url;
-  
-  return {
-    src: src || null,
-    alt: media?.alt_text || stripHtml(p.title.rendered),
-    width: pick?.width ?? 1200,
-    height: pick?.height ?? 630,
-  };
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+  }).format(date);
 }
 
-async function fetchPosts(page: number = 1, perPage: number = 6): Promise<{ posts: WPPost[], totalPages: number }> {
-  const url =
-    `${API}/posts` +
-    `?per_page=${perPage}&page=${page}&_embed` +
-    `&_fields=id,slug,date_gmt,link,title,excerpt,_embedded`;
-  
-  const res = await fetch(url, { next: { revalidate: 60 } });
-  
-  if (!res.ok) throw new Error(`WP API error ${res.status}`);
-  
-  // Get total pages from headers
-  const totalPages = parseInt(res.headers.get('X-WP-TotalPages') || '1');
-  
-  const posts = await res.json();
-  
-  return { posts, totalPages };
+function pageHref(page: number) {
+  return page <= 1 ? "/blog" : `/blog?page=${page}`;
 }
 
-const BlogPage = memo(() => {
-  const [posts, setPosts] = useState<WPPost[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [featuredPost, setFeaturedPost] = useState<WPPost | null>(null);
+function shouldBypassImageOptimizer(src: string) {
+  return src.includes("beehiiv-images-production.s3.amazonaws.com");
+}
 
-  useEffect(() => {
-    const loadPosts = async () => {
-      setLoading(true);
-      try {
-        const { posts: result, totalPages: total } = await fetchPosts(page);
-        setPosts(result);
-        setTotalPages(total);
-        
-        // Set the first post as featured if first page and has posts
-        if (page === 1 && result.length > 0) {
-          setFeaturedPost(result[0]);
-        }
-      } catch (error) {
-        console.error("Failed to fetch posts:", error);
-        setPosts([]);
-        setTotalPages(1);
-      } finally {
-        setLoading(false);
-      }
-    };
+function ImageFallback() {
+  return (
+    <div className="h-full w-full bg-gray-200 flex items-center justify-center">
+      <svg className="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M4 4h16v16H4V4zm2 2v12h12V6H6zm2 2h8v6H8V8zm2 2v2h4v-2h-4z" />
+      </svg>
+    </div>
+  );
+}
 
-    loadPosts();
-  }, [page]);
+function PostImage({
+  post,
+  priority = false,
+  sizes,
+}: {
+  post: BlogPost;
+  priority?: boolean;
+  sizes: string;
+}) {
+  if (!post.thumbnailUrl) return <ImageFallback />;
 
-  const handlePageChange = useCallback((newPage: number) => {
-    setPage(newPage);
-    window.scrollTo(0, 0);
-  }, []);
+  return (
+    <Image
+      src={post.thumbnailUrl}
+      alt={post.title}
+      fill
+      sizes={sizes}
+      className="object-cover transition-transform duration-500 group-hover:scale-105"
+      priority={priority}
+      unoptimized={shouldBypassImageOptimizer(post.thumbnailUrl)}
+    />
+  );
+}
 
-  const renderPagination = useMemo(() => {
-    // Only show pagination if there are more than 6 posts total or current page has posts
-    if (totalPages <= 1 || posts.length === 0) return null;
-    
-    const pages = [];
-    const maxButtons = 3;
-    
-    let startPage = Math.max(1, page - Math.floor(maxButtons / 2));
-    let endPage = Math.min(totalPages, startPage + maxButtons - 1);
-    
-    if (endPage - startPage + 1 < maxButtons) {
-      startPage = Math.max(1, endPage - maxButtons + 1);
-    }
-    
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(
-        <button
-          key={i}
-          onClick={() => handlePageChange(i)}
+function Pagination({
+  page,
+  totalPages,
+}: {
+  page: number;
+  totalPages: number;
+}) {
+  if (totalPages <= 1) return null;
+
+  const maxButtons = 3;
+  let startPage = Math.max(1, page - Math.floor(maxButtons / 2));
+  const endPage = Math.min(totalPages, startPage + maxButtons - 1);
+
+  if (endPage - startPage + 1 < maxButtons) {
+    startPage = Math.max(1, endPage - maxButtons + 1);
+  }
+
+  const pages = Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+
+  return (
+    <div className="flex items-center justify-center gap-2">
+      <Link
+        href={pageHref(Math.max(1, page - 1))}
+        aria-disabled={page === 1}
+        className={`w-10 h-10 rounded-md flex items-center justify-center bg-gray-100 text-[#2B2B2B] hover:bg-gray-200 transition-all duration-300 ${
+          page === 1 ? "pointer-events-none opacity-50" : ""
+        }`}
+      >
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </Link>
+
+      {pages.map((item) => (
+        <Link
+          key={item}
+          href={pageHref(item)}
           className={`w-10 h-10 rounded-md flex items-center justify-center ${
-            page === i 
-              ? "bg-[#5271ff] text-[#2B2B2B]" 
+            page === item
+              ? "bg-[#5271ff] text-white"
               : "bg-gray-100 text-[#2B2B2B] hover:bg-gray-200"
           } transition-all duration-300`}
         >
-          {i}
-        </button>
-      );
-    }
+          {item}
+        </Link>
+      ))}
 
-    return (
-      <div className="flex items-center justify-center gap-2">
-        <button
-          onClick={() => handlePageChange(Math.max(1, page - 1))}
-          disabled={page === 1}
-          className="w-10 h-10 rounded-md flex items-center justify-center bg-gray-100 text-[#2B2B2B] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200 transition-all duration-300"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        
-        {pages}
-        
-        <button
-          onClick={() => handlePageChange(Math.min(totalPages, page + 1))}
-          disabled={page === totalPages}
-          className="w-10 h-10 rounded-md flex items-center justify-center bg-gray-100 text-[#2B2B2B] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200 transition-all duration-300"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
+      <Link
+        href={pageHref(Math.min(totalPages, page + 1))}
+        aria-disabled={page === totalPages}
+        className={`w-10 h-10 rounded-md flex items-center justify-center bg-gray-100 text-[#2B2B2B] hover:bg-gray-200 transition-all duration-300 ${
+          page === totalPages ? "pointer-events-none opacity-50" : ""
+        }`}
+      >
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </Link>
+    </div>
+  );
+}
+
+function PostCard({ post }: { post: BlogPost }) {
+  const date = formatDate(post.publishedAt);
+
+  return (
+    <Link
+      href={`/blog/${post.slug}`}
+      className="group block bg-gray-50 rounded-3xl overflow-hidden hover:bg-gray-100 transition-all duration-300"
+    >
+      <div className="relative aspect-[16/9] w-full overflow-hidden">
+        <PostImage
+          post={post}
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+        />
       </div>
-    );
-  }, [totalPages, posts.length, page, handlePageChange]);
+
+      <div className="p-6">
+        {date && <div className="text-sm text-gray-400 mb-3">{date}</div>}
+
+        <h3 className="text-xl font-semibold text-[#2B2B2B] mb-3 leading-tight line-clamp-2">
+          {post.title}
+        </h3>
+
+        <p className="text-gray-500 mb-4 leading-relaxed line-clamp-3">{post.excerpt}</p>
+
+        <div className="flex items-center text-orange-500 font-medium text-sm group-hover:gap-2 transition-all duration-300">
+          Read article
+          <svg
+            className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+export default async function BlogPage({ searchParams }: BlogPageProps) {
+  const params = await searchParams;
+  const page = parsePage(params?.page);
+
+  let posts: BlogPost[] = [];
+  let totalPages = 1;
+  let loadError = false;
+
+  try {
+    const result = await getBlogPosts(page, POSTS_PER_PAGE);
+    posts = result.posts;
+    totalPages = result.totalPages;
+  } catch (error) {
+    loadError = true;
+    console.error("Failed to fetch beehiiv posts:", error);
+  }
+
+  const featuredPost = page === 1 ? posts[0] : null;
+  const gridPosts = page === 1 && featuredPost ? posts.slice(1) : posts;
 
   return (
     <>
       <Navbar />
       <div className="bg-white text-[#2B2B2B] font-figtree">
-        {/* Hero Section */}
         <section className="relative pt-24 bg-black min-h-[40vh] flex items-end">
           <video autoPlay loop muted playsInline className="earth-video-bg absolute inset-0 w-full h-full object-cover z-0">
             <source src="/EarthVideo.mp4" type="video/mp4" />
@@ -186,42 +221,27 @@ const BlogPage = memo(() => {
         </section>
 
         <main className="max-w-6xl mx-auto px-4 pb-24">
-          {/* Featured Post (First Page Only) */}
-          {page === 1 && featuredPost && (
+          {featuredPost && (
             <div className="mb-16">
-              <div className="group grid md:grid-cols-5 gap-8 bg-gray-50 rounded-3xl p-4 md:p-8 hover:bg-gray-100 transition-all duration-300">
+              <Link
+                href={`/blog/${featuredPost.slug}`}
+                className="group grid md:grid-cols-5 gap-8 bg-gray-50 rounded-3xl p-4 md:p-8 hover:bg-gray-100 transition-all duration-300"
+              >
                 <div className="md:col-span-3 relative aspect-[16/9] md:aspect-auto w-full overflow-hidden rounded-xl">
-                  {getFeaturedImage(featuredPost).src ? (
-                    <Image
-                      src={getFeaturedImage(featuredPost).src!}
-                      alt={getFeaturedImage(featuredPost).alt}
-                      fill
-                      sizes="(min-width: 768px) 60vw, 100vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      priority={true}
-                    />
-                  ) : (
-                    <div className="h-full w-full bg-gray-200 flex items-center justify-center">
-                      <svg className="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M4 4h16v16H4V4zm2 2v12h12V6H6zm2 2h8v6H8V8zm2 2v2h4v-2h-4z"/>
-                      </svg>
-                    </div>
-                  )}
+                  <PostImage
+                    post={featuredPost}
+                    priority
+                    sizes="(min-width: 768px) 60vw, 100vw"
+                  />
                 </div>
-                
+
                 <div className="md:col-span-2 flex flex-col justify-center">
                   <span className="text-orange-500 text-sm mb-2">Featured</span>
-                  <h2
-                    className="text-2xl md:text-3xl font-semibold mb-4 leading-tight text-[#2B2B2B]"
-                    dangerouslySetInnerHTML={{ __html: featuredPost.title.rendered }}
-                  />
-                  <p className="text-gray-500 mb-6 line-clamp-3">
-                    {stripHtml(featuredPost.excerpt.rendered).slice(0, 180) + "…"}
-                  </p>
-                  <Link
-                    href={`/blog/${featuredPost.slug}`}
-                    className="inline-flex items-center text-orange-500 font-medium text-sm group-hover:gap-2 transition-all duration-300"
-                  >
+                  <h2 className="text-2xl md:text-3xl font-semibold mb-4 leading-tight text-[#2B2B2B]">
+                    {featuredPost.title}
+                  </h2>
+                  <p className="text-gray-500 mb-6 line-clamp-3">{featuredPost.excerpt}</p>
+                  <div className="inline-flex items-center text-orange-500 font-medium text-sm group-hover:gap-2 transition-all duration-300">
                     Read article
                     <svg
                       className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1"
@@ -232,106 +252,40 @@ const BlogPage = memo(() => {
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                     </svg>
-                  </Link>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           )}
 
-          {/* Loading State */}
-          {loading && (
-            <div className="flex justify-center items-center py-24">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-orange-500"></div>
+          {loadError && (
+            <div className="py-24 text-center">
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">Articles are temporarily unavailable</h2>
+              <p className="text-gray-500">Please check the beehiiv API configuration and try again.</p>
             </div>
           )}
 
-          {/* Posts Grid - Skip first post on page 1 */}
-          {!loading && (
+          {!loadError && posts.length === 0 && (
+            <div className="py-24 text-center">
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">No articles found</h2>
+              <p className="text-gray-500">Published beehiiv posts will appear here automatically.</p>
+            </div>
+          )}
+
+          {gridPosts.length > 0 && (
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {posts
-                .slice(page === 1 && featuredPost ? 1 : 0)
-                .map((p) => {
-                  const img = getFeaturedImage(p);
-                  const excerpt = stripHtml(p.excerpt.rendered).slice(0, 120) + 
-                    (stripHtml(p.excerpt.rendered).length > 120 ? "…" : "");
-                  const date = new Date(p.date_gmt + "Z").toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "2-digit",
-                  });
-
-                  return (
-                    <Link
-                      key={p.id}
-                      href={`/blog/${p.slug}`}
-                      className="group block bg-gray-50 rounded-3xl overflow-hidden hover:bg-gray-100 transition-all duration-300"
-                    >
-                      {/* Featured Image */}
-                      <div className="relative aspect-[16/9] w-full overflow-hidden">
-                        {img.src ? (
-                          <Image
-                            src={img.src}
-                            alt={img.alt}
-                            fill
-                            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            priority={false}
-                          />
-                        ) : (
-                          <div className="h-full w-full bg-gray-200 flex items-center justify-center">
-                            <svg className="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M4 4h16v16H4V4zm2 2v12h12V6H6zm2 2h8v6H8V8zm2 2v2h4v-2h-4z"/>
-                            </svg>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Content */}
-                      <div className="p-6">
-                        {/* Date */}
-                        <div className="text-sm text-gray-400 mb-3">
-                          {date}
-                        </div>
-
-                        {/* Title */}
-                        <h3
-                          className="text-xl font-semibold text-[#2B2B2B] mb-3 leading-tight line-clamp-2"
-                          dangerouslySetInnerHTML={{ __html: p.title.rendered }}
-                        />
-
-                        {/* Excerpt */}
-                        <p className="text-gray-500 mb-4 leading-relaxed line-clamp-3">
-                          {excerpt}
-                        </p>
-
-                        {/* Read More */}
-                        <div className="flex items-center text-orange-500 font-medium text-sm group-hover:gap-2 transition-all duration-300">
-                          Read article
-                          <svg
-                            className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            strokeWidth="2"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                          </svg>
-                        </div>
-                      </div>
-                    </Link>
-                  );
-                })}
+              {gridPosts.map((post) => (
+                <PostCard key={post.id} post={post} />
+              ))}
             </div>
           )}
 
-          {/* Pagination - Only show when needed */}
-          {!loading && renderPagination && (
+          {!loadError && (
             <div className="mt-16">
-              {renderPagination}
+              <Pagination page={page} totalPages={totalPages} />
             </div>
           )}
 
-          {/* Newsletter Subscription */}
           <div className="mt-24 bg-gray-50 rounded-3xl p-8 md:p-12 border border-gray-200">
             <div className="max-w-3xl mx-auto text-center">
               <h3 className="text-2xl md:text-3xl font-bold mb-4 text-[#2B2B2B]">
@@ -340,20 +294,7 @@ const BlogPage = memo(() => {
               <p className="text-gray-500 mb-8 max-w-lg mx-auto">
                 Get the latest insights on fundraising, growth strategies, and startup resources delivered straight to your inbox.
               </p>
-              <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  className="flex-1 bg-gray-100 border border-gray-300 rounded-full text-[#2B2B2B] placeholder-gray-400 px-6 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="bg-orange-500 hover:bg-orange-600 text-[#2B2B2B] font-medium rounded-full px-8 py-3 transition-colors duration-300"
-                >
-                  Subscribe
-                </button>
-              </form>
+              <NewsletterSignup />
             </div>
           </div>
         </main>
@@ -361,8 +302,4 @@ const BlogPage = memo(() => {
       <Footer />
     </>
   );
-});
-
-BlogPage.displayName = 'BlogPage';
-
-export default BlogPage;
+}

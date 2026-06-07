@@ -60,16 +60,15 @@ const BookingModal = memo(function BookingModal({
 export default function Navbar() {
   const pathname = usePathname();
   const hasNoHero = ['/faq', '/privacy', '/terms'].includes(pathname || '');
-  const [scrolled, setScrolled] = useState(hasNoHero);
+  const isBlogDetailPage = pathname?.startsWith('/blog/');
+  const shouldUseSolidNavbar = hasNoHero || isBlogDetailPage;
+  const [scrolled, setScrolled] = useState(shouldUseSolidNavbar);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openBooking, setOpenBooking] = useState(false); // Renamed from openCalendly
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  
-  // Check if current page is blog related (blog index or blog post)
-  const isBlogPage = pathname?.startsWith('/blog');
 
   // Memoized scroll handler
-  const onScroll = useCallback(() => setScrolled(window.scrollY > 16 || hasNoHero), [hasNoHero]);
+  const onScroll = useCallback(() => setScrolled(window.scrollY > 16 || shouldUseSolidNavbar), [shouldUseSolidNavbar]);
 
   useEffect(() => {
     onScroll();

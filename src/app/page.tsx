@@ -10,10 +10,13 @@ import Footer from "@/components/Footer";
 import CTAP from "@/components/CTAP";
 import TestiMap from "@/components/TestiMap";
 import Statement from "@/components/Statement";
+import { getVimeoTestimonials } from "@/lib/vimeo";
 
 
 
-export default function Page() {
+export default async function Page() {
+  const vimeoTestimonials = await getVimeoTestimonials();
+
   return (
     <main>
       <Navbar />
@@ -24,7 +27,7 @@ export default function Page() {
       <Statement />
       <Plan />
       <Integration />
-      <Testimony /> 
+      <Testimony vimeoTestimonials={vimeoTestimonials} /> 
       <FAQ />
       <CTAP />
       <Footer />

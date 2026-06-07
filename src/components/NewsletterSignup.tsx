@@ -6,6 +6,7 @@ export default function NewsletterSignup() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -13,18 +14,34 @@ export default function NewsletterSignup() {
     if (!email) return;
     
     setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    setIsSubscribed(true);
-    
-    // Reset after 3 seconds
-    setTimeout(() => {
-      setIsSubscribed(false);
-      setEmail('');
-    }, 3000);
+    setError('');
+
+    try {
+      const response = await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(payload?.error || 'Unable to subscribe right now. Please try again.');
+      }
+
+      setIsSubscribed(true);
+      
+      // Reset after 3 seconds
+      setTimeout(() => {
+        setIsSubscribed(false);
+        setEmail('');
+      }, 3000);
+    } catch (subscribeError) {
+      setError(subscribeError instanceof Error ? subscribeError.message : 'Unable to subscribe right now. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubscribed) {
@@ -60,6 +77,11 @@ export default function NewsletterSignup() {
           className="w-full px-6 py-4 text-lg border-2 border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-[#5271ff] focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           placeholder="Enter your email address"
         />
+        {error && (
+          <p className="mt-3 text-left text-sm font-medium text-red-600" role="alert">
+            {error}
+          </p>
+        )}
       </div>
       
       <button

@@ -1,257 +1,162 @@
-// app/blog/[slug]/page.tsx (Server Component - Remove 'use client')
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ShareButtons from "@/components/ShareButtons";
 import BlogCTA from "@/components/BlogCTA";
-import NewsletterSignup from '@/components/NewsletterSignup';
+import NewsletterSignup from "@/components/NewsletterSignup";
 import { notFound } from "next/navigation";
+import {
+  getBlogPostBySlug,
+  getRelatedBlogPosts,
+  stripHtml,
+  type BlogPost,
+} from "@/lib/beehiiv";
 import "./blog-post.css";
 
-// ------- Config
-const SITE = "fcblog5.wordpress.com";
-const API = `https://public-api.wordpress.com/wp/v2/sites/${SITE}`;
-const REVALIDATE_SECONDS = 1800;
-
-// ------- Types
-type WPPost = {
-  id: number;
-  slug: string;
-  date_gmt: string;
-  title: { rendered: string };
-  content: { rendered: string };
-  excerpt: { rendered: string };
-  _embedded?: {
-    ["wp:featuredmedia"]?: Array<{
-      source_url?: string;
-      alt_text?: string;
-      media_details?: {
-        sizes?: Record<string, { source_url: string; width: number; height: number }>;
-      };
-    }>;
-  };
+type BlogPostPageProps = {
+  params: Promise<{ slug: string }>;
 };
 
-// ------- Enhanced Utils
-function stripHtml(html: string) {
-  return html.replace(/<[^>]*>/g, "").trim();
-}
+function formatDate(value: string, locale = "en-US") {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
 
-function decodeHtmlEntities(text: string) {
-  const entities: Record<string, string> = {
-    '&nbsp;': ' ',
-    '&amp;': '&',
-    '&lt;': '<',
-    '&gt;': '>',
-    '&quot;': '"',
-    '&#8217;': "'",
-    '&#8220;': '"',
-    '&#8221;': '"',
-    '&#8211;': '–',
-    '&#8212;': '—',
-  };
-  
-  return text.replace(/&[#\w]+;/g, (entity) => entities[entity] || entity);
-}
-
-function toDateString(date_gmt: string, locale = "en-US") {
-  try {
-    return new Date(date_gmt + "Z").toLocaleDateString(locale, {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  } catch {
-    return date_gmt;
-  }
-}
-
-function calcReadingTime(html: string) {
-  const words = stripHtml(html).split(/\s+/).filter(Boolean).length;
-  const minutes = Math.max(1, Math.round(words / 200));
-  return `${minutes} min read`;
+  return new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
 }
 
 function createSlug(text: string) {
-  return text
+  const slug = text
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, "")
     .trim()
     .replace(/\s+/g, "-");
+
+  return slug || "section";
 }
 
-// ------- Enhanced Content Processing
-function processWordPressContent(html: string): string {
-  let processed = html;
+function addClassAttribute(attrs: string, className: string) {
+  if (/\sclass=(["'])(.*?)\1/i.test(attrs)) {
+    return attrs.replace(
+      /\sclass=(["'])(.*?)\1/i,
+      (_match, quote: string, classes: string) => ` class=${quote}${classes} ${className}${quote}`
+    );
+  }
 
-  processed = decodeHtmlEntities(processed);
-  processed = processed.replace(/<!-- wp:[\s\S]*? -->/g, '');
-  processed = processed.replace(/<!-- \/wp:[\s\S]*? -->/g, '');
-
-  processed = processed.replace(
-    /<hr class="wp-block-separator[^"]*"[^>]*>/g,
-    '<div class="separator-block"></div>'
-  );
-
-  processed = processed.replace(
-    /<h2 class="wp-block-heading"><strong>(.*?)<\/strong><\/h2>/g,
-    '<h2 class="content-heading-2">$1</h2>'
-  );
-
-  processed = processed.replace(
-    /<h3 class="wp-block-heading"><strong>(.*?)<\/strong><\/h3>/g,
-    '<h3 class="content-heading-3">$1</h3>'
-  );
-
-  processed = processed.replace(
-    /<ul class="wp-block-list">/g,
-    '<ul class="content-list">'
-  );
-
-  processed = processed.replace(/<li>([\s\S]*?)<br><\/li>/g, '<li>$1</li>');
-  processed = processed.replace(/<p>/g, '<p class="content-paragraph">');
-  processed = processed.replace(/<strong>(.*?)<\/strong>/g, '<span class="content-bold">$1</span>');
-  processed = processed.replace(/<em>(.*?)<\/em>/g, '<span class="content-italic">$1</span>');
-
-  return processed;
+  return `${attrs} class="${className}"`;
 }
 
 function withHeadingAnchors(html: string) {
-  return html
-    .replace(/<h2 class="content-heading-2">(.*?)<\/h2>/gi, (_m, g1) => {
-      const text = stripHtml(g1);
-      const id = createSlug(text);
-      return `<h2 id="${id}" class="content-heading-2">${g1}</h2>`;
-    })
-    .replace(/<h3 class="content-heading-3">(.*?)<\/h3>/gi, (_m, g1) => {
-      const text = stripHtml(g1);
-      const id = createSlug(text);
-      return `<h3 id="${id}" class="content-heading-3">${g1}</h3>`;
-    });
+  const counts = new Map<string, number>();
+
+  return html.replace(/<h([23])([^>]*)>([\s\S]*?)<\/h\1>/gi, (match, level: string, attrs: string, content: string) => {
+    const text = stripHtml(content);
+    if (!text) return match;
+
+    const baseId = createSlug(text);
+    const count = counts.get(baseId) ?? 0;
+    counts.set(baseId, count + 1);
+
+    const id = count === 0 ? baseId : `${baseId}-${count + 1}`;
+    const className = level === "2" ? "content-heading-2" : "content-heading-3";
+    const withoutId = attrs.replace(/\s+id=(["']).*?\1/gi, "");
+    const withClass = addClassAttribute(withoutId, className);
+
+    return `<h${level}${withClass} id="${id}">${content}</h${level}>`;
+  });
 }
 
 function extractToc(html: string): { level: 2 | 3; id: string; text: string }[] {
   const toc: { level: 2 | 3; id: string; text: string }[] = [];
-  const h2 = [...html.matchAll(/<h2[^>]*class="content-heading-2"[^>]*>(.*?)<\/h2>/gi)];
-  const h3 = [...html.matchAll(/<h3[^>]*class="content-heading-3"[^>]*>(.*?)<\/h3>/gi)];
+  const headings = html.matchAll(/<h([23])[^>]*id=(["'])(.*?)\2[^>]*>([\s\S]*?)<\/h\1>/gi);
 
-  h2.forEach((m) => {
-    const text = stripHtml(m[1]);
-    toc.push({ level: 2, id: createSlug(text), text });
-  });
-  h3.forEach((m) => {
-    const text = stripHtml(m[1]);
-    toc.push({ level: 3, id: createSlug(text), text });
-  });
+  for (const heading of headings) {
+    toc.push({
+      level: heading[1] === "2" ? 2 : 3,
+      id: heading[3],
+      text: stripHtml(heading[4]),
+    });
+  }
+
   return toc;
 }
 
-function getFeaturedImage(p: WPPost) {
-  const media = p._embedded?.["wp:featuredmedia"]?.[0];
-  const sizes = media?.media_details?.sizes;
-  const pick = (sizes?.large ?? sizes?.medium_large ?? sizes?.full) as
-    | { source_url: string; width: number; height: number }
-    | undefined;
-
-  const src = pick?.source_url ?? media?.source_url ?? null;
-  return {
-    src,
-    alt: media?.alt_text || stripHtml(p.title.rendered),
-    width: pick?.width ?? 1200,
-    height: pick?.height ?? 630,
-  };
+function getSiteUrl() {
+  return (process.env.NEXT_PUBLIC_SITE_URL || "https://spacefunding.com").replace(/\/$/, "");
 }
 
-// ------- Data
-async function fetchPost(slug: string): Promise<WPPost | null> {
-  const url = `${API}/posts?slug=${slug}&_embed`;
-  try {
-    const res = await fetch(url, { next: { revalidate: REVALIDATE_SECONDS } });
-    if (!res.ok) throw new Error(`WP API error ${res.status}`);
-    const posts = (await res.json()) as WPPost[];
-    return posts.length > 0 ? posts[0] : null;
-  } catch (e) {
-    console.error("Error fetching post:", e);
-    return null;
-  }
+function postImage(post: BlogPost) {
+  return post.thumbnailUrl || "/paralax.jpg";
 }
 
-async function fetchRelatedPosts(currentPostId: number): Promise<WPPost[]> {
-  const url = `${API}/posts?exclude=${currentPostId}&_embed&per_page=3`;
-  try {
-    const res = await fetch(url, { next: { revalidate: REVALIDATE_SECONDS } });
-    if (!res.ok) throw new Error(`WP API error ${res.status}`);
-    return (await res.json()) as WPPost[];
-  } catch (e) {
-    console.error("Error fetching related posts:", e);
-    return [];
-  }
+function shouldBypassImageOptimizer(src: string) {
+  return src.includes("beehiiv-images-production.s3.amazonaws.com");
 }
 
-// ------- SEO / Metadata
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = await fetchPost(slug);
+  const post = await getBlogPostBySlug(slug).catch((error) => {
+    console.error("Failed to fetch beehiiv post metadata:", error);
+    return null;
+  });
+
   if (!post) return { title: "Post Not Found | Space Funding" };
 
-  const title = decodeHtmlEntities(stripHtml(post.title.rendered));
-  const desc = stripHtml(post.excerpt.rendered).slice(0, 160);
-  const ogImg = getFeaturedImage(post).src;
+  const description = post.metaDescription || post.excerpt;
+  const image = post.thumbnailUrl ? [post.thumbnailUrl] : [];
 
   return {
-    title: `${title} | Space Funding Blog`,
-    description: desc,
+    title: `${post.metaTitle || post.title} | Space Funding Blog`,
+    description,
     openGraph: {
-      title,
-      description: desc,
-      images: ogImg ? [ogImg] : [],
+      title: post.metaTitle || post.title,
+      description,
+      images: image,
       type: "article",
+      publishedTime: post.publishedAt,
+      authors: post.authors,
     },
     twitter: {
       card: "summary_large_image",
-      title,
-      description: desc,
-      images: ogImg ? [ogImg] : [],
+      title: post.metaTitle || post.title,
+      description,
+      images: image,
     },
   };
 }
 
-// ------- Page (Server Component)
-export default async function BlogPostPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = await fetchPost(slug);
+  const post = await getBlogPostBySlug(slug).catch((error) => {
+    console.error("Failed to fetch beehiiv post:", error);
+    return null;
+  });
+
   if (!post) notFound();
 
-  const processedContent = processWordPressContent(post.content.rendered);
-  const withAnchors = withHeadingAnchors(processedContent);
-  const toc = extractToc(withAnchors);
+  const contentWithAnchors = withHeadingAnchors(post.contentHtml);
+  const toc = extractToc(contentWithAnchors);
+  const related = await getRelatedBlogPosts(post.id).catch((error) => {
+    console.error("Failed to fetch related beehiiv posts:", error);
+    return [];
+  });
 
-  const featured = getFeaturedImage(post);
-  const date = toDateString(post.date_gmt, "en-US");
-  const readingTime = calcReadingTime(post.content.rendered);
-  const related = await fetchRelatedPosts(post.id);
-
-  const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.Space Funding.com"}/blog/${post.slug}`;
-  const cleanTitle = decodeHtmlEntities(stripHtml(post.title.rendered));
+  const date = formatDate(post.publishedAt, "en-US");
+  const postUrl = `${getSiteUrl()}/blog/${post.slug}`;
+  const authorLine = post.authors.join(", ");
 
   return (
     <>
       <Navbar />
       <div className="bg-white min-h-screen font-figtree">
-        {/* Enhanced Header Section */}
         <div className="bg-gradient-to-b from-gray-50 to-white pt-20 pb-16">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <div className="max-w-4xl">
-              {/* Breadcrumb */}
               <div className="mt-14 mb-8">
                 <Link
                   href="/blog"
@@ -264,31 +169,35 @@ export default async function BlogPostPage({
                 </Link>
               </div>
 
-              {/* Title */}
               <div className="mb-8">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.1] text-gray-900 mb-8 tracking-tight">
-                  {cleanTitle}
+                  {post.title}
                 </h1>
-                
-                {/* Meta */}
-                <div className="flex flex-wrap items-center gap-6 text-gray-600 text-lg">
-                  <span className="font-semibold">{date}</span>
-                  <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
-                  <span className="font-semibold">{readingTime}</span>
+
+                <div className="flex flex-wrap items-center gap-4 text-gray-600 text-lg">
+                  {date && <span className="font-semibold">{date}</span>}
+                  {date && <span className="w-1 h-1 bg-gray-400 rounded-full" />}
+                  <span className="font-semibold">{post.readingTime}</span>
+                  {authorLine && (
+                    <>
+                      <span className="w-1 h-1 bg-gray-400 rounded-full" />
+                      <span className="font-semibold">{authorLine}</span>
+                    </>
+                  )}
                 </div>
               </div>
 
-              {/* Featured Image */}
-              {featured.src && (
+              {post.thumbnailUrl && (
                 <div className="mb-12">
                   <div className="relative aspect-[16/9] overflow-hidden rounded-3xl shadow-2xl">
-                    <Image 
-                      src={featured.src} 
-                      alt={featured.alt} 
-                      fill 
-                      priority 
-                      className="object-cover" 
-                      sizes="100vw" 
+                    <Image
+                      src={post.thumbnailUrl}
+                      alt={post.title}
+                      fill
+                      priority
+                      className="object-cover"
+                      sizes="100vw"
+                      unoptimized={shouldBypassImageOptimizer(post.thumbnailUrl)}
                     />
                   </div>
                 </div>
@@ -297,29 +206,22 @@ export default async function BlogPostPage({
           </div>
         </div>
 
-        {/* Content + TOC Layout */}
         <div className="max-w-7xl mx-auto px-4 md:px-8 pb-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-16">
-            {/* Main Content */}
             <article className="max-w-4xl">
-              <div 
-                className="blog-content"
-                dangerouslySetInnerHTML={{ __html: withAnchors }}
-              />
-              
-              {/* Share Section */}
+              <div className="blog-content" dangerouslySetInnerHTML={{ __html: contentWithAnchors }} />
+
               <div className="mt-20 pt-12 border-t-2 border-gray-100">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">Share this article</h3>
                     <p className="text-gray-600">Help others discover great content</p>
                   </div>
-                  <ShareButtons url={postUrl} title={cleanTitle} />
+                  <ShareButtons url={postUrl} title={post.title} />
                 </div>
               </div>
             </article>
 
-            {/* Sticky TOC */}
             <aside className="hidden lg:block">
               {toc.length > 0 && (
                 <div className="sticky top-28">
@@ -331,8 +233,8 @@ export default async function BlogPostPage({
                           key={item.id}
                           href={`#${item.id}`}
                           className={`block text-sm font-medium hover:text-orange-600 transition-colors leading-relaxed ${
-                            item.level === 3 
-                              ? "pl-6 text-gray-600 border-l-2 border-gray-200" 
+                            item.level === 3
+                              ? "pl-6 text-gray-600 border-l-2 border-gray-200"
                               : "text-gray-800 font-semibold"
                           }`}
                         >
@@ -347,10 +249,8 @@ export default async function BlogPostPage({
           </div>
         </div>
 
-        {/* CTA Section - NEW */}
         <BlogCTA />
 
-        {/* Related Articles */}
         {related.length > 0 && (
           <div className="bg-gray-50 py-8">
             <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -360,32 +260,27 @@ export default async function BlogPostPage({
                   Discover more insights to help you build and scale your startup
                 </p>
               </div>
-              
+
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {related.map((p) => {
-                  const excerptRaw = stripHtml(p.excerpt.rendered);
-                  const excerpt = excerptRaw.slice(0, 150) + (excerptRaw.length > 150 ? "…" : "");
-                  const postDate = toDateString(p.date_gmt, "en-US");
-                  const relatedTitle = decodeHtmlEntities(stripHtml(p.title.rendered));
+                {related.map((item) => {
+                  const postDate = formatDate(item.publishedAt, "en-US");
 
                   return (
                     <Link
-                      key={p.id}
-                      href={`/blog/${p.slug}`}
+                      key={item.id}
+                      href={`/blog/${item.slug}`}
                       className="group block bg-white rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105"
                     >
                       <div className="relative aspect-[16/9] overflow-hidden">
                         <Image
-                          src="/paralax.jpg"
-                          alt={relatedTitle}
+                          src={postImage(item)}
+                          alt={item.title}
                           fill
                           sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"
                           className="object-cover transition-transform duration-700 group-hover:scale-110 group-hover:brightness-110"
+                          unoptimized={shouldBypassImageOptimizer(postImage(item))}
                         />
-                        {/* Overlay yang muncul saat hover */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        
-                        {/* Icon yang muncul saat hover */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform scale-75 group-hover:scale-100">
                           <div className="bg-white/20 backdrop-blur-sm rounded-full p-4">
                             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
@@ -396,14 +291,16 @@ export default async function BlogPostPage({
                       </div>
 
                       <div className="p-8 group-hover:bg-gray-50 transition-colors duration-300">
-                        <div className="text-sm font-semibold text-amber-600 mb-3 uppercase tracking-wide group-hover:text-orange-600 transition-colors duration-300">
-                          {postDate}
-                        </div>
+                        {postDate && (
+                          <div className="text-sm font-semibold text-amber-600 mb-3 uppercase tracking-wide group-hover:text-orange-600 transition-colors duration-300">
+                            {postDate}
+                          </div>
+                        )}
                         <h3 className="text-2xl font-bold text-gray-900 mb-4 leading-tight group-hover:text-orange-700 transition-colors duration-300 line-clamp-2">
-                          {relatedTitle}
+                          {item.title}
                         </h3>
                         <p className="text-gray-600 text-lg leading-relaxed mb-6 line-clamp-3 group-hover:text-gray-700 transition-colors duration-300">
-                          {excerpt}
+                          {item.excerpt}
                         </p>
                         <div className="flex items-center text-amber-600 font-bold text-lg group-hover:text-orange-600 group-hover:gap-3 transition-all duration-300">
                           Read More
@@ -432,21 +329,18 @@ export default async function BlogPostPage({
           </div>
         )}
 
-        {/* Newsletter Signup Section */}
         <div className="bg-gradient-to-b from-blue-50 to-white py-20">
           <div className="max-w-4xl mx-auto px-4 md:px-8 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Get the latest updates
-            </h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Get the latest updates</h2>
             <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
               Sign up for our monthly newsletter so you don't miss a thing.
             </p>
-            
+
             <NewsletterSignup />
           </div>
         </div>
       </div>
-      
+
       <Footer />
     </>
   );

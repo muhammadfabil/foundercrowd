@@ -7,7 +7,7 @@
   margin-top: 4rem; /* mt-16 */
   margin-bottom: 2rem; /* mb-8 */
   line-height: 1.25; /* leading-tight */
-  letter-spacing: -0.025em; /* tracking-tight */
+  letter-spacing: 0;
   border-bottom: 4px solid #5271ff;
   padding-bottom: 1rem;
 }
@@ -141,6 +141,8 @@
 }
 
 .blog-content img {
+  max-width: 100%;
+  height: auto;
   border-radius: 1rem; /* rounded-2xl */
   box-shadow:
     0 10px 15px -3px rgba(0, 0, 0, 0.1),
@@ -148,6 +150,24 @@
   margin-bottom: 2rem; /* mb-8 */
   margin-left: auto; /* mx-auto */
   margin-right: auto; /* mx-auto */
+}
+
+.blog-content #content-blocks {
+  max-width: 100%;
+}
+
+.blog-content table {
+  max-width: 100%;
+  border-collapse: collapse;
+}
+
+.blog-content iframe,
+.blog-content video {
+  max-width: 100%;
+}
+
+.blog-content [style*="max-width"] {
+  max-width: 100% !important;
 }
 
 .blog-content blockquote {
