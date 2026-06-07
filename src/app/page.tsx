@@ -26,10 +26,10 @@ export default async function Page() {
       <Steps />
       <TestiMap />
       <Statement />
+      <Testimony vimeoTestimonials={vimeoTestimonials} />
       <ReviewTestimonials />
       <Plan />
       <Integration />
-      <Testimony vimeoTestimonials={vimeoTestimonials} /> 
       <FAQ />
       <CTAP />
       <Footer />

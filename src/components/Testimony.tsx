@@ -101,24 +101,27 @@ const VimeoVideoCard = memo(function VimeoVideoCard({
 
   return (
     <article
-      className="mx-3 w-[252px] flex-shrink-0 overflow-hidden rounded-[22px] border border-[#5271ff]/30 bg-white text-center shadow-lg md:w-[276px]"
+      className="mx-3 flex min-h-[352px] w-[252px] flex-shrink-0 flex-col overflow-hidden rounded-[22px] border border-[#5271ff]/30 bg-white text-center shadow-lg md:w-[276px]"
     >
       <div className="p-3 pb-0">
         <VimeoEmbed testimonial={testimonial} onPlaybackChange={onPlaybackChange} />
       </div>
-      <div className="px-5 pb-0 pt-5">
+      <div className="flex flex-1 flex-col px-5 pb-0 pt-5">
         <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#5271ff]">
           Video Testimonial
         </p>
         <h3 className="text-[22px] font-bold leading-tight text-[#2B2B2B]">
           {name || testimonial.title}
         </h3>
-        {company && (
-          <p className="mt-2 text-base font-medium leading-snug text-gray-500">
-            {company}
-          </p>
-        )}
-        <div className="-mx-5 mt-5 bg-gray-100 px-4 py-3">
+        <p
+          className={`mt-2 min-h-6 text-base font-medium leading-snug text-gray-500 ${
+            company ? "" : "invisible"
+          }`}
+          aria-hidden={!company}
+        >
+          {company || "Company"}
+        </p>
+        <div className="-mx-5 mt-auto bg-gray-100 px-4 py-3">
           <CTAButton
             size="sm"
             className="w-full bg-[#5271ff] text-white shadow-none hover:scale-100"
@@ -142,7 +145,7 @@ const VimeoMovingStrip = memo(function VimeoMovingStrip({
   }, []);
 
   return (
-    <div className="relative mb-16 overflow-hidden">
+    <div className="relative overflow-hidden">
       <div className={`video-strip-motion flex w-max ${isPlaying ? "is-paused" : ""}`}>
         {videos.map((video) => (
           <VimeoVideoCard
@@ -164,7 +167,7 @@ const Testimony = memo(({ vimeoTestimonials }: TestimonyProps) => {
   const videos = vimeoTestimonials?.length ? vimeoTestimonials : VIMEO_TESTIMONIALS;
 
   return (
-    <section className="py-24 bg-white font-figtree overflow-hidden relative">
+    <section className="bg-white pt-24 pb-4 font-figtree overflow-hidden relative">
       <div className="max-w-6xl mx-auto px-4 text-center mb-16">
         <h2 className="text-4xl lg:text-5xl font-medium text-[#2B2B2B] mb-6 leading-tight">
           "Okay, <span className="text-[#5271ff]">Space Funding</span>{" "}

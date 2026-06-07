@@ -81,7 +81,7 @@ const ReviewTestimonials = memo(function ReviewTestimonials() {
   const duplicatedTestimonials = useMemo(() => [...testimonials, ...testimonials], []);
 
   return (
-    <section className="relative overflow-hidden bg-white py-12 font-figtree">
+    <section className="relative overflow-hidden bg-white pt-4 pb-12 font-figtree">
       <div className="relative mb-8">
         <div className="flex review-scroll-right review-hover-pause">
           {duplicatedTestimonials.slice(0, 20).map((testimonial, index) => (

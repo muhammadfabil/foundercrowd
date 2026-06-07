@@ -9,6 +9,32 @@ function normalizeTitle(title: string) {
   return title.replace(/\s+/g, " ").trim();
 }
 
+function resolveDisplayTitle(fetchedTitle: string | undefined, fallbackTitle: string) {
+  if (!fetchedTitle) return fallbackTitle;
+
+  const fetched = normalizeTitle(fetchedTitle);
+  const fallback = normalizeTitle(fallbackTitle);
+
+  if (!fetched) return fallback;
+
+  const fetchedHasCompany = fetched.includes("|");
+  const fallbackHasCompany = fallback.includes("|");
+
+  if (!fetchedHasCompany && fallbackHasCompany) {
+    return fallback;
+  }
+
+  if (
+    !fetchedHasCompany &&
+    fallback.length > fetched.length &&
+    fallback.toLowerCase().startsWith(fetched.toLowerCase())
+  ) {
+    return fallback;
+  }
+
+  return fetched;
+}
+
 async function getVimeoTitle(testimonial: VimeoTestimonial) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 3500);
@@ -25,7 +51,7 @@ async function getVimeoTitle(testimonial: VimeoTestimonial) {
     if (!res.ok) return testimonial.title;
 
     const data = (await res.json()) as VimeoOEmbedResponse;
-    return data.title ? normalizeTitle(data.title) : testimonial.title;
+    return resolveDisplayTitle(data.title, testimonial.title);
   } catch {
     return testimonial.title;
   } finally {

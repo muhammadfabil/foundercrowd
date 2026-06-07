@@ -36,7 +36,7 @@ export const VIMEO_TESTIMONIALS: VimeoTestimonial[] = [
     id: "dennis-pro-football",
     url: "https://vimeo.com/1198784146?fl=pl&fe=sh",
     videoId: "1198784146",
-    title: "Dennis Founder & CEO Pro Football",
+    title: "Dennis | Founder & CEO Pro Football",
   },
   {
     id: "michael-fmfc-investments",
