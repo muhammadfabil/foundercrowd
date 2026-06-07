@@ -95,18 +95,7 @@ const Footer = () => {
           </div>
 
           {/* Investors Column */}
-          <div>
-            <h4 className="font-medium text-gray-700 mb-6 text-sm">
-              Investors
-            </h4>
-            <ul className="space-y-3">
-              <li>
-                <a href="https://Space Funding.beehiiv.com/" className="text-gray-500 hover:text-[#2B2B2B] transition-colors duration-200 text-sm">
-                  Join our VIP program
-                </a>
-              </li>
-            </ul>
-          </div>
+         
 
           {/* Resources Column */}
           <div>

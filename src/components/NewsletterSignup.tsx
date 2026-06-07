@@ -2,11 +2,16 @@
 
 import { useState } from 'react';
 
-export default function NewsletterSignup() {
+type NewsletterSignupProps = {
+  variant?: 'default' | 'blogHero';
+};
+
+export default function NewsletterSignup({ variant = 'default' }: NewsletterSignupProps) {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [error, setError] = useState('');
+  const isBlogHero = variant === 'blogHero';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,6 +50,15 @@ export default function NewsletterSignup() {
   };
 
   if (isSubscribed) {
+    if (isBlogHero) {
+      return (
+        <div className="mx-auto max-w-xl rounded-2xl border border-emerald-400/30 bg-emerald-400/10 px-6 py-5 text-center">
+          <h3 className="text-lg font-bold text-white">Successfully subscribed.</h3>
+          <p className="mt-1 text-sm text-white/70">Private markets insights will land in your inbox soon.</p>
+        </div>
+      );
+    }
+
     return (
       <div className="max-w-lg mx-auto text-center">
         <div className="bg-green-50 border-2 border-green-200 rounded-3xl p-8 animate-pulse">
@@ -57,6 +71,53 @@ export default function NewsletterSignup() {
           <p className="text-green-700">Thank you for joining our newsletter. You'll receive updates monthly.</p>
         </div>
       </div>
+    );
+  }
+
+  if (isBlogHero) {
+    return (
+      <form onSubmit={handleSubmit} className="mx-auto max-w-xl">
+        <div className="flex flex-col gap-2 rounded-2xl border border-white/15 bg-white p-1.5 shadow-2xl shadow-black/20 sm:flex-row">
+          <label htmlFor="blog-hero-email" className="sr-only">
+            Email Address
+          </label>
+          <input
+            type="email"
+            id="blog-hero-email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            disabled={isSubmitting}
+            className="min-h-14 flex-1 rounded-xl bg-white px-5 text-base font-medium text-[#2B2B2B] outline-none placeholder:text-gray-400 disabled:cursor-not-allowed disabled:opacity-60"
+            placeholder="Email Address"
+          />
+          <button
+            type="submit"
+            disabled={isSubmitting || !email}
+            className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl bg-[#151515] px-6 text-base font-bold text-white transition-colors hover:bg-[#5271ff] disabled:cursor-not-allowed disabled:bg-[#151515]/70"
+          >
+            {isSubmitting ? (
+              <>
+                <span className="h-4 w-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                Subscribing
+              </>
+            ) : (
+              <>
+                Subscribe
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.77 59.77 0 0 1 21.485 12 59.77 59.77 0 0 1 3.27 20.875L6 12Zm0 0h7.5" />
+                </svg>
+              </>
+            )}
+          </button>
+        </div>
+        {error && (
+          <p className="mt-3 text-center text-sm font-medium text-red-300" role="alert">
+            {error}
+          </p>
+        )}
+      </form>
     );
   }
 

@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import CTAP from "@/components/CTAP";
 import TestiMap from "@/components/TestiMap";
 import Statement from "@/components/Statement";
+import ReviewTestimonials from "@/components/ReviewTestimonials";
 import { getVimeoTestimonials } from "@/lib/vimeo";
 
 
@@ -25,6 +26,7 @@ export default async function Page() {
       <Steps />
       <TestiMap />
       <Statement />
+      <ReviewTestimonials />
       <Plan />
       <Integration />
       <Testimony vimeoTestimonials={vimeoTestimonials} /> 

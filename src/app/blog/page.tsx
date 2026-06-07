@@ -14,6 +14,49 @@ export const metadata: Metadata = {
 
 const POSTS_PER_PAGE = 6;
 
+const trustedInvestorLinks = [
+  {
+    name: "Sequoia",
+    href: "https://sequoiacap.com/",
+    logo: "/blog-logos/sequoia.svg",
+    width: 180,
+    height: 24,
+    className: "h-6 w-auto md:h-7",
+  },
+  {
+    name: "a16z",
+    href: "https://a16z.com/",
+    logo: "/blog-logos/a16z.svg",
+    width: 263,
+    height: 30,
+    className: "h-6 w-auto md:h-7",
+  },
+  {
+    name: "Founders Fund",
+    href: "https://foundersfund.com/",
+    logo: "/blog-logos/founders-fund.svg",
+    width: 243,
+    height: 39,
+    className: "h-6 w-auto md:h-7",
+  },
+  {
+    name: "Y Combinator",
+    href: "https://www.ycombinator.com/",
+    logo: "/blog-logos/y-combinator.svg",
+    width: 24,
+    height: 24,
+    className: "h-7 w-auto md:h-8",
+  },
+  {
+    name: "Techstars",
+    href: "https://www.techstars.com/",
+    logo: "/blog-logos/techstars.png",
+    width: 522,
+    height: 93,
+    className: "h-6 w-auto md:h-7",
+  },
+];
+
 type BlogPageProps = {
   searchParams?: Promise<{
     page?: string;
@@ -38,6 +81,57 @@ function formatDate(value: string) {
 
 function pageHref(page: number) {
   return page <= 1 ? "/blog" : `/blog?page=${page}`;
+}
+
+function BlogNewsletterHero() {
+  return (
+    <section className="relative overflow-hidden bg-[#151515] px-4 pb-20 pt-32 text-white md:pb-24 md:pt-36">
+      <div className="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:56px_56px]" />
+      <div className="relative mx-auto flex max-w-4xl flex-col items-center text-center">
+        <p className="mb-5 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-white/60">
+          Space Funding Journal
+        </p>
+        <h1 className="max-w-4xl text-4xl font-bold leading-tight text-white md:text-6xl">
+          Learn something new about the private markets in{" "}
+          <span className="text-[#5271ff]">5 minutes per week</span>
+        </h1>
+        <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-white/70 md:text-xl">
+          Get the latest private markets news, understand why it matters, and learn how to apply it in your work.
+        </p>
+
+        <div className="mt-10 w-full">
+          <NewsletterSignup variant="blogHero" />
+        </div>
+
+        <div className="mt-14 w-full">
+          <p className="text-sm font-semibold text-white/70">
+            Join over 20,000+ founders who have raised from:
+          </p>
+          <div className="mx-auto mt-6 flex max-w-4xl flex-wrap items-center justify-center gap-x-8 gap-y-5 md:gap-x-10">
+            {trustedInvestorLinks.map((investor) => (
+              <a
+                key={investor.name}
+                href={investor.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={investor.name}
+                className="flex h-12 min-w-[112px] items-center justify-center text-white/70 opacity-70 transition-opacity duration-300 hover:opacity-100"
+              >
+                <img
+                  src={investor.logo}
+                  alt={investor.name}
+                  width={investor.width}
+                  height={investor.height}
+                  className={`${investor.className} max-w-[150px] object-contain brightness-0 invert`}
+                  loading="lazy"
+                />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function shouldBypassImageOptimizer(src: string) {
@@ -205,22 +299,9 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     <>
       <Navbar />
       <div className="bg-white text-[#2B2B2B] font-figtree">
-        <section className="relative pt-24 bg-black min-h-[40vh] flex items-end">
-          <video autoPlay loop muted playsInline className="earth-video-bg absolute inset-0 w-full h-full object-cover z-0">
-            <source src="/EarthVideo.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-black/70 z-[1]" />
-          <div className="relative z-[2] max-w-6xl mx-auto px-4 py-16 md:py-24 w-full text-white">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-              Space Funding <span className="text-[#5271ff]">Journal</span>
-            </h1>
-            <p className="text-white/70 text-xl max-w-2xl">
-              Insights, strategies, and stories to help founders build remarkable companies.
-            </p>
-          </div>
-        </section>
+        <BlogNewsletterHero />
 
-        <main className="max-w-6xl mx-auto px-4 pb-24">
+        <main className="max-w-6xl mx-auto px-4 pb-24 pt-20">
           {featuredPost && (
             <div className="mb-16">
               <Link
@@ -286,17 +367,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             </div>
           )}
 
-          <div className="mt-24 bg-gray-50 rounded-3xl p-8 md:p-12 border border-gray-200">
-            <div className="max-w-3xl mx-auto text-center">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-[#2B2B2B]">
-                Subscribe to our <span className="text-orange-500">newsletter</span>
-              </h3>
-              <p className="text-gray-500 mb-8 max-w-lg mx-auto">
-                Get the latest insights on fundraising, growth strategies, and startup resources delivered straight to your inbox.
-              </p>
-              <NewsletterSignup />
-            </div>
-          </div>
         </main>
       </div>
       <Footer />
