@@ -1,20 +1,7 @@
-"use client";
-
 import Image from "next/image";
-import { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
 import CTAButton from "./CTAButton";
 
 export default function CTAP() {
-  useEffect(() => {
-    AOS.init({
-      duration: 1500,
-      once: false,
-      mirror: true,
-    });
-  }, []);
-
   return (
     <section className="relative h-[100dvh] overflow-hidden flex flex-col items-center justify-center isolate bg-black">
       {/* BG video */}
@@ -23,6 +10,7 @@ export default function CTAP() {
         loop
         muted
         playsInline
+        preload="metadata"
         className="earth-video-bg absolute inset-0 w-full h-full object-cover z-0"
       >
         <source src="/EarthVideo.mp4" type="video/mp4" />
@@ -37,11 +25,6 @@ export default function CTAP() {
         <div className="flex flex-col items-center space-y-4">
           <div
             className="relative"
-            data-aos="fade-up"
-            data-aos-offset="200"
-            data-aos-delay="50"
-            data-aos-duration="1200"
-            data-aos-easing="ease-in-out"
           >
             <Image
               src="/logo.png"
@@ -53,8 +36,6 @@ export default function CTAP() {
           </div>
           <h2
             className="text-white text-2xl md:text-3xl font-bold tracking-wider"
-            data-aos="fade-up"
-            data-aos-delay="300"
           >
             Space Funding
           </h2>
@@ -63,8 +44,6 @@ export default function CTAP() {
         {/* Main Heading */}
         <h1
           className="text-white font-extrabold leading-[0.9] tracking-tight"
-          data-aos="fade-up"
-          data-aos-delay="450"
         >
           <span className="block text-[12vw] md:text-[6vw] drop-shadow-[0_8px_28px_rgba(0,0,0,0.45)]">
             START RAISING
@@ -74,8 +53,6 @@ export default function CTAP() {
         {/* Subtitle */}
         <p
           className="text-white/95 text-lg md:text-2xl"
-          data-aos="fade-up"
-          data-aos-delay="600"
         >
           Your Vision. Your Terms.
         </p>

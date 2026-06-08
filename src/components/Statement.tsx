@@ -1,8 +1,6 @@
-"use client";
-
-import React, { memo, useMemo, useState, useEffect } from "react";
 import Image from "next/image";
-import { World, GlobeConfig } from "../components/ui/globe";
+import LazyStatementGlobe from "@/components/LazyStatementGlobe";
+import type { GlobeConfig, Position } from "@/components/ui/globe";
 
 // Extract constants for better performance
 const globeConfig: GlobeConfig = {
@@ -15,7 +13,7 @@ const globeConfig: GlobeConfig = {
   autoRotateSpeed: 1.5,
 };
 
-const data = [
+const data: Position[] = [
   {
     order: 1,
     startLat: -19.885592,
@@ -378,35 +376,46 @@ const data = [
   },
 ];
 
-const Statement = memo(() => {
-  // Memoize data if needed, but since it's static, extraction is sufficient
-  const memoizedData = useMemo(() => data, []);
+type StarStyle = {
+  top: string;
+  left: string;
+  animationDelay: string;
+  animationDuration: string;
+};
 
-  // Generate random values only on client-side to prevent hydration mismatch
-  const [stars, setStars] = useState<{primary: any[], large: any[], soft: any[]}>({ primary: [], large: [], soft: [] });
+function createSeededRandom(seed: number) {
+  let value = seed;
 
-  useEffect(() => {
-    setStars({
-      primary: Array.from({ length: 40 }).map(() => ({
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-        animationDelay: `${Math.random() * 3}s`,
-        animationDuration: `${2 + Math.random() * 3}s`,
-      })),
-      large: Array.from({ length: 15 }).map(() => ({
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-        animationDelay: `${Math.random() * 4}s`,
-        animationDuration: `${3 + Math.random() * 2}s`,
-      })),
-      soft: Array.from({ length: 25 }).map(() => ({
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-        animationDelay: `${Math.random() * 5}s`,
-        animationDuration: `${4 + Math.random() * 2}s`,
-      }))
-    });
-  }, []);
+  return () => {
+    value = (value * 16807) % 2147483647;
+    return (value - 1) / 2147483646;
+  };
+}
+
+function createStars(
+  count: number,
+  seed: number,
+  delayMax: number,
+  durationBase: number,
+  durationRange: number
+) {
+  const random = createSeededRandom(seed);
+
+  return Array.from({ length: count }, () => ({
+    top: `${random() * 100}%`,
+    left: `${random() * 100}%`,
+    animationDelay: `${random() * delayMax}s`,
+    animationDuration: `${durationBase + random() * durationRange}s`,
+  })) satisfies StarStyle[];
+}
+
+const stars = {
+  primary: createStars(40, 11, 3, 2, 3),
+  large: createStars(15, 29, 4, 3, 2),
+  soft: createStars(25, 47, 5, 4, 2),
+};
+
+export default function Statement() {
 
   return (
     <section className="bg-white  text-[#2B2B2B] overflow-hidden relative py-12 md:py-24">
@@ -485,7 +494,6 @@ const Statement = memo(() => {
                 width={300}
                 height={300}
                 className="object-contain w-full max-w-sm md:max-w-md filter drop-shadow-lg"
-                priority
               />
              
               {/* Subtle glow effect */}
@@ -498,7 +506,7 @@ const Statement = memo(() => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
           {/* Globe dengan z-index tinggi */}
           <div className="relative h-[300px] md:h-[500px] order-2 md:order-1 z-10">
-            <World globeConfig={globeConfig} data={memoizedData} />
+            <LazyStatementGlobe globeConfig={globeConfig} data={data} />
           </div>
 
           <div className="order-1 md:order-2 space-y-4 md:space-y-6">
@@ -515,6 +523,4 @@ const Statement = memo(() => {
       </div>
     </section>
   );
-});
-
-export default Statement;
+}

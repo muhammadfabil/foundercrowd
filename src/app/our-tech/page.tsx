@@ -1,5 +1,3 @@
-"use client";
-import React, { memo } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Features from "@/components/Features";
@@ -10,7 +8,7 @@ import Plan from "@/components/Plan";
 import Integration from "@/components/Integration";
 import CTAButton from "@/components/CTAButton"; // Replace CalendlyModal import
 
-const OurTechPage = memo(() => {
+export default function OurTechPage() {
   return (
     <>
       <Navbar />
@@ -18,11 +16,11 @@ const OurTechPage = memo(() => {
         {/* Hero Section */}
         <section className="relative pt-24 md:pt-32 lg:pt-40 bg-black text-white overflow-hidden pb-24">
           {/* Video Background */}
-          <video autoPlay loop muted playsInline className="earth-video-bg absolute inset-0 w-full h-full object-cover z-0" aria-hidden="true">
+          <video autoPlay loop muted playsInline preload="metadata" className="earth-video-bg absolute inset-0 w-full h-full object-cover z-0" aria-hidden="true">
             <source src="/EarthVideo.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-black/70 z-[1]" aria-hidden="true" />
-          <div className="absolute inset-0 opacity-20 hero-noise z-[2]"></div>
+          <div className="absolute inset-0 opacity-20 hero-grain z-[2]"></div>
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative z-[3]">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-balance">
@@ -38,6 +36,7 @@ const OurTechPage = memo(() => {
                     src="https://player.vimeo.com/video/1032029906?h=0&autoplay=1&loop=1&muted=1"
                     className="h-full w-full"
                     frameBorder="0"
+                    loading="lazy"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
                     title="Platform demo video"
@@ -84,16 +83,8 @@ const OurTechPage = memo(() => {
           </div>
         </section>
 
-        {/* Animation styles */}
-        <style jsx>{`
-          .hero-noise {
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-          }
-        `}</style>
       </main>
       <Footer />
     </>
   );
-});
-
-export default OurTechPage;
+}

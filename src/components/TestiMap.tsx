@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useMemo, useEffect, useRef, memo, useCallback } from "react";
+import React, { useState, useMemo, useEffect, memo, useCallback } from "react";
 import Image from 'next/image';
 import { motion, AnimatePresence } from "framer-motion";
 import { GB, US, DE, AU, ES, JP } from "country-flag-icons/react/3x2";
@@ -89,6 +89,101 @@ type Testimonial = {
   investment: string;
 };
 
+type CountryWithTestimonials = {
+  country: string;
+  testimonials: Testimonial[];
+};
+
+const CountryFlagList = memo(function CountryFlagList({
+  countries,
+  activeCountry,
+  onSelectCountry,
+  orientation = "col",
+}: {
+  countries: CountryWithTestimonials[];
+  activeCountry: string;
+  onSelectCountry: (id: string) => void;
+  orientation?: "row" | "col";
+}) {
+  const isRow = orientation === "row";
+
+  return (
+    <div className={`flex ${isRow ? "flex-row gap-3 justify-center flex-wrap" : "flex-col space-y-4 items-center"}`}>
+      {countries.map(({ country, testimonials }) => {
+        const isActive = country === activeCountry;
+
+        return (
+          <motion.button
+            key={country}
+            onClick={() => onSelectCountry(testimonials[0].id)}
+            className={`
+              ${isRow ? "w-12 h-12" : "w-16 h-16"}
+              rounded-xl flex items-center justify-center border-2 transition-all duration-300
+              ${isActive
+                ? "bg-[#5271ff] border-[#5271ff] shadow-lg transform scale-105"
+                : "bg-gray-100 border-gray-300 hover:border-[#5271ff] hover:shadow-md"
+              }
+            `}
+            whileHover={{ scale: isActive ? 1.05 : 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label={`Select ${country}`}
+          >
+            <div className={`${isRow ? "w-8 h-8" : "w-10 h-10"} rounded-lg overflow-hidden`}>
+              <FlagIcon country={country} className="w-full h-full" />
+            </div>
+          </motion.button>
+        );
+      })}
+    </div>
+  );
+});
+
+const TestimonialCard = memo(function TestimonialCard({
+  testimonial,
+  position,
+  onClick,
+}: {
+  testimonial: Testimonial;
+  position: "left" | "center" | "right";
+  onClick?: () => void;
+}) {
+  const isCenter = position === "center";
+  const isLeft = position === "left";
+
+  return (
+    <div
+      className={`
+        absolute rounded-xl shadow-lg overflow-hidden bg-gray-100 border border-gray-200
+        transition-all duration-500 ease-out
+        ${isCenter ? "z-30" : "z-20 cursor-pointer"}
+      `}
+      style={{
+        width: isCenter ? "240px" : "200px",
+        maxWidth: "35vw",
+        transform: isCenter ? "scale(1)" : isLeft ? "translateX(-55%) scale(0.8)" : "translateX(55%) scale(0.8)",
+        opacity: isCenter ? 1 : 0.7,
+      }}
+      onClick={onClick}
+    >
+      <div className="relative w-full h-[75%]">
+        <Image
+          src={testimonial.image}
+          alt={testimonial.name}
+          width={400}
+          height={400}
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+      <div className="h-[25%] bg-gray-800 text-white flex items-center justify-center hover:bg-[#5271ff] transition-colors duration-300">
+        <button className="text-center font-medium py-2 px-4 text-sm">
+          Invested
+        </button>
+      </div>
+    </div>
+  );
+});
+
 const TestimonialMap = memo(() => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -163,97 +258,6 @@ const TestimonialMap = memo(() => {
     }, 4000);
     return () => clearInterval(id);
   }, [activeIndex, countriesWithTestimonials, testimonials.length, isAnimating, isPaused]);
-
-  const CountryFlagList = React.memo(({ 
-    countries, 
-    activeCountry, 
-    onSelectCountry, 
-    orientation = "col" 
-  }: {
-    countries: { country: string; testimonials: Testimonial[] }[];
-    activeCountry: string;
-    onSelectCountry: (id: string) => void;
-    orientation?: "row" | "col";
-  }) => {
-    const isRow = orientation === "row";
-    return (
-      <div className={`flex ${isRow ? "flex-row gap-3 justify-center flex-wrap" : "flex-col space-y-4 items-center"}`}>
-        {countries.map(({ country, testimonials }) => {
-          const isActive = country === activeCountry;
-          return (
-            <motion.button
-              key={country}
-              onClick={() => onSelectCountry(testimonials[0].id)}
-              className={`
-                ${isRow ? "w-12 h-12" : "w-16 h-16"} 
-                rounded-xl flex items-center justify-center border-2 transition-all duration-300
-                ${isActive 
-                  ? "bg-[#5271ff] border-[#5271ff] shadow-lg transform scale-105" 
-                  : "bg-gray-100 border-gray-300 hover:border-[#5271ff] hover:shadow-md"
-                }
-              `}
-              whileHover={{ scale: isActive ? 1.05 : 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label={`Select ${country}`}
-            >
-              <div className={`${isRow ? "w-8 h-8" : "w-10 h-10"} rounded-lg overflow-hidden`}>
-                <FlagIcon country={country} className="w-full h-full" />
-              </div>
-            </motion.button>
-          );
-        })}
-      </div>
-    );
-  });
-
-  const TestimonialCard = React.memo(({ 
-    testimonial, 
-    position, 
-    onClick 
-  }: { 
-    testimonial: Testimonial; 
-    position: 'left' | 'center' | 'right';
-    onClick?: () => void;
-  }) => {
-    const isCenter = position === 'center';
-    const isLeft = position === 'left';
-    
-    return (
-      <div
-        className={`
-          absolute rounded-xl shadow-lg overflow-hidden bg-gray-100 border border-gray-200
-          transition-all duration-500 ease-out
-          ${isCenter ? 'z-30' : 'z-20 cursor-pointer'}
-        `}
-        style={{ 
-          width: isCenter ? '240px' : '200px',
-          maxWidth: '35vw',
-          transform: isCenter ? 'scale(1)' : isLeft ? 'translateX(-55%) scale(0.8)' : 'translateX(55%) scale(0.8)',
-          opacity: isCenter ? 1 : 0.7
-        }}
-        onClick={onClick}
-      >
-        {/* Profile Image (75%) */}
-        <div className="relative w-full h-[75%]">
-          <Image
-            src={testimonial.image}
-            alt={testimonial.name}
-            width={400}
-            height={400}
-            className="w-full h-full object-cover"
-            priority={isCenter}
-          />
-        </div>
-        
-        {/* Button (25% height) */}
-        <div className="h-[25%] bg-gray-800 text-white flex items-center justify-center hover:bg-[#5271ff] transition-colors duration-300">
-          <button className="text-center font-medium py-2 px-4 text-sm">
-            Invested
-          </button>
-        </div>
-      </div>
-    );
-  });
 
   return (
     <section className="py-8 md:py-12 lg:py-20 bg-white">

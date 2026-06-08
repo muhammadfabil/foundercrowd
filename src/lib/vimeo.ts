@@ -1,9 +1,12 @@
+import { cache } from "react";
 import { VIMEO_TESTIMONIALS, type VimeoTestimonial } from "@/data/vimeoTestimonials";
 
 type VimeoOEmbedResponse = {
   title?: string;
   video_id?: number;
 };
+
+const VIMEO_TITLE_TIMEOUT_MS = 1200;
 
 function normalizeTitle(title: string) {
   return title.replace(/\s+/g, " ").trim();
@@ -37,7 +40,7 @@ function resolveDisplayTitle(fetchedTitle: string | undefined, fallbackTitle: st
 
 async function getVimeoTitle(testimonial: VimeoTestimonial) {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 3500);
+  const timeout = setTimeout(() => controller.abort(), VIMEO_TITLE_TIMEOUT_MS);
 
   try {
     const url = new URL("https://vimeo.com/api/oembed.json");
@@ -59,11 +62,11 @@ async function getVimeoTitle(testimonial: VimeoTestimonial) {
   }
 }
 
-export async function getVimeoTestimonials() {
+export const getVimeoTestimonials = cache(async function getVimeoTestimonials() {
   return Promise.all(
     VIMEO_TESTIMONIALS.map(async (testimonial) => ({
       ...testimonial,
       title: await getVimeoTitle(testimonial),
     }))
   );
-}
+});

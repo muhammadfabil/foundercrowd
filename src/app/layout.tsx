@@ -1,11 +1,10 @@
-'use client';
-// removed useState
-import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 
 import Script from "next/script";
+
+export { metadata } from "./metadata";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -14,20 +13,11 @@ const manrope = Manrope({
   variable: "--font-manrope",
 });
 
-// Note: metadata needs to be exported from a separate file when using 'use client'
-// Create src/app/metadata.ts for metadata export
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 
 
   return (
     <html lang="en" className={manrope.variable}>
-      <head>
-        <title>Space Funding</title>
-        <meta name="description" content="On a mission to transform how startups raise capital by making the process as easy as buying your favorite product online." />
-        <meta name="google-site-verification" content="OJg5TBwEzS6H1CaNpmpE_8rSFuKMcLJNsPr7CAJgce8" />
-        <link rel="icon" href="/logo.png" type="image/png" sizes="128x128" />
-      </head>
       <body className={`antialiased ${manrope.className}`} suppressHydrationWarning>
         {/* Google Analytics */}
         <Script

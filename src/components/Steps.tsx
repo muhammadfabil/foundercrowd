@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, memo, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, memo, useCallback } from 'react';
 
 // First, set a default Calendly URL at the top level
 const DEFAULT_CALENDLY_URL = "https://calendly.com/spacefunding/raise-capital-online";
@@ -97,52 +97,46 @@ const Steps = memo(({ calendlyUrl = DEFAULT_CALENDLY_URL }: StepsProps) => {
   const handleOpenCalendly = useCallback(() => setOpenCalendly(true), []);
   const handleCloseCalendly = useCallback(() => setOpenCalendly(false), []);
 
-  const observers = useMemo(() => {
-    const obs = new Map();
-    if (typeof window === 'undefined' || !window.IntersectionObserver) return obs;
-    
-    stepsData.forEach((step) => {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setVisibleSteps(prev => new Set([...prev, step.id]));
-            } else {
-              // Remove from visible steps when scrolling back up
-              setVisibleSteps(prev => {
-                const newSet = new Set(prev);
-                newSet.delete(step.id);
-                return newSet;
-              });
-            }
-          });
-        },
-        {
-          threshold: 0.5, // Trigger when 50% of the element is visible
-          rootMargin: '-50px 0px -50px 0px' // Add some margin for better UX
-        }
-      );
-      obs.set(step.id, observer);
-    });
-    return obs;
-  }, []);
-
   useEffect(() => {
-    // Observe all step elements after a short delay to ensure DOM is ready
-    const timeoutId = setTimeout(() => {
+    if (typeof window === 'undefined' || !window.IntersectionObserver) {
+      setVisibleSteps(new Set(stepsData.map((step) => step.id)));
+      return;
+    }
+
+    const observers: IntersectionObserver[] = [];
+    const timeoutId = window.setTimeout(() => {
       stepsData.forEach((step) => {
         const element = document.getElementById(`step-${step.id}`);
-        if (element) {
-          observers.get(step.id)?.observe(element);
-        }
+        if (!element) return;
+
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (!entry.isIntersecting) return;
+
+            setVisibleSteps((prev) => {
+              if (prev.has(step.id)) return prev;
+              const next = new Set(prev);
+              next.add(step.id);
+              return next;
+            });
+            observer.unobserve(entry.target);
+          },
+          {
+            threshold: 0.5,
+            rootMargin: '-50px 0px -50px 0px',
+          }
+        );
+
+        observer.observe(element);
+        observers.push(observer);
       });
     }, 100);
 
     return () => {
-      clearTimeout(timeoutId);
-      observers.forEach(observer => observer.disconnect());
+      window.clearTimeout(timeoutId);
+      observers.forEach((observer) => observer.disconnect());
     };
-  }, [observers]);
+  }, []);
   
   return (
     <section className="py-20 bg-white font-figtree">

@@ -1,5 +1,3 @@
-"use client"
-import React, { memo } from 'react';
 import { FiUsers, FiTrendingUp, FiShield } from 'react-icons/fi';
 import CTAButton from './CTAButton'; // Replace CalendlyModal import
 
@@ -31,7 +29,7 @@ const planData = [
   }
 ];
 
-const Plan = ({ calendlyUrl }: { calendlyUrl?: string }) => {
+export default function Plan() {
   return (
     <section className="py-24 bg-white font-figtree">
       <div className="max-w-6xl mx-auto px-4">
@@ -130,6 +128,4 @@ const Plan = ({ calendlyUrl }: { calendlyUrl?: string }) => {
       </div>
     </section>
   );
-};
-
-export default Plan;
+}

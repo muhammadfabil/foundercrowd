@@ -1,5 +1,3 @@
-'use client'
-import React, { memo } from 'react';
 import Image from 'next/image';
 import CTAButton from './CTAButton'; // Replace CalendlyModal import
 
@@ -32,18 +30,63 @@ const integrationLogos = [
   '/integ (25).svg'
 ];
 
-const Integration = ({ calendlyUrl }: { calendlyUrl?: string }) => {
-  // Define the number of logos per row for different screen sizes
-  const rows = [
-    { mobile: 4, tablet: 5, desktop: 7 }, // Row 1
-    { mobile: 3, tablet: 4, desktop: 6 }, // Row 2
-    { mobile: 3, tablet: 4, desktop: 5 }, // Row 3
-    { mobile: 2, tablet: 3, desktop: 4 }, // Row 4
-    { mobile: 2, tablet: 3, desktop: 3 }, // Row 5
-  ];
-  
+const desktopRows = [7, 6, 5, 4, 3];
+const tabletRows = [5, 4, 4, 3, 3];
+const mobileRows = [4, 3, 3, 2, 2];
+
+function IntegrationIcon({ logo, index }: { logo: string; index: number }) {
+  return (
+    <div className="group cursor-pointer">
+      <div className="
+        w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16
+        rounded-lg sm:rounded-xl md:rounded-xl lg:rounded-2xl
+        flex items-center justify-center
+        transition-all duration-300 hover:scale-105 hover:-translate-y-1
+        bg-white border border-gray-100 hover:border-gray-200
+        shadow-sm hover:shadow-md
+      ">
+        <Image
+          src={logo}
+          alt={`Integration ${index + 1}`}
+          width={40}
+          height={40}
+          className="w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 object-contain"
+        />
+      </div>
+    </div>
+  );
+}
+
+function IntegrationRows({ rows }: { rows: number[] }) {
   let currentIndex = 0;
 
+  return (
+    <div className="mb-8 md:mb-12">
+      {rows.map((count, rowIndex) => {
+        const rowLogos = integrationLogos.slice(currentIndex, currentIndex + count);
+        const startIndex = currentIndex;
+        currentIndex += count;
+
+        return (
+          <div
+            key={`row-${rowIndex}`}
+            className="flex justify-center gap-2 sm:gap-3 md:gap-4 lg:gap-6 mb-2 md:mb-4"
+          >
+            {rowLogos.map((logo, logoIndex) => (
+              <IntegrationIcon
+                key={`${logo}-${startIndex + logoIndex}`}
+                logo={logo}
+                index={startIndex + logoIndex}
+              />
+            ))}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+export default function Integration() {
   return (
     <section className="py-12 md:py-20 bg-white font-figtree">
       <div className="max-w-5xl mx-auto px-4">
@@ -59,48 +102,14 @@ const Integration = ({ calendlyUrl }: { calendlyUrl?: string }) => {
         </div>
 
         {/* Integration Grid - Responsive Triangle Layout */}
-        <div className="mb-8 md:mb-12">
-          {rows.map((rowConfig, rowIndex) => {
-            // Determine number of logos based on screen size
-            const numLogos = typeof window !== 'undefined' 
-              ? (window.innerWidth < 768 ? rowConfig.mobile : window.innerWidth < 1024 ? rowConfig.tablet : rowConfig.desktop)
-              : rowConfig.desktop; // Default for SSR
-            
-            const rowLogos = integrationLogos.slice(currentIndex, currentIndex + numLogos);
-            currentIndex += numLogos;
-
-            return (
-              <div
-                key={`row-${rowIndex}`}
-                className="flex justify-center gap-2 sm:gap-3 md:gap-4 lg:gap-6 mb-2 md:mb-4"
-              >
-                {rowLogos.map((logo, logoIndex) => (
-                  <div
-                    key={`logo-${currentIndex - numLogos + logoIndex}`}
-                    className="group cursor-pointer"
-                  >
-                    {/* Integration Circle */}
-                    <div className="
-                      w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 
-                      rounded-lg sm:rounded-xl md:rounded-xl lg:rounded-2xl 
-                      flex items-center justify-center
-                      transition-all duration-300 hover:scale-105 hover:-translate-y-1
-                      bg-white border border-gray-100 hover:border-gray-200
-                      shadow-sm hover:shadow-md
-                    ">
-                      <Image
-                        src={logo}
-                        alt={`Integration ${currentIndex - numLogos + logoIndex + 1}`}
-                        width={24}
-                        height={24}
-                        className="w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 object-contain"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            );
-          })}
+        <div className="md:hidden">
+          <IntegrationRows rows={mobileRows} />
+        </div>
+        <div className="hidden md:block lg:hidden">
+          <IntegrationRows rows={tabletRows} />
+        </div>
+        <div className="hidden lg:block">
+          <IntegrationRows rows={desktopRows} />
         </div>
 
         {/* Bottom text */}
@@ -127,6 +136,4 @@ const Integration = ({ calendlyUrl }: { calendlyUrl?: string }) => {
       </div>
     </section>
   );
-};
-
-export default Integration;
+}

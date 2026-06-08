@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://spacefunding.com"),
   title: "Space Funding - Guiding Founders, Inspiring Investors",
   description: "On a mission to transform how startups raise capital by making the process as easy as buying your favorite product online. From matching to due diligence, our platform streamlines the investment process.",
   keywords: [
@@ -54,6 +55,9 @@ export const metadata: Metadata = {
     icon: "/logo.png",
     shortcut: "/logo.png",
     apple: "/logo.png",
+  },
+  verification: {
+    google: "OJg5TBwEzS6H1CaNpmpE_8rSFuKMcLJNsPr7CAJgce8",
   },
   manifest: "/manifest.json",
   other: {

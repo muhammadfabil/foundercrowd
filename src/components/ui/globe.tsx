@@ -261,7 +261,7 @@ export function WebGLRendererConfig() {
   const { gl, size } = useThree();
   useEffect(() => {
     if (typeof window === "undefined") return;
-    gl.setPixelRatio(window.devicePixelRatio);
+    gl.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     gl.setSize(size.width, size.height);
     gl.setClearColor(0x000000, 0); // Transparent background
   }, [gl, size]);
@@ -274,7 +274,7 @@ export function World(props: WorldProps) {
 
   return (
     <div className="relative w-full h-full">
-      <Canvas camera={new PerspectiveCamera(50, aspect, 180, 1800)}>
+      <Canvas camera={new PerspectiveCamera(50, aspect, 180, 1800)} dpr={[1, 1.5]}>
         <WebGLRendererConfig />
 
         {/* Lighting tuned for brand palette */}

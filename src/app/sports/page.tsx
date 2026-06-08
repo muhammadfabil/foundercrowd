@@ -1,10 +1,9 @@
 "use client";
-import React, { useState, useEffect, memo, useCallback } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CTAButton from '@/components/CTAButton'; // Replace CalendlyModal import
-import { SparklesCore } from '@/components/ui/sparkles';
 
 const headlines = [
   "Club They Cheer For",
@@ -14,19 +13,7 @@ const headlines = [
 ];
 
 const SportsPage = memo(() => {
-  const [scrollY, setScrollY] = useState(0);
   const [currentHeadline, setCurrentHeadline] = useState(0);
-
-  // ✅ FIXED: Move useCallback outside useEffect (Rules of Hooks)
-  const handleScroll = useCallback(() => {
-    setScrollY(window.scrollY);
-  }, []);
-
-  // Track scroll for parallax and animation effects
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]); // ✅ FIXED: Add dependency
 
   // Rotate headlines
   useEffect(() => {
@@ -43,7 +30,7 @@ const SportsPage = memo(() => {
         {/* Hero Section */}
         <section className="relative pt-16 md:pt-20 lg:pt-30 lg:pb-5 bg-black text-white overflow-hidden">
           {/* Video Background */}
-          <video autoPlay loop muted playsInline className="earth-video-bg absolute inset-0 w-full h-full object-cover z-0" aria-hidden="true">
+          <video autoPlay loop muted playsInline preload="metadata" className="earth-video-bg absolute inset-0 w-full h-full object-cover z-0" aria-hidden="true">
             <source src="/EarthVideo.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-black/70 z-[1]" aria-hidden="true" />
@@ -107,6 +94,7 @@ const SportsPage = memo(() => {
                     src="https://player.vimeo.com/video/1032029906?h=0&autoplay=1&loop=1&muted=1"
                     className="h-full w-full"
                     frameBorder="0"
+                    loading="lazy"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
                     title="Space Funding Sports demo video"

@@ -1,13 +1,9 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FaHome, FaRegChartBar, FaRegCreditCard, FaFileSignature } from "react-icons/fa";
-import { CiStreamOn } from "react-icons/ci";
-import { BsBank } from "react-icons/bs";
-import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 import { IconType } from "react-icons";
-import { motion, AnimatePresence } from 'framer-motion';
 
 // Define the feature type
 type Feature = {
@@ -26,8 +22,7 @@ const phrases = [
   "Raise from day one to IPO day."
 ];
 
-// Memoized features data
-const useFeaturesData = () => useMemo(() => ({
+const featuresData: Record<number, Feature> = {
   1: {
     id: 1,
     icon: FaHome,
@@ -56,7 +51,7 @@ const useFeaturesData = () => useMemo(() => ({
     description: "No endless paperwork. Investors sign instantly with secure digital agreements, keeping your raise compliant and quick.",
     image: "/fix4.png"
   }
-} as Record<number, Feature>), []);
+};
 
 const FeatureList = React.memo(({ features, activeFeature, setActiveFeature }: {
   features: Record<number, Feature>;
@@ -120,7 +115,6 @@ const FeatureImage = React.memo(({ feature }: { feature: Feature }) => (
       fill
       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
       className="object-contain p-4 scale-110 transition-transform duration-300"
-      priority
     />
   </div>
 ));
@@ -315,7 +309,6 @@ const ImageCarousel = React.memo(() => {
                 fill
                 sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 400px"
                 className="object-contain transition-transform duration-300 hover:scale-105"
-                priority
               />
             </div>
           </div>
@@ -335,7 +328,6 @@ const ImageCarousel = React.memo(() => {
                 fill
                 sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 400px"
                 className="object-contain transition-transform duration-300 hover:scale-105"
-                priority
               />
             </div>
           </div>
@@ -346,7 +338,6 @@ const ImageCarousel = React.memo(() => {
 });
 
 const Features = () => {
-  const featuresData = useFeaturesData();
   const [activeFeature, setActiveFeature] = useState(1);
   const active = featuresData[activeFeature];
 

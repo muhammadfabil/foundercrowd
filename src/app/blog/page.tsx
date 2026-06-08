@@ -121,6 +121,7 @@ function BlogNewsletterHero() {
         loop
         muted
         playsInline
+        preload="metadata"
         className="earth-video-bg absolute inset-0 z-0 h-full w-full object-cover"
         aria-hidden="true"
       >

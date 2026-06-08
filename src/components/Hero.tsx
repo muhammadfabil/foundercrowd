@@ -14,7 +14,6 @@ const rotatingTexts = [
 ];
 
 export function Hero({ calendlyUrl }: { calendlyUrl?: string }) {
-  const [imageLoaded, setImageLoaded] = useState(false);
   const [currentText, setCurrentText] = useState(0);
 
   // Add text rotation effect
@@ -34,6 +33,7 @@ export function Hero({ calendlyUrl }: { calendlyUrl?: string }) {
         loop
         muted
         playsInline
+        preload="metadata"
         className="earth-video-bg absolute inset-0 w-full h-full object-cover z-0"
         aria-hidden="true"
       >
@@ -122,6 +122,7 @@ export function Hero({ calendlyUrl }: { calendlyUrl?: string }) {
               src="https://player.vimeo.com/video/1032029906?h=0&autoplay=1&loop=1&muted=1"
               className="h-full w-full"
               frameBorder="0"
+              loading="lazy"
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
               title="Platform demo video"
