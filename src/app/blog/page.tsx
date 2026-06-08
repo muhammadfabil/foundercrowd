@@ -12,7 +12,8 @@ export const metadata: Metadata = {
     "Insights, strategies, and stories from Space Funding to help founders raise capital and build remarkable companies.",
 };
 
-const POSTS_PER_PAGE = 6;
+const FIRST_PAGE_POSTS = 7;
+const GRID_POSTS_PER_PAGE = 6;
 
 const trustedInvestorLinks = [
   {
@@ -81,6 +82,35 @@ function formatDate(value: string) {
 
 function pageHref(page: number) {
   return page <= 1 ? "/blog" : `/blog?page=${page}`;
+}
+
+function getDisplayTotalPages(totalResults: number) {
+  if (totalResults <= FIRST_PAGE_POSTS) return 1;
+
+  return 1 + Math.ceil((totalResults - FIRST_PAGE_POSTS) / GRID_POSTS_PER_PAGE);
+}
+
+async function getDisplayPosts(page: number) {
+  if (page === 1) {
+    const result = await getBlogPosts(1, FIRST_PAGE_POSTS);
+
+    return {
+      posts: result.posts,
+      totalPages: getDisplayTotalPages(result.totalResults),
+    };
+  }
+
+  // Page 1 displays one extra post as the featured article. Later pages keep
+  // six cards and skip the one-post overlap caused by Beehiiv page/limit paging.
+  const [currentResult, nextResult] = await Promise.all([
+    getBlogPosts(page, GRID_POSTS_PER_PAGE),
+    getBlogPosts(page + 1, GRID_POSTS_PER_PAGE),
+  ]);
+
+  return {
+    posts: [...currentResult.posts, ...nextResult.posts].slice(1, GRID_POSTS_PER_PAGE + 1),
+    totalPages: getDisplayTotalPages(currentResult.totalResults),
+  };
 }
 
 function BlogNewsletterHero() {
@@ -294,7 +324,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   let loadError = false;
 
   try {
-    const result = await getBlogPosts(page, POSTS_PER_PAGE);
+    const result = await getDisplayPosts(page);
     posts = result.posts;
     totalPages = result.totalPages;
   } catch (error) {
