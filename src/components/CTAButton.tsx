@@ -1,7 +1,8 @@
 // components/CTAButton.tsx
 "use client";
 
-import { useState, memo, useEffect } from "react";
+import { useCallback, useEffect, memo, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 
 // Calendly Modal
 const CalendlyModal = memo(function CalendlyModal({
@@ -29,9 +30,9 @@ const CalendlyModal = memo(function CalendlyModal({
     };
   }, [onClose]);
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-[9999] bg-black/50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-[9999] flex min-h-[100dvh] items-center justify-center bg-black/50 p-4"
       role="dialog"
       aria-modal="true"
       onClick={onClose}
@@ -46,7 +47,7 @@ const CalendlyModal = memo(function CalendlyModal({
       </button>
 
       <div
-        className="bg-white rounded-lg w-full max-w-4xl h-[85vh] max-h-[800px] overflow-hidden flex flex-col"
+        className="flex h-[85vh] max-h-[min(800px,calc(100dvh-2rem))] w-full max-w-4xl flex-col overflow-hidden rounded-lg bg-white"
         onClick={(e) => e.stopPropagation()}
       >
         <div
@@ -54,22 +55,35 @@ const CalendlyModal = memo(function CalendlyModal({
           data-url="https://calendly.com/spacefunding/raise-capital-online"
         />
       </div>
-    </div>
+    </div>,
+    document.body
   );
 });
 
 interface CTAButtonProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
   size?: 'sm' | 'md' | 'lg';
+  onOpenChange?: (open: boolean) => void;
 }
 
 export default function CTAButton({ 
   children = "Book a Call", 
   className = "",
-  size = "md"
+  size = "md",
+  onOpenChange,
 }: CTAButtonProps) {
   const [openModal, setOpenModal] = useState(false);
+
+  const handleOpen = useCallback(() => {
+    onOpenChange?.(true);
+    setOpenModal(true);
+  }, [onOpenChange]);
+
+  const handleClose = useCallback(() => {
+    setOpenModal(false);
+    onOpenChange?.(false);
+  }, [onOpenChange]);
 
   // Size variants
   const sizes = {
@@ -87,7 +101,7 @@ export default function CTAButton({
   return (
     <>
       <button
-        onClick={() => setOpenModal(true)}
+        onClick={handleOpen}
         className={`${baseClasses} ${sizes[size]} ${className}`}
       >
         {children}
@@ -96,7 +110,7 @@ export default function CTAButton({
       {/* Calendly Modal */}
       {openModal && (
         <CalendlyModal
-          onClose={() => setOpenModal(false)}
+          onClose={handleClose}
         />
       )}
     </>

@@ -15,12 +15,23 @@ import {
 const VimeoEmbed = memo(function VimeoEmbed({
   testimonial,
   onPlaybackChange,
+  pauseToken = 0,
 }: {
   testimonial: VimeoTestimonial;
   onPlaybackChange?: (isPlaying: boolean) => void;
+  pauseToken?: number;
 }) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const embedUrl = `https://player.vimeo.com/video/${testimonial.videoId}?badge=0&autopause=0&api=1&player_id=${testimonial.id}`;
+
+  useEffect(() => {
+    if (!pauseToken) return;
+
+    iframeRef.current?.contentWindow?.postMessage(
+      JSON.stringify({ method: "pause" }),
+      "https://player.vimeo.com"
+    );
+  }, [pauseToken]);
 
   useEffect(() => {
     const iframe = iframeRef.current;
@@ -93,9 +104,13 @@ const VimeoEmbed = memo(function VimeoEmbed({
 const VimeoVideoCard = memo(function VimeoVideoCard({
   testimonial,
   onPlaybackChange,
+  onCalendlyOpenChange,
+  pauseToken,
 }: {
   testimonial: VimeoTestimonial;
   onPlaybackChange?: (isPlaying: boolean) => void;
+  onCalendlyOpenChange?: (open: boolean) => void;
+  pauseToken?: number;
 }) {
   const [name, company] = testimonial.title.split("|").map((part) => part.trim());
 
@@ -104,7 +119,11 @@ const VimeoVideoCard = memo(function VimeoVideoCard({
       className="mx-3 flex min-h-[352px] w-[252px] flex-shrink-0 flex-col overflow-hidden rounded-[22px] border border-[#5271ff]/30 bg-white text-center shadow-lg md:w-[276px]"
     >
       <div className="p-3 pb-0">
-        <VimeoEmbed testimonial={testimonial} onPlaybackChange={onPlaybackChange} />
+        <VimeoEmbed
+          testimonial={testimonial}
+          onPlaybackChange={onPlaybackChange}
+          pauseToken={pauseToken}
+        />
       </div>
       <div className="flex flex-1 flex-col px-5 pb-0 pt-5">
         <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#5271ff]">
@@ -125,6 +144,7 @@ const VimeoVideoCard = memo(function VimeoVideoCard({
           <CTAButton
             size="sm"
             className="w-full bg-[#5271ff] text-white shadow-none hover:scale-100"
+            onOpenChange={onCalendlyOpenChange}
           >
             Start Raising
           </CTAButton>
@@ -139,19 +159,33 @@ const VimeoMovingStrip = memo(function VimeoMovingStrip({
 }: {
   videos: VimeoTestimonial[];
 }) {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+  const [pauseToken, setPauseToken] = useState(0);
+
   const handlePlaybackChange = useCallback((playing: boolean) => {
-    setIsPlaying(playing);
+    setIsVideoPlaying(playing);
+  }, []);
+
+  const handleCalendlyOpenChange = useCallback((open: boolean) => {
+    setIsCalendlyOpen(open);
+
+    if (open) {
+      setIsVideoPlaying(false);
+      setPauseToken((token) => token + 1);
+    }
   }, []);
 
   return (
     <div className="relative overflow-hidden">
-      <div className={`video-strip-motion flex w-max ${isPlaying ? "is-paused" : ""}`}>
+      <div className={`video-strip-motion flex w-max ${isVideoPlaying || isCalendlyOpen ? "is-paused" : ""}`}>
         {videos.map((video) => (
           <VimeoVideoCard
             key={`video-vertical-${video.id}`}
             testimonial={video}
             onPlaybackChange={handlePlaybackChange}
+            onCalendlyOpenChange={handleCalendlyOpenChange}
+            pauseToken={pauseToken}
           />
         ))}
       </div>
