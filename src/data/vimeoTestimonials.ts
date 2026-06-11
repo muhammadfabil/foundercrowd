@@ -3,6 +3,7 @@ export type VimeoTestimonial = {
   url: string;
   videoId: string;
   title: string;
+  thumbnailUrl?: string;
 };
 
 export const VIMEO_TESTIMONIALS: VimeoTestimonial[] = [

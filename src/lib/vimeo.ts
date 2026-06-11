@@ -4,6 +4,7 @@ import { VIMEO_TESTIMONIALS, type VimeoTestimonial } from "@/data/vimeoTestimoni
 type VimeoOEmbedResponse = {
   title?: string;
   video_id?: number;
+  thumbnail_url?: string;
 };
 
 const VIMEO_TITLE_TIMEOUT_MS = 1200;
@@ -51,12 +52,23 @@ async function getVimeoTitle(testimonial: VimeoTestimonial) {
       signal: controller.signal,
     });
 
-    if (!res.ok) return testimonial.title;
+    if (!res.ok) {
+      return {
+        title: testimonial.title,
+        thumbnailUrl: testimonial.thumbnailUrl,
+      };
+    }
 
     const data = (await res.json()) as VimeoOEmbedResponse;
-    return resolveDisplayTitle(data.title, testimonial.title);
+    return {
+      title: resolveDisplayTitle(data.title, testimonial.title),
+      thumbnailUrl: data.thumbnail_url,
+    };
   } catch {
-    return testimonial.title;
+    return {
+      title: testimonial.title,
+      thumbnailUrl: testimonial.thumbnailUrl,
+    };
   } finally {
     clearTimeout(timeout);
   }
@@ -64,9 +76,13 @@ async function getVimeoTitle(testimonial: VimeoTestimonial) {
 
 export const getVimeoTestimonials = cache(async function getVimeoTestimonials() {
   return Promise.all(
-    VIMEO_TESTIMONIALS.map(async (testimonial) => ({
-      ...testimonial,
-      title: await getVimeoTitle(testimonial),
-    }))
+    VIMEO_TESTIMONIALS.map(async (testimonial) => {
+      const metadata = await getVimeoTitle(testimonial);
+
+      return {
+        ...testimonial,
+        ...metadata,
+      };
+    })
   );
 });

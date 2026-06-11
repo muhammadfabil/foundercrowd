@@ -1,6 +1,7 @@
 "use client";
 
 import React, { memo, useMemo } from "react";
+import { REVIEW_TESTIMONIAL_MARQUEE_DURATION_SECONDS } from "@/lib/testimonialMarquee";
 
 const testimonials = [
   { id: 1, name: "Sarah Johnson", username: "@sarahj_founder", avatar: "SJ", text: "Space Funding made raising capital so much easier. The process was streamlined and professional.", platform: "twitter", link: "https://twitter.com/sarahj_founder/status/1234567890" },
@@ -111,10 +112,10 @@ const ReviewTestimonials = memo(function ReviewTestimonials() {
           100% { transform: translateX(-50%); }
         }
         .review-scroll-right {
-          animation: review-scroll-right 40s linear infinite;
+          animation: review-scroll-right ${REVIEW_TESTIMONIAL_MARQUEE_DURATION_SECONDS}s linear infinite;
         }
         .review-scroll-left {
-          animation: review-scroll-left 40s linear infinite;
+          animation: review-scroll-left ${REVIEW_TESTIMONIAL_MARQUEE_DURATION_SECONDS}s linear infinite;
         }
         .review-hover-pause:hover {
           animation-play-state: paused;
