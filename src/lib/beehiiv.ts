@@ -52,6 +52,30 @@ type BeehiivSubscription = {
   id: string;
   email: string;
   status?: string;
+  custom_fields?: BeehiivSubscriptionCustomField[];
+};
+
+type BeehiivSubscriptionCustomField = {
+  name: string;
+  kind?: string;
+  value?: string | number | boolean | string[] | null;
+};
+
+type BeehiivCustomField = {
+  id?: string;
+  display?: string;
+  name?: string;
+  kind?: string;
+};
+
+export type BeehiivCustomFieldDefinition = {
+  display: string;
+  kind: "string" | "integer" | "boolean" | "date" | "datetime" | "list" | "double";
+};
+
+export type BeehiivCustomFieldValue = {
+  name: string;
+  value: string | number | boolean | string[];
 };
 
 export type BlogPost = {
@@ -346,6 +370,137 @@ export async function subscribeToNewsletter(email: string) {
         email,
         reactivate_existing: true,
         send_welcome_email: true,
+      }),
+    }
+  );
+}
+
+async function getSubscriptionByEmail(publicationId: string, email: string) {
+  const response = await beehiivFetch<BeehiivListResponse<BeehiivSubscription>>(
+    `/publications/${publicationId}/subscriptions`,
+    {
+      email,
+      "expand[]": "custom_fields",
+      limit: 10,
+      page: 1,
+    }
+  );
+
+  return (
+    response.data.find((subscription) => subscription.email.toLowerCase() === email.toLowerCase()) ??
+    response.data[0] ??
+    null
+  );
+}
+
+async function ensureBeehiivCustomFields(
+  publicationId: string,
+  customFields: BeehiivCustomFieldDefinition[]
+) {
+  if (!customFields.length) return;
+
+  const response = await beehiivFetch<BeehiivListResponse<BeehiivCustomField>>(
+    `/publications/${publicationId}/custom_fields`,
+    {
+      limit: 100,
+      page: 1,
+    }
+  );
+  const existingNames = new Set(
+    response.data
+      .map((field) => field.display || field.name)
+      .filter((name): name is string => Boolean(name))
+  );
+  const missingFields = customFields.filter((field) => !existingNames.has(field.display));
+
+  await Promise.all(
+    missingFields.map(async (field) => {
+      try {
+        await beehiivRequest<{ data: BeehiivCustomField }>(
+          `/publications/${publicationId}/custom_fields`,
+          {
+            method: "POST",
+            cache: "no-store",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(field),
+          }
+        );
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "";
+        if (!/already|exist|taken|duplicate/i.test(message)) {
+          throw error;
+        }
+      }
+    })
+  );
+}
+
+export async function subscribeContactLead({
+  email,
+  customFields,
+  customFieldDefinitions,
+  reactivateExisting,
+  sendWelcomeEmail,
+  doubleOptOverride,
+  utmSource,
+  utmMedium,
+  utmCampaign,
+  referringSite,
+}: {
+  email: string;
+  customFields: BeehiivCustomFieldValue[];
+  customFieldDefinitions: BeehiivCustomFieldDefinition[];
+  reactivateExisting: boolean;
+  sendWelcomeEmail: boolean;
+  doubleOptOverride?: "on" | "off" | "not_set";
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  referringSite?: string;
+}) {
+  const publicationId = await getPublicationId();
+
+  await ensureBeehiivCustomFields(publicationId, customFieldDefinitions);
+
+  const existingSubscription = await getSubscriptionByEmail(publicationId, email);
+
+  if (existingSubscription?.id) {
+    return beehiivRequest<{ data: BeehiivSubscription }>(
+      `/publications/${publicationId}/subscriptions/${existingSubscription.id}`,
+      {
+        method: "PATCH",
+        cache: "no-store",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          custom_fields: customFields,
+        }),
+      }
+    );
+  }
+
+  return beehiivRequest<{ data: BeehiivSubscription }>(
+    `/publications/${publicationId}/subscriptions`,
+    {
+      method: "POST",
+      cache: "no-store",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        reactivate_existing: reactivateExisting,
+        send_welcome_email: sendWelcomeEmail,
+        double_opt_override: doubleOptOverride,
+        utm_source: utmSource,
+        utm_medium: utmMedium,
+        utm_campaign: utmCampaign,
+        referring_site: referringSite,
+        custom_fields: customFields,
       }),
     }
   );
